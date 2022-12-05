@@ -461,7 +461,9 @@ Version 2019-11-09"
 
 (use-package rainbow-mode
   :ensure t
-  :init (add-hook 'prog-mode-hook 'rainbow-mode))
+  ;; :init (add-hook 'prog-mode-hook 'rainbow-mode)
+  :config
+  (rainbow-mode 1))
 
 ;; (use-package rainbow-delimiters
 ;;   :ensure t)
@@ -834,11 +836,6 @@ Version 2019-11-09"
 ;; (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-
-(use-package rainbow-mode
-  :ensure t
-  :hook web-mode)
-
 
 ;; Javascript
 (use-package js2-mode
