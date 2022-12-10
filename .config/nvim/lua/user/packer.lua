@@ -54,10 +54,10 @@ return packer.startup(function(use)
             require('Comment').setup()
         end
     }
-    -- use("JoosepAlviste/nvim-ts-context-commentstring")
-    -- use("romgrk/nvim-treesitter-context")
+    use("JoosepAlviste/nvim-ts-context-commentstring")
+    use("romgrk/nvim-treesitter-context")
 
-    --[[ use( "kyazdani42/nvim-web-devicons") ]]
+    use( "kyazdani42/nvim-web-devicons")
     use("kyazdani42/nvim-tree.lua")
     -- use( "akinsho/bufferline.nvim")
     -- use {
@@ -168,9 +168,9 @@ return packer.startup(function(use)
     -- use( "nvim-telescope/telescope.nvim")
 
     -- Treesitter
-    -- use({
-    --     "nvim-treesitter/nvim-treesitter",
-    -- })
+    use({
+        "nvim-treesitter/nvim-treesitter",
+    })
 
     -- Git
     -- use( "lewis6991/gitsigns.nvim")
@@ -197,7 +197,7 @@ return packer.startup(function(use)
     use('norcalli/nvim-colorizer.lua')
 
     use("sbdchd/neoformat")
--- use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
 --     use {
 -- 	'arnarg/todotxt.nvim',

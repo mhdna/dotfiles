@@ -81,6 +81,7 @@ alias \
 	t="nvim $VIMWIKI/todo/todo.txt"\
 	lsAll='find . -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-' \
 	ka="killall" \
+    p="sudo pacman " \
 	g="git" \
 	trem="transmission-remote" \
 	yt="youtube-viewer" \

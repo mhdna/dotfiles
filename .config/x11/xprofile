@@ -1,16 +1,17 @@
 #!/bin/sh
 
-# xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!
-xset s 600 0 &
+xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!
+xset s 900 0 &
 xss-lock slock&
-redshift -l 33.53:35.31&
+redshift -l 31.77:35.23&
 remaps &
 picom --vsync&
 sb-mpdup&
 cbatticon&
 nm-applet&
+fbxkb&
+pa-applet&
 # xautolock -time 10 -locker  'slock'&
-# xrandr --dpi 96
 
 autostart="unclutter mpd dunst clipmenud pipewire"
 
@@ -19,4 +20,4 @@ for program in $autostart; do
 done >/dev/null 2>&1
 
 # Ensure that xrdb has finished running before moving on to start the WM/DE.
-# [ -n "$xrdbpid" ] && wait "$xrdbpid"
+[ -n "$xrdbpid" ] && wait "$xrdbpid"

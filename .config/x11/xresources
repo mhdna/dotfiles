@@ -10,7 +10,7 @@ Emacs.alpha: 100
 
 *background: #ffffff
 *foreground: #000000
-*.cursorColor: #09e47c
+*.cursorColor: #000000
 
 ! Xcursor.theme: xcursor-black
 ! Xcursor.theme_core: true
@@ -127,9 +127,10 @@ Xft.antialias: 1
 XTerm*faceSize: 11
 XTerm*transparent: true
 XTerm*saveLines: 4096
-XTerm*scrollBar: false
+XTerm*scrollBar: true
+! xterm*rightScrollBar: true
 !XTerm*geometry: 80x24
-XTerm*cursorBlink: false
+XTerm*cursorBlink: true
 XTerm*eightBitInput: false
 XTerm*scrollTtyOutput: false
 XTerm*cursorColor: white

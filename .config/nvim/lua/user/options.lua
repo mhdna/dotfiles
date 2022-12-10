@@ -18,9 +18,10 @@ vim.o.colorcolumn = 80 -- don't exceed 80 columns, maybe you're in the 3rd 4th i
 opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
 opt.bg = 'light'
 vim.opt.laststatus = 2
+opt.pumheight= 15
 
 -- Always show the signcolumn, otherwise it would shift the text each time
--- opt.signcolumn = "yes"
+opt.signcolumn = "yes"
 
 -----------------------------------------------------------
 -- Neovim UI
@@ -94,7 +95,7 @@ vim.o.hlsearch   = false -- don't keep the previous search occurance highlighted
 vim.o.swapfile   = false
 
 -- vim.wo.relativenumber = true
--- vim.o.number = true
+vim.o.number = true
 -- vim.o.scrolloff = 2
 opt.termguicolors = true -- Enable 24-bit RGB colors
 opt.linebreak = false
@@ -139,3 +140,5 @@ vim.o.splitright = true
 -- set updatetime=50
 -- set inccommand=nosplit
 -- opt.statusline="%F" --"t (tail -filename-), f relative path, F full path
+
+-- autocomplete maximum items

@@ -82,6 +82,10 @@ map('', '<C-h>', '<C-w>h')
 map('', '<C-j>', '<C-w>j')
 map('', '<C-k>', '<C-w>k')
 map('', '<C-l>', '<C-w>l')
+map('t', '<C-h>', '<C-w>h')
+map('t', '<C-j>', '<C-w>j')
+map('t', '<C-k>', '<C-w>k')
+map('t', '<C-l>', '<C-w>l')
 
 -- Reload configuration without restart nvim
 map('n', '<leader>r', ':so %<CR>')
@@ -453,11 +457,10 @@ map('n', '<leader>pm', "<cmd>lua require('fzf-lua').marks()<CR>")
 -- map ('n', '<C-k>', '<Plug>(easymotion-k)')
 -- map ('n', '<C-s>', '<Plug>(easymotion-overwin-f2)')
 
--- keybindings
+-- -- keybindings
 -- map('n', '<C-t>', "<cmd>ToggleTerm size=10 direction=horizontal<cr>")
 -- map('t', '<C-t>', "<cmd>ToggleTerm size=10 direction=horizontal<cr>")
 -- map('i', '<C-t>', "<cmd>ToggleTerm size=10 direction=horizontal<cr>")
-
-
+--
 -- map('n', '<leader>ta', ":ToDoTxtCapture<CR>")
 -- map('n', '<leader>tt', ":ToDoTxtTasksToggle<CR>")
