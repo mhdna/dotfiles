@@ -61,12 +61,33 @@
       <property name="&lt;Shift&gt;&lt;Super&gt;r" type="string" value="xfce4-appfinder -c">
         <property name="startup-notify" type="bool" value="true"/>
       </property>
-      <property name="&lt;Super&gt;c" type="string" value="xfce4-popup-clipman"/>
       <property name="&lt;Super&gt;F2" type="string" value="redshift -O4000"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;F2" type="string" value="redshift -x"/>
       <property name="&lt;Super&gt;i" type="string" value="emacs"/>
       <property name="&lt;Super&gt;e" type="string" value="xterm -e lfub"/>
       <property name="Print" type="string" value="xfce4-screenshooter --region "/>
+      <property name="&lt;Super&gt;m" type="string" value="xterm -e ncmpcpp"/>
+      <property name="&lt;Super&gt;F11" type="string" value="mpc toggle"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;F11" type="string" value="pauseallmpv"/>
+      <property name="&lt;Super&gt;F10" type="string" value="mpc seek -1%"/>
+      <property name="&lt;Super&gt;F12" type="string" value="mpc seek +1%"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;F12" type="string" value="mpc next"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;F10" type="string" value="mpc prev"/>
+      <property name="&lt;Super&gt;backslash" type="string" value="mpc repeat"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;bar" type="string" value="mpc seek 0%"/>
+      <property name="&lt;Super&gt;F1" type="string" value="kdeconnect-indicator; kdeconnect-cli --refresh"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;F1" type="string" value="kill $(pgrep kdeconnect)"/>
+      <property name="&lt;Super&gt;F4" type="string" value="keyboardLogitech"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;F4" type="string" value="remaps &amp; xmodmap ~/.config/Xmodmap2"/>
+      <property name="&lt;Super&gt;F3" type="string" value="torwrap"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;F3" type="string" value="td-toggle"/>
+      <property name="&lt;Super&gt;period" type="string" value="brightnessctl set +2%"/>
+      <property name="&lt;Super&gt;comma" type="string" value="brightnessctl set 2%-"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;greater" type="string" value="brightnessctl set 100%"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;less" type="string" value="brightnessctl set 1%"/>
+      <property name="MonBrightnessUp" type="string" value="brightnessctl set +10%"/>
+      <property name="MonBrightnessDown" type="string" value="brightnessctl set 10%-"/>
+      <property name="&lt;Super&gt;v" type="string" value="xfce4-popup-clipman"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

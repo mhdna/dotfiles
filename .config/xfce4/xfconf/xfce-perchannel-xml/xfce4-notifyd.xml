@@ -8,9 +8,11 @@
       <value type="string" value="mutt-wizard"/>
       <value type="string" value="nm-applet"/>
       <value type="string" value="notify-send"/>
+      <value type="string" value="org.freedesktop.network-manager-applet"/>
       <value type="string" value="pa-applet"/>
       <value type="string" value="telegramdesktop"/>
       <value type="string" value="Xfce volume control"/>
+      <value type="string" value="Xfce4-notifyd settings"/>
       <value type="string" value="xfce4-power-manager"/>
       <value type="string" value="xfce4-settings-helper"/>
     </property>
@@ -19,5 +21,7 @@
   <property name="notify-location" type="uint" value="2"/>
   <property name="log-level" type="uint" value="0"/>
   <property name="log-level-apps" type="uint" value="0"/>
-  <property name="do-fadeout" type="bool" value="true"/>
+  <property name="do-fadeout" type="bool" value="false"/>
+  <property name="initial-opacity" type="double" value="1.000000"/>
+  <property name="notification-log" type="bool" value="true"/>
 </channel>
