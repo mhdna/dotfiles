@@ -73,7 +73,7 @@
                   ;; custom-mode
                   ;; custom-new-theme-mode
                   ;; dired-mode
-                  ;; eshell-mode
+                  eshell-mode
                   flycheck-error-list-mode
                   git-rebase-mode
                   image-mode
@@ -199,15 +199,15 @@ is not used."
   (add-hook 'evil-mode-hook 'air--config-evil)
   (evil-mode 1))
 
-;; (use-package evil-org
-;;   :ensure t
-;;   :after org
-;;   :config
-;;   (add-hook 'org-mode-hook 'evil-org-mode)
-;;   (add-hook 'evil-org-mode-hook
-;;             (lambda () (evil-org-set-key-theme)))
-;;   (require 'evil-org-agenda)
-;;   (evil-org-agenda-set-keys))
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda () (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
 
 (use-package evil-surround

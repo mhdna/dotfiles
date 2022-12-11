@@ -200,11 +200,11 @@
 
 
 ;; Font settings
-(set-face-attribute 'default nil :font "Liberation Mono" :height 110)
+(set-face-attribute 'default nil :font "DeJaVu Sans Mono" :height 110)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Liberation Mono" :height 110)
+(set-face-attribute 'fixed-pitch nil :font "DeJaVu Sans Mono" :height 110)
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Liberation Mono" :height 110 :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "DeJaVu Sans Mono" :height 110 :weight 'regular)
 (set-fontset-font "fontset-default" 'arabic (font-spec :family "Dejavu Sans Mono"))
 (setq mhd-font-change-increment 1.1)
 
@@ -238,25 +238,29 @@
   :ensure nil
   :defer nil
   :bind (
+         ("<f1>" . toggle-input-method)
+				 ("<f5>" . recompile)
+				 ("C-c s" . flyspell-mode)
          ("C-c w"   . fixup-whitespace)
          ("M-o"   . other-window)
          ("C-x S"   . shell)
          ("M-S-u"     . negative-argument)
          ("M-u"     . universal-argument)
          ("M-1" . delete-other-windows)
-         ("C-;" . comment-line)
+         ("C-;" . eval-expression)
+         ("C-x C-;" . eval-buffer)
+         ("M-;" . eval-last-sexp)
          ))
 (defun back-window ()
   (interactive)
   (other-window -1))
-(global-set-key (kbd "C-;") 'comment-line)
-(global-set-key (kbd "<f5>") #'recompile)
-(global-set-key (kbd "C-c s") 'flyspell-mode)
+(global-set-key (kbd "C-/") 'comment-line)
+(global-set-key (kbd "C-S-/") 'comment-box)
+(global-set-key (kbd "M-/") 'comment-dwim)
 (global-set-key (kbd "M-2") 'mhd-split-window-right-and-switch)
 (global-set-key (kbd "M-3") 'mhd-split-window-below-and-switch)
 ;; Disable ESC (C-g) that closes other splits
 
-(global-set-key (kbd "C-x C-;") 'comment-box)
 ;;(setq ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf"))
 ;;(setq ido-create-new-buffer 'always)
 (define-key input-decode-map "\e[1;2A" [S-up])
@@ -500,8 +504,7 @@
                                          try-complete-lisp-symbol))
 
 ;; use hippie-expand instead of dabbrev
-(global-set-key (kbd "M-/")  #'hippie-expand)
-(global-set-key (kbd "<f1>") 'toggle-input-method)
+;; (global-set-key (kbd "M-/")  #'hippie-expand)
 
 
 ;; for explicitly completing using <tab>

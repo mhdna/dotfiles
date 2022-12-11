@@ -127,7 +127,7 @@ Xft.antialias: 1
 XTerm*faceSize: 11
 XTerm*transparent: true
 XTerm*saveLines: 4096
-XTerm*scrollBar: true
+XTerm*scrollBar: false
 ! xterm*rightScrollBar: true
 !XTerm*geometry: 80x24
 XTerm*cursorBlink: true
