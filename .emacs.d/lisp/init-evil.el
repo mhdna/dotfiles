@@ -1,5 +1,5 @@
 ;; this function relies on the expand-region package
-(defun mhd-org-empahsize ()
+(defun my/org-empahsize ()
   (interactive)
   (if (not (use-region-p))
       (er/mark-word))
@@ -9,9 +9,9 @@
   "Configure evil leader mode."
   (evil-leader/set-leader "SPC")
   (evil-leader/set-key-for-mode 'emacs-lisp-mode "e" 'eval-last-sexp)
-  (evil-leader/set-key-for-mode 'org-mode "i" 'counsel-org-goto)
-  (evil-leader/set-key-for-mode 'org-mode "e" 'mhd-org-empahsize)
-  (evil-leader/set-key-for-mode 'org-mode "A" 'mhd-mark-done-and-archive)
+  ;;(evil-leader/set-key-for-mode 'org-mode "i" 'counsel-org-goto)
+  (evil-leader/set-key-for-mode 'org-mode "e" 'my/org-empahsize)
+  (evil-leader/set-key-for-mode 'org-mode "A" 'my/mark-done-and-archive)
   (evil-leader/set-key-for-mode 'org-mode "/" 'org-sparse-tree)
   (evil-leader/set-key-for-mode 'web-mode "o" 'browse-url-of-buffer)
   (evil-leader/set-key
@@ -27,32 +27,34 @@
     ;; "nw" 'air-org-narrow-to-prose-dwim
     ;; "r"  'chrome-reload
     "E" 'eval-expression
+    "y" 'consult-yank-pop
+		"R" 'consult-ripgrep
     "d" 'dired-jump
     "S"  'delete-trailing-whitespace
+		"s" 'shell
     "u" 'undo-tree-visualize
     "w"  'save-buffer
     "M" 'make-frame
     "W"  'write-file
     "O"  'browse-url-xdg-open
-    ;; "s"  'mhd-split-ansi-term
+    ;; "s"  'my/split-ansi-term
     "F" 'indent-buffer
     "f" 'find-file
     "v" 'find-alternate-file
     "b" 'switch-to-buffer
-    "r" 'counsel-recentf
-    "R" 'quickrun
+    "r" 'consult-recent-file
     "j" 'bookmark-jump
     "J" 'bookmark-set
     "k" 'kill-current-buffer
     "K" 'kill-buffer
     "P" 'project-switch-project
     "p" 'project-find-file
-    "0" 'mhd-delete-window-and-rebalance
+    "0" 'my/delete-window-and-rebalance
     "c" 'org-capture
-    "i" 'counsel-imenu
-    "D" 'mhd-diary-file-open
+    "i" 'consult-imenu
+    "D" 'my/diary-file-open
     "t" 'org-capture-todo
-    "T" 'mhd-dashboard
+    "T" 'my/dashboard
     "H" 'mark-whole-buffer
     ;; "R" 'load-file user-init-file
     ))
@@ -65,8 +67,11 @@
 ;;       (call-interactively 'magit-blame))))
 
 (defun air--config-evil ()
-  "Configure evil mode."
 
+	;; quit corfu in normal mode 
+	(add-hook 'evil-normal-state-entry-hook 'corfu-quit)
+
+  "Configure evil mode."
   ;; Use Emacs state in these additional modes.
   (dolist (mode '(calendar-mode
                   ;; ag-mode
@@ -197,7 +202,8 @@ is not used."
   :config
   (setq evil-disable-insert-state-bindings t)
   (add-hook 'evil-mode-hook 'air--config-evil)
-  (evil-mode 1))
+  (evil-mode 1)
+	)
 
 (use-package evil-org
   :ensure t

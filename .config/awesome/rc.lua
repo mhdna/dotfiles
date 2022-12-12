@@ -70,7 +70,7 @@ browser = "firefox" --xterm" .. " -e " .. " lynx -cfg=~/.config/lynx/lynx.cfg -l
 home = os.getenv("HOME")
 wiki = home .. "/stuff/wiki/"  os.getenv("WIKI")
 editor =    "nvim" or os.getenv("EDITOR")
-editor_cmd = terminal .. " -e " .. editor or "emacsclient -c -a 'emacs'"
+editor_cmd = terminal .. " -e " .. editor or "emacs"
 
 naughty.config.defaults['icon_size'] = 100
 naughty.config.defaults.timeout = 20
@@ -573,18 +573,6 @@ globalkeys = gears.table.join(
    -- awful.key({ modkey,           "Control"}, "BackSpace", function()awful.util.spawn_with_shell ("dunstctl set-paused toggle && notify-send toggled") end),
 
    -- brightness
-   -- awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("xbacklight -inc 5") end,
-   -- {description = "Screen brightness +5%", group = "hotkeys"}),
-   -- awful.key({"Shift" }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("xbacklight -inc 2") end,
-   -- {description = "Screen brightness +5%", group = "hotkeys"}),
-   -- awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("xbacklight -dec 5") end,
-   -- {description = "Screen brightness -5%", group = "hotkeys"}),
-   -- awful.key({"Shift" }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("xbacklight -dec 2") end,
-   -- {description = "Screen brightness -5%", group = "hotkeys"}),
-   -- awful.key({modkey }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("xbacklight -set 100") end,
-   -- {description = "Screen brightness 100%", group = "hotkeys"}),
-   -- awful.key({modkey }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("xbacklight -set 1") end,
-   -- {description = "Screen brightness 1%", group = "hotkeys"}),
    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("light -A 10") end,
       {description = "Screen brightness +5%", group = "hotkeys"}),
    awful.key({"Shift" }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("light -A 2") end,
@@ -630,8 +618,8 @@ globalkeys = gears.table.join(
    -- awful.key({ modkey, "Shift"           }, "r", function () awful.spawn(terminal .. " -e htop") end),
    awful.key({ "Control", "Mod1",}, "Escape", function () awful.util.spawn_with_shell("xkill") end),
    awful.key({ modkey,           }, "e", function () awful.spawn(terminal .. " -e lfub") end),
-   -- awful.key({ modkey,       }, "i", function () awful.util.spawn_with_shell("emacsclient -c -a 'emacs'") end),
-   awful.key({ modkey,       }, "i", function () awful.util.spawn_with_shell(terminal .. " -e tmux a ") end),
+   awful.key({ modkey,       }, "i", function () awful.util.spawn_with_shell("emacs") end),
+   -- awful.key({ modkey,       }, "i", function () awful.util.spawn_with_shell(terminal .. " -e tmux a ") end),
    -- awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn_with_shell("anki --no-sandbox") end),
    awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn_with_shell("eclipse") end),
    awful.key({ modkey,           }, "b", function () awful.util.spawn_with_shell(browser) end),

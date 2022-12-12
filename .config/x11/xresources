@@ -130,7 +130,7 @@ XTerm*saveLines: 4096
 XTerm*scrollBar: false
 ! xterm*rightScrollBar: true
 !XTerm*geometry: 80x24
-XTerm*cursorBlink: true
+XTerm*cursorBlink: false
 XTerm*eightBitInput: false
 XTerm*scrollTtyOutput: false
 XTerm*cursorColor: white

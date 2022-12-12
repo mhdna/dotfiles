@@ -75,7 +75,6 @@
       <property name="&lt;Shift&gt;&lt;Super&gt;F10" type="string" value="mpc prev"/>
       <property name="&lt;Super&gt;backslash" type="string" value="mpc repeat"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;bar" type="string" value="mpc seek 0%"/>
-      <property name="&lt;Super&gt;F1" type="string" value="kdeconnect-indicator; kdeconnect-cli --refresh"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;F1" type="string" value="kill $(pgrep kdeconnect)"/>
       <property name="&lt;Super&gt;F4" type="string" value="keyboardLogitech"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;F4" type="string" value="remaps &amp; xmodmap ~/.config/Xmodmap2"/>
@@ -88,6 +87,11 @@
       <property name="MonBrightnessUp" type="string" value="brightnessctl set +10%"/>
       <property name="MonBrightnessDown" type="string" value="brightnessctl set 10%-"/>
       <property name="&lt;Super&gt;v" type="string" value="xfce4-popup-clipman"/>
+      <property name="&lt;Super&gt;F1" type="string" value="kdeconnect-indicator"/>
+      <property name="&lt;Super&gt;equal" type="string" value="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"/>
+      <property name="&lt;Super&gt;minus" type="string" value="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;plus" type="string" value="wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%%"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;underscore" type="string" value="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

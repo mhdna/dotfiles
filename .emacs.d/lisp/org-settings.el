@@ -54,26 +54,26 @@
                              ;; (org-file-path "recurring-tasks.org")
                              ;; (org-file-path "work.org")
                              ))
-(defun mhd-mark-done-and-archive ()
+(defun my/mark-done-and-archive ()
   "Mark the state of an org-mode item as DONE, archive it, and
 save the Org buffers."
   (interactive)
   (org-todo 'done)
   (org-archive-subtree)
   (org-save-all-org-buffers))
-(define-key org-mode-map (kbd "C-c C-x C-a") 'mhd-mark-done-and-archive)
+(define-key org-mode-map (kbd "C-c C-x C-a") 'my/mark-done-and-archive)
 (setq org-log-done 'time)
 ;; (setq org-log-done 'note)
 (setq org-enforce-todo-dependencies t)
-(defun mhd-org-add-tag (new-tag)
+(defun my/org-add-tag (new-tag)
   (org-set-tags (cons new-tag
                       (seq-remove (lambda (tag)
                                     (get-text-property 0 'inherited tag))
                                   (org-get-tags)))))
-(defun mhd-schedule-today ()
+(defun my/schedule-today ()
   "Tag this item with `daily'."
   (interactive)
-  (mhd-org-add-tag "daily")
+  (my/org-add-tag "daily")
   (save-buffer))
 (setq org-agenda-start-on-weekday nil)
 ;; (setq org-deadline-warning-days 0)
@@ -145,7 +145,7 @@ non-empty lines in the block (excluding the line with
                 (org-agenda-skip-scheduled-if-done t)
                 (org-agenda-skip-timestamp-if-done t)
                 (org-agenda-tag-filter-preset '("-duplicate" "-news" "-writing")))))
-(defun mhd-org-agenda-delete-empty-blocks ()
+(defun my/org-agenda-delete-empty-blocks ()
   "Remove empty agenda blocks.
 A block is identified as empty if there are fewer than 2
 non-empty lines in the block (excluding the line with
@@ -177,14 +177,14 @@ non-empty lines in the block (excluding the line with
       (when (looking-at-p block-re)
         (delete-region (point) (1+ (point-at-eol))))))
   (setq buffer-read-only t))
-(add-hook 'org-agenda-finalize-hook #'mhd-org-agenda-delete-empty-blocks)
-(defun mhd-dashboard ()
+(add-hook 'org-agenda-finalize-hook #'my/org-agenda-delete-empty-blocks)
+(defun my/dashboard ()
   (interactive)
   (call-process-shell-command "daily-checklist")
   (delete-other-windows)
   (find-file org-index-file)
   (org-agenda nil "p"))
-;; (global-set-key (kbd "C-c d") 'mhd-dashboard)
+;; (global-set-key (kbd "C-c d") 'my/dashboard)
 (defadvice org-agenda-set-mode-name (after truncate-org-agenda-mode-name activate)
   (setq mode-name '("Org-agenda")))
 (add-to-list 'org-agenda-custom-commands
@@ -313,18 +313,18 @@ non-empty lines in the block (excluding the line with
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 (setq org-refile-use-outline-path t)
 (setq org-outline-path-complete-in-steps nil)
-(defun mhd-index-file-open ()
+(defun my/index-file-open ()
   "Open the master org TODO list."
   (interactive)
   (find-file org-index-file)
   (flycheck-mode -1)
   (end-of-buffer))
 
-(setq mhd-diary-file (org-file-path "/diary/days.org"))
-(defun mhd-diary-file-open()
+(setq my/diary-file (org-file-path "/diary/days.org"))
+(defun my/diary-file-open()
   (interactive)
   ;; (setq filename (concat "~/stuff/org/diary/" (format-time-string "%Y-%m-%d-%H-%M) " ".org"))
-  (find-file mhd-diary-file)
+  (find-file my/diary-file)
   (end-of-buffer)
   (insert (concat "* " (format-time-string "%Y.%m.%d %H:%M %P ") "\n"))
   (evil-insert-state)
@@ -338,15 +338,15 @@ non-empty lines in the block (excluding the line with
           (lambda () (local-set-key (kbd "M-S-i") 'org-capture-todo)))
 (add-hook 'haskell-mode-hook
           (lambda () (local-set-key (kbd "M-S-i") 'org-capture-todo)))
-;; (defun mhd-open-work-file ()
+;; (defun my/open-work-file ()
 ;;   "Open the work TODO list."
 ;;   (interactive)
 ;;   (find-file (org-file-path "work.org"))
 ;;   (flycheck-mode -1)
 ;;   (end-of-buffer))
-;; (global-set-key (kbd "C-c w") 'mhd-open-work-file)
+;; (global-set-key (kbd "C-c w") 'my/open-work-file)
 
-(defun mhd-org-insert-link-dwim ()
+(defun my/org-insert-link-dwim ()
   "Like `org-insert-link' but with personal dwim preferences."
   (interactive)
   (let* ((point-in-link (org-in-regexp org-link-any-re 1))
@@ -371,7 +371,7 @@ non-empty lines in the block (excluding the line with
                                                           'title))))))))
           (t
            (call-interactively 'org-insert-link)))))
-(define-key org-mode-map (kbd "C-c C-l") 'mhd-org-insert-link-dwim)
+(define-key org-mode-map (kbd "C-c C-l") 'my/org-insert-link-dwim)
 
 (setq org-confirm-babel-evaluate nil)
 (setq org-export-with-smart-quotes t)

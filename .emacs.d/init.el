@@ -91,6 +91,7 @@
   (kill-buffer (current-buffer)))
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
+(global-set-key (kbd "C-c r") 'revert-buffer)
 (setq-default image-mode nil)
 (setq split-width-threshold 0) ;; vertical split by default
 ;; (setq split-height-threshold nil) ;; horizontal split by default
@@ -137,7 +138,7 @@
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-;; (scroll-bar-mode -1)
+(scroll-bar-mode -1)
 ;; startup messages
 (setq inhibit-startup-message t)
 (setq scroll-conservatively 100)
@@ -154,7 +155,7 @@
 ;; (set-face-background 'minibuffer-prompt "#770000")
 ;; (set-face-foreground 'minibuffer-prompt "white")
 (set-window-scroll-bars (minibuffer-window) nil nil)
-;; (blink-cursor-mode -1)
+(blink-cursor-mode -1)
 ;; (setq scroll-margin 0
 ;;       scroll-conservatively 100000
 ;;       scroll-preserve-screen-position 1)
@@ -247,16 +248,16 @@
          ("M-S-u"     . negative-argument)
          ("M-u"     . universal-argument)
          ("M-1" . delete-other-windows)
-         ("C-;" . eval-expression)
-         ("C-x C-;" . eval-buffer)
-         ("M-;" . eval-last-sexp)
+         ("C-;" . comment-line)
+         ;; ("C-x C-;" . eval-buffer)
+         ;; ("M-;" . eval-last-sexp)
          ))
 (defun back-window ()
   (interactive)
   (other-window -1))
-(global-set-key (kbd "C-/") 'comment-line)
-(global-set-key (kbd "C-S-/") 'comment-box)
-(global-set-key (kbd "M-/") 'comment-dwim)
+;; (global-set-key (kbd "C-/") 'comment-line)
+;; (global-set-key (kbd "C-S-/") 'comment-box)
+;; (global-set-key (kbd "M-/") 'comment-dwim)
 (global-set-key (kbd "M-2") 'mhd-split-window-right-and-switch)
 (global-set-key (kbd "M-3") 'mhd-split-window-below-and-switch)
 ;; Disable ESC (C-g) that closes other splits
@@ -265,9 +266,8 @@
 ;;(setq ido-create-new-buffer 'always)
 (define-key input-decode-map "\e[1;2A" [S-up])
 ;; unbind C-x C-x for closing, and C-x C-z for suspending
-(global-set-key (kbd "C-x C-c") nil)
-(global-set-key (kbd "C-x C-z") nil)
-;; (global-unset-key (kbd "C-x C-b"))
+(global-unset-key (kbd "C-x C-c"))
+(global-unset-key (kbd "C-x C-z"))
 
 ;; Useful functions
 (defun split-and-follow-horizontally ()
@@ -301,9 +301,9 @@
 ;;                         (push (list 'output-pdf "Zathura")
 ;;                               TeX-view-program-selection))))
 
-(use-package which-key
-  :ensure t
-  :config (which-key-mode))
+;; (use-package which-key
+;;   :ensure t
+;;   :config (which-key-mode))
 
 ;; Ido
 ;; (setq ido-enable-flex-matching nil)
@@ -412,18 +412,18 @@
 ;;;; Extra Completion Functions
   (use-package consult
     :ensure t
-    :bind (("C-x b"       . consult-buffer)
+    :bind (
+					 ("C-x b"       . consult-buffer)
            ("C-x C-k C-k" . consult-kmacro)
            ("M-y"         . consult-yank-pop)
            ("M-g g"       . consult-goto-line)
            ("M-g M-g"     . consult-goto-line)
            ("M-g f"       . consult-flymake)
-           ("M-i"       . consult-imenu)
-           ("M-s l"       . consult-line)
-           ("M-s L"       . consult-line-multi)
+           ;; ("M-i"       . consult-imenu)
+           ;; ("M-s l"       . consult-line)
+           ;; ("M-s L"       . consult-line-multi)
            ("M-s u"       . consult-focus-lines)
            ("M-s g"       . consult-ripgrep)
-           ("M-s M-g"     . consult-ripgrep)
            ("C-x C-SPC"   . consult-global-mark)
            ("C-x M-:"     . consult-complex-command)
            ("C-c n"       . consult-org-agenda)
@@ -531,6 +531,7 @@
               ([backtab] . corfu-previous)
               ("S-<return>" . nil)
               ("RET"     . corfu-insert) ;; leave my enter alone!
+							;; ("<escape>" . (lambda () (interactive) (corfu-quit) (evil-normal-state)))
               )
 
   :init

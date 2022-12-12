@@ -20,27 +20,27 @@
         (forward-line 1)
         (forward-char pos)))))
 
-(defun mhd-split-window-below-and-switch ()
+(defun my/split-window-below-and-switch ()
   "Split the window horizontally, then switch to the new pane."
   (interactive)
   (split-window-below)
   (balance-windows)
   (other-window 1))
-(defun mhd-split-window-right-and-switch ()
+(defun my/split-window-right-and-switch ()
   "Split the window vertically, then switch to the new pane."
   (interactive)
   (split-window-right)
   (balance-windows)
   (other-window 1))
-(defun mhd-delete-window-and-rebalance ()
+(defun my/delete-window-and-rebalance ()
   "Delete the current window, then rebalance the remaining windows."
   (interactive)
   (delete-window)
   (balance-windows))
-(global-set-key (kbd "C-x 2") 'mhd-split-window-below-and-switch)
-(global-set-key (kbd "C-x 3") 'mhd-split-window-right-and-switch)
-(global-set-key (kbd "C-x 0") 'mhd-delete-window-and-rebalance)
-(defun mhd-copy-file-path (&optional DirPathOnlyQ)
+(global-set-key (kbd "C-x 2") 'my/split-window-below-and-switch)
+(global-set-key (kbd "C-x 3") 'my/split-window-right-and-switch)
+(global-set-key (kbd "C-x 0") 'my/delete-window-and-rebalance)
+(defun my/copy-file-path (&optional DirPathOnlyQ)
   "Copy current buffer file path or dired path.
 Result is full path.
 If `universal-argument' is called first, copy only the dir path.
@@ -67,7 +67,7 @@ Version 2018-06-18 2021-09-30"
        (progn
          (message "File path copied: %s" $fpath)
          $fpath )))))
-(defun mhd-window-split-toggle ()
+(defun my/window-split-toggle ()
   "Toggle between horizontal and vertical split with two windows."
   (interactive)
   (if (> (length (window-list)) 2)
@@ -81,7 +81,7 @@ Version 2018-06-18 2021-09-30"
         (other-window 1)
         (switch-to-buffer (other-buffer))))))
 
-(defun mhd-html-open-link-in-firefox (&optional @fullpath)
+(defun my/html-open-link-in-firefox (&optional @fullpath)
   "open url under cursor in Firefox browser.
 Work in Windows, macOS. 2019-11-09 linux not yet.
 Version 2019-11-09"
@@ -148,12 +148,18 @@ Version 2019-11-09"
 ;; (eval-buffer (expand-file-name "~/.emacs.d/init.el")))
 ;; package-autoremove cleanup
 
-;; (defun mhd-split-ansi-term()
+;; (defun my/split-ansi-term()
 ;;   (interactive)
 ;;   (split-window-vertically)
 ;;   (other-window 1)
 ;;   (ansi-term)
 ;;   (shrink-window 10))
 
+(defun my/kill-other-buffers ()
+    "Kill all other buffers."
+    (interactive)
+    (mapc 'kill-buffer 
+          (delq (current-buffer) 
+                (remove-if-not 'buffer-file-name (buffer-list)))))
 
 (provide 'my-functions)

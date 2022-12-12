@@ -21,6 +21,7 @@
         <value type="int" value="3"/>
         <value type="int" value="5"/>
         <value type="int" value="6"/>
+        <value type="int" value="14"/>
         <value type="int" value="1"/>
         <value type="int" value="7"/>
         <value type="int" value="19"/>
@@ -62,6 +63,9 @@
     <property name="plugin-6" type="string" value="systray">
       <property name="square-icons" type="bool" value="true"/>
       <property name="known-legacy-items" type="array">
+        <value type="string" value="wi-fi network connection “mhmd” active: mhmd (88%)"/>
+        <value type="string" value="wi-fi network connection “mhmd” active: mhmd (89%)"/>
+        <value type="string" value="wi-fi network connection “mhmd” active: mhmd (91%)"/>
         <value type="string" value="stardict"/>
         <value type="string" value="xfce4-power-manager"/>
         <value type="string" value="wi-fi network connection “mhmd” active: mhmd (76%)"/>
@@ -77,6 +81,8 @@
         <value type="string" value="parcellite"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="qBittorrent"/>
+        <value type="string" value="KDE Connect Indicator"/>
         <value type="string" value="obs"/>
         <value type="string" value="TelegramDesktop"/>
         <value type="string" value="Fcitx"/>
@@ -106,7 +112,7 @@
     </property>
     <property name="plugin-7" type="string" value="pulseaudio">
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
-      <property name="mpris-players" type="string" value="firefox.instance13329;firefox.instance2500;firefox.instance4460;firefox.instance5505"/>
+      <property name="mpris-players" type="string" value="firefox.instance13329;firefox.instance2500;firefox.instance4460;firefox.instance5505;firefox.instance911"/>
       <property name="show-notifications" type="bool" value="false"/>
     </property>
     <property name="plugin-8" type="string" value="launcher">
@@ -123,6 +129,9 @@
       <property name="items" type="array">
         <value type="string" value="16707604234.desktop"/>
       </property>
+    </property>
+    <property name="plugin-14" type="string" value="xkb">
+      <property name="display-type" type="uint" value="1"/>
     </property>
   </property>
 </channel>
