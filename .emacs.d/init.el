@@ -1,7 +1,9 @@
 ;; Since it can't reach it's function at runtime
 ;; Configure package.el to include MELPA.
 (setq EMACS_DIR "~/.emacs.d/")
+;; (setq user-init-file "~/.emacs.d/init.el")
 (setq user-init-file "~/.emacs.d/init.el")
+
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -28,7 +30,7 @@
 ;; (put 'upcase-region 'disabled nil)
 ;; (put 'downcase-region 'disabled nil)
 
-
+;; (setq treesit-extra-load-path (concat (file-name-as-directory EMACS_DIR) "tree-sitter-module/dist/"))
 ;; load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'my-functions)
@@ -125,22 +127,23 @@
 ;; (setq read-process-output-max (* 1024 1024))
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 100 1000 1000))
-(defun efs/display-startup-time ()
+(defun my/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
            (format "%.2f seconds"
                    (float-time
                     (time-subtract after-init-time before-init-time)))
            gcs-done))
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+(add-hook 'emacs-startup-hook #'my/display-startup-time)
 
 
 ;; Look and feel
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(scroll-bar-mode -1)
+;; (scroll-bar-mode -1)
 ;; startup messages
 (setq inhibit-startup-message t)
+;; vim-like scrolling
 (setq scroll-conservatively 100)
 (setq ring-bell-function 'ignore)
 ;; (load-file "~/.emacs.d/organic-green-theme.el")
@@ -201,13 +204,13 @@
 
 
 ;; Font settings
-(set-face-attribute 'default nil :font "DeJaVu Sans Mono" :height 110)
+(set-face-attribute 'default nil :font "Liberation Mono" :height 110)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "DeJaVu Sans Mono" :height 110)
+(set-face-attribute 'fixed-pitch nil :font "Liberation Mono" :height 110)
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "DeJaVu Sans Mono" :height 110 :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "Liberation Mono" :height 110 :weight 'regular)
 (set-fontset-font "fontset-default" 'arabic (font-spec :family "Dejavu Sans Mono"))
-(setq mhd-font-change-increment 1.1)
+(setq my/font-change-increment 1.1)
 
 
 ;; bidi settings
@@ -249,6 +252,7 @@
          ("M-u"     . universal-argument)
          ("M-1" . delete-other-windows)
          ("C-;" . comment-line)
+         ("C-x C-;" . comment-box)
          ;; ("C-x C-;" . eval-buffer)
          ;; ("M-;" . eval-last-sexp)
          ))
@@ -258,8 +262,8 @@
 ;; (global-set-key (kbd "C-/") 'comment-line)
 ;; (global-set-key (kbd "C-S-/") 'comment-box)
 ;; (global-set-key (kbd "M-/") 'comment-dwim)
-(global-set-key (kbd "M-2") 'mhd-split-window-right-and-switch)
-(global-set-key (kbd "M-3") 'mhd-split-window-below-and-switch)
+(global-set-key (kbd "M-2") 'my/split-window-right-and-switch)
+(global-set-key (kbd "M-3") 'my/split-window-below-and-switch)
 ;; Disable ESC (C-g) that closes other splits
 
 ;;(setq ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf"))
@@ -304,62 +308,38 @@
 ;; (use-package which-key
 ;;   :ensure t
 ;;   :config (which-key-mode))
-
-;; Ido
-;; (setq ido-enable-flex-matching nil)
-;; (setq ido-create-new-buffer 'always)
-;; (setq ido-everywhere t)
-;; (ido-mode 1)
-;; (use-package ido-vertical-mode
-;;   :ensure t
-;;   :init
-;;   (ido-vertical-mode 1))
-;; (setq ido-vertical-define-keys 'C-n-and-C-p-only)
-;; (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
-
-
-;; (use-package smex
-;;   :ensure t
-;;   :init (smex-initialize)
-;;   :bind
-;;   ("M-x" . smex))
-
-
-;; (use-package avy
-;;   :ensure t
-;;   :bind*
-;;   ("M-s" . evil-avy-goto-char-2))
+;;
 
 (use-package rainbow-mode
   :ensure t
   ;; :init (add-hook 'prog-mode-hook 'rainbow-mode)
   )
-(add-hook 'after-init-hook #'rainbow-mode) 
-(add-hook 'prog-mode #'rainbow-mode) 
+(add-hook 'after-init-hook #'rainbow-mode)
+(add-hook 'prog-mode #'rainbow-mode)
 
 
 ;; (use-package rainbow-delimiters
 ;;   :ensure t)
 
 
-(use-package yasnippet
-  :ensure t
-  :config
-  (use-package yasnippet-snippets
-    :ensure t)
-  (use-package java-snippets
-    :ensure t)
-  (yas-reload-all)) ;needed so you don't always refresh when adding your own
-;; ;
-(yas-global-mode 1)
-;; (add-hook 'lua-mode-hook 'yas-minor-mode)
-(add-hook 'java-mode-hook 'yas-minor-mode)
-;; (add-hook 'c-mode-hook 'yas-minor-mode)
-;; (add-hook 'python-mode-hook 'yas-minor-mode)
-;; (add-hook 'elisp-mode-hook 'yas-minor-mode)
-;; (add-hook 'org-mode-hook 'yas-minor-mode)
-;; (add-hook 'c++-mode-hook 'yas-minor-mode)
-                                        ; use yas-describe-tables to see what's available
+;; (use-package yasnippet
+;;   :ensure t
+;;   :config
+;;   (use-package yasnippet-snippets
+;;     :ensure t)
+;;   (use-package java-snippets
+;;     :ensure t)
+;;   (yas-reload-all)) ;needed so you don't always refresh when adding your own
+;; ;; ;
+;; (yas-global-mode 1)
+;; ;; (add-hook 'lua-mode-hook 'yas-minor-mode)
+;; (add-hook 'java-mode-hook 'yas-minor-mode)
+;; ;; (add-hook 'c-mode-hook 'yas-minor-mode)
+;; ;; (add-hook 'python-mode-hook 'yas-minor-mode)
+;; ;; (add-hook 'elisp-mode-hook 'yas-minor-mode)
+;; ;; (add-hook 'org-mode-hook 'yas-minor-mode)
+;; ;; (add-hook 'c++-mode-hook 'yas-minor-mode)
+;;                                         ; use yas-describe-tables to see what's available
 
 ;; (use-package popup-kill-ring
 ;;   :ensure t
@@ -369,14 +349,6 @@
 ;;   :ensure t)
 ;; ;; :bind ("C-q" . er/expand-region))
 
-;; (use-package counsel
-;;   :ensure t
-;;   :config
-;;   ;; ("M-x" . 'counsel-M-x))
-
-;;   ;; (define-key org-mode-map (kbd "C-c i") 'counsel-org-goto)
-;;   ;; (global-set-key (kbd "C-c i") 'counsel-imenu))
-;;   )
 ;;; Aligning Text
 (use-package align
   :ensure nil
@@ -413,7 +385,7 @@
   (use-package consult
     :ensure t
     :bind (
-					 ("C-x b"       . consult-buffer)
+					 ;; ("C-x b"       . consult-buffer)
            ("C-x C-k C-k" . consult-kmacro)
            ("M-y"         . consult-yank-pop)
            ("M-g g"       . consult-goto-line)
@@ -508,61 +480,99 @@
 
 
 ;; for explicitly completing using <tab>
-(setq tab-always-indent 'complete)
-(use-package corfu
-	:ensure t
-  ;; Optional customizations
-  :custom
-  (corfu-cycle t)                 ; Allows cycling through candidates
-  (corfu-auto t)                  ; Enable auto completion
-  (corfu-auto-prefix 2)
-  (corfu-auto-delay 0.0)
-  (corfu-echo-documentation 0.25) ; Enable documentation for completions
-  (corfu-preview-current 'insert) ; Do not preview current candidate
-  (corfu-preselect-first t)
-  (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
+;; (setq tab-always-indent 'complete)
 
-  ;; Optionally use TAB for cycling, default is `corfu-complete'.
-  :bind (:map corfu-map
-              ("M-SPC" . corfu-insert-separator)
-              ("TAB"     . corfu-next)
-              ([tab]     . corfu-next)
-              ("S-TAB"   . corfu-previous)
-              ([backtab] . corfu-previous)
-              ("S-<return>" . nil)
-              ("RET"     . corfu-insert) ;; leave my enter alone!
-							;; ("<escape>" . (lambda () (interactive) (corfu-quit) (evil-normal-state)))
-              )
+;; (use-package corfu
+;; 	:ensure t
+;;   ;; Optional customizations
+;;   :custom
+;;   (corfu-cycle t)                 ; Allows cycling through candidates
+;;   (corfu-auto t)                  ; Enable auto completion
+;;   (corfu-auto-prefix 1)
+;;   (corfu-auto-delay 0.0)
+;;   (corfu-echo-documentation 0.25) ; Enable documentation for completions
+;;   (corfu-preview-current 'insert) ; Do not preview current candidate
+;;   (corfu-preselect-first t)
+;;   (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
+;;   ;; Optionally use TAB for cycling, default is `corfu-complete'.
+;;   :bind (:map corfu-map
+;;               ("M-SPC" . corfu-insert-separator)
+;;               ("TAB"     . corfu-next)
+;;               ([tab]     . corfu-next)
+;;               ("S-TAB"   . corfu-previous)
+;;               ([backtab] . corfu-previous)
+;;               ("S-<return>" . nil)
+;;               ("RET"     . corfu-insert) ;; leave my enter alone!
+;; 							;; ("<escape>" . (lambda () (interactive) (corfu-quit) (evil-normal-state)))
+;;               )
+;;   :init
+;;   (global-corfu-mode)
+;;   (corfu-history-mode)
+;;   :config
+;; 	;; exit with evil-escape
+;; 	(advice-add 'evil-escape-func :after 'corfu-quit)
+;;   (setq tab-always-indent 'complete)
+;;   (add-hook 'eshell-mode-hook
+;;             (lambda () (setq-local corfu-quit-at-boundary t
+;;                                    corfu-quit-no-match t
+;;                                    corfu-auto nil)
+;;               (corfu-mode))))
+;; ;; Use Dabbrev with Corfu!
+;; (use-package dabbrev
+;;   ;; Swap M-/ and C-M-/
+;;   :bind (("M-/" . dabbrev-completion)
+;;          ("C-M-/" . dabbrev-expand))
+;;   ;; Other useful Dabbrev configurations.
+;;   :custom
+;;   (dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'")))
+;; ;; fuzzy completion for corfu
+;; (use-package orderless
+;;   :ensure t
+;;   :init
+;;   ;; Tune the global completion style settings to your liking!
+;;   ;; This affects the minibuffer and non-lsp completion at point.
+;;   (setq completion-styles '(orderless partial-completion basic)
+;;         completion-category-defaults nil
+;;         completion-category-overrides nil))
 
-  :init
-  (global-corfu-mode)
-  (corfu-history-mode)
-  :config
-	;; exit with evil-escape
-	(advice-add 'evil-escape-func :after 'corfu-quit)
-  (setq tab-always-indent 'complete)
-  (add-hook 'eshell-mode-hook
-            (lambda () (setq-local corfu-quit-at-boundary t
-                                   corfu-quit-no-match t
-                                   corfu-auto nil)
-              (corfu-mode))))
-;; Use Dabbrev with Corfu!
-(use-package dabbrev
-  ;; Swap M-/ and C-M-/
-  :bind (("M-/" . dabbrev-completion)
-         ("C-M-/" . dabbrev-expand))
-  ;; Other useful Dabbrev configurations.
-  :custom
-  (dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'")))
-;; fuzzy completion for corfu
-(use-package orderless
+(use-package company
   :ensure t
-  :init
-  ;; Tune the global completion style settings to your liking!
-  ;; This affects the minibuffer and non-lsp completion at point.
-  (setq completion-styles '(orderless partial-completion basic)
-        completion-category-defaults nil
-        completion-category-overrides nil))
+  :bind
+  (:map company-active-map
+        ;; ("<tab>" . company-complete-selection)
+				("RET" . nil)
+                    ;; ("<escape>" . company-abort)
+        )
+  ;; (:map lsp-mode-map
+  ;; ("<tab>" . company-indent-or-complete-common))
+  :hook
+  (prog-mode)
+  :config
+  ;; exit in evil normal mode
+  (add-hook 'company-mode-hook
+            (lambda ()
+              (add-hook 'evil-normal-state-entry-hook
+                        (lambda ()
+                          (company-abort)))))
+  (define-key company-active-map (kbd "C-n") #'company-select-next)
+  (define-key company-active-map (kbd "C-p") #'company-select-previous)
+  ;; (company-keymap--unbind-quick-access company-active-map) ;; disable using M-number to select items
+  ;; (company-tng-configure-default) ;; don't change the default tab behaviour
+  (setq company-idle-delay 0.1)
+  (setq company-tooltip-limit 10)
+  (setq company-minimum-prefix-length 1)
+  (setq company-tooltip-align-annotations t)
+  ;; invert the navigation direction if the the completion popup-isearch-match
+  ;; is displayed on top (happens near the bottom of windows)
+  (setq company-tooltip-flip-when-above t)
+  ;; (global-company-mode)
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "<return>") #'company-complete-selection))
+  ;;        (add-hook 'after-init-hook 'global-company-mode) ;not only for programming mode
+  ;;  :config
+  ;;  (setq lsp-completion-provider :capf))
+  )
+
 
 ;; (use-package company-web
 ;;   :ensure t
@@ -579,10 +589,11 @@
   :ensure t
   :config
   (add-hook 'after-init-hook #'global-flycheck-mode)
-  (add-hook 'flycheck-mode-hook
-            (lambda ()
-              (evil-define-key 'normal flycheck-mode-map (kbd "]e") 'flycheck-next-error)
-              (evil-define-key 'normal flycheck-mode-map (kbd "[e") 'flycheck-previous-error)))
+  ;; (add-hook 'flycheck-mode-hook
+  ;; (lambda ()
+  ;; (evil-define-key 'normal flycheck-mode-map (kbd "]e") 'flycheck-next-error)
+  ;; (evil-define-key 'normal flycheck-mode-map (kbd "[e") 'flycheck-previous-error)))
+
   ;; (add-hook 'python-mode-hook 'flycheck-mode)
   ;; (add-hook 'go-mode-hook 'flycheck-mode)
   ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
@@ -615,11 +626,11 @@
 
 ;; (setq-default indent-tabs-mode nil)
 
-;; (defconst mhd-savefile-dir (expand-file-name "savefile" user-emacs-directory))
+;; (defconst my/savefile-dir (expand-file-name "savefile" user-emacs-directory))
 ;; (use-package saveplace
 ;; :ensure t
 ;; :config
-;; (setq save-place-file (expand-file-name "saveplace" mhd-savefile-dir))
+;; (setq save-place-file (expand-file-name "saveplace" my/savefile-dir))
 ;; activate it for all buffers
 ;; (setq-default save-place t))
 
@@ -635,17 +646,17 @@
 ;; go install golang.org/x/tools/cmd/goimports@latest
 
 ;; leetcode
-;; (use-package leetcode
-;;   :ensure t
-;;   :hook
-;;   (leetcode-solution-mode-hook .
-;;                                (lambda() (flycheck-mode -1)))
-;;   :config
-;;   (setq leetcode-prefer-language "java")
-;;   (setq leetcode-prefer-sql "mysql")
-;;   (setq leetcode-save-solutions t)
-;;   (setq leetcode-directory "~/stuff/code/leetcode")
-;;   )
+(use-package leetcode
+  :ensure t
+  :hook
+  (leetcode-solution-mode-hook .
+                               (lambda() (flycheck-mode -1)))
+  :config
+  (setq leetcode-prefer-language "java")
+  (setq leetcode-prefer-sql "mysql")
+  (setq leetcode-save-solutions t)
+  (setq leetcode-directory "~/stuff/code/leetcode")
+	)
 
 ;; git clone git@github.com:ginqi7/leetcode-emacs.git ~/.emacs.d/lisp/leetcode
 ;; npm install -g leetcode-cli
@@ -656,7 +667,7 @@
     (indent-region (point-min) (point-max) nil)))
 
 ;; (global-set-key (kbd "<escape>") 'keyboard-quit)
-(global-set-key (kbd "M-0") 'mhd-delete-window-and-rebalance)
+(global-set-key (kbd "M-0") 'my/delete-window-and-rebalance)
 (global-set-key (kbd "M-n") 'flycheck-next-error)
 (global-set-key (kbd "M-p") 'flycheck-previous-error)
 
@@ -664,9 +675,10 @@
   (interactive)
   (flycheck-list-errors)
   (pop-to-buffer "*Flycheck errors*"))
-(global-set-key (kbd "C-c l") 'switch-to-flycheck-list-errors)
-(global-set-key (kbd "M-j") 'next-buffer)
-(global-set-key (kbd "M-k") 'previous-buffer)
+;; (global-set-key (kbd "C-c l") 'switch-to-flycheck-list-errors)
+;; (global-set-key (kbd "M-j") 'next-buffer)
+;; (global-set-key (kbd "M-k") 'previous-buffer)
+
 
 (use-package undo-tree
   :ensure t
@@ -677,4 +689,4 @@
   (setq undo-tree-auto-save-history t)
   (global-undo-tree-mode +1)
   (evil-set-undo-system 'undo-tree)
-)
+  )

@@ -68,8 +68,8 @@
 
 (defun air--config-evil ()
 
-	;; quit corfu in normal mode 
-	(add-hook 'evil-normal-state-entry-hook 'corfu-quit)
+	;; quit corfu in normal mode
+	;; (add-hook 'evil-normal-state-entry-hook 'corfu-quit)
 
   "Configure evil mode."
   ;; Use Emacs state in these additional modes.
@@ -143,7 +143,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
   ;; Make escape quit everything, whenever possible.
   (define-key evil-normal-state-map [escape] 'keyboard-escape-quit)
-  (define-key evil-visual-state-map [escape] 'keyboard-quit)
+  ;; (define-key evil-visual-state-map [escape] 'keyboard-quit)
   (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
   ;; (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
@@ -182,7 +182,7 @@ is not used."
   :ensure t
   :init
   ;; for evil-collection
-  ;; (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-u-scroll t)
   (setq evil-want-Y-yank-to-eol t)
   (setq evil-want-keybinding nil)
   :config

@@ -1,8 +1,8 @@
 (use-package lsp-mode
   :ensure t
   ;; corfu stuff
-  :custom
-  (lsp-completion-provider :none) ;; we use Corfu!
+  ;; :custom
+  ;; (lsp-completion-provider :none) ;; we use Corfu!
   :init
   (defun my/lsp-mode-setup-completion ()
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))

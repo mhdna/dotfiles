@@ -1,5 +1,5 @@
 (use-package eglot
-	:ensure t
+	;; :ensure t
   :bind (:map eglot-mode-map
               ("<tab>" . company-complete)
               ("M-n" . flymake-goto-next-error)
