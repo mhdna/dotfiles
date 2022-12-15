@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# dependencies "notify-send"
+# Might need to be modified depending on the device (BAT0, BAT1, BAT2)
+BatteryDir="/sys/class/power_supply/BAT0"
+# Battery percentage to notify at
+MinPercent=3
+LowPercent=10
+MaxPercent=99
+# Checks every 1 minutes
+# Refresh=60
+
+
+# while :; do
+	read -r BatStatus < "$BatteryDir/status"
+	read -r BatPercent < "$BatteryDir/capacity"
+
+	# if [ "$BatStatus" = "Charging" ] && [ $BatPercent -ge $MaxPercent ]; then
+	# 	# export DISPLAY=:0; export $(dbus-launch)
+        	# notify-send  -u normal "Full Battery: $BatPercent%"
+	# fi
+
+	if [ "$BatStatus" = "Discharging" ] && [ $BatPercent -le $LowPercent ]; then
+		# export DISPLAY=:0; export $(dbus-launch)
+		notify-send -u critical -t 5000 "Low Battery: $BatPercent%"
+	fi
+
+	if [ "$BatStatus" = "Discharging" ] && [ $BatPercent -le $MinPercent ]; then
+		# export DISPLAY=:0; export $(dbus-launch)
+        	notify-send  -u critical -t 5000 "$BatPercent% Shutting down..."
+		echo "shutted down at '$(date)'" > /home/mah/file.txt
+		loginctl poweroff
+	fi
+
+	# sleep $Refresh
+# done

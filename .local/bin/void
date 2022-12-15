@@ -1,0 +1,7 @@
+rmmod pcspkr && echo "blacklist pcspkr" >> /etc/modprobe.d/nobeep.conf
+installed bicon
+xi fribidi-devel gcc libtool automake autoconf pkgconf (for bicon)
+installed lsp servers
+for internet:
+    1 - install elogind
+    2 - ln -s networkmanager dbus elogind

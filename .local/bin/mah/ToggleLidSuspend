@@ -1,0 +1,19 @@
+#!/bin/sh
+
+case "$(printf "Enable\nDisable" | dmenu -i )" in #  -p 'Action:'
+
+    'Disable') sudo sed -i "s/^#HandleLidSwitch=suspend/HandleLidSwitch=ignore/" /etc/elogind/logind.conf
+sudo sed -i "s/^#HandleLidSwitchExternalPower=suspend/HandleLidSwitchExternalPower=ignore/" /etc/elogind/logind.conf
+sudo sed -i "s/^#HandleLidSwitchDocked=ignore/HandleLidSwitchDocked=ignore/" /etc/elogind/logind.conf ;;
+    'Enable') sudo sed -i "s/^HandleLidSwitch=ignore/#HandleLidSwitch=suspend/" /etc/elogind/logind.conf
+sudo sed -i "s/^HandleLidSwitchExternalPower=ignore/#HandleLidSwitchExternalPower=suspend/" /etc/elogind/logind.conf
+sudo sed -i "s/^HandleLidSwitchDocked=ignore/#HandleLidSwitchDocked=ignore/" /etc/elogind/logind.conf ;;
+	*) exit 1 ;;
+esac
+
+
+# sed -i "s/#HandleLidSwitch=suspend
+# #HandleLidSwitchExternalPower=suspend
+# #HandleLidSwitchDocked=ignore/#HandleLidSwitch=suspend
+# #HandleLidSwitchExternalPower=suspend
+# #HandleLidSwitchDocked=ignore/" /etc/elogind/logind.conf

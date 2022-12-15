@@ -1,0 +1,24 @@
+#!/bin/sh
+
+	ip=$(ip route get 8.8.8.8 2>/dev/null|grep -Eo 'src [0-9.]+'|grep -Eo '[0-9.]+')
+	if=wlan0
+		while IFS=$': \t' read -r label value
+		do
+			case $label in SSID) SSID=$value
+				;;
+			signal) SIGNAL=$value
+				;;
+		esac
+	done < <(iw "$if" link)
+	echo -e "$SSID $SIGNAL $ip"
+
+print_mem(){
+	echo $(($(grep -m1 'MemAvailable:' /proc/meminfo | awk '{print $2}') / 1024))
+
+	logfile=/dev/shm/netlog
+	[ -f "$logfile" ] || echo "0 0" > "$logfile"
+	read -r rxprev txprev < "$logfile"
+	rxcurrent="$(($(paste -d '+' /sys/class/net/[ew]*/statistics/rx_bytes)))"
+	txcurrent="$(($(paste -d '+' /sys/class/net/[ew]*/statistics/tx_bytes)))"
+	echo "$(bc <<< "scale=2; ($rxcurrent-$rxprev) / 10^6")" "$(bc <<< "scale=2; ($txcurrent-$txprev) / 10^6")"
+	echo "$rxcurrent $txcurrent" > "$logfile"

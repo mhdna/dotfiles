@@ -1,0 +1,40 @@
+# You can add comments to these files with #
+#
+# NO BLANK LINES
+#
+# General
+hom	~/
+doc	~/Documents
+dl	~/Downloads
+mus	~/Music
+pic	~/Pictures
+bg	~/Pictures/backgrounds
+vid	~/Videos
+scr	~/.scripts
+cf	~/.config
+#
+# Academic
+#
+ac	~/Documents/academic
+#
+# Fall 2018
+#
+la	~/Documents/academic/linalg
+hla	~/Documents/academic/linalg/linalghw
+ga	~/Documents/academic/gradalg
+hga	~/Documents/academic/gradalg/gradalghw
+cal	~/Documents/academic/calc
+th	~/Documents/academic/theory
+hth	~/Documents/academic/theory/theoryhw
+hsa	~/Documents/academic/southasia
+#
+# Documents
+#
+shm	~/Documents/sheetmusic
+man	~/Documents/manuals
+math	~/Documents/math
+#
+# Website
+#
+web	~/website
+html	~/website/public_html

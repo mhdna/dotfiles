@@ -1,0 +1,7 @@
+#!/bin/sh
+    case "$(printf "Ar\nPr" | dmenu -i )" in #  -p 'Action:'
+    'Ar') setxkbmap -model pc104 -layout us,iq -option "caps:swapescape" -option altwin:menu_win;;
+    'Pr') setxkbmap -model pc104 -layout us,ir -option "caps:swapescape" -option altwin:menu_win ;;
+    *) exit 1 ;;
+esac
+

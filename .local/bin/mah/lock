@@ -1,0 +1,12 @@
+#!/bin/sh
+#set -e
+#xset s off dpms 0 10 0
+# xkb-switch -s us ; slock ; pauseallmpv ; mpc pause
+#i3lock -c 32302f #--color=282828 --layout-color=ebdbb2 --time-color=ebdbb2 --date-color=ebdbb2 --keylayout 1 --inside-color=282828 --ring-color=458588 --ringver-color=be860e --ringwrong-color=cc2417 --keyhl-color=3A7A0F --bshl-color=cc241d --verif-color=282828 --wrong-color=282828 --verifoutline-color=be860e  --insidever-color=282828 --insidever-color=be860e --insidewrong-color=cc241d --line-color=282828 --separator-color=282828 --wrong-font monospace  --verif-font monospace --greeter-font monospace --time-font monospace --date-font monospace --layout-font monospace
+#--ring-width=9.0 -k -e -f --nofork --date-color=ebdbb2 --time-color=ebdbb2 --time-font inconsolata --date-font inconsolata --keylayout 1/0/2
+mpc pause& pauseallmpv & xkb-switch en& slock
+
+
+#xset s off -dpms
+#mpc pause& pauseallmpv& xsecurelock
+#mpc pause& pauseallmpv&

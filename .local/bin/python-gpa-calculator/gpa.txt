@@ -1,0 +1,156 @@
+2022F Semester
+------------------------------------------
+Course name:		C++
+Number of hours:	3
+Course Grade:		A
+
+Course name:		C++ Lab
+Number of hours:	1
+Course Grade:		A
+
+Course name:		ARB
+Number of hours:	3
+Course Grade:		B
+
+
+2022S Semester
+------------------------------------------
+Course name:		OOP
+Number of hours:	3
+Course Grade:		C+
+
+Course name:		Culture
+Number of hours:	3
+Course Grade:		B+
+
+Course name:		Eng201
+Number of hours:	3
+Course Grade:		B
+
+Course name:		FOE200
+Number of hours:	3
+Course Grade:		B
+
+
+2022S Semester
+------------------------------------------
+Course name:		Persian
+Number of hours:	3
+Course Grade:		A
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+
+2023F Semester
+------------------------------------------
+Course name:		Persian
+Number of hours:	3
+Course Grade:		B
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		B
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		B
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		B
+
+
+2023F Semester
+------------------------------------------
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		B
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		B
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		B+
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		B+
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		B+
+
+
+2023s Semester
+------------------------------------------
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+
+2024F Semester
+------------------------------------------
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+
+2024S Semester
+------------------------------------------
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+
+2024s Semester
+------------------------------------------
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+Course name:		Eng202
+Number of hours:	3
+Course Grade:		A
+
+
+After 9 semesters, cumulative GPA is: 3.6010638297872335

@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# This is bound to Shift+PrintScreen by default, requires maim. It lets you
+# choose the kind of screenshot to take, including copying the image or even
+# highlighting an area to copy. scrotcucks on suicidewatch right now.
+# path="$HOME/pix/screenshots/temp/$(date '+%y%m%d-%H%M-%S').png";
+
+full() {
+	 maim $XDG_PICTURES_DIR/screenshots/$(date '+%y%m%d-%H%M-%S').png pic-full  && notify-send  -t 1500 '🖼️ printed'
+}
+
+window() {
+	maim -i "$(xdotool getactivewindow)" $XDG_PICTURES_DIR/screenshots/pic-window-"$(date '+%y%m%d-%H%M-%S').png" && notify-send -t 1500 "🖼️ printed"
+}
+
+# select() {
+# 	maim -s $XDG_PICTURES_DIR/screenshots/-$(date '+%y%m%d-%H%M-%S').png pic-selected- && notify-send  -t 1500 '🖼️ printed'
+# }
+
+xclip() {
+	path="$HOME/pix/screenshots/temp/$(date '+%y%m%d-%H%M-%S').png";
+	maim -s "$path" pic-selected- && echo $path | tr -d '\n' | xclip -selection clipboard && notify-send -t  1500 '🖼️ tmp Screenshot Printed'
+}
+
+phone() {
+	path="$HOME/pix/screenshots/-$(date '+%y%m%d-%H%M-%S').png"
+	maim -s "$path" pic-selected- &&
+	kdeconnect-cli --refresh
+	kdeconnect-cli --device 415a811582e4a899 --share "$path"
+	notify-send  -t 1500 'printed'
+}
+
+anki() {
+	dir=".local/share/Anki2/User\ 1/collection.media/"
+	name=$(date --iso-8601='seconds' | sed 's/://g').png
+	scrot -s "$dir$name" && echo $name | tr -d '\n' | xclip -selection clipboard
+# path="$HOME/.local/share/Anki2/User\ 1/collection.media/$(date '+%y%m%d-%H%M-%S').png";
+
+# maim -s "$path" pic-selected- && echo $path | tr -d '\n' | xclip -selection clipboard
+}
+
+case "$1" in
+	full) full;;
+	window) window;;
+	# select) select;;
+	xclip) xclip;;
+	phone) phone;;
+	anki) anki;;
+esac
+
+
+# case "$(printf "a selected area\\ncurrent window\\nfull screen\\na selected area (copy)\\ncurrent window (copy)\\nfull screen (copy)\\na selected area (path)" | dmenu -l 6 -i -p "Screenshot which area?")" in
+# 	"a selected area") maim -s pic-selected-"$(date '+%y%m%d-%H%M-%S').png" ;;
+# 	"current window") maim -i "$(xdotool getactivewindow)" pic-window-"$(date '+%y%m%d-%H%M-%S').png" ;;
+# 	"full screen") maim pic-full-"$(date '+%y%m%d-%H%M-%S').png" ;;
+# 	"a selected area (copy)") maim -s | xclip -selection clipboard -t image/png ;;
+# 	"current window (copy)") maim -i "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png ;;
+# 	"full screen (copy)") maim | xclip -selection clipboard -t image/png ;;
+# 	"a selected area (path)") maim -s "$path" pic-selected- && echo $path | tr -d '\n' | xclip -selection clipboard ;;
+# esac

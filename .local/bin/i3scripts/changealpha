@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sed -i "/unsigned\ int\ alpha/c\unsigned\ int\ alpha\ = 0x$1;" /usr/src/st/config.h
+cd /usr/src/st
+make > /dev/null
+make install > /dev/null

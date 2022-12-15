@@ -1,0 +1,12 @@
+lf-bin
+abook
+simple-mtpfs
+mutt-wizard
+urlview
+downgrade
+bicon-git
+dragon-drop
+pam-gnupg
+anki-bin
+stardict-oald
+pup-git

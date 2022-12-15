@@ -1,0 +1,25 @@
+#!/bin/sh
+export WM="awesome"
+case "$(readlink -f /sbin/init)" in
+	*systemd*) ctl='systemctl' ;;
+	*) ctl='loginctl' ;;
+esac
+
+# wmpid(){ # This function is needed if there are multiple instances of the window manager.
+# 	tree="$(pstree -ps $$)"
+# 	tree="${tree#*$WM(}"
+# 	echo "${tree%%)*}"
+# }
+
+case "$(printf "lock\nleave $WM\nrenew $WM\nhibernate\nreboot\npoweroff\nsleep" | dmenu -i -p 'Action: ')" in
+  #\n📺 display of
+	'lock') mpc pause& pauseallmpv& slock ;;
+	"leave $WM") killall $WM ;;
+	"renew $WM") echo 'awesome.restart()' | awesome-client ;;
+	'hibernate') mpc pause& pauseallmpv& slock $ctl hibernate ;;
+	'sleep') mpc pause& pauseallmpv& slock $ctl suspend -i;;
+	'reboot') $ctl reboot -i ;;
+	'poweroff') $ctl poweroff -i ;;
+	# '📺 display off') xset dpms force off ;;
+	*) exit 1 ;;
+esac

@@ -1,0 +1,4 @@
+#!/bin/bash
+xrandr --output eDP-1 --mode 1366x768 && xrandr --output DP-1 --off && setbg;
+echo 'awesome.restart()' | awesome-client;
+&& xrandr --dpi 96 #&& kill -HUP "$(pgrep -u "$USER" "\bdwm$")"

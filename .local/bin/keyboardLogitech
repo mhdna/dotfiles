@@ -1,0 +1,6 @@
+#!/bin/sh
+
+remaps
+xmodmap ~/.config/XmodmapLogitech
+# "xinput list" will give you the list of devices connected associated with their ids
+xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" 0

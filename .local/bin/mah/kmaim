@@ -1,0 +1,6 @@
+#!/bin/sh
+path="$HOME/pix/screenshots/-$(date '+%y%m%d-%H%M-%S').png";
+maim -s "$path" pic-selected- && 
+kdeconnect-cli --refresh;
+kdeconnect-cli --device 415a811582e4a899 --share "$path";
+notify-send  -t 1500 'printed'

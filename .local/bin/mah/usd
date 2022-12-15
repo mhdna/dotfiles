@@ -1,0 +1,9 @@
+#!/bin/sh
+
+usdreport="/tmp/usdreport"
+
+getusdreport() { curl --compressed 'https://www.leb.today/usd/' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:105.0) Gecko/20100101 Firefox/105.0' | pup 'td.wpdt-merged-cell text{}'> "$usdreport" || exit 1;}
+
+[ "$stat -c %y "$usdreport" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] || getusdreport
+
+$TERMINAL -e less $usdreport

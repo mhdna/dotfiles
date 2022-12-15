@@ -1,0 +1,5 @@
+#!/bin/sh
+
+calcurse-vdir -D /home/mah/.local/share/calcurse/calendar -f -v export /home/mah/.local/share/calcurse/ics-calendar &&
+vdirsyncer sync &&
+calcurse-vdir -D /home/mah/.local/share/calcurse/calendar -f -v import /home/mah/.local/share/calcurse/ics-calendar

@@ -1,0 +1,3 @@
+cp -r: ~/.local/password-store && mail, ~/.config/mbsync & mutt, ~/.mbsyncrc
+sudo gpgconf --kill dirmngr
+sudo chown -R $USER ~/.gnupg

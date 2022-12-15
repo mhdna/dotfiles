@@ -1,0 +1,40 @@
+#!/bin/bash
+clip=false
+window=false
+select=false
+pad=false
+
+while getopts "wcsp" opt; do
+    case "$opt" in
+        w) window=true;;
+        c) clip=true;;
+        s) select=true;;
+        p) pad=true;;
+    esac
+done
+
+ARGS="-u "
+
+if [ $pad = true ]; then
+    ARGS+="-g $(slop -lc 0.819,0.686,0.447,0.1 -p 10) "
+else
+    if [ $window = true ]; then
+        ARGS+="-i $(xdotool getactivewindow) "
+    elif [ $select = true ]; then
+        ARGS+="-s "
+    fi
+    ARGS+="-lc 0.819,0.686,0.447,0.1 "
+fi
+
+if [ $clip = true ]; then
+    maim $ARGS | xclip -selection clipboard -t image/png && notify-send -t 1000 'copied'
+else
+    filename="$HOME/pix/screenshots/$(date +%DT%T | tr '/' '-').png"
+    touch $filename
+    maim $ARGS > "$filename" && notify-send -t 1000 'printed'
+    if [ "$(du $filename | cut -f 1)" -eq 0 ]; then
+        rm $filename
+    else
+        ln -fs $filename $HOME/pix/screenshots/latest.png
+    fi
+fi
