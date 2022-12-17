@@ -9,9 +9,9 @@
               ("C-c l F" . eglot-format-buffer)
               ("C-c l a" . eglot-code-actions))
   :hook
-  ;; ((python-mode . eglot-ensure)
-  ;;  ;; (c-mode . eglot-ensure)
-  ;;  (LaTeX-mode . eglot-ensure)
+  (python-mode . eglot-ensure)
+   (c++-mode . eglot-ensure)
+   ;; (LaTeX-mode . eglot-ensure)
   ;;  (c++-mode . eglot-ensure)
    (java-mode . eglot-ensure)
 
@@ -26,13 +26,14 @@
   ;;           "-Djava.format.settings.profile=myown"))
   :custom
   ((eglot-autoshutdown t)))
+
 (use-package eglot-java
 	:ensure t)
-(add-hook 'java-mode-hook
-          (lambda ()
-            (setq-local eglot-workspace-configuration
-                        '((:java . ("org.eclipse.jdt.core.formatter.lineSplit"
-                                    "40"))))))
+;; (add-hook 'java-mode-hook
+;;           (lambda ()
+;;             (setq-local eglot-workspace-configuration
+;;                         '((:java . ("org.eclipse.jdt.core.formatter.lineSplit"
+;;                                     "40"))))))
 
 ;; Java development
 

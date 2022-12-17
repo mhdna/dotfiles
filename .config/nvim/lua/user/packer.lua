@@ -57,7 +57,7 @@ return packer.startup(function(use)
     use("JoosepAlviste/nvim-ts-context-commentstring")
     use("romgrk/nvim-treesitter-context")
 
-    use( "kyazdani42/nvim-web-devicons")
+    use("kyazdani42/nvim-web-devicons")
     use("kyazdani42/nvim-tree.lua")
     -- use( "akinsho/bufferline.nvim")
     -- use {
@@ -101,15 +101,25 @@ return packer.startup(function(use)
     --     }
     -- }
     --
-    -- use { "akinsho/toggleterm.nvim", tag = '*', config = function()
-        -- require("toggleterm").setup()
-    -- end }
+    use { "akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup()
+    end }
 
     use("ahmedkhalf/project.nvim")
     use("lewis6991/impatient.nvim")
     --[[ use("lukas-reineke/indent-blankline.nvim") ]]
     -- use( "goolord/alpha-nvim")
-    -- use("folke/which-key.nvim")
+    use {
+        "folke/which-key.nvim",
+        config = function()
+            require("which-key").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
+
 
     -- Colorschemes
     -- use( "folke/tokyonight.nvim")
@@ -170,6 +180,20 @@ return packer.startup(function(use)
     -- Treesitter
     use({
         "nvim-treesitter/nvim-treesitter",
+        require("nvim-treesitter.configs").setup {
+            highlight = {
+                -- ...
+            },
+            -- ...
+            rainbow = {
+                enable = true,
+                -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+                extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+                max_file_lines = nil, -- Do not enable for files with more than n lines, int
+                -- colors = {}, -- table of hex strings
+                -- termcolors = {} -- table of colour name strings
+            }
+        }
     })
 
     -- Git
@@ -197,17 +221,19 @@ return packer.startup(function(use)
     use('norcalli/nvim-colorizer.lua')
 
     use("sbdchd/neoformat")
-use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
---     use {
--- 	'arnarg/todotxt.nvim',
--- 	requires = {'MunifTanjim/nui.nvim'},
--- }
---
---
+    --     use {
+    -- 	'arnarg/todotxt.nvim',
+    -- 	requires = {'MunifTanjim/nui.nvim'},
+    -- }
+    --
+    --
     -- fzf
     use({
         "ibhagwan/fzf-lua",
+        config = -- fzf
+            vim.cmd [[let g:fzf_layout = { 'down': '~40%' } ]]
         -- config = function()
         --     require('fzf-lua').setup({
         --         winopts = { height = 0.6 } --split = "belowright new", preview = { hidden = 'hidden' },

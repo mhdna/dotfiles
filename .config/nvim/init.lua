@@ -29,8 +29,6 @@ require "user.autocommands"
 -- XkbSwitch
 -- vim.g.XkbSwitchEnabled = 1
 
--- fzf
-vim.cmd [[let g:fzf_layout = { 'down': '~40%' } ]]
 
 -- require('todotxt-nvim').setup({
 -- 	todo_file = "~/stuff/wiki/todo.txt",

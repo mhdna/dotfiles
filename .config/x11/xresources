@@ -8,9 +8,9 @@ Emacs.alpha: 100
 /* Sxiv.foreground: #000000 */
 /* Sxiv.font: mono:style:size=10 */
 
-*background: #ffffff
-*foreground: #000000
-*.cursorColor: #000000
+! *background: #282828
+! *foreground: #ebdbb2
+! *.cursorColor: #ebdbb2
 
 ! Xcursor.theme: xcursor-black
 ! Xcursor.theme_core: true

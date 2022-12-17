@@ -10,3 +10,4 @@ pam-gnupg
 anki-bin
 stardict-oald
 pup-git
+tremc-git

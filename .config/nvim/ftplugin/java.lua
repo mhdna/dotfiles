@@ -147,7 +147,7 @@ require("jdtls.setup").add_commands()
 
 local opts = { noremap = true, silent = true }
 
-vim.api.nvim_set_keymap("n", "<A-o>", "<Cmd>lua require('jdtls').organize_imports()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>lo", "<Cmd>lua require('jdtls').organize_imports()<CR>", opts)
 vim.api.nvim_set_keymap("n", "crv", "<Cmd>lua require('jdtls').extract_variable()<CR>", opts)
 vim.api.nvim_set_keymap("v", "crv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", opts)
 vim.api.nvim_set_keymap("n", "crc", "<Cmd>lua require('jdtls').extract_constant()<CR>", opts)
@@ -157,7 +157,7 @@ vim.api.nvim_set_keymap("v", "crm", "<Esc><Cmd>lua require('jdtls').extract_meth
 
 -- If using nvim-dap
 -- This requires java-debug and vscode-java-test bundles, see install steps in this README further below.
-vim.api.nvim_set_keymap("n", "<leader>df", "<Cmd>lua require('jdtls').test_class()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>lt", "<Cmd>lua require('jdtls').test_class()<CR>", opts)
 
 vim.api.nvim_set_keymap("n", "<leader>dn", "<Cmd>lua require('jdtls').test_nearest_method()<CR>", { silent = true })
 
@@ -165,8 +165,8 @@ vim.api.nvim_set_keymap("n", "<leader>dn", "<Cmd>lua require('jdtls').test_neare
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '<leader>lo', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<leader>ll', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer

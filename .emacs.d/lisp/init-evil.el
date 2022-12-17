@@ -21,12 +21,14 @@
     ;; "f"  'helm-imenu            ;; Jump to function in buffer
     "g"  'magit-status
     ;; "h"  'fontify-and-browse    ;; HTML-ize the buffer and browse the result
-    "l"  'switch-to-flycheck-list-errors
-    "L"  'whitespace-mode       ;; Show invisible characters
+    "l"  'consult-flymake
+    "L"  'switch-to-flycheck-list-errors
+    ;; "L"  'whitespace-mode       ;; Show invisible characters
     ;; "nn" 'air-narrow-dwim       ;; Narrow to region and enter normal mode
     ;; "nw" 'air-org-narrow-to-prose-dwim
     ;; "r"  'chrome-reload
     "E" 'eval-expression
+    "y" 'consult-yank-pop
     "y" 'consult-yank-pop
 		"R" 'consult-ripgrep
     "d" 'dired-jump
@@ -238,6 +240,13 @@ is not used."
           which-key
           ))
   (evil-collection-init))
+
+(use-package evil-nerd-commenter
+	:ensure t
+	:after evil
+	:config
+	(evilnc-default-hotkeys t)
+	)
 
 
 (provide 'init-evil)

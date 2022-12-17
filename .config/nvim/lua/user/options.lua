@@ -108,7 +108,7 @@ vim.o.title = true
 vim.o.go = a
 vim.o.clipboard = "unnamedplus"
 vim.o.undofile = true
-vim.o.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
+vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim-undodir"
 
 vim.o.encoding = "utf-8"
 vim.o.guifont = "hack:h10" -- the font used in graphical neovim applications

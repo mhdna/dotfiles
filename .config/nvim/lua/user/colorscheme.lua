@@ -16,7 +16,7 @@
 -- autocmd ColorScheme * highlight normal ctermbg=NONE guiBG=NONE
 -- augroup end
 -- ]])
--- vim.cmd [[  colorscheme parchment ]]
+-- vim.cmd [[  colorscheme gruvbox ]]
 -- vim.cmd [[ let g:gruvbox_contrast_dark="med"]]
 -- require('solarized').set()
 -- vim.g.gruvbox_contrast_dark = 'soft'

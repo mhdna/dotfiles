@@ -4,6 +4,8 @@
 ;; (setq user-init-file "~/.emacs.d/init.el")
 (setq user-init-file "~/.emacs.d/init.el")
 
+;; (native-compile-async "~/.emacs.d/elpa/" 4 t)
+
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -11,10 +13,8 @@
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 (package-initialize)
 
+
 ;; If use-package isn't already installed, it's extremely likely that this is a
-
-
-
 ;; fresh installation! So we'll want to update the package repository and
 ;; install use-package before loading the literate configuration.
 (when (not (package-installed-p 'use-package))
@@ -33,11 +33,14 @@
 ;; (setq treesit-extra-load-path (concat (file-name-as-directory EMACS_DIR) "tree-sitter-module/dist/"))
 ;; load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(require 'my-functions)
+;; (require 'my-functions)
 (require 'init-evil)
 (require 'org-settings)
-(require 'lsp-stuff)
+;; (require 'lsp-stuff)
 ;; (require 'eglot-stuff)
+
+;; (setq native-comp-eln-load-path "/home/mahdi/.emacs.d/eln-cache/" "/usr/local/lib/emacs/29.0.60/native-lisp/")
+;; (setq package-native-compile t)
 ;; PACKAGING configuration
 ;; (require 'use-package-ensure)
 ;; (setq use-package-always-ensure t)
@@ -68,8 +71,8 @@
 (setq auto-save-list-file-prefix (expand-file-name "tmp/auto-saves/sessions/" user-emacs-directory)
       auto-save-file-name-transforms `((".*" ,(expand-file-name "tmp/auto-saves/" user-emacs-directory) t)))
 ;; Files created by packages
-(setq projectile-known-projects-file (expand-file-name "tmp/projectile-bookmarks.eld" user-emacs-directory)
-      lsp-session-file (expand-file-name "tmp/.lsp-session-v1" user-emacs-directory))
+;; (setq projectile-known-projects-file (expand-file-name "tmp/projectile-bookmarks.eld" user-emacs-directory)
+;;       lsp-session-file (expand-file-name "tmp/.lsp-session-v1" user-emacs-directory))
 
 ;; ;; (require 'xah-fly-keys)
 ;; ;; specify a layout
@@ -148,10 +151,9 @@
 (setq ring-bell-function 'ignore)
 ;; (load-file "~/.emacs.d/organic-green-theme.el")
 ;; (load-theme 'organic-green t)
-;; (set-background-color "white")
-;; (set-foreground-color "black")
+(set-background-color "white")
+(set-foreground-color "black")
 (set-cursor-color "black")
-;; (use-package parchment-theme)
 ;; (global-display-line-numbers-mode 1)
 ;; Change mark region color
 (set-face-attribute 'region nil :background "#ffff00")
@@ -211,6 +213,8 @@
 (set-face-attribute 'variable-pitch nil :font "Liberation Mono" :height 110 :weight 'regular)
 (set-fontset-font "fontset-default" 'arabic (font-spec :family "Dejavu Sans Mono"))
 (setq my/font-change-increment 1.1)
+(custom-set-faces
+ '(default ((t (:inherit nil :height 110 :family "Liberation Mono")))))
 
 
 ;; bidi settings
@@ -236,7 +240,6 @@
   (message "%s" bidi-paragraph-direction))
 
 
-
 ;; Key bindings/unbindings
 (use-package emacs
   :ensure nil
@@ -251,11 +254,13 @@
          ("M-S-u"     . negative-argument)
          ("M-u"     . universal-argument)
          ("M-1" . delete-other-windows)
-         ("C-;" . comment-line)
+         ;; ("C-;" . comment-line)
          ("C-x C-;" . comment-box)
          ;; ("C-x C-;" . eval-buffer)
          ;; ("M-;" . eval-last-sexp)
          ))
+
+(global-set-key (kbd "<f1>") 'keyboard-quit)
 (defun back-window ()
   (interactive)
   (other-window -1))
@@ -288,13 +293,14 @@
 (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 
 ;; electric paris for automatically closing brackets
-(setq electric-pair-pairs '(
-                            (?\( . ?\))
-                            (?\[ . ?\])
-                            ))
-(electric-pair-mode t)
-;; for automatically indenting new lines
-(electric-indent-mode +1)
+;; (setq electric-pair-pairs '(
+;;                             (?\( . ?\))
+;;                             (?\[ . ?\])
+;;                             ))
+;; (electric-pair-mode t)
+;; ;; (auto-revert-mode t)
+;; ;; for automatically indenting new lines
+;; (electric-indent-mode +1)
 
 ;; Latex settings
 
@@ -310,12 +316,12 @@
 ;;   :config (which-key-mode))
 ;;
 
-(use-package rainbow-mode
-  :ensure t
-  ;; :init (add-hook 'prog-mode-hook 'rainbow-mode)
-  )
-(add-hook 'after-init-hook #'rainbow-mode)
-(add-hook 'prog-mode #'rainbow-mode)
+;; (use-package rainbow-mode
+;;   :ensure t
+;;   ;; :init (add-hook 'prog-mode-hook 'rainbow-mode)
+;;   )
+;; (add-hook 'after-init-hook #'rainbow-mode)
+;; (add-hook 'prog-mode #'rainbow-mode)
 
 
 ;; (use-package rainbow-delimiters
@@ -333,7 +339,7 @@
 ;; ;; ;
 ;; (yas-global-mode 1)
 ;; ;; (add-hook 'lua-mode-hook 'yas-minor-mode)
-;; (add-hook 'java-mode-hook 'yas-minor-mode)
+;; ;; (add-hook 'java-mode-hook 'yas-minor-mode)
 ;; ;; (add-hook 'c-mode-hook 'yas-minor-mode)
 ;; ;; (add-hook 'python-mode-hook 'yas-minor-mode)
 ;; ;; (add-hook 'elisp-mode-hook 'yas-minor-mode)
@@ -341,126 +347,115 @@
 ;; ;; (add-hook 'c++-mode-hook 'yas-minor-mode)
 ;;                                         ; use yas-describe-tables to see what's available
 
-;; (use-package popup-kill-ring
+;; ;; (use-package popup-kill-ring
+;; ;;   :ensure t
+;; ;;   :bind ("M-y" . popup-kill-ring))
+
+;; ;; (use-package expand-region
+;; ;;   :ensure t)
+;; ;; ;; :bind ("C-q" . er/expand-region))
+
+;; ;;; COMPLETION
+;; ;;; Aligning Text
+;; (use-package align
+;;   :ensure nil
+;;   :defer t
+;;   :bind ("C-x a a" . align-regexp)
+;;   :config
+;;   ;; Align using spaces
+;;   (defadvice align-regexp (around align-regexp-with-spaces activate)
+;;     (let ((indent-tabs-mode nil))
+;;       ad-do-it)))
+
+;; ;;; COMPLETION
+;; (use-package vertico
 ;;   :ensure t
-;;   :bind ("M-y" . popup-kill-ring))
+;;   :init
+;; ;;;; Out Of Order Compleiton
+;;   (use-package orderless
+;;     :commands (orderless)
+;;     :custom (completion-styles '(orderless flex)))
 
-;; (use-package expand-region
+;; ;;;; Extra Completion Functions
+;; 	(use-package consult
+;; 		:ensure t
+;; 		:bind (
+;; 					 ;; ("C-x b"       . consult-buffer)
+;; 					 ("C-x C-k C-k" . consult-kmacro)
+;; 					 ("M-y"         . consult-yank-pop)
+;; 					 ("M-g g"       . consult-goto-line)
+;; 					 ("M-g M-g"     . consult-goto-line)
+;; 					 ("M-g f"       . consult-flymake)
+;; 					 ;; ("M-i"       . consult-imenu)
+;; 					 ;; ("M-s l"       . consult-line)
+;; 					 ;; ("M-s L"       . consult-line-multi)
+;; 					 ("M-s u"       . consult-focus-lines)
+;; 					 ("M-s g"       . consult-ripgrep)
+;; 					 ("C-x C-SPC"   . consult-global-mark)
+;; 					 ("C-x M-:"     . consult-complex-command)
+;; 					 ("C-c n"       . consult-org-agenda)
+;; 					 ("C-c m"     . my/notegrep)
+;; 					 :map dired-mode-map
+;; 					 ("O" . consult-file-externally)
+;; 					 :map help-map
+;; 					 ("a" . consult-apropos)
+;; 					 :map minibuffer-local-map
+;; 					 ("M-r" . consult-history))
+;; 		:custom
+;; 		(completion-in-region-function #'consult-completion-in-region)
+;; 		:config
+;; 		(defun my/notegrep ()
+;; 			"Use interactive grepping to search my notes"
+;; 			(interactive)
+;; 			(consult-ripgrep org-directory))
+;; 		(add-hook 'completion-setup-hook #'hl-line-mode)
+;; 		(recentf-mode t))
+
+;;   ;; (load (concat user-emacs-directory
+;;   ;;               "lisp/affe-config.el"))
+
+;;   (use-package marginalia
+;;     :ensure t
+;;     :custom
+;;     (marginalia-annotators
+;;      '(marginalia-annotators-heavy marginalia-annotators-light nil))
+;;     :init
+;;     (marginalia-mode))
+;;   ;; Enable vertico using the vertico-flat-mode
+;;   (require 'vertico-directory)
+;;   (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+;;   (vertico-mode t)
+;;   :config
+;;   ;; Used for the vertico-directory extension
+;;   (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+
+;;   ;; Do not allow the cursor in the minibuffer prompt
+;;   (setq minibuffer-prompt-properties
+;;         '(read-only t cursor-intangible t face minibuffer-prompt))
+;;   (add-hook 'minibuffer-setu
+;;   ;; Enable recursive minibuffers
+;;   (setq enable-recursive-minibuffers t)))
+
+;; (use-package magit
 ;;   :ensure t)
-;; ;; :bind ("C-q" . er/expand-region))
 
-;;; Aligning Text
-(use-package align
-  :ensure nil
-  :defer t
-  :bind ("C-x a a" . align-regexp)
-  :config
-  ;; Align using spaces
-  (defadvice align-regexp (around align-regexp-with-spaces activate)
-    (let ((indent-tabs-mode nil))
-      ad-do-it)))
+;; (use-package ediff
+;;   :after (magit vc)
+;;   :init
+;;   ;; multiframe just doesn't make sense to me
+;;   (with-eval-after-load 'winner
+;;     (add-hook 'ediff-quit-hook 'winner-undo))
+;;   (setq ediff-window-setup-function 'ediff-setup-windows-plain))
 
-;;; COMPLETION
-;;; Aligning Text
-(use-package align
-  :ensure nil
-  :defer t
-  :bind ("C-x a a" . align-regexp)
-  :config
-  ;; Align using spaces
-  (defadvice align-regexp (around align-regexp-with-spaces activate)
-    (let ((indent-tabs-mode nil))
-      ad-do-it)))
-
-;;; COMPLETION
-(use-package vertico
-  :ensure t
-  :init
-;;;; Out Of Order Compleiton
-  (use-package orderless
-    :commands (orderless)
-    :custom (completion-styles '(orderless flex)))
-
-;;;; Extra Completion Functions
-  (use-package consult
-    :ensure t
-    :bind (
-					 ;; ("C-x b"       . consult-buffer)
-           ("C-x C-k C-k" . consult-kmacro)
-           ("M-y"         . consult-yank-pop)
-           ("M-g g"       . consult-goto-line)
-           ("M-g M-g"     . consult-goto-line)
-           ("M-g f"       . consult-flymake)
-           ;; ("M-i"       . consult-imenu)
-           ;; ("M-s l"       . consult-line)
-           ;; ("M-s L"       . consult-line-multi)
-           ("M-s u"       . consult-focus-lines)
-           ("M-s g"       . consult-ripgrep)
-           ("C-x C-SPC"   . consult-global-mark)
-           ("C-x M-:"     . consult-complex-command)
-           ("C-c n"       . consult-org-agenda)
-           ("C-c m"     . my/notegrep)
-           :map dired-mode-map
-           ("O" . consult-file-externally)
-           :map help-map
-           ("a" . consult-apropos)
-           :map minibuffer-local-map
-           ("M-r" . consult-history))
-    :custom
-    (completion-in-region-function #'consult-completion-in-region)
-    :config
-    (defun my/notegrep ()
-      "Use interactive grepping to search my notes"
-      (interactive)
-      (consult-ripgrep org-directory))
-    (add-hook 'completion-setup-hook #'hl-line-mode)
-    (recentf-mode t))
-
-  ;; (load (concat user-emacs-directory
-  ;;               "lisp/affe-config.el"))
-
-  (use-package marginalia
-    :ensure t
-    :custom
-    (marginalia-annotators
-     '(marginalia-annotators-heavy marginalia-annotators-light nil))
-    :init
-    (marginalia-mode))
-  ;; Enable vertico using the vertico-flat-mode
-  (require 'vertico-directory)
-  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
-  (vertico-mode t)
-  :config
-  ;; Used for the vertico-directory extension
-  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
-
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setq minibuffer-prompt-properties
-        '(read-only t cursor-intangible t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-  ;; Enable recursive minibuffers
-  (setq enable-recursive-minibuffers t))
-
-(use-package magit
-  :ensure t)
-
-(use-package ediff
-  :after (magit vc)
-  :init
-  ;; multiframe just doesn't make sense to me
-  (with-eval-after-load 'winner
-    (add-hook 'ediff-quit-hook 'winner-undo))
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain))
-
-(use-package diff-hl
-  :ensure t
-  ;; :unless my/is-termux
-  :defer 5
-  :init (global-diff-hl-mode)
-  :config
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  (diff-hl-flydiff-mode))
+;; (use-package diff-hl
+;;   :ensure t
+;;   ;; :unless my/is-termux
+;;   :defer 5
+;;   :init (global-diff-hl-mode)
+;;   :config
+;;   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+;;   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+;;   (diff-hl-flydiff-mode))
 
 
 ;; hippie expand
@@ -535,43 +530,43 @@
 ;;         completion-category-defaults nil
 ;;         completion-category-overrides nil))
 
-(use-package company
-  :ensure t
-  :bind
-  (:map company-active-map
-        ;; ("<tab>" . company-complete-selection)
-				("RET" . nil)
-                    ;; ("<escape>" . company-abort)
-        )
-  ;; (:map lsp-mode-map
-  ;; ("<tab>" . company-indent-or-complete-common))
-  :hook
-  (prog-mode)
-  :config
-  ;; exit in evil normal mode
-  (add-hook 'company-mode-hook
-            (lambda ()
-              (add-hook 'evil-normal-state-entry-hook
-                        (lambda ()
-                          (company-abort)))))
-  (define-key company-active-map (kbd "C-n") #'company-select-next)
-  (define-key company-active-map (kbd "C-p") #'company-select-previous)
-  ;; (company-keymap--unbind-quick-access company-active-map) ;; disable using M-number to select items
-  ;; (company-tng-configure-default) ;; don't change the default tab behaviour
-  (setq company-idle-delay 0.1)
-  (setq company-tooltip-limit 10)
-  (setq company-minimum-prefix-length 1)
-  (setq company-tooltip-align-annotations t)
-  ;; invert the navigation direction if the the completion popup-isearch-match
-  ;; is displayed on top (happens near the bottom of windows)
-  (setq company-tooltip-flip-when-above t)
-  ;; (global-company-mode)
-  (with-eval-after-load 'company
-    (define-key company-active-map (kbd "<return>") #'company-complete-selection))
-  ;;        (add-hook 'after-init-hook 'global-company-mode) ;not only for programming mode
-  ;;  :config
-  ;;  (setq lsp-completion-provider :capf))
-  )
+;; (use-package company
+;;   :ensure t
+;;   :bind
+;;   (:map company-active-map
+;;         ;; ("<tab>" . company-complete-selection)
+;; 				("RET" . nil)
+;;                     ;; ("<escape>" . company-abort)
+;;         )
+;;   ;; (:map lsp-mode-map
+;;   ;; ("<tab>" . company-indent-or-complete-common))
+;;   :hook
+;;   (prog-mode)
+;;   :config
+;;   ;; exit in evil normal mode
+;;   (add-hook 'company-mode-hook
+;;             (lambda ()
+;;               (add-hook 'evil-normal-state-entry-hook
+;;                         (lambda ()
+;;                           (company-abort)))))
+;;   (define-key company-active-map (kbd "C-n") #'company-select-next)
+;;   (define-key company-active-map (kbd "C-p") #'company-select-previous)
+;;   ;; (company-keymap--unbind-quick-access company-active-map) ;; disable using M-number to select items
+;;   ;; (company-tng-configure-default) ;; don't change the default tab behaviour
+;;   (setq company-idle-delay 0.1)
+;;   (setq company-tooltip-limit 10)
+;;   (setq company-minimum-prefix-length 1)
+;;   (setq company-tooltip-align-annotations t)
+;;   ;; invert the navigation direction if the the completion popup-isearch-match
+;;   ;; is displayed on top (happens near the bottom of windows)
+;;   (setq company-tooltip-flip-when-above t)
+;;   ;; (global-company-mode)
+;;   (with-eval-after-load 'company
+;;     (define-key company-active-map (kbd "<return>") #'company-complete-selection))
+;;   ;;        (add-hook 'after-init-hook 'global-company-mode) ;not only for programming mode
+;;   ;;  :config
+;;   ;;  (setq lsp-completion-provider :capf))
+;;   )
 
 
 ;; (use-package company-web
@@ -579,50 +574,52 @@
 ;;   :config
 ;;   (add-to-list 'company-backends 'company-web-html))
 
-(use-package emmet-mode
-  :ensure t
-  :config
-  (add-hook 'web-mode-hook 'emmet-mode)
-  (add-hook 'js2-mode-hook 'emmet-mode))
+;; (use-package emmet-mode
+;;   :ensure t
+;;   :config
+;;   (add-hook 'web-mode-hook 'emmet-mode)
+;;   (add-hook 'js2-mode-hook 'emmet-mode))
 
 (use-package flycheck
   :ensure t
   :config
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; (add-hook 'after-init-hook #'global-flycheck-mode)
   ;; (add-hook 'flycheck-mode-hook
   ;; (lambda ()
   ;; (evil-define-key 'normal flycheck-mode-map (kbd "]e") 'flycheck-next-error)
   ;; (evil-define-key 'normal flycheck-mode-map (kbd "[e") 'flycheck-previous-error)))
 
-  ;; (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'lisp-mode 'flycheck-mode)
+  (add-hook 'java-mode 'flycheck-mode)
   ;; (add-hook 'go-mode-hook 'flycheck-mode)
   ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
   )
 
-(use-package web-mode
-  :ensure t
-  :config
-  (setq web-mode-markup-indent-offset 2
-        web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2
-        web-mode-indent-style 2))
+;; (use-package web-mode
+;;   :ensure t
+;;   :config
+;;   (setq web-mode-markup-indent-offset 2
+;;         web-mode-css-indent-offset 2
+;;         web-mode-code-indent-offset 2
+;;         web-mode-indent-style 2))
 
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+;; ;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+;; ;; (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+;; ;; (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+;; ;; (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+;; ;; (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
-;; Javascript
-(use-package js2-mode
-  :ensure t)
-;; set as the default mode for javascript
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(use-package js2-refactor
-  :ensure t)
+;; ;; Javascript
+;; (use-package js2-mode
+;;   :ensure t)
+;; ;; set as the default mode for javascript
+;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;; (use-package js2-refactor
+;;   :ensure t)
 
 ;; (setq-default indent-tabs-mode nil)
 
@@ -634,9 +631,9 @@
 ;; activate it for all buffers
 ;; (setq-default save-place t))
 
-(use-package subword
-  :ensure t
-  :config (global-subword-mode 1))
+;; (use-package subword
+;;   :ensure t
+;;   :config (global-subword-mode 1))
 
 
 ;; needed packages
@@ -680,13 +677,19 @@
 ;; (global-set-key (kbd "M-k") 'previous-buffer)
 
 
-(use-package undo-tree
-  :ensure t
-  :config
-  ;; autosave the undo-tree history
-  (setq undo-tree-history-directory-alist
-        `((".*" . ,temporary-file-directory)))
-  (setq undo-tree-auto-save-history t)
-  (global-undo-tree-mode +1)
-  (evil-set-undo-system 'undo-tree)
-  )
+;; (use-package undo-tree
+;; 	:ensure t
+;; 	:config
+;; 	;; autosave the undo-tree history
+;; 	(setq undo-tree-history-directory-alist
+;; 				`((".*" . ,temporary-file-directory)))
+;; 	(setq undo-tree-auto-save-history t)
+;; 	(global-undo-tree-mode +1)
+;; 	(evil-set-undo-system 'undo-tree)
+;; 	)
+
+;; ;; treesitter
+;; (add-hook 'c++-mode-hook 'c++-ts-mode)
+;; (add-hook 'java-mode-hook 'java-ts-mode)
+;; (add-hook 'c-mode-hook 'c-ts-mode)
+;; (add-hook 'python-mode-hook 'python-ts-mode)

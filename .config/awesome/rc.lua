@@ -65,7 +65,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 beautiful.init(theme_path)
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
+terminal = "st"
 browser = "firefox" --xterm" .. " -e " .. " lynx -cfg=~/.config/lynx/lynx.cfg -lss ~/.config/lynx/lynx.lss "
 home = os.getenv("HOME")
 wiki = home .. "/stuff/wiki/"  os.getenv("WIKI")
@@ -187,8 +187,8 @@ awful.screen.connect_for_each_screen(function(s)
       -- Each screen has its own tag table.
       -- Table of layouts to cover with awful.layout.inc, order matters.
       awful.layout.layouts = {
-         awful.layout.suit.tile,
          awful.layout.suit.floating,
+         awful.layout.suit.tile,
          awful.layout.suit.tile.bottom,
          awful.layout.suit.max,
          --awful.layout.suit.spiral,
@@ -197,8 +197,8 @@ awful.screen.connect_for_each_screen(function(s)
          -- awful.layout.suit.magnifier,
       }
       layouts = {
-         awful.layout.suit.tile,
          awful.layout.suit.floating,
+         awful.layout.suit.tile,
          awful.layout.suit.tile.bottom,
          awful.layout.suit.max,
          --awful.layout.suit.spiral,
@@ -211,9 +211,9 @@ awful.screen.connect_for_each_screen(function(s)
       tags = {
          -- names  = {  "   1 ", " ﰍ  2 ", "    3 ", "   4 ", " ﬐  5 ", "   6 ", " 龎  7  ", " 索 8 "},
          -- names  = {"   1 ", "   2 ", "   3 ", "   4 ", "   5 ", "   6 ", "   7  ", "   8 "},--"1term", "2web", "3code", "4office", "5social", "6", "7edit", "8" },--
-         names = {"Main", "Web", "Garage", "Chat", "Office"}, --, "7", "8", "9" },
-         -- names = {"1", "2", "3", "4", "5"}, --, "7", "8", "9" },
-         layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]}, -- , layouts[3], layouts[1], layouts[1]  },
+         -- names = {"Main", "Web", "Garage", "Chat", "Office"}, --, "7", "8", "9" },
+         names = {"1", "2", "3", "4", "5", "7", "8", "9" },
+         layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[3], layouts[1], layouts[1]  },
       }
       for s = 1, screen.count() do
          tags[s] = awful.tag(tags.names, s, tags.layout )
@@ -469,10 +469,10 @@ end
 globalkeys = gears.table.join(
    -- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
    --           {description="show help", group="awesome"}),
-   -- awful.key({ modkey,           }, "p",   awful.tag.viewprev,
-             -- {description = "view previous", group = "tag"}),
-   -- awful.key({ modkey,           }, "n",  awful.tag.viewnext,
-             -- {description = "view next", group = "tag"}),
+   awful.key({ modkey,           }, "p",   awful.tag.viewprev,
+             {description = "view previous", group = "tag"}),
+   awful.key({ modkey,           }, "n",  awful.tag.viewnext,
+             {description = "view next", group = "tag"}),
    awful.key({ modkey,           }, "Tab", awful.tag.history.restore,
       {description = "go back", group = "tag"}),
 
@@ -573,19 +573,24 @@ globalkeys = gears.table.join(
    -- awful.key({ modkey,           "Control"}, "BackSpace", function()awful.util.spawn_with_shell ("dunstctl set-paused toggle && notify-send toggled") end),
 
    -- brightness
-   awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("light -A 10") end,
-      {description = "Screen brightness +5%", group = "hotkeys"}),
-   awful.key({"Shift" }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("light -A 2") end,
-      {description = "Screen brightness +5%", group = "hotkeys"}),
-   awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("light -U 10") end,
-      {description = "Screen brightness -5%", group = "hotkeys"}),
-   awful.key({"Shift" }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("light -U 2") end,
-      {description = "Screen brightness -5%", group = "hotkeys"}),
-   awful.key({modkey }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("light -S 100") end,
-      {description = "Screen brightness 100%", group = "hotkeys"}),
-   awful.key({modkey }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("light -S 1") end,
-      {description = "Screen brightness 1%", group = "hotkeys"}),
-   -- awful.key({}, "XF86Display", function ()
+   awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("brightnessctl set +5%") end),
+   awful.key({"Shift" }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("brightnessctl set +2%") end),
+   awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("brightnessctl set -5%") end),
+   awful.key({"Shift" }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("brightnessctl set +2%") end),
+   awful.key({modkey }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("brightnessctl set 100%") end),
+   awful.key({modkey }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("brightnessctl set 1%") end),
+
+
+   awful.key({modkey}, "period", function () awful.util.spawn_with_shell("brightnessctl set +5%") end),
+   awful.key({modkey}, "comma", function () awful.util.spawn_with_shell("brightnessctl set 5%-") end),
+   awful.key({modkey, "Shift"}, "period", function () awful.util.spawn_with_shell("brightnessctl set 100%") end),
+   awful.key({modkey, "Shift"}, "comma", function () awful.util.spawn_with_shell("brightnessctl set 1%") end),
+   awful.key({"Shift" }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("bbrightnessctl set +2%") end),
+   awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("bbrightnessctl set -10%") end),
+   awful.key({"Shift" }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("bbrightnessctl set +10%") end),
+   awful.key({modkey }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("light -S 100") end),
+   awful.key({modkey }, "XF86MonBrightnessDown", function () awful.util.spawn_with_shell("light -S 1") end),
+
    awful.key({modkey, "Mod1" }, "p", function () awful.util.spawn_with_shell("displayselect") end),
    awful.key({modkey }, ".", function () awful.util.spawn_with_shell("light -A 4") end),
    awful.key({modkey, "Shift" }, ".", function () awful.util.spawn_with_shell("light -S 100") end),
@@ -610,6 +615,8 @@ globalkeys = gears.table.join(
    awful.key({"Control", "Shift" }, "Print", function () awful.util.spawn_with_shell("maimXclip") end),
    awful.key({ modkey}, "Print", function () awful.util.spawn_with_shell("dmenurecord -i") end),
    awful.key({ modkey, "Shift"}, "Print", function () awful.util.spawn_with_shell("dmenurecord kill") end),
+   awful.key({ modkey}, "Insert", function () awful.util.spawn_with_shell("bookmarkmenu") end),
+   awful.key({ modkey, "Shift"}, "Insert", function () awful.util.spawn_with_shell("bookmarkit") end),
 
 
    -- Standard program
@@ -618,7 +625,7 @@ globalkeys = gears.table.join(
    -- awful.key({ modkey, "Shift"           }, "r", function () awful.spawn(terminal .. " -e htop") end),
    awful.key({ "Control", "Mod1",}, "Escape", function () awful.util.spawn_with_shell("xkill") end),
    awful.key({ modkey,           }, "e", function () awful.spawn(terminal .. " -e lfub") end),
-   awful.key({ modkey,       }, "i", function () awful.util.spawn_with_shell("emacs") end),
+   awful.key({ modkey,       "Shift"}, "n", function () awful.util.spawn_with_shell("emacs") end),
    -- awful.key({ modkey,       }, "i", function () awful.util.spawn_with_shell(terminal .. " -e tmux a ") end),
    -- awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn_with_shell("anki --no-sandbox") end),
    awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn_with_shell("eclipse") end),
@@ -626,8 +633,8 @@ globalkeys = gears.table.join(
    -- awful.key({ modkey, "Mod1"    }, "e", function () awful.spawn("thunderbird") end),
    awful.key({ modkey,       }, "v", function () awful.util.spawn_with_shell("clipmenu -i -l 15") end),
    -- awful.key({ modkey,      }, "s", function () awful.spawn("qutebrowser --target window :open 'https://www.coursera.org/learn/html-css-javascript-for-web-developers/home/welcome'") end),
-   awful.key({ modkey,           }, "n", function () awful.util.spawn_with_shell(editor_cmd .. " " .. wiki) end),
- awful.key({ modkey, "Shift"   }, "n", function () awful.util.spawn_with_shell(editor_cmd .. " " .. wiki .. "/todo.txt") end),
+   -- awful.key({ modkey,           }, "n", function () awful.util.spawn_with_shell(editor_cmd .. " " .. wiki) end),
+ -- awful.key({ modkey, "Shift"   }, "n", function () awful.util.spawn_with_shell(editor_cmd .. " " .. wiki .. "/todo.txt") end),
  awful.key({ modkey, "Shift"   }, "d", function () awful.util.spawn_with_shell(editor_cmd .. " " .. wiki .. "/diary/" ) end),
 
    awful.key({ modkey,          "Shift" }, "a", function () awful.util.spawn_with_shell("xfce4-appfinder") end),
@@ -697,11 +704,11 @@ globalkeys = gears.table.join(
     -- awful.key({ modkey}, "p", function () awful.util.spawn_with_shell("dmenu_run") end),
 
     awful.key({ modkey, "Mod1"}, "d", function () awful.util.spawn_with_shell("dmenuhandlerXclip") end),
-    -- awful.key({ modkey , },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-              -- {description = "run prompt", group = "launcher"}),
+    awful.key({ modkey , },            "r",     function () awful.screen.focused().mypromptbox:run() end,
+              {description = "run prompt", group = "launcher"}),
     -- Menubar
-    awful.key({ modkey, }, "r", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
+    -- awful.key({ modkey, }, "r", function() menubar.show() end,
+              -- {description = "show the menubar", group = "launcher"}),
 
     awful.key({ modkey, "Shift" }, "x",
               function ()
@@ -956,14 +963,14 @@ awful.rules.rules = {
         keys = clientkeys,
         buttons = clientbuttons,
      screen = awful.screen.preferred,
-     placement = awful.placement.no_overlap+awful.placement.no_offscreen+awful.placement.centered,
+     placement = awful.placement.no_overlap+awful.placement.no_offscreen, -- +awful.placement.centered,
          -- size_hints_honor = false
      }
     },
 
-    { rule = { },
-       properties = { size_hints_honor = false },
-   except = {class= "mpv"}},
+   --  { rule = { },
+   --     properties = { size_hints_honor = false },
+   -- except = {class= "mpv"}},
 
      --Floating clients.
      { rule_any = {
@@ -993,8 +1000,8 @@ awful.rules.rules = {
     -- -- Add titlebars to normal clients and dialogs
      -- { rule_any = {type = { "normal", "dialog" }
        -- }, properties = { titlebars_enabled = true }},
-     -- { rule_any = {class = {"XTerm",  "Emacs", "St","Zathura", "flow"}},
-     --    properties = { titlebars_enabled = true }},
+     { rule_any = {class = {"st", "XTerm",  "Emacs", "St","Zathura", "flow"}},
+        properties = { titlebars_enabled = true }},
 
      -- { rule_any = { class = {"Surf"} },
      --   properties = { placement = awful.placement.centered, floating = true}},

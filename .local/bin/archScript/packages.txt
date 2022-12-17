@@ -70,7 +70,6 @@ git-crypt
 git
 aria2
 transmission-cli
-qbittorrent
 neomutt
 newsboat
 bc
