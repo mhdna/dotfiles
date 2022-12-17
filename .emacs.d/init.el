@@ -690,6 +690,6 @@
 
 ;; ;; treesitter
 ;; (add-hook 'c++-mode-hook 'c++-ts-mode)
-;; (add-hook 'java-mode-hook 'java-ts-mode)
+(add-hook 'java-mode-hook 'java-ts-mode)
 ;; (add-hook 'c-mode-hook 'c-ts-mode)
 ;; (add-hook 'python-mode-hook 'python-ts-mode)

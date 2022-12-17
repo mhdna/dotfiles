@@ -626,7 +626,7 @@ globalkeys = gears.table.join(
    awful.key({ "Control", "Mod1",}, "Escape", function () awful.util.spawn_with_shell("xkill") end),
    awful.key({ modkey,           }, "e", function () awful.spawn(terminal .. " -e lfub") end),
    awful.key({ modkey,       "Shift"}, "n", function () awful.util.spawn_with_shell("emacs") end),
-   -- awful.key({ modkey,       }, "i", function () awful.util.spawn_with_shell(terminal .. " -e tmux a ") end),
+   awful.key({ modkey,       }, "i", function () awful.util.spawn_with_shell(terminal .. " -e tmux a ") end),
    -- awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn_with_shell("anki --no-sandbox") end),
    awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn_with_shell("eclipse") end),
    awful.key({ modkey,           }, "b", function () awful.util.spawn_with_shell(browser) end),
@@ -701,11 +701,11 @@ globalkeys = gears.table.join(
               {description = "select previous", group = "layout"}),
 
     -- Prompt
-    -- awful.key({ modkey}, "p", function () awful.util.spawn_with_shell("dmenu_run") end),
+    awful.key({ modkey}, "r", function () awful.util.spawn_with_shell("dmenu_run") end),
 
     awful.key({ modkey, "Mod1"}, "d", function () awful.util.spawn_with_shell("dmenuhandlerXclip") end),
-    awful.key({ modkey , },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-              {description = "run prompt", group = "launcher"}),
+    -- awful.key({ modkey , },            "r",     function () awful.screen.focused().mypromptbox:run() end,
+    --           {description = "run prompt", group = "launcher"}),
     -- Menubar
     -- awful.key({ modkey, }, "r", function() menubar.show() end,
               -- {description = "show the menubar", group = "launcher"}),
@@ -1006,8 +1006,8 @@ awful.rules.rules = {
      -- { rule_any = { class = {"Surf"} },
      --   properties = { placement = awful.placement.centered, floating = true}},
 
-     { rule_any = { class = {"Tor Browser", "firefox"} },
-        properties = { placement = awful.placement.centered, tag = tags[1][2]}},
+     -- { rule_any = { class = {"Tor Browser", "firefox"} },
+     --    properties = { placement = awful.placement.centered, tag = tags[1][2]}},
 
      { rule = { name = "mpvfloat" },
        properties = { floating = true, sticky = true, placement = awful.placement.bottom_right, ontop = true}},
