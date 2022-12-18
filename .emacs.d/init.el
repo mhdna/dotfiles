@@ -143,7 +143,7 @@
 ;; Look and feel
 
 ;; (tool-bar-mode -1)
-;; (menu-bar-mode -1)
+(menu-bar-mode -1)
 ;; (scroll-bar-mode -1)
 ;; startup messages
 (setq inhibit-startup-message t)
@@ -247,6 +247,12 @@
   :ensure nil
   :defer nil
   :bind (
+				 ("C-x u"   . undo-only)
+				 ("C-?"     . undo-redo)
+         ("C-/"     . undo-only)
+         ("C-z"     . undo-only)
+         ("C-S-z"   . undo-redo)
+         ("C-x C-u" . undo-redo)
          ("<f1>" . toggle-input-method)
 				 ("<f5>" . recompile)
 				 ("C-c s" . flyspell-mode)
@@ -257,8 +263,8 @@
          ("M-u"     . universal-argument)
          ("M-1" . delete-other-windows)
          ;; ("C-;" . comment-line)
-         ("C-x C-;" . comment-box)
-         ;; ("C-x C-;" . eval-buffer)
+         ;; ("C-x C-;" . comment-box)
+				 ;; ("C-x C-;" . eval-buffer)
          ;; ("M-;" . eval-last-sexp)
          ))
 

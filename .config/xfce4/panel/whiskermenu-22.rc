@@ -1,5 +1,5 @@
 favorites=xfce4-web-browser.desktop,xfce4-mail-reader.desktop,xfce4-file-manager.desktop,xfce4-terminal-emulator.desktop,emacs.desktop
-recent=blueman-manager.desktop,blueman-adapters.desktop
+recent=stardict.desktop,xfce-ui-settings.desktop
 button-icon=org.xfce.panel.whiskermenu
 button-single-row=false
 show-button-title=true
@@ -23,8 +23,8 @@ position-categories-horizontal=false
 stay-on-focus-out=false
 profile-shape=0
 confirm-session-command=true
-menu-width=491
-menu-height=193
+menu-width=406
+menu-height=404
 menu-opacity=100
 command-settings=xfce4-settings-manager
 show-command-settings=true

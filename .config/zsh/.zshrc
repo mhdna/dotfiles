@@ -19,7 +19,7 @@
 # typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 # PURE_POWER_MODE=modern    # use nerdfont characters in the prompt(default)
 autoload -U colors && colors	# Load colors
-PS1="%{$fg[blue]%}%{$fg[blue]%}%n%{$fg[black]%}@%{$fg[green]%}%M %{$fg[black]%}%~%{$fg[black]%}%{$reset_color%} > "
+PS1="%{$fg[blue]%}%{$fg[blue]%}%n%{$fg[white]%}@%{$fg[green]%}%M %{$fg[white]%}%~%{$fg[white]%}%{$reset_color%} > "
 
 #PS1='[%n@%m %~] $ '
 # PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "

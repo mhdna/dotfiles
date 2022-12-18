@@ -490,7 +490,7 @@ map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//'
 # map gc $lf "$COLLEGE_DIR"
 # map g- $lf "$OLDPWD"
 map g top
-map q reload
+map q
 map P $pcmanfm
 map <c-q> quit
 map D delete

@@ -171,9 +171,9 @@ local function set_wallpaper(s)
       if type(wallpaper) == "function" then
          wallpaper = wallpaper(s)
       end
-      -- gears.wallpaper.maximized(wallpaper, s, true)
+      gears.wallpaper.maximized(wallpaper, s, true)
       -- gears.wallpaper.maximized(wallpaper, s, false)
-      gears.wallpaper.fit(wallpaper, s, black)
+      -- gears.wallpaper.fit(wallpaper, s, black)
    end
 end
 
@@ -251,16 +251,16 @@ awful.screen.connect_for_each_screen(function(s)
          layout = wibox.layout.align.horizontal,
          { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
+            -- mylauncher,
             s.mytaglist,
             s.mypromptbox,
          },
          s.mytasklist, -- Middle widget
          { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            net_speed_widget(),
             wibox.widget.systray(),
             mykeyboardlayout,
-            net_speed_widget(),
             -- batteryarc_widget({
             -- show_current_level = true,
             -- arc_thickness = 1,
@@ -469,10 +469,10 @@ end
 globalkeys = gears.table.join(
    -- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
    --           {description="show help", group="awesome"}),
-   awful.key({ modkey,           }, "p",   awful.tag.viewprev,
-             {description = "view previous", group = "tag"}),
-   awful.key({ modkey,           }, "n",  awful.tag.viewnext,
-             {description = "view next", group = "tag"}),
+   -- awful.key({ modkey,           }, "p",   awful.tag.viewprev,
+   --           {description = "view previous", group = "tag"}),
+   -- awful.key({ modkey,           }, "n",  awful.tag.viewnext,
+   --           {description = "view next", group = "tag"}),
    awful.key({ modkey,           }, "Tab", awful.tag.history.restore,
       {description = "go back", group = "tag"}),
 
@@ -682,9 +682,9 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"  }, "/", function() awful.util.spawn_with_shell("transXcclip")end),
 
   -- old resizing
-    awful.key({ modkey,         }, "l",     function () awful.tag.incmwfact( 0.1)          end,
+    awful.key({ modkey,         }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
-    awful.key({ modkey,          }, "h",     function () awful.tag.incmwfact(-0.1)          end,
+    awful.key({ modkey,          }, "h",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
@@ -707,7 +707,7 @@ globalkeys = gears.table.join(
     -- awful.key({ modkey , },            "r",     function () awful.screen.focused().mypromptbox:run() end,
     --           {description = "run prompt", group = "launcher"}),
     -- Menubar
-    awful.key({ modkey, }, "r", function() menubar.show() end,
+    awful.key({ modkey, }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"}),
 
     awful.key({ modkey, "Shift" }, "x",
@@ -998,16 +998,16 @@ awful.rules.rules = {
      --   }, properties = { floating = true , ontop = true}},
      --
     -- -- Add titlebars to normal clients and dialogs
-     -- { rule_any = {type = { "normal", "dialog" }
-       -- }, properties = { titlebars_enabled = true }},
+     { rule_any = {type = { "normal", "dialog" }
+       }, properties = { titlebars_enabled = true }},
      -- { rule_any = {class = {"st", "XTerm",  "Emacs", "St","Zathura", "flow"}},
         -- properties = { titlebars_enabled = true }},
 
      -- { rule_any = { class = {"Surf"} },
      --   properties = { placement = awful.placement.centered, floating = true}},
 
-     -- { rule_any = { class = {"Tor Browser", "firefox"} },
-     --    properties = { placement = awful.placement.centered, tag = tags[1][2]}},
+     { rule_any = { class = {"Tor Browser", "firefox"} },
+        properties = { placement = awful.placement.centered, tag = tags[1][2]}},
 
      { rule = { name = "mpvfloat" },
        properties = { floating = true, sticky = true, placement = awful.placement.bottom_right, ontop = true}},

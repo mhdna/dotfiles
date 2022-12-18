@@ -8,7 +8,7 @@ remaps &
 picom --vsync&
 # xautolock -time 10 -locker  'slock'&
 
-autostart="unclutter mpd wireplumber clipmenud"
+autostart="unclutter dunst mpd wireplumber clipmenud"
 
 for program in $autostart; do
 	pidof -s "$program" || "$program" &

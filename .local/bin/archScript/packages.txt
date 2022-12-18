@@ -129,6 +129,7 @@ chromium
 npm
 ripgrep
 neovim
+dunst
 tk
 progress
 aspell

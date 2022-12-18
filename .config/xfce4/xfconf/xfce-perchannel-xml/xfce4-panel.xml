@@ -4,13 +4,13 @@
   <property name="configver" type="int" value="2"/>
   <property name="panels" type="array">
     <value type="int" value="1"/>
-    <property name="dark-mode" type="bool" value="false"/>
+    <property name="dark-mode" type="bool" value="true"/>
     <property name="panel-1" type="empty">
       <property name="position" type="string" value="p=2;x=977;y=12"/>
       <property name="length" type="uint" value="100"/>
       <property name="position-locked" type="bool" value="true"/>
       <property name="icon-size" type="uint" value="0"/>
-      <property name="size" type="uint" value="24"/>
+      <property name="size" type="uint" value="18"/>
       <property name="plugin-ids" type="array">
         <value type="int" value="22"/>
         <value type="int" value="4"/>
@@ -33,10 +33,10 @@
       </property>
       <property name="background-style" type="uint" value="0"/>
       <property name="background-rgba" type="array">
-        <value type="double" value="0.137255"/>
+        <value type="double" value="0.13725499999999999"/>
         <value type="double" value="0.109804"/>
-        <value type="double" value="0.078431"/>
-        <value type="double" value="1.000000"/>
+        <value type="double" value="0.078431000000000001"/>
+        <value type="double" value="1"/>
       </property>
       <property name="length-adjust" type="bool" value="true"/>
       <property name="autohide-behavior" type="uint" value="0"/>
