@@ -21,6 +21,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+
 ;; maximize the initial frame automatically
 ;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
@@ -34,7 +35,7 @@
 ;; load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;; (require 'my-functions)
-(require 'init-evil)
+;; (require 'init-evil)
 (require 'org-settings)
 ;; (require 'lsp-stuff)
 ;; (require 'eglot-stuff)
@@ -130,19 +131,19 @@
 ;; (setq read-process-output-max (* 1024 1024))
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 100 1000 1000))
-(defun my/display-startup-time ()
-  (message "Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time
-                    (time-subtract after-init-time before-init-time)))
-           gcs-done))
-(add-hook 'emacs-startup-hook #'my/display-startup-time)
+;; (defun my/display-startup-time ()
+;;   (message "Emacs loaded in %s with %d garbage collections."
+;;            (format "%.2f seconds"
+;;                    (float-time
+;;                     (time-subtract after-init-time before-init-time)))
+;;            gcs-done))
+;; (add-hook 'emacs-startup-hook #'my/display-startup-time)
 
 
 ;; Look and feel
 
-(tool-bar-mode -1)
-(menu-bar-mode -1)
+;; (tool-bar-mode -1)
+;; (menu-bar-mode -1)
 ;; (scroll-bar-mode -1)
 ;; startup messages
 (setq inhibit-startup-message t)
@@ -151,12 +152,13 @@
 (setq ring-bell-function 'ignore)
 ;; (load-file "~/.emacs.d/organic-green-theme.el")
 ;; (load-theme 'organic-green t)
-(set-background-color "white")
-(set-foreground-color "black")
-(set-cursor-color "black")
+(load-theme 'manoj-dark)
+;; (set-background-color "white")
+;; (set-foreground-color "black")
+;; (set-cursor-color "black")
 ;; (global-display-line-numbers-mode 1)
 ;; Change mark region color
-(set-face-attribute 'region nil :background "#ffff00")
+;; (set-face-attribute 'region nil :background "#ffff00")
 ;; (set-face-background 'minibuffer-prompt "#770000")
 ;; (set-face-foreground 'minibuffer-prompt "white")
 (set-window-scroll-bars (minibuffer-window) nil nil)
@@ -206,11 +208,11 @@
 
 
 ;; Font settings
-(set-face-attribute 'default nil :font "Liberation Mono" :height 110)
+(set-face-attribute 'default nil :font "Liberation Mono" :height 105)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Liberation Mono" :height 110)
+(set-face-attribute 'fixed-pitch nil :font "Liberation Mono" :height 105)
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Liberation Mono" :height 110 :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "Liberation Mono" :height 105 :weight 'regular)
 (set-fontset-font "fontset-default" 'arabic (font-spec :family "Dejavu Sans Mono"))
 (setq my/font-change-increment 1.1)
 (custom-set-faces
@@ -260,7 +262,6 @@
          ;; ("M-;" . eval-last-sexp)
          ))
 
-(global-set-key (kbd "<f1>") 'keyboard-quit)
 (defun back-window ()
   (interactive)
   (other-window -1))
@@ -291,6 +292,7 @@
   (balance-windows)
   (other-window 1))
 (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+(ido-mode t)
 
 ;; electric paris for automatically closing brackets
 ;; (setq electric-pair-pairs '(

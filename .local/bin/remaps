@@ -9,13 +9,13 @@ xset r rate 250 50
 
 # Default
 # for vim
-setxkbmap -model pc105 -layout us,ara -option grp:alt_space_toggle -option caps:swapescape,altwin:menu_win #,iq # ctrl:swapcaps #caps:swapescape
+# setxkbmap -model pc105 -layout us,ara -option grp:alt_space_toggle -option caps:swapescape,altwin:menu_win #,iq # ctrl:swapcaps #caps:swapescape
 
 # for Emacs
 # setxkbmap -model pc105 -layout us,ara -option grp:alt_space_toggle -option ctrl:swapcaps,altwin:menu_win #,iq # ctrl:swapcaps #caps:swapescape
-# setxkbmap -model pc105 -option ctrl:swapcaps,altwin:menu_win #,iq # ctrl:swapcaps #caps:swapescape
+setxkbmap -model pc105 -option ctrl:swapcaps,altwin:menu_win #,iq # ctrl:swapcaps #caps:swapescape
 # when it is pressed only once, treat it as escape.
-# killall xcape 2>/dev/null ; xcape -e 'Control_L=Escape'
+killall xcape 2>/dev/null ; xcape -e 'Control_L=Escape'
 
 # xah-flykeys
 # setxkbmap -model pc105 -layout us,ara -option grp:win_space_toggle -option altwin:menu_win #,iq # ctrl:swapcaps #caps:swapescape

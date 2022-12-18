@@ -218,7 +218,11 @@ return packer.startup(function(use)
     --
     -- use('lyokha/vim-xkbswitch')
 
-    use('norcalli/nvim-colorizer.lua')
+    use{'norcalli/nvim-colorizer.lua',
+    config = function()
+            require'colorizer'.setup()
+        end
+    }
 
     use("sbdchd/neoformat")
     use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }

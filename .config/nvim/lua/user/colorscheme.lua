@@ -29,8 +29,8 @@
 -- vim.opt.background = "light"
 -- vim.opt.background = "dark"
 vim.cmd(('hi Visual  guifg=#000000 guibg=#ffff00 gui=none'))
+-- vim.cmd(('hi CursorLine guibg=#b4eeb4 '))
 -- vim.cmd(('hi StatusLine guifg=#ffffff guibg=#000000'))
 -- vim.cmd(('hi Pmenu guifg=#000000 guibg=#fff8dc'))
 -- vim.cmd(('hi PmenuSbar guifg=#8b0000 guibg=#8b0000 '))
 -- vim.cmd(('hi PmenuSel guifg=black guibg=#add8e6'))
--- vim.cmd(('hi CursorLine guifg=black guibg=#b4eeb4 '))

@@ -16,7 +16,7 @@ opt.mouse = 'a' -- Enable mouse support
 -- opt.cursorcolumn = true -- highlight cursor column
 vim.o.colorcolumn = 80 -- don't exceed 80 columns, maybe you're in the 3rd 4th indent so rethink
 opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
-opt.bg = 'light'
+opt.bg = 'dark'
 vim.opt.laststatus = 2
 opt.pumheight= 15
 
@@ -111,7 +111,7 @@ vim.o.undofile = true
 vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim-undodir"
 
 vim.o.encoding = "utf-8"
-vim.o.guifont = "hack:h10" -- the font used in graphical neovim applications
+-- vim.o.guifont = "hack:h10" -- the font used in graphical neovim applications
 
 -- Automatically change working directory
 vim.o.autochdir = true

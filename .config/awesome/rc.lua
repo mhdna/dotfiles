@@ -35,10 +35,10 @@ local focused = awful.screen.focused()
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
-   -- awful.spawn("notify-send -u critical 'an error happened!'")
-   naughty.notify({ preset = naughty.config.presets.critical,
-   	title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
+   awful.spawn("notify-send -u critical 'an error happened!'")
+   -- naughty.notify({ preset = naughty.config.presets.critical,
+   -- 	title = "Oops, there were errors during startup!",
+   --                   text = awesome.startup_errors })
 end
 
 -- Handle runtime errors after startup
@@ -48,11 +48,11 @@ do
                              -- Make sure we don't go into an endless error loop
                              if in_error then return end
                              in_error = true
-                             -- awful.spawn("notify-send -u critical 'an error happened!'")
+                             awful.spawn("notify-send -u critical 'an error happened!'")
 
-                             naughty.notify({ preset = naughty.config.presets.critical, title = "Oops, an error happened!",
-                                              text = tostring(err) })
-                             in_error = false
+   --                           naughty.notify({ preset = naughty.config.presets.critical, title = "Oops, an error happened!",
+   --                                            text = tostring(err) })
+   --                           in_error = false
    end)
 end
 
@@ -91,13 +91,13 @@ modkey = "Mod4"
 myawesomemenu = {
    -- { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
    -- { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
+   -- { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end },
+   -- { "quit", function() awesome.quit() end },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                             { "shutdown",  function() awful.util.spawn_with_shell"prompt 'Shutdown computer?' '$shutdown now'" end },
+                             -- { "shutdown",  function() awful.util.spawn_with_shell"prompt 'Shutdown computer?' '$shutdown now'" end },
                              { "open terminal", terminal }
 }
                        })
@@ -114,7 +114,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock('%a %b %d, %I:%M:%S %p ', 1) --('%a %b %d, %H:%M:%S ', refresh rate)
+mytextclock = wibox.widget.textclock('%a %b %d, %I:%M %p ', 1) --('%a %b %d, %H:%M:%S ', refresh rate)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -171,9 +171,9 @@ local function set_wallpaper(s)
       if type(wallpaper) == "function" then
          wallpaper = wallpaper(s)
       end
-      gears.wallpaper.maximized(wallpaper, s, true)
+      -- gears.wallpaper.maximized(wallpaper, s, true)
       -- gears.wallpaper.maximized(wallpaper, s, false)
-      -- gears.wallpaper.fit(wallpaper, s, black)
+      gears.wallpaper.fit(wallpaper, s, black)
    end
 end
 
@@ -212,8 +212,8 @@ awful.screen.connect_for_each_screen(function(s)
          -- names  = {  "   1 ", " ﰍ  2 ", "    3 ", "   4 ", " ﬐  5 ", "   6 ", " 龎  7  ", " 索 8 "},
          -- names  = {"   1 ", "   2 ", "   3 ", "   4 ", "   5 ", "   6 ", "   7  ", "   8 "},--"1term", "2web", "3code", "4office", "5social", "6", "7edit", "8" },--
          -- names = {"Main", "Web", "Garage", "Chat", "Office"}, --, "7", "8", "9" },
-         names = {"1", "2", "3", "4", "5", "7", "8", "9" },
-         layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[3], layouts[1], layouts[1]  },
+         names = {"1", "2", "3", "4", "5"}, -- , "7", "8", "9" },
+         layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[3]}, -- , layouts[1], layouts[1]  },
       }
       for s = 1, screen.count() do
          tags[s] = awful.tag(tags.names, s, tags.layout )
@@ -251,7 +251,7 @@ awful.screen.connect_for_each_screen(function(s)
          layout = wibox.layout.align.horizontal,
          { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            -- mylauncher,
+            mylauncher,
             s.mytaglist,
             s.mypromptbox,
          },
@@ -566,11 +566,11 @@ globalkeys = gears.table.join(
    -- if #focused.clients > 0 then
    -- return end end end),
 
-   awful.key({ modkey,           }, "BackSpace", function() naughty.destroy_all_notifications() end),
+   -- awful.key({ modkey,           }, "BackSpace", function() naughty.destroy_all_notifications() end),
    -- awful.key({ modkey,           "Mod1"}, "BackSpace", function() get_next_notification_id() end),
-   -- awful.key({ modkey,           }, "BackSpace", function() awful.util.spawn_with_shell ("dunstctl close-all") end),
-   -- awful.key({ modkey,           "Shift"}, "BackSpace", function() awful.util.spawn_with_shell ("dunstctl history-pop") end),
-   -- awful.key({ modkey,           "Control"}, "BackSpace", function()awful.util.spawn_with_shell ("dunstctl set-paused toggle && notify-send toggled") end),
+   awful.key({ modkey,           }, "BackSpace", function() awful.util.spawn_with_shell ("dunstctl close-all") end),
+   awful.key({ modkey,           "Shift"}, "BackSpace", function() awful.util.spawn_with_shell ("dunstctl history-pop") end),
+   awful.key({ modkey,           "Control"}, "BackSpace", function()awful.util.spawn_with_shell ("dunstctl set-paused toggle && notify-send toggled") end),
 
    -- brightness
    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn_with_shell("brightnessctl set +5%") end),
@@ -608,7 +608,7 @@ globalkeys = gears.table.join(
    awful.key({modkey, "Shift"}, "-", function () awful.util.spawn_with_shell("pactl set-sink-mute @DEFAULT_SINK@ toggle") end), --amixer -D pulse sset Master toggle") end,
    --awful.key({modkey, "Shift"}, "m", function () awful.util.spawn_with_shell("pamixer -t") end), --amixer -D pulse sset Master toggle") end,
 
-   awful.key({ }, "Print", function () awful.util.spawn_with_shell("maimFul") end),
+   awful.key({ }, "Print", function () awful.util.spawn_with_shell("flameshot gui") end),
    awful.key({modkey }, "Print", function () awful.util.spawn_with_shell("maimpick") end),
    awful.key({"Shift" }, "Print", function () awful.util.spawn_with_shell("maimWin") end),
    awful.key({ "Control"}, "Print", function () awful.util.spawn_with_shell("maimSel") end),
@@ -625,10 +625,10 @@ globalkeys = gears.table.join(
    -- awful.key({ modkey, "Shift"           }, "r", function () awful.spawn(terminal .. " -e htop") end),
    awful.key({ "Control", "Mod1",}, "Escape", function () awful.util.spawn_with_shell("xkill") end),
    awful.key({ modkey,           }, "e", function () awful.spawn(terminal .. " -e lfub") end),
-   awful.key({ modkey,       "Shift"}, "n", function () awful.util.spawn_with_shell("emacs") end),
    awful.key({ modkey,       }, "i", function () awful.util.spawn_with_shell(terminal .. " -e tmux a ") end),
+   awful.key({ modkey,       "Shift"}, "i", function () awful.util.spawn_with_shell("emacs") end),
    -- awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn_with_shell("anki --no-sandbox") end),
-   awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn_with_shell("eclipse") end),
+   -- awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn_with_shell("eclipse") end),
    awful.key({ modkey,           }, "b", function () awful.util.spawn_with_shell(browser) end),
    -- awful.key({ modkey, "Mod1"    }, "e", function () awful.spawn("thunderbird") end),
    awful.key({ modkey,       }, "v", function () awful.util.spawn_with_shell("clipmenu -i -l 15") end),
@@ -701,14 +701,14 @@ globalkeys = gears.table.join(
               {description = "select previous", group = "layout"}),
 
     -- Prompt
-    awful.key({ modkey}, "r", function () awful.util.spawn_with_shell("dmenu_run") end),
+    -- awful.key({ modkey}, "r", function () awful.util.spawn_with_shell("dmenu_run") end),
 
     awful.key({ modkey, "Mod1"}, "d", function () awful.util.spawn_with_shell("dmenuhandlerXclip") end),
     -- awful.key({ modkey , },            "r",     function () awful.screen.focused().mypromptbox:run() end,
     --           {description = "run prompt", group = "launcher"}),
     -- Menubar
-    -- awful.key({ modkey, }, "r", function() menubar.show() end,
-              -- {description = "show the menubar", group = "launcher"}),
+    awful.key({ modkey, }, "r", function() menubar.show() end,
+              {description = "show the menubar", group = "launcher"}),
 
     awful.key({ modkey, "Shift" }, "x",
               function ()
@@ -827,7 +827,7 @@ awful.key({ modkey,           }, "Down", customization.func.client_sideline_bott
     -- awful.key({ modkey, "Shift" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               -- {description = "move to master", group = "client"}),
     -- My be master else slave
-    awful.key({ modkey, "Shift"  }, "Return", function (c)
+    awful.key({ modkey, }, "space", function (c)
         client.focus = c if c == awful.client.getmaster() then awful.client.setslave(c) else c:swap(awful.client.getmaster()) end end),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
        {description = "move to screen", group = "client"}),
@@ -973,35 +973,35 @@ awful.rules.rules = {
    -- except = {class= "mpv"}},
 
      --Floating clients.
-     { rule_any = {
-         instance = {
-           "DTA",  -- Firefox addon DownThemAll.
-           "pinentry",
-         },
-         class = {
-           "Arandr", "Blueman-manager", "Gpick", "Kruler",
-           "MessageWin",  -- kalarm.
-           "Sxiv",
-           "Wpa_gui", "veromix", "xtightvncviewer"},
-
-         -- Note that the name property shown in xprop might be set slightly after creation of the client
-         -- and the name shown there might not match defined rules here.
-         name = {
-           "Event Tester",  -- xev.
-     "Media viewer", -- telegram media viewer
-         },
-         role = {
-           "AlarmWindow",  -- Thunderbird's calendar.
-           "ConfigManager",  -- Thunderbird's about:config.
-           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-         }
-       }, properties = { floating = true , ontop = true}},
-
+     -- { rule_any = {
+     --     instance = {
+     --       "DTA",  -- Firefox addon DownThemAll.
+     --       "pinentry",
+     --     },
+     --     class = {
+     --       "Arandr", "Blueman-manager", "Gpick", "Kruler",
+     --       "MessageWin",  -- kalarm.
+     --       "Sxiv",
+     --       "Wpa_gui", "veromix", "xtightvncviewer"},
+     --
+     --     -- Note that the name property shown in xprop might be set slightly after creation of the client
+     --     -- and the name shown there might not match defined rules here.
+     --     name = {
+     --       "Event Tester",  -- xev.
+     -- "Media viewer", -- telegram media viewer
+     --     },
+     --     role = {
+     --       "AlarmWindow",  -- Thunderbird's calendar.
+     --       "ConfigManager",  -- Thunderbird's about:config.
+     --       "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+     --     }
+     --   }, properties = { floating = true , ontop = true}},
+     --
     -- -- Add titlebars to normal clients and dialogs
      -- { rule_any = {type = { "normal", "dialog" }
        -- }, properties = { titlebars_enabled = true }},
-     { rule_any = {class = {"st", "XTerm",  "Emacs", "St","Zathura", "flow"}},
-        properties = { titlebars_enabled = true }},
+     -- { rule_any = {class = {"st", "XTerm",  "Emacs", "St","Zathura", "flow"}},
+        -- properties = { titlebars_enabled = true }},
 
      -- { rule_any = { class = {"Surf"} },
      --   properties = { placement = awful.placement.centered, floating = true}},

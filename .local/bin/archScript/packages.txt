@@ -136,4 +136,5 @@ brightnessctl
 isync
 pass
 jdk-openjdk
-intellij-idea-community-edition
+flameshot
+oxygen-icons
