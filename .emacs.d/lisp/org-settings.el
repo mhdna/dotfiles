@@ -8,8 +8,7 @@
 (setq coding-system-for-read 'utf-8 ) ; use utf-8 by default
 (setq coding-system-for-write 'utf-8 )
 (define-key global-map "\C-cl" 'org-store-link)
-;; Insert mode whenever inserting a new heading (especiall useful with todo M-S-<return>)
-(add-hook 'org-insert-heading-hook (apply-partially #'evil-insert 1))
+
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 (use-package org
@@ -310,7 +309,7 @@ non-empty lines in the block (excluding the line with
                plain
                (file+headline "~/stuff/org/language.org" "Arabic Phrases")
                "- %^{Phrase}"))
-(add-hook 'org-capture-mode-hook 'evil-insert-state)
+
 (setq org-refile-use-outline-path t)
 (setq org-outline-path-complete-in-steps nil)
 (defun my/index-file-open ()
@@ -376,5 +375,66 @@ non-empty lines in the block (excluding the line with
 (setq org-confirm-babel-evaluate nil)
 (setq org-export-with-smart-quotes t)
 (setq org-html-postamble nil)
+
+
+;; publishing
+
+(require 'ox-publish)
+
+(setq org-publish-project-alist
+      `(("pages"
+         :base-directory "~/mhdna.io/org/"
+         :base-extension "org"
+         :recursive t
+         :publishing-directory "~/mhdna.io/html/"
+         :publishing-function org-html-publish-to-html
+				 )
+        ("static"
+         :base-directory "~/mhdna.io/org/"
+         :base-extension "css\\|txt\\|jpg\\|gif\\|png"
+         :recursive t
+         :publishing-directory  "~/mhdna.io/html/"
+         :publishing-function org-publish-attachment
+ 				 ;; Exporting template
+				 :html-doctype "html5"
+				 :html-html5-fancy t
+																				; Disable some Org's HTML defaults
+				 :html-head-include-scripts nil
+				 :html-head-include-default-style nil
+				 :html-head "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>"
+				 :html-preamble "<nav>
+  <a href=\"/\">&lt; Home</a>
+</nav>
+<div id=\"updated\">Updated: %C</div>"
+				 
+				 :html-postamble "<hr/>
+<footer>
+  <div class=\"copyright-container\">
+    <div class=\"copyright\">
+      Copyright &copy; 2017-2020 Thomas Ingram some rights reserved<br/>
+      Content is available under
+      <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
+        CC-BY-SA 4.0
+      </a> unless otherwise noted
+    </div>
+    <div class=\"cc-badge\">
+      <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
+        <img alt=\"Creative Commons License\"
+             src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" />
+      </a>
+    </div>
+  </div>
+
+  <div class=\"generated\">
+    Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
+  </div>
+</footer>"
+				 :auto-sitemap t
+				 :sitemap-filename "sitemap.org"
+
+				 )
+
+        ("mhdna.io" :components ("pages" "static"))))
+
 
 (provide 'org-settings)

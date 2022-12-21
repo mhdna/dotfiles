@@ -79,6 +79,13 @@
 ;;   ;; (add-to-list 'exec-path "~/.local/share/go/bin")
 ;;   (setenv "GOPATH" (concat (getenv "HOME") "/.local/share/go/bin"))
 ;;   (setq gofmt-command "goimports"))
+
+;; needed packages
+;; pip install ‘python-language-server[all]’
+;; go get golang.org/x/tools/gopls@latest
+;; go install golang.org/x/tools/cmd/godoc@latest
+;; go install golang.org/x/tools/cmd/goimports@latest
+
 ;; ;; python
 (use-package python-mode
   :ensure t

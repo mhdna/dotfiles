@@ -11,7 +11,7 @@ local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
-local naughty = require("naughty")
+-- local naughty = require("naughty")
 local menubar = require("menubar")
 -- local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
@@ -65,16 +65,16 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 beautiful.init(theme_path)
 
 -- This is used later as the default terminal and editor to run.
-terminal = "st"
+terminal = "xterm"
 browser = "firefox" --xterm" .. " -e " .. " lynx -cfg=~/.config/lynx/lynx.cfg -lss ~/.config/lynx/lynx.lss "
 home = os.getenv("HOME")
 wiki = home .. "/stuff/wiki/"  os.getenv("WIKI")
 editor =    "nvim" or os.getenv("EDITOR")
 editor_cmd = terminal .. " -e " .. editor or "emacs"
 
-naughty.config.defaults['icon_size'] = 100
-naughty.config.defaults.timeout = 20
-naughty.config.defaults.position = 'top_right'
+-- naughty.config.defaults['icon_size'] = 100
+-- naughty.config.defaults.timeout = 20
+-- naughty.config.defaults.position = 'top_right'
 -- naughty.config.defaults.font = 'Serif 10'
 -- naughty.config.defaults.width = 200
 
@@ -187,20 +187,20 @@ awful.screen.connect_for_each_screen(function(s)
       -- Each screen has its own tag table.
       -- Table of layouts to cover with awful.layout.inc, order matters.
       awful.layout.layouts = {
-         awful.layout.suit.floating,
-         awful.layout.suit.tile,
-         awful.layout.suit.tile.bottom,
          awful.layout.suit.max,
+         awful.layout.suit.tile,
+         awful.layout.suit.floating,
+         awful.layout.suit.tile.bottom,
          --awful.layout.suit.spiral,
          --awful.layout.suit.fair,
          --awful.layout.suit.fair.horizontal,
          -- awful.layout.suit.magnifier,
       }
       layouts = {
-         awful.layout.suit.floating,
-         awful.layout.suit.tile,
-         awful.layout.suit.tile.bottom,
          awful.layout.suit.max,
+         awful.layout.suit.tile,
+         awful.layout.suit.floating,
+         awful.layout.suit.tile.bottom,
          --awful.layout.suit.spiral,
          --awful.layout.suit.fair,
          --awful.layout.suit.fair.horizontal,
@@ -251,7 +251,7 @@ awful.screen.connect_for_each_screen(function(s)
          layout = wibox.layout.align.horizontal,
          { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            -- mylauncher,
+            mylauncher,
             s.mytaglist,
             s.mypromptbox,
          },
@@ -598,14 +598,14 @@ globalkeys = gears.table.join(
    awful.key({modkey, "Shift" }, ",", function () awful.util.spawn_with_shell("light -S 1") end),
 
    -- Volume Control
-   awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell("pactl set-sink-volume @DEFAULT_SINK@ +5%") end), --amixer -D pulse sset Master 10%+") end,
-   awful.key({modkey }, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell("pactl set-sink-volume @DEFAULT_SINK@ 100%") end), --amixer -D pulse sset Master 100%") end,
-   awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell("pactl set-sink-volume @DEFAULT_SINK@ -5%") end),-- amixer -D pulse sset Master 10%-") end,
-   awful.key({ }, "XF86AudioMute", function () awful.util.spawn_with_shell("pactl set-sink-mute @DEFAULT_SINK@ toggle") end), --amixer -D pulse sset Master toggle") end,
-   awful.key({modkey }, "=", function () awful.util.spawn_with_shell("pactl set-sink-volume @DEFAULT_SINK@ +5%") end), --amixer -D pulse sset Master 10%+") end,
-   awful.key({modkey, "Shift"}, "=", function () awful.util.spawn_with_shell("pactl set-sink-volume @DEFAULT_SINK@ 100%") end), --amixer -D pulse sset Master 100%") end,
-   awful.key({modkey }, "-", function () awful.util.spawn_with_shell("pactl set-sink-volume @DEFAULT_SINK@ -5%") end),-- amixer -D pulse sset Master 10%-") end,
-   awful.key({modkey, "Shift"}, "-", function () awful.util.spawn_with_shell("pactl set-sink-mute @DEFAULT_SINK@ toggle") end), --amixer -D pulse sset Master toggle") end,
+   awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+") end), --amixer -D pulse sset Master 10%+") end,
+   awful.key({modkey }, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%") end), --amixer -D pulse sset Master 100%") end,
+   awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-") end),-- amixer -D pulse sset Master 10%-") end,
+   awful.key({ }, "XF86AudioMute", function () awful.util.spawn_with_shell("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") end), --amixer -D pulse sset Master toggle") end,
+   awful.key({modkey }, "=", function () awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+") end), --amixer -D pulse sset Master 10%+") end,
+   awful.key({modkey, "Shift"}, "=", function () awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%") end), --amixer -D pulse sset Master 100%") end,
+   awful.key({modkey }, "-", function () awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-") end),-- amixer -D pulse sset Master 10%-") end,
+   awful.key({modkey, "Shift"}, "-", function () awful.util.spawn_with_shell("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") end), --amixer -D pulse sset Master toggle") end,
    --awful.key({modkey, "Shift"}, "m", function () awful.util.spawn_with_shell("pamixer -t") end), --amixer -D pulse sset Master toggle") end,
 
    awful.key({ }, "Print", function () awful.util.spawn_with_shell("flameshot gui") end),
@@ -625,17 +625,17 @@ globalkeys = gears.table.join(
    -- awful.key({ modkey, "Shift"           }, "r", function () awful.spawn(terminal .. " -e htop") end),
    awful.key({ "Control", "Mod1",}, "Escape", function () awful.util.spawn_with_shell("xkill") end),
    awful.key({ modkey,           }, "e", function () awful.spawn(terminal .. " -e lfub") end),
-   awful.key({ modkey,       }, "i", function () awful.util.spawn_with_shell(terminal .. " -e tmux a ") end),
+   awful.key({ modkey,       }, "i", function () awful.util.spawn_with_shell(terminal .. " -e my-tmux-session") end),
    awful.key({ modkey,       "Shift"}, "i", function () awful.util.spawn_with_shell("emacs") end),
    -- awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn_with_shell("anki --no-sandbox") end),
    -- awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn_with_shell("eclipse") end),
    awful.key({ modkey,           }, "b", function () awful.util.spawn_with_shell(browser) end),
    -- awful.key({ modkey, "Mod1"    }, "e", function () awful.spawn("thunderbird") end),
    awful.key({ modkey,       }, "v", function () awful.util.spawn_with_shell("clipmenu -i -l 15") end),
+   awful.key({ modkey,"Shift"       }, "v", function () awful.util.spawn_with_shell("pavucontrol") end),
    -- awful.key({ modkey,      }, "s", function () awful.spawn("qutebrowser --target window :open 'https://www.coursera.org/learn/html-css-javascript-for-web-developers/home/welcome'") end),
    -- awful.key({ modkey,           }, "n", function () awful.util.spawn_with_shell(editor_cmd .. " " .. wiki) end),
  -- awful.key({ modkey, "Shift"   }, "n", function () awful.util.spawn_with_shell(editor_cmd .. " " .. wiki .. "/todo.txt") end),
- awful.key({ modkey, "Shift"   }, "d", function () awful.util.spawn_with_shell(editor_cmd .. " " .. wiki .. "/diary/" ) end),
 
    awful.key({ modkey,          "Shift" }, "a", function () awful.util.spawn_with_shell("xfce4-appfinder") end),
    -- awful.key({ modkey,           }, "c", function () awful.util.spawn_with_shell(terminal .. " -e calcurse -D " .. wiki .. "/calcurse") end),
@@ -651,7 +651,8 @@ globalkeys = gears.table.join(
    awful.key({ modkey, "Shift"   }, "F2", function () awful.util.spawn_with_shell("redshift -x") end),
    awful.key({ modkey, }, "F3", function () awful.util.spawn_with_shell("torwrap" ) end),
    awful.key({ modkey, "Shift"   }, "F3", function () awful.util.spawn_with_shell("td-toggle" ) end),
-   awful.key({ modkey, }, "F4", function () awful.spawn(terminal .. " -e pulsemixer" ) end),
+   awful.key({ modkey, }, "F4", function () awful.spawn("keyboardLogitech && notify-send 'Keyboard Layout' 'European'") end),
+   awful.key({ modkey, "Shift"}, "F4", function () awful.spawn("xmodmap ~/.config/Xmodmap2 && notify-send 'Keyboard Layout' 'Default'" ) end),
    awful.key({ modkey, }, "F5", function () awful.util.spawn_with_shell("mw -Y && notify-send '📫 All Mailboxes have been updated'" ) end),
    awful.key({ modkey,           }, "F10", function () awful.util.spawn_with_shell("mpc seek -10") end),
    awful.key({ modkey, "Shift"   }, "F10", function () awful.util.spawn_with_shell("mpc next") end),
@@ -704,8 +705,8 @@ globalkeys = gears.table.join(
     -- awful.key({ modkey}, "r", function () awful.util.spawn_with_shell("dmenu_run") end),
 
     awful.key({ modkey, "Mod1"}, "d", function () awful.util.spawn_with_shell("dmenuhandlerXclip") end),
-    -- awful.key({ modkey , },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-    --           {description = "run prompt", group = "launcher"}),
+    awful.key({ modkey ,"Shift" },            "p",     function () awful.screen.focused().mypromptbox:run() end,
+              {description = "run prompt", group = "launcher"}),
     -- Menubar
     awful.key({ modkey, }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"}),
@@ -738,7 +739,7 @@ awful.key({ modkey,           }, "Down", customization.func.client_sideline_bott
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ modkey, "Control" }, "Return",  awful.client.floating.toggle,
+    awful.key({ modkey, "Shift" }, "space",  awful.client.floating.toggle,
               {description = "toggle floating", group = "client"}),
 
     awful.key({ modkey,"Shift","Control" }, "k", function (c)
@@ -972,30 +973,30 @@ awful.rules.rules = {
    --     properties = { size_hints_honor = false },
    -- except = {class= "mpv"}},
 
-     --Floating clients.
-     -- { rule_any = {
-     --     instance = {
-     --       "DTA",  -- Firefox addon DownThemAll.
-     --       "pinentry",
-     --     },
-     --     class = {
-     --       "Arandr", "Blueman-manager", "Gpick", "Kruler",
-     --       "MessageWin",  -- kalarm.
-     --       "Sxiv",
-     --       "Wpa_gui", "veromix", "xtightvncviewer"},
-     --
-     --     -- Note that the name property shown in xprop might be set slightly after creation of the client
-     --     -- and the name shown there might not match defined rules here.
-     --     name = {
-     --       "Event Tester",  -- xev.
-     -- "Media viewer", -- telegram media viewer
-     --     },
-     --     role = {
-     --       "AlarmWindow",  -- Thunderbird's calendar.
-     --       "ConfigManager",  -- Thunderbird's about:config.
-     --       "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-     --     }
-     --   }, properties = { floating = true , ontop = true}},
+     -- Floating clients.
+     { rule_any = {
+         instance = {
+           "DTA",  -- Firefox addon DownThemAll.
+           "pinentry",
+         },
+         class = {
+           "Arandr","Gpick", "Kruler",
+           "MessageWin",  -- kalarm.
+           "Sxiv",
+           "Wpa_gui", "veromix", "xtightvncviewer"},
+
+         -- Note that the name property shown in xprop might be set slightly after creation of the client
+         -- and the name shown there might not match defined rules here.
+         name = {
+           "Event Tester",  -- xev.
+     "Media viewer", -- telegram media viewer
+         },
+         role = {
+           "AlarmWindow",  -- Thunderbird's calendar.
+           "ConfigManager",  -- Thunderbird's about:config.
+           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+         }
+       }, properties = { floating = true , ontop = true}},
      --
     -- -- Add titlebars to normal clients and dialogs
      { rule_any = {type = { "normal", "dialog" }
@@ -1007,7 +1008,7 @@ awful.rules.rules = {
      --   properties = { placement = awful.placement.centered, floating = true}},
 
      { rule_any = { class = {"Tor Browser", "firefox"} },
-        properties = { placement = awful.placement.centered, tag = tags[1][2]}},
+        properties = { tag = tags[1][2]}},
 
      { rule = { name = "mpvfloat" },
        properties = { floating = true, sticky = true, placement = awful.placement.bottom_right, ontop = true}},

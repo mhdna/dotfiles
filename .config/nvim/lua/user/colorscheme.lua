@@ -1,34 +1,15 @@
--- vim.cmd [[
--- try
-  -- colorscheme gruvbox
--- catch /^Vim\%((\a\+)\)\=:E185/
---   colorscheme default
--- endtry
--- ]]
--- vim.cmd('autocmd ColorScheme * highlight Normal ctermbg=none ') --to Show whitespace, MUST be inserted BEFORE the colorscheme command
--- vim.cmd('autocmd ColorScheme * highlight Normal guibg=White guifg=Black') --to Show whitespace, MUST be inserted BEFORE the colorscheme command
--- vim.cmd('colorscheme parchment')
+function ColorScheme(color)
+    color = color or "flatland"
+    vim.cmd.colorscheme(color)
 
--- [[ require("zenburn").setup() ]]
--- vim.cmd([[
--- augroup TransparentColours
--- autocmd!
--- autocmd ColorScheme * highlight normal ctermbg=NONE guiBG=NONE
--- augroup end
--- ]])
--- vim.cmd [[  colorscheme gruvbox ]]
--- vim.cmd [[ let g:gruvbox_contrast_dark="med"]]
--- require('solarized').set()
--- vim.g.gruvbox_contrast_dark = 'soft'
--- require('monokai').setup {}
+    -- vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
+    -- vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
+end
 
---[[ require("github-theme").setup({ ]]
---[[     theme_style = "light", ]]
---[[ }) ]]
--- vim.g.gruvbox_invert_selection = '0'
--- vim.opt.background = "light"
--- vim.opt.background = "dark"
-vim.cmd(('hi Visual  guifg=#000000 guibg=#ffff00 gui=none'))
+ColorScheme()
+
+vim.opt.bg = 'dark'
+-- vim.cmd(('hi Visual  guifg=#000000 guibg=#ffff00 gui=none'))
 -- vim.cmd(('hi CursorLine guibg=#b4eeb4 '))
 -- vim.cmd(('hi StatusLine guifg=#ffffff guibg=#000000'))
 -- vim.cmd(('hi Pmenu guifg=#000000 guibg=#fff8dc'))

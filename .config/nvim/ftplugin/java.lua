@@ -28,6 +28,11 @@ end
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
+-- local bundles = {
+--     vim.fn.glob(HOME .. "/.config/nvim/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar", 1),
+-- }
+--
+
 local config = {
     cmd = {
         "java",
@@ -123,16 +128,33 @@ local config = {
     -- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
     --
     -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
-    init_options = {
-        bundles = {},
-    },
+    -- This bundles definition is the same as in the previous section (java-debug installation)
+    -- This is the new part
+
+--     vim.list_extend(bundles, vim.split(vim.fn.glob(HOME .. "/.config/nvim/vscode-java-test/server/*.jar", 1), "\n")),
+--     init_options = {
+--         bundles = bundles,
+-- },
+
+
+    -- on_attach = function(client, bufnr)
+    --     -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
+    --     -- you make during a debug session immediately.
+    --     -- Remove the option if you do not want that.
+    --     -- You can use the `JdtHotcodeReplace` command to trigger it manually
+    --     require('jdtls').setup_dap({ hotcodereplace = 'auto' })
+    -- end
 }
+
+
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
 jdtls.start_or_attach(config)
 
 -- Add the commands
 require("jdtls.setup").add_commands()
+-- require'jdtls'.test_class()
+-- require'jdtls'.test_nearest_method()
 -- vim.api.nvim_exec(
 --   [[
 -- command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)
@@ -147,26 +169,20 @@ require("jdtls.setup").add_commands()
 
 local opts = { noremap = true, silent = true }
 
-vim.api.nvim_set_keymap("n", "<leader>lo", "<Cmd>lua require('jdtls').organize_imports()<CR>", opts)
-vim.api.nvim_set_keymap("n", "crv", "<Cmd>lua require('jdtls').extract_variable()<CR>", opts)
-vim.api.nvim_set_keymap("v", "crv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", opts)
-vim.api.nvim_set_keymap("n", "crc", "<Cmd>lua require('jdtls').extract_constant()<CR>", opts)
-vim.api.nvim_set_keymap("v", "crc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", opts)
-vim.api.nvim_set_keymap("v", "crm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>li", "<Cmd>lua require('jdtls').organize_imports()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>lev", "<Cmd>lua require('jdtls').extract_variable()<CR>", opts)
+vim.api.nvim_set_keymap("v", "<leader>lev", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>lec", "<Cmd>lua require('jdtls').extract_constant()<CR>", opts)
+vim.api.nvim_set_keymap("v", "<leader>lec", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", opts)
+vim.api.nvim_set_keymap("v", "<leader>lem", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", opts)
 
 
 -- If using nvim-dap
 -- This requires java-debug and vscode-java-test bundles, see install steps in this README further below.
-vim.api.nvim_set_keymap("n", "<leader>lt", "<Cmd>lua require('jdtls').test_class()<CR>", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>lt", "<Cmd>lua require('jdtls').test_class()<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "<leader>dn", "<Cmd>lua require('jdtls').test_nearest_method()<CR>", { silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>lT", "<Cmd>lua require('jdtls').test_nearest_method()<CR>", { silent = true })
 
-
-local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<leader>lo', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '<leader>ll', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -177,18 +193,18 @@ vim.keymap.set('n', '<leader>ll', vim.diagnostic.setloclist, opts)
 -- Mappings.
 -- See `:help vim.lsp.*` for documentation on any of the below functions
 local bufopts = { noremap = true, silent = true}
-vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+-- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts) -- mhd: probably not a java thing, so we use the binding for jump to definition instead
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, bufopts)
 vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation, bufopts)
 vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-vim.keymap.set('n', '<leader>lwa', vim.lsp.buf.add_workspace_folder, bufopts)
-vim.keymap.set('n', '<leader>lwr', vim.lsp.buf.remove_workspace_folder, bufopts)
-vim.keymap.set('n', '<leader>lwl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-end, bufopts)
-vim.keymap.set('n', '<leader>ld', vim.lsp.buf.type_definition, bufopts)
+-- vim.keymap.set('n', '<leader>lwa', vim.lsp.buf.add_workspace_folder, bufopts)
+-- vim.keymap.set('n', '<leader>lwr', vim.lsp.buf.remove_workspace_folder, bufopts)
+-- vim.keymap.set('n', '<leader>lwl', function()
+--     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+-- end, bufopts)
 vim.keymap.set('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', bufopts)
 vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, bufopts)
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)

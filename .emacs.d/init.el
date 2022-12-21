@@ -13,7 +13,6 @@
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 (package-initialize)
 
-
 ;; If use-package isn't already installed, it's extremely likely that this is a
 ;; fresh installation! So we'll want to update the package repository and
 ;; install use-package before loading the literate configuration.
@@ -27,7 +26,6 @@
 
 
 
-;; (org-babel-load-file "~/.emacs.d/config.org")
 ;; (put 'upcase-region 'disabled nil)
 ;; (put 'downcase-region 'disabled nil)
 
@@ -88,7 +86,7 @@
 ;; confirm quiting or not
 (setq confirm-kill-emacs 'yes-or-no-p)
 ;; (setq confirm-kill-processes nil)
-(line-number-mode 1)
+
 ;; (column-number-mode 1)
 (global-subword-mode 1)
 (setq default-input-method "arabic")
@@ -142,9 +140,9 @@
 
 ;; Look and feel
 
-;; (tool-bar-mode -1)
+(tool-bar-mode -1)
 (menu-bar-mode -1)
-;; (scroll-bar-mode -1)
+(scroll-bar-mode -1)
 ;; startup messages
 (setq inhibit-startup-message t)
 ;; vim-like scrolling
@@ -152,11 +150,17 @@
 (setq ring-bell-function 'ignore)
 ;; (load-file "~/.emacs.d/organic-green-theme.el")
 ;; (load-theme 'organic-green t)
-(load-theme 'manoj-dark)
+(use-package flatland-theme
+	:ensure t)
+(load-theme 'flatland t)
 ;; (set-background-color "white")
 ;; (set-foreground-color "black")
 ;; (set-cursor-color "black")
+;; Line numbers
+;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 ;; (global-display-line-numbers-mode 1)
+;; (line-number-mode 1)
+;;   (setq display-line-numbers-type 'relative)
 ;; Change mark region color
 ;; (set-face-attribute 'region nil :background "#ffff00")
 ;; (set-face-background 'minibuffer-prompt "#770000")
@@ -168,11 +172,7 @@
 ;;       scroll-preserve-screen-position 1)
 ;; Do not load xresources
 (setq-default inhibit-x-resources 1)
-;; Line numbers
-;;   (setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode)
-;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(global-display-line-numbers-mode 1)
+
 ;; count the number of lines to use for line number width
 ;; (setq-default display-line-numbers-width-start t)
 ;; Highlight line (gui)
@@ -182,16 +182,16 @@
 ;; (global-hl-line-mode nil)
 
 ;; System notifications
-(setq compilation-finish-functions
-      (append compilation-finish-functions
-              '(fmq-compilation-finish)))
+;; (setq compilation-finish-functions
+;;       (append compilation-finish-functions
+;;               '(fmq-compilation-finish)))
 
-(defun fmq-compilation-finish (buffer status)
-  (call-process "notify-send" nil nil nil
-                "-t" "0"
-                "-i" "emacs"
-                "Compilation finished in Emacs"
-                status))
+;; (defun fmq-compilation-finish (buffer status)
+;;   (call-process "notify-send" nil nil nil
+;;                 "-t" "0"
+;;                 "-i" "emacs"
+;;                 "Compilation finished in Emacs"
+;;                 status))
 
 ;; (use-package notifications
 ;; :config (notifications-notify
@@ -208,11 +208,11 @@
 
 
 ;; Font settings
-(set-face-attribute 'default nil :font "Liberation Mono" :height 105)
+(set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 120)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Liberation Mono" :height 105)
+(set-face-attribute 'fixed-pitch nil :font "DejaVu Sans Mono" :height 120)
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Liberation Mono" :height 105 :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "DejaVu Sans Mono" :height 120 :weight 'regular)
 (set-fontset-font "fontset-default" 'arabic (font-spec :family "Dejavu Sans Mono"))
 (setq my/font-change-increment 1.1)
 (custom-set-faces
@@ -309,6 +309,7 @@
 ;; ;; (auto-revert-mode t)
 ;; ;; for automatically indenting new lines
 ;; (electric-indent-mode +1)
+
 
 ;; Latex settings
 
@@ -538,43 +539,44 @@
 ;;         completion-category-defaults nil
 ;;         completion-category-overrides nil))
 
-;; (use-package company
-;;   :ensure t
-;;   :bind
-;;   (:map company-active-map
-;;         ;; ("<tab>" . company-complete-selection)
-;; 				("RET" . nil)
-;;                     ;; ("<escape>" . company-abort)
-;;         )
-;;   ;; (:map lsp-mode-map
-;;   ;; ("<tab>" . company-indent-or-complete-common))
-;;   :hook
-;;   (prog-mode)
-;;   :config
-;;   ;; exit in evil normal mode
-;;   (add-hook 'company-mode-hook
-;;             (lambda ()
-;;               (add-hook 'evil-normal-state-entry-hook
-;;                         (lambda ()
-;;                           (company-abort)))))
-;;   (define-key company-active-map (kbd "C-n") #'company-select-next)
-;;   (define-key company-active-map (kbd "C-p") #'company-select-previous)
-;;   ;; (company-keymap--unbind-quick-access company-active-map) ;; disable using M-number to select items
-;;   ;; (company-tng-configure-default) ;; don't change the default tab behaviour
-;;   (setq company-idle-delay 0.1)
-;;   (setq company-tooltip-limit 10)
-;;   (setq company-minimum-prefix-length 1)
-;;   (setq company-tooltip-align-annotations t)
-;;   ;; invert the navigation direction if the the completion popup-isearch-match
-;;   ;; is displayed on top (happens near the bottom of windows)
-;;   (setq company-tooltip-flip-when-above t)
-;;   ;; (global-company-mode)
-;;   (with-eval-after-load 'company
-;;     (define-key company-active-map (kbd "<return>") #'company-complete-selection))
-;;   ;;        (add-hook 'after-init-hook 'global-company-mode) ;not only for programming mode
-;;   ;;  :config
-;;   ;;  (setq lsp-completion-provider :capf))
-;;   )
+(use-package company
+  :ensure t
+  :bind
+  (:map company-active-map
+        ("<tab>" . company-complete-selection)
+				("RET" . nil)
+                    ;; ("<escape>" . company-abort)
+        )
+  ;; (:map lsp-mode-map
+  ;; ("<tab>" . company-indent-or-complete-common))
+  :hook
+  (prog-mode)
+	;; (add-hook 'after-init-hook 'global-company-mode) ;not only for programming moed
+  :config
+  ;; exit in evil normal mode
+  ;; (add-hook 'company-mode-hook
+  ;;           (lambda ()
+  ;;             (add-hook 'evil-normal-state-entry-hook
+  ;;                       (lambda ()
+  ;;                         (company-abort)))))
+  (define-key company-active-map (kbd "C-n") #'company-select-next)
+  (define-key company-active-map (kbd "C-p") #'company-select-previous)
+  ;; (company-keymap--unbind-quick-access company-active-map) ;; disable using M-number to select items
+  ;; (company-tng-configure-default) ;; don't change the default tab behaviour
+  (setq company-idle-delay 0.1)
+  (setq company-tooltip-limit 10)
+  (setq company-minimum-prefix-length 1)
+  (setq company-tooltip-align-annotations t)
+  ;; invert the navigation direction if the the completion popup-isearch-match
+  ;; is displayed on top (happens near the bottom of windows)
+  (setq company-tooltip-flip-when-above t)
+  ;; (global-company-mode)
+  ;; (with-eval-after-load 'company
+  ;;   (define-key company-active-map (kbd "<return>") #'company-complete-selection))
+
+  ;;  :config
+  ;;  (setq lsp-completion-provider :capf))
+  )
 
 
 ;; (use-package company-web
@@ -582,44 +584,47 @@
 ;;   :config
 ;;   (add-to-list 'company-backends 'company-web-html))
 
-;; (use-package emmet-mode
-;;   :ensure t
-;;   :config
-;;   (add-hook 'web-mode-hook 'emmet-mode)
-;;   (add-hook 'js2-mode-hook 'emmet-mode))
+(use-package emmet-mode
+  :ensure t
+  :config
+  (add-hook 'web-mode-hook 'emmet-mode)
+  ;; (add-hook 'js2-mode-hook 'emmet-mode)
+	)
 
 (use-package flycheck
   :ensure t
-  :config
+	:hook
+	(prog-mode)
+  ;; :config
   ;; (add-hook 'after-init-hook #'global-flycheck-mode)
   ;; (add-hook 'flycheck-mode-hook
   ;; (lambda ()
   ;; (evil-define-key 'normal flycheck-mode-map (kbd "]e") 'flycheck-next-error)
   ;; (evil-define-key 'normal flycheck-mode-map (kbd "[e") 'flycheck-previous-error)))
 
-  (add-hook 'python-mode-hook 'flycheck-mode)
-  (add-hook 'lisp-mode 'flycheck-mode)
-  (add-hook 'java-mode 'flycheck-mode)
+  ;; (add-hook 'python-mode-hook 'flycheck-mode)
+  ;; (add-hook 'lisp-mode 'flycheck-mode)
+  ;; (add-hook 'java-mode 'flycheck-mode)
   ;; (add-hook 'go-mode-hook 'flycheck-mode)
   ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
   )
 
-;; (use-package web-mode
-;;   :ensure t
-;;   :config
-;;   (setq web-mode-markup-indent-offset 2
-;;         web-mode-css-indent-offset 2
-;;         web-mode-code-indent-offset 2
-;;         web-mode-indent-style 2))
+(use-package web-mode
+  :ensure t
+  :config
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-indent-style 2))
 
-;; (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-;; ;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-;; ;; (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-;; ;; (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-;; ;; (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-;; ;; (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
 ;; ;; Javascript
 ;; (use-package js2-mode
@@ -644,12 +649,6 @@
 ;;   :config (global-subword-mode 1))
 
 
-;; needed packages
-;; pip install ‘python-language-server[all]’
-;; go get golang.org/x/tools/gopls@latest
-;; go install golang.org/x/tools/cmd/godoc@latest
-;; go install golang.org/x/tools/cmd/goimports@latest
-
 ;; leetcode
 (use-package leetcode
   :ensure t
@@ -663,9 +662,6 @@
   (setq leetcode-directory "~/stuff/code/leetcode")
 	)
 
-;; git clone git@github.com:ginqi7/leetcode-emacs.git ~/.emacs.d/lisp/leetcode
-;; npm install -g leetcode-cli
-
 (defun indent-buffer ()
   (interactive)
   (save-excursion
@@ -673,8 +669,8 @@
 
 ;; (global-set-key (kbd "<escape>") 'keyboard-quit)
 (global-set-key (kbd "M-0") 'my/delete-window-and-rebalance)
-(global-set-key (kbd "M-n") 'flycheck-next-error)
-(global-set-key (kbd "M-p") 'flycheck-previous-error)
+;; (global-set-key (kbd "M-n") 'flycheck-next-error)
+;; (global-set-key (kbd "M-p") 'flycheck-previous-error)
 
 (defun switch-to-flycheck-list-errors ()
   (interactive)
@@ -701,3 +697,4 @@
 (add-hook 'java-mode-hook 'java-ts-mode)
 ;; (add-hook 'c-mode-hook 'c-ts-mode)
 ;; (add-hook 'python-mode-hook 'python-ts-mode)
+

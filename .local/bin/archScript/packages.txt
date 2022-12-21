@@ -11,8 +11,8 @@ xclip
 xorg-xset
 tlp
 pipewire
-wireplumber
 pipewire-pulse
+wireplumber
 gnome-keyring
 emacs
 xcape

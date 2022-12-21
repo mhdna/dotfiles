@@ -1,10 +1,6 @@
 --unscii Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -15,13 +11,14 @@ local on_attach = function(client, bufnr)
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
+    vim.opt.signcolumn="yes"
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set('n', '<M-K>', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<leader>lwa', vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set('n', '<leader>lwr', vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set('n', '<leader>lwl', function()
@@ -61,32 +58,32 @@ require 'lspconfig'.ccls.setup {
 -- require 'lspconfig'.sumneko_lua.setup {
 --     on_attach = on_attach,
 --     flags = lsp_flags,
---     settings = {
---         Lua = {
---             runtime = {
---                 -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---                 version = 'LuaJIT',
---             },
+--     -- settings = {
+--     --     Lua = {
+--     --         runtime = {
+--     --             -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--     --             version = 'LuaJIT',
+--     --         },
 --             diagnostics = {
---                 -- Get the language server to recognize the `vim` global
+--     --             -- Get the language server to recognize the `vim` global
 --                 globals = { 'vim' },
 --             },
---             workspace = {
---                 -- Make the server aware of Neovim runtime files
---                 library = vim.api.nvim_get_runtime_file("", true),
---             },
---             -- Do not send telemetry data containing a randomized but unique identifier
---             telemetry = {
---                 enable = false,
---             },
---         },
---     },
+--     --         workspace = {
+--     --             -- Make the server aware of Neovim runtime files
+--     --             library = vim.api.nvim_get_runtime_file("", true),
+--     --         },
+--     --         -- Do not send telemetry data containing a randomized but unique identifier
+--     --         telemetry = {
+--     --             enable = false,
+--     --         },
+--     --     },
+--     -- },
 -- }
 --
+
 -- require 'lspconfig'.jdtls.setup {
 --     on_attach = on_attach,
 --     flags = lsp_flags,
---
 -- }
 --
 

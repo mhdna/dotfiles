@@ -8,9 +8,9 @@ Emacs.alpha: 100
 /* Sxiv.foreground: #000000 */
 /* Sxiv.font: mono:style:size=10 */
 
-! *background: #282828
-! *foreground: #ebdbb2
-! *.cursorColor: #ebdbb2
+*background: #000
+*foreground: #fff
+*.cursorColor: #fff
 
 ! Xcursor.theme: xcursor-black
 ! Xcursor.theme_core: true
@@ -124,13 +124,13 @@ Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
 Xft.hinting: 1
 Xft.antialias: 1
-XTerm*faceSize: 11
+XTerm*faceSize: 12
 XTerm*transparent: true
 XTerm*saveLines: 4096
 XTerm*scrollBar: false
 ! xterm*rightScrollBar: true
 !XTerm*geometry: 80x24
-XTerm*cursorBlink: false
+XTerm*cursorBlink: true
 XTerm*eightBitInput: false
 XTerm*scrollTtyOutput: false
 XTerm*cursorColor: white

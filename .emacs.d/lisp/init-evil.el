@@ -248,5 +248,7 @@ is not used."
 	(evilnc-default-hotkeys t)
 	)
 
+(add-hook 'org-insert-heading-hook (apply-partially #'evil-insert 1))
+(add-hook 'org-capture-mode-hook 'evil-insert-state)
 
 (provide 'init-evil)
