@@ -30,13 +30,26 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)
 end
 
+
 local lsp_flags = {
     -- This is the default in Nvim 0.7+
     debounce_text_changes = 150,
 }
-require('lspconfig')['pyright'].setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
+-- require('lspconfig')['pyls'].setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+-- }
+require'lspconfig'.pylsp.setup{
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          ignore = {'W391'},
+          maxLineLength = 100
+        }
+      }
+    }
+  }
 }
 
 require'lspconfig'.tsserver.setup{}

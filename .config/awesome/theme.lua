@@ -11,7 +11,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "DejaVu Sans bold 8"
+theme.font          = "DejaVu Sans bold 10"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#517d6e"
@@ -44,7 +44,7 @@ theme.border_marked = "#91231c"
 --theme.taglist_bg_focus = "#FF0000"
 
 -- Generate taglist squares:
-local taglist_square_size = dpi(4)
+local taglist_square_size = dpi(6)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
     taglist_square_size, theme.fg_normal
 )
@@ -61,9 +61,12 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
+theme.wibar_height = dpi (18)
+
 theme.menu_submenu_icon = themes_path.."default/submenu.png"
 theme.menu_height = dpi(17)
 theme.menu_width  = dpi(100)
+
 
 -- You can add as many variables as
 -- you wish and access them by using
@@ -97,9 +100,8 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar
 theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = themes_path.."default/background.png"
--- theme.wallpaper = "~/.config/awesome/background.png"
--- theme.wallpaper = "~/.local/share/bg"
+-- theme.wallpaper = themes_path.."default/background.png"
+theme.wallpaper = "~/.local/share/bg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path.."default/layouts/fairhw.png"

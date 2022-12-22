@@ -9,25 +9,28 @@
       <property name="position" type="string" value="p=2;x=977;y=12"/>
       <property name="length" type="uint" value="100"/>
       <property name="position-locked" type="bool" value="true"/>
-      <property name="icon-size" type="uint" value="0"/>
-      <property name="size" type="uint" value="18"/>
+      <property name="icon-size" type="uint" value="22"/>
+      <property name="size" type="uint" value="22"/>
       <property name="plugin-ids" type="array">
-        <value type="int" value="22"/>
+        <value type="int" value="31"/>
         <value type="int" value="4"/>
         <value type="int" value="8"/>
-        <value type="int" value="15"/>
         <value type="int" value="10"/>
         <value type="int" value="2"/>
         <value type="int" value="3"/>
+        <value type="int" value="27"/>
+        <value type="int" value="28"/>
+        <value type="int" value="21"/>
         <value type="int" value="5"/>
         <value type="int" value="6"/>
         <value type="int" value="14"/>
+        <value type="int" value="20"/>
         <value type="int" value="1"/>
         <value type="int" value="7"/>
         <value type="int" value="19"/>
         <value type="int" value="9"/>
+        <value type="int" value="26"/>
         <value type="int" value="11"/>
-        <value type="int" value="18"/>
         <value type="int" value="12"/>
         <value type="int" value="13"/>
       </property>
@@ -45,12 +48,12 @@
   </property>
   <property name="plugins" type="empty">
     <property name="plugin-2" type="string" value="tasklist">
-      <property name="grouping" type="uint" value="1"/>
-      <property name="show-labels" type="bool" value="true"/>
+      <property name="grouping" type="bool" value="false"/>
+      <property name="show-labels" type="bool" value="false"/>
       <property name="show-handle" type="bool" value="true"/>
       <property name="flat-buttons" type="bool" value="false"/>
       <property name="show-wireframes" type="bool" value="false"/>
-      <property name="include-all-workspaces" type="bool" value="false"/>
+      <property name="include-all-workspaces" type="bool" value="true"/>
       <property name="show-only-minimized" type="bool" value="false"/>
     </property>
     <property name="plugin-3" type="string" value="separator">
@@ -63,6 +66,7 @@
     <property name="plugin-6" type="string" value="systray">
       <property name="square-icons" type="bool" value="true"/>
       <property name="known-legacy-items" type="array">
+        <value type="string" value="wi-fi network connection “mhmd” active: mhmd (75%)"/>
         <value type="string" value="wi-fi network connection “mhmd” active: mhmd (78%)"/>
         <value type="string" value="wi-fi network connection “mhmd” active: mhmd (88%)"/>
         <value type="string" value="wi-fi network connection “mhmd” active: mhmd (89%)"/>
@@ -97,14 +101,15 @@
     </property>
     <property name="plugin-12" type="string" value="clock">
       <property name="mode" type="uint" value="2"/>
+      <property name="digital-date-font" type="string" value="Sans 11"/>
+      <property name="digital-time-font" type="string" value="Sans 11"/>
+      <property name="digital-layout" type="uint" value="1"/>
     </property>
     <property name="plugin-13" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
     </property>
     <property name="plugin-9" type="string" value="notification-plugin"/>
-    <property name="plugin-18" type="string" value="cpugraph"/>
     <property name="plugin-19" type="string" value="xfce4-clipman-plugin"/>
-    <property name="plugin-22" type="string" value="whiskermenu"/>
     <property name="plugin-1" type="string" value="power-manager-plugin"/>
     <property name="plugin-4" type="string" value="launcher">
       <property name="items" type="array">
@@ -126,13 +131,52 @@
         <value type="string" value="16707604213.desktop"/>
       </property>
     </property>
-    <property name="plugin-15" type="string" value="launcher">
-      <property name="items" type="array">
-        <value type="string" value="16707604234.desktop"/>
+    <property name="plugin-14" type="string" value="xkb">
+      <property name="display-type" type="uint" value="0"/>
+    </property>
+    <property name="plugin-20" type="string" value="xfce4-dict-plugin"/>
+    <property name="plugin-21" type="string" value="netload"/>
+    <property name="plugin-26" type="string" value="systemload">
+      <property name="swap" type="empty">
+        <property name="enabled" type="bool" value="true"/>
+      </property>
+      <property name="network" type="empty">
+        <property name="enabled" type="bool" value="false"/>
       </property>
     </property>
-    <property name="plugin-14" type="string" value="xkb">
-      <property name="display-type" type="uint" value="1"/>
+    <property name="plugin-27" type="string" value="xfce4-time-out-plugin"/>
+    <property name="plugin-28" type="string" value="weather">
+      <property name="msl" type="int" value="0"/>
+      <property name="timezone" type="string" value=""/>
+      <property name="offset" type="string" value="+02:00"/>
+      <property name="cache-max-age" type="int" value="172800"/>
+      <property name="power-saving" type="bool" value="true"/>
+      <property name="units" type="empty">
+        <property name="temperature" type="int" value="0"/>
+        <property name="pressure" type="int" value="0"/>
+        <property name="windspeed" type="int" value="0"/>
+        <property name="precipitation" type="int" value="0"/>
+        <property name="altitude" type="int" value="0"/>
+        <property name="apparent-temperature" type="int" value="2"/>
+      </property>
+      <property name="round" type="bool" value="true"/>
+      <property name="single-row" type="bool" value="true"/>
+      <property name="tooltip-style" type="int" value="1"/>
+      <property name="forecast" type="empty">
+        <property name="layout" type="int" value="1"/>
+        <property name="days" type="int" value="5"/>
+      </property>
+      <property name="theme-dir" type="string" value="/usr/share/xfce4/weather/icons/liquid"/>
+      <property name="scrollbox" type="empty">
+        <property name="show" type="bool" value="true"/>
+        <property name="animate" type="bool" value="true"/>
+        <property name="lines" type="int" value="1"/>
+        <property name="color" type="string" value="rgba(0,0,0,0)"/>
+        <property name="use-color" type="bool" value="false"/>
+      </property>
+    </property>
+    <property name="plugin-31" type="string" value="applicationsmenu">
+      <property name="show-button-title" type="bool" value="false"/>
     </property>
   </property>
 </channel>

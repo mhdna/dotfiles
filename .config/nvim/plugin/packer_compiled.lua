@@ -85,6 +85,11 @@ _G.packer_plugins = {
     path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["Tango-colour-scheme"] = {
+    loaded = true,
+    path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/Tango-colour-scheme",
+    url = "https://github.com/vim-scripts/Tango-colour-scheme"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -131,6 +136,11 @@ _G.packer_plugins = {
     path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/theprimeagen/harpoon"
   },
+  ["impatient.nvim"] = {
+    loaded = true,
+    path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/impatient.nvim",
+    url = "https://github.com/lewis6991/impatient.nvim"
+  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/lualine.nvim",
@@ -141,15 +151,15 @@ _G.packer_plugins = {
     path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
-  neoformat = {
+  ["muted.vim"] = {
     loaded = true,
-    path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/neoformat",
-    url = "https://github.com/sbdchd/neoformat"
+    path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/muted.vim",
+    url = "https://github.com/conweller/muted.vim"
   },
-  neogit = {
+  nightelf = {
     loaded = true,
-    path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/neogit",
-    url = "https://github.com/TimUntersberger/neogit"
+    path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/nightelf",
+    url = "https://github.com/keqizeng/nightelf"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -217,6 +227,11 @@ _G.packer_plugins = {
     path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
+  ["papercolor-theme"] = {
+    loaded = true,
+    path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/papercolor-theme",
+    url = "https://github.com/NLKNguyen/papercolor-theme"
+  },
   ["plenary.nvim"] = {
     loaded = true,
     path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/plenary.nvim",
@@ -236,6 +251,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-janah"] = {
+    loaded = true,
+    path = "/home/mahdi/.local/share/nvim/site/pack/packer/start/vim-janah",
+    url = "https://github.com/mhinz/vim-janah"
   }
 }
 

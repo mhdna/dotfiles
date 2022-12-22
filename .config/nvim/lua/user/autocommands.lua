@@ -7,72 +7,78 @@ vim.cmd [[
     autocmd FileType qf set nobuflisted
   augroup end
 
-  " augroup _git
-  "   autocmd!
-  "   autocmd FileType gitcommit setlocal wrap
-  "   autocmd FileType gitcommit setlocal spell
-  " augroup end
+  " Cpp compile
+  autocmd filetype cpp nnoremap <leader>C :w! \| :split \| term g++ % -o %< && ./%< <CR>i
+  " java compile
+  autocmd filetype java nnoremap <leader>C :w! \| :split \| term java % <CR>i
+  " autocmd filetype java nnoremap <leader>c :w! | :split | :term cd $pwd ; !javac *.java ; java Tester <CR>
 
-  " augroup _markdown
-  "   autocmd!
-  "   autocmd FileType markdown setlocal wrap
-  "   autocmd FileType markdown setlocal spell
-  " augroup end
-
-  augroup _auto_resize
-    autocmd!
-    autocmd VimResized * tabdo wincmd =
-  augroup end
-
-" augroup _lsp
-"   autocmd!
-"   autocmd BufWritePre * lua vim.lsp.buf.format()
-" augroup end
-
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+  " Return to last edit position when opening files (You want this!)
+  autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal! g`\"" |
+  \ endif
 
 
-    " Cpp compile
-	autocmd filetype cpp nnoremap <leader>c :w! \| :split \| term g++ % -o %< && ./%< <CR>i
-    " java compile
-	autocmd filetype java nnoremap <leader>c :w! \| :split \| term java % <CR>
-	" autocmd filetype java nnoremap <Leader>C :w! \| :split \| :term cd $pwd ; !javac *.java ; java Tester <CR>
-    " tex autocompile
-	" autocmd BufWritePost *.tex silent! execute "!compiler % >/dev/null 2>&1" | redraw!
-	autocmd VimLeave *.tex !texclear %
-
-  autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
-  autocmd BufRead,BufNewFile *.tex set filetype=tex
-  autocmd BufRead,BufNewFile *.cpp set filetype=cpp
-  " autocmd BufRead,BufNewFile *.md,*.markdown,*.mmd setlocal filetype=markdown
-  " autocmd BufRead,BufNewFile *.md,*.markdown,*.mmd UltiSnipsAddFiletypes ghmarkdown.markdown
-  " Automatically deletes all trailing whitespace and newlines at end of file on save. & reset cursor position
-  autocmd BufWritePre * let currPos = getpos(".")
+  " remove trailing whitespace
   autocmd BufWritePre * %s/\s\+$//e
   autocmd BufWritePre * %s/\n\+\%$//e
   autocmd BufWritePre *.[ch] %s/\%$/\r/e
-  autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
-  " When shortcut files are updated, renew bash and ranger configs with new material:
-  autocmd BufWritePost bm-files,bm-dirs !shortcuts
-  " Run xrdb whenever Xdefaults or Xresources are updated.
-  autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
-  autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
-  " markdown pandoc syntax highlighting
-  " augroup pandoc_syntax
-  " autocmd! FileType *.md set syntax=markdown.pandoc
-  " augroup END
-  " autocmd BufRead,BufNewFile *.md set filetype=text
+  " autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
+
 ]]
 
--- Autoformat
--- augroup _lsp
--- autocmd!
--- autocmd BufWritePre * lua vim.lsp.buf.formatting()
--- augroup end
+vim.api.nvim_create_autocmd({"BufWritePost"}, {
+    pattern = {"Xresources", "Xdefaults", "xresources", "xdefaults"},
+    command = "!xrdb %",
+})
+
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = {"Xresources", "Xdefaults", "xresources", "xdefaults"},
+    command = "set filetype=xdefaults",
+})
+
+
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = {"*.md", "*.me", "*.mom", "*.man"},
+    command = "set filetype=groff",
+})
+
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = {"*.tex" },
+    command = "set filetype=tex",
+})
+
+
+-- vim.api.nvim_create_autocmd({"BufWritePre"}, {
+--     pattern = {"*"},
+--     command = "let currPos = getpos("."")",
+-- })
+--
+
+vim.api.nvim_create_autocmd({"BufWritePost"}, {
+    pattern={"*.tex"},
+    command = 'silent! execute "!compiler % >/dev/null 2>&1" | redraw!',
+})
+
+vim.api.nvim_create_autocmd({"VimLeave"}, {
+    pattern={"*.tex"},
+    command = '!texclear %',
+})
+
+
+-- automatic resizing
+vim.api.nvim_create_autocmd({"VimResized"}, {
+    pattern={"*"},
+    command = "tabdo wincmd =",
+})
+
+-- auto formatting
+vim.api.nvim_create_autocmd({"BufWritePre"}, {
+    pattern={"*"},
+    command = "lua vim.lsp.buf.formatting_sync()",
+})
+
 -- alpha
 --   augroup _alpha
 --     autocmd!

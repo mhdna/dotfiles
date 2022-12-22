@@ -179,9 +179,8 @@ vim.api.nvim_set_keymap("v", "<leader>lem", "<Esc><Cmd>lua require('jdtls').extr
 
 -- If using nvim-dap
 -- This requires java-debug and vscode-java-test bundles, see install steps in this README further below.
--- vim.api.nvim_set_keymap("n", "<leader>lt", "<Cmd>lua require('jdtls').test_class()<CR>", opts)
-
--- vim.api.nvim_set_keymap("n", "<leader>lT", "<Cmd>lua require('jdtls').test_nearest_method()<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "<leader>lt", "<Cmd>lua require('jdtls').test_class()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>lT", "<Cmd>lua require('jdtls').test_nearest_method()<CR>", { silent = true })
 
 
 -- Use an on_attach function to only map the following keys
@@ -200,11 +199,11 @@ vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation, bufopts)
 vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
--- vim.keymap.set('n', '<leader>lwa', vim.lsp.buf.add_workspace_folder, bufopts)
--- vim.keymap.set('n', '<leader>lwr', vim.lsp.buf.remove_workspace_folder, bufopts)
--- vim.keymap.set('n', '<leader>lwl', function()
---     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
--- end, bufopts)
+vim.keymap.set('n', '<leader>lwa', vim.lsp.buf.add_workspace_folder, bufopts)
+vim.keymap.set('n', '<leader>lwr', vim.lsp.buf.remove_workspace_folder, bufopts)
+vim.keymap.set('n', '<leader>lwl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end, bufopts)
 vim.keymap.set('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', bufopts)
 vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, bufopts)
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)

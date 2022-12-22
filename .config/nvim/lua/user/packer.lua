@@ -16,12 +16,10 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Autocommand that reloads neovim whenever you save the packer.lua file
-vim.cmd [[
-augroup packer_user_config
-autocmd!
-autocmd BufWritePost packer.lua source <afile> | PackerSync
-augroup end
-]]
+-- vim.api.nvim_create_autocmd({"BufWritePost"}, {
+--   pattern = {"packer.lua"},
+--   command = "source <afile> | PackerSync",
+-- })
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -29,17 +27,11 @@ if not status_ok then
     return
 end
 
--- Have packer use a popup window
-packer.init({
-    display = {
-        open_fn = function()
-            return require("packer.util").float({ border = "rounded" })
-        end,
-    },
-})
-
 -- Install your plugins here
 return packer.startup(function(use)
+    -- improve startup times
+    use("lewis6991/impatient.nvim")
+
     use("hrsh7th/nvim-cmp") -- The completion plugin
     use("hrsh7th/cmp-buffer") -- buffer completions
     use("hrsh7th/cmp-path") -- path completions
@@ -82,28 +74,6 @@ return packer.startup(function(use)
 
     use('jose-elias-alvarez/null-ls.nvim')
 
-    -- use({
-    --     "jose-elias-alvarez/null-ls.nvim",
-    --
-    --     config = function()
-    --         require("null-ls").setup({
-    --             sources = {
-    --                 require("null-ls").builtins.formatting.stylua,
-    --                 require("null-ls").builtins.diagnostics.eslint,
-    --                 require("null-ls").builtins.completion.spell,
-    --                 require("null-ls").builtins.completion.spell,
-    --                 require("null_ls").builtins.formatting.google_java_format,
-    --             }
-    --         })
-    --     end
-    -- })
-    --
-
-    -- for formatters and linters
-
-    -- Telescope
-    -- use( "nvim-telescope/telescope.nvim")
-
     -- Treesitter
     use({
         "nvim-treesitter/nvim-treesitter",
@@ -136,11 +106,17 @@ return packer.startup(function(use)
         -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
 
+    -- alternative to subword-mode in emacs
+    -- use("haoren/vim-wordmotion")
+
     use("vivkin/flatland.vim")
-    -- use("navarasu/onedark.nvim")
-    -- use('jacoborus/tender.vim')
-    use("sbdchd/neoformat")
-    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+    use('NLKNguyen/papercolor-theme')
+    use('vim-scripts/Tango-colour-scheme')
+    use('conweller/muted.vim')
+    use('keqizeng/nightelf')
+    use("mhinz/vim-janah")
+    -- use('jpo/vim-railscasts-theme')
+    -- use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
     use({
         "ibhagwan/fzf-lua",

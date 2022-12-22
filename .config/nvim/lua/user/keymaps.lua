@@ -54,8 +54,7 @@ vim.keymap.set('n', 'Q', 'gq')
 
 vim.keymap.set('n', '<leader>o', ':setlocal spell! spelllang=en_us<CR>')
 
-vim.keymap.set('n', '<c-s>', ':w<CR>')
-vim.keymap.set('i', '<c-s>', '<Esc>:w<CR>a')
+vim.keymap.set('n', '<leader>w', ':w<CR>')
 
 -- vim.keymap.set('n', '<leader>H', ':call ToggleHiddenAll()<CR>')
 -- xnorevim.keymap.set <silent> gP "+P
@@ -133,20 +132,23 @@ vim.keymap.set('', '<C-j>', '<C-w>j')
 vim.keymap.set('', '<C-k>', '<C-w>k')
 vim.keymap.set('', '<C-l>', '<C-w>l')
 -- Emacs-like bindings for managing splits
--- vim.keymap.set('', '<A-1>', '<C-w>o')
+vim.keymap.set('', '<A-0>', '<cmd>close<Cr>')
+vim.keymap.set('', '<A-1>', '<C-w>o')
 vim.keymap.set('', '<A-O>', '<C-w>R')
 vim.keymap.set('', '<A-=>', '<C-w>=')
--- vim.keymap.set('', '<A-2>', '<cmd>split<CR>')
--- vim.keymap.set('', '<A-3>', '<cmd>vsplit<CR>')
+vim.keymap.set('', '<A-2>', '<cmd>split<CR>')
+vim.keymap.set('', '<A-3>', '<cmd>vsplit<CR>')
 -- managing tabs
--- vim.keymap.set('', '<A-4>', '<C-w>T')
+vim.keymap.set('', '<A-4>', '<C-w>T')
 vim.keymap.set('', '<A-t>', '<cmd>tabnew<CR>')
 vim.keymap.set('', '<A-C-t>', '<cmd>tabclose<CR>')
 vim.keymap.set('', '<A-l>', '<cmd>tabnext<CR>')
 vim.keymap.set('', '<A-h>', '<cmd>tabprevious<CR>')
 -- Substitute
-vim.keymap.set('n', 'S', ':%s//g<Left><Left>')
-vim.keymap.set('v', 'S', ':s//g<Left><Left>')
+vim.keymap.set('n', '<C-s>', ':%s//g<Left><Left>')
+vim.keymap.set('v', '<C-s>', ':s//g<Left><Left>')
+-- delete empty lines
+vim.keymap.set('v', '<C-D>', '>:g/^$/d<CR>:nohl<CR>')
 -- diagnostics
 vim.keymap.set('n', '<A-p>', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', '<A-n>', vim.diagnostic.goto_next, opts)

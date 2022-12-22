@@ -29,15 +29,13 @@
       <property name="&lt;Super&gt;r" type="empty">
         <property name="startup-notify" type="empty"/>
       </property>
+      <property name="&lt;Alt&gt;&lt;Super&gt;s" type="empty"/>
     </property>
     <property name="custom" type="empty">
       <property name="&lt;Alt&gt;F2" type="string" value="xfce4-appfinder --collapsed">
         <property name="startup-notify" type="bool" value="true"/>
       </property>
       <property name="&lt;Alt&gt;Print" type="string" value="xfce4-screenshooter -w"/>
-      <property name="&lt;Super&gt;r" type="string" value="xfce4-popup-whiskermenu">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
       <property name="XF86Mail" type="string" value="exo-open --launch MailReader"/>
       <property name="&lt;Alt&gt;F3" type="empty">
         <property name="startup-notify" type="bool" value="true"/>
@@ -56,11 +54,7 @@
       <property name="&lt;Super&gt;d" type="empty">
         <property name="startup-notify" type="bool" value="true"/>
       </property>
-      <property name="&lt;Shift&gt;&lt;Super&gt;q" type="string" value="xfce4-session-logout"/>
       <property name="&lt;Super&gt;Return" type="string" value="xterm"/>
-      <property name="&lt;Shift&gt;&lt;Super&gt;r" type="string" value="xfce4-appfinder -c">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
       <property name="&lt;Super&gt;F2" type="string" value="redshift -O4000"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;F2" type="string" value="redshift -x"/>
       <property name="&lt;Super&gt;i" type="string" value="emacs"/>
@@ -92,6 +86,8 @@
       <property name="&lt;Super&gt;minus" type="string" value="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;plus" type="string" value="wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%%"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;underscore" type="string" value="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"/>
+      <property name="&lt;Super&gt;r" type="string" value="xfce4-appfinder -c"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;q" type="string" value="sysact"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
@@ -150,8 +146,8 @@
       <property name="&lt;Primary&gt;F12" type="empty"/>
       <property name="&lt;Super&gt;KP_Left" type="empty"/>
       <property name="&lt;Super&gt;KP_Right" type="empty"/>
-      <property name="&lt;Super&gt;KP_Up" type="empty"/>
       <property name="&lt;Super&gt;KP_Down" type="empty"/>
+      <property name="&lt;Super&gt;KP_Up" type="empty"/>
       <property name="&lt;Super&gt;KP_Page_Up" type="empty"/>
       <property name="&lt;Super&gt;KP_Home" type="empty"/>
       <property name="&lt;Super&gt;KP_End" type="empty"/>
@@ -194,10 +190,6 @@
       <property name="&lt;Shift&gt;&lt;Super&gt;at" type="string" value="move_window_workspace_2_key"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;numbersign" type="string" value="move_window_workspace_3_key"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;dollar" type="string" value="move_window_workspace_4_key"/>
-      <property name="&lt;Super&gt;1" type="string" value="workspace_1_key"/>
-      <property name="&lt;Super&gt;2" type="string" value="workspace_2_key"/>
-      <property name="&lt;Super&gt;3" type="string" value="workspace_3_key"/>
-      <property name="&lt;Super&gt;4" type="string" value="workspace_4_key"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;d" type="string" value="show_desktop_key"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;w" type="string" value="above_key"/>
       <property name="&lt;Super&gt;f" type="string" value="fullscreen_key"/>

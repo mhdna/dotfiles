@@ -1,5 +1,5 @@
 #!/bin/sh
-export WM="dwm"
+export WM="xfce4-session"
 case "$(readlink -f /sbin/init)" in
 	*systemd*) ctl='systemctl' ;;
 	*) ctl='loginctl' ;;

@@ -3,8 +3,9 @@
 (setq EMACS_DIR "~/.emacs.d/")
 ;; (setq user-init-file "~/.emacs.d/init.el")
 (setq user-init-file "~/.emacs.d/init.el")
-
+;; function for 
 ;; (native-compile-async "~/.emacs.d/elpa/" 4 t)
+
 
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
@@ -19,7 +20,6 @@
 (when (not (package-installed-p 'use-package))
   (package-refresh-contents)
   (package-install 'use-package))
-
 
 ;; maximize the initial frame automatically
 ;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -110,8 +110,8 @@
 (save-place-mode 1)
 (setq-default diff-update-on-the-fly nil)
 ;; recentf
-(recentf-mode 1)
-(run-at-time nil (* 5 60) 'recentf-save-list)
+;; (recentf-mode 1)
+;; (run-at-time nil (* 5 60) 'recentf-save-list)
 ;; bookmarks default file
 (setq bookmark-default-file (concat (file-name-as-directory EMACS_DIR) "/bookmarks"))
 (tooltip-mode -1)
@@ -139,7 +139,6 @@
 
 
 ;; Look and feel
-
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -152,8 +151,8 @@
 ;; (load-theme 'organic-green t)
 (use-package flatland-theme
 	:ensure t)
-(load-theme 'flatland t)
-;; (set-background-color "white")
+(load-theme 'apropospriate-dark t)
+(set-background-color "#3b3b3d")
 ;; (set-foreground-color "black")
 ;; (set-cursor-color "black")
 ;; Line numbers
@@ -166,7 +165,7 @@
 ;; (set-face-background 'minibuffer-prompt "#770000")
 ;; (set-face-foreground 'minibuffer-prompt "white")
 (set-window-scroll-bars (minibuffer-window) nil nil)
-(blink-cursor-mode -1)
+;; (blink-cursor-mode -1)
 ;; (setq scroll-margin 0
 ;;       scroll-conservatively 100000
 ;;       scroll-preserve-screen-position 1)
@@ -193,7 +192,7 @@
 ;;                 "Compilation finished in Emacs"
 ;;                 status))
 
-;; (use-package notifications
+;; (use-package notificationsppp
 ;; :config (notifications-notify
 ;; :title "Notifications"
 ;; :body "Notifications enabled"
@@ -209,14 +208,13 @@
 
 ;; Font settings
 (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 120)
+
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil :font "DejaVu Sans Mono" :height 120)
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "DejaVu Sans Mono" :height 120 :weight 'regular)
 (set-fontset-font "fontset-default" 'arabic (font-spec :family "Dejavu Sans Mono"))
 (setq my/font-change-increment 1.1)
-(custom-set-faces
- '(default ((t (:inherit nil :height 110 :family "Liberation Mono")))))
 
 
 ;; bidi settings
@@ -259,8 +257,8 @@
          ("C-c w"   . fixup-whitespace)
          ("M-o"   . other-window)
          ("C-x S"   . shell)
-         ("M-S-u"     . negative-argument)
-         ("M-u"     . universal-argument)
+         ;; ("M-S-u"     . negative-argument)
+         ;; ("M-u"     . universal-argument)
          ("M-1" . delete-other-windows)
          ;; ("C-;" . comment-line)
          ;; ("C-x C-;" . comment-box)
@@ -325,35 +323,24 @@
 ;;   :config (which-key-mode))
 ;;
 
-;; (use-package rainbow-mode
-;;   :ensure t
-;;   ;; :init (add-hook 'prog-mode-hook 'rainbow-mode)
-;;   )
-;; (add-hook 'after-init-hook #'rainbow-mode)
-;; (add-hook 'prog-mode #'rainbow-mode)
+(use-package rainbow-mode
+  :ensure t
+  :hook
+	(prog-mode)
+  )
 
-
-;; (use-package rainbow-delimiters
-;;   :ensure t)
-
-
-;; (use-package yasnippet
-;;   :ensure t
-;;   :config
-;;   (use-package yasnippet-snippets
-;;     :ensure t)
-;;   (use-package java-snippets
-;;     :ensure t)
-;;   (yas-reload-all)) ;needed so you don't always refresh when adding your own
-;; ;; ;
-;; (yas-global-mode 1)
-;; ;; (add-hook 'lua-mode-hook 'yas-minor-mode)
-;; ;; (add-hook 'java-mode-hook 'yas-minor-mode)
-;; ;; (add-hook 'c-mode-hook 'yas-minor-mode)
-;; ;; (add-hook 'python-mode-hook 'yas-minor-mode)
-;; ;; (add-hook 'elisp-mode-hook 'yas-minor-mode)
-;; ;; (add-hook 'org-mode-hook 'yas-minor-mode)
-;; ;; (add-hook 'c++-mode-hook 'yas-minor-mode)
+(use-package yasnippet
+  :ensure t
+  :config
+  (use-package yasnippet-snippets
+    :ensure t)
+  (use-package java-snippets
+    :ensure t)
+  ;; (yas-reload-all)
+) ;needed so you don't always refresh when adding your own
+;; ;
+(add-hook 'css-mode-hook 'yas-minor-mode)
+(add-hook 'html-mode-hook 'yas-minor-mode)
 ;;                                         ; use yas-describe-tables to see what's available
 
 ;; ;; (use-package popup-kill-ring
@@ -465,7 +452,6 @@
 ;;   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
 ;;   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 ;;   (diff-hl-flydiff-mode))
-
 
 ;; hippie expand
 (setq hippie-expand-try-functions-list '(try-expand-dabbrev

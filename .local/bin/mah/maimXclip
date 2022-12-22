@@ -1,5 +1,5 @@
 #!/bin/sh
 
-path="$HOME/pix/screenshots/temp/$(date '+%y%m%d-%H%M-%S').png";
+path="$XDG_PICTURES_DIR/screenshots/temp/$(date '+%y%m%d-%H%M-%S').png";
 
 maim -s "$path" pic-selected- && echo $path | tr -d '\n' | xclip -selection clipboard && notify-send -t  1500 '🖼️ tmp Screenshot Printed'

@@ -72,7 +72,7 @@ vim.opt.shiftwidth = 4
 
 vim.o.title = true
 vim.o.go = a
--- vim.o.clipboard = "unnamedplus"
+vim.o.clipboard = "unnamedplus"
 vim.o.undofile = true
 vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim-undodir"
 

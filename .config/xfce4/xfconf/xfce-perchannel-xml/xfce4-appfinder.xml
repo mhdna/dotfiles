@@ -39,8 +39,8 @@
     </property>
   </property>
   <property name="last" type="empty">
-    <property name="window-height" type="int" value="724"/>
-    <property name="window-width" type="int" value="1297"/>
+    <property name="window-height" type="int" value="726"/>
+    <property name="window-width" type="int" value="1364"/>
     <property name="pane-position" type="int" value="180"/>
   </property>
   <property name="always-center" type="bool" value="true"/>
