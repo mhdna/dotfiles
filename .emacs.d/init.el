@@ -6,7 +6,6 @@
 ;; function for 
 ;; (native-compile-async "~/.emacs.d/elpa/" 4 t)
 
-
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -32,7 +31,7 @@
 ;; (setq treesit-extra-load-path (concat (file-name-as-directory EMACS_DIR) "tree-sitter-module/dist/"))
 ;; load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-;; (require 'my-functions)
+(require 'my-functions)
 ;; (require 'init-evil)
 (require 'org-settings)
 ;; (require 'lsp-stuff)
@@ -151,8 +150,8 @@
 ;; (load-theme 'organic-green t)
 (use-package flatland-theme
 	:ensure t)
-(load-theme 'apropospriate-dark t)
-(set-background-color "#3b3b3d")
+(load-theme 'flatland t)
+;; (set-background-color "white")
 ;; (set-foreground-color "black")
 ;; (set-cursor-color "black")
 ;; Line numbers

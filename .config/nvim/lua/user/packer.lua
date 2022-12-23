@@ -109,12 +109,13 @@ return packer.startup(function(use)
     -- alternative to subword-mode in emacs
     -- use("haoren/vim-wordmotion")
 
-    use("vivkin/flatland.vim")
+    -- use("vivkin/flatland.vim")
     use('NLKNguyen/papercolor-theme')
-    use('vim-scripts/Tango-colour-scheme')
-    use('conweller/muted.vim')
-    use('keqizeng/nightelf')
-    use("mhinz/vim-janah")
+    use('tanvirtin/monokai.nvim')
+    -- use('vim-scripts/Tango-colour-scheme')
+    -- use('conweller/muted.vim')
+    -- use('keqizeng/nightelf')
+    -- use("mhinz/vim-janah")
     -- use('jpo/vim-railscasts-theme')
     -- use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 

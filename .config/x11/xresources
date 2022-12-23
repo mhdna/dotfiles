@@ -8,7 +8,7 @@ Emacs.alpha: 100
 /* Sxiv.foreground: #000000 */
 /* Sxiv.font: mono:style:size=10 */
 
-*background: #3b3b3d
+*background: #262626
 *foreground: #fff
 *.cursorColor: #fff
 
