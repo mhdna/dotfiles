@@ -21,31 +21,31 @@ vim.cmd [[
 
 
   " remove trailing whitespace
-  autocmd BufWritePre * %s/\s\+$//e
-  autocmd BufWritePre * %s/\n\+\%$//e
-  autocmd BufWritePre *.[ch] %s/\%$/\r/e
+  " autocmd BufWritePre * %s/\s\+$//e
+  " autocmd BufWritePre * %s/\n\+\%$//e
+  " autocmd BufWritePre *.[ch] %s/\%$/\r/e
   " autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
 
 ]]
 
-vim.api.nvim_create_autocmd({"BufWritePost"}, {
-    pattern = {"Xresources", "Xdefaults", "xresources", "xdefaults"},
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    pattern = { "Xresources", "Xdefaults", "xresources", "xdefaults" },
     command = "!xrdb %",
 })
 
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-    pattern = {"Xresources", "Xdefaults", "xresources", "xdefaults"},
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "Xresources", "Xdefaults", "xresources", "xdefaults" },
     command = "set filetype=xdefaults",
 })
 
 
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-    pattern = {"*.md", "*.me", "*.mom", "*.man"},
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*.md", "*.me", "*.mom", "*.man" },
     command = "set filetype=groff",
 })
 
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-    pattern = {"*.tex" },
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*.tex" },
     command = "set filetype=tex",
 })
 
@@ -56,28 +56,28 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
 -- })
 --
 
-vim.api.nvim_create_autocmd({"BufWritePost"}, {
-    pattern={"*.tex"},
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    pattern = { "*.tex" },
     command = 'silent! execute "!compiler % >/dev/null 2>&1" | redraw!',
 })
 
-vim.api.nvim_create_autocmd({"VimLeave"}, {
-    pattern={"*.tex"},
+vim.api.nvim_create_autocmd({ "VimLeave" }, {
+    pattern = { "*.tex" },
     command = '!texclear %',
 })
 
 
 -- automatic resizing
-vim.api.nvim_create_autocmd({"VimResized"}, {
-    pattern={"*"},
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+    pattern = { "*" },
     command = "tabdo wincmd =",
 })
 
 -- auto formatting
-vim.api.nvim_create_autocmd({"BufWritePre"}, {
-    pattern={"*"},
-    command = "lua vim.lsp.buf.formatting_sync()",
-})
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--     pattern = { "*" },
+--     command = "lua vim.lsp.buf.formatting_sync()",
+-- })
 
 -- alpha
 --   augroup _alpha

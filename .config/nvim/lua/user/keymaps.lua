@@ -1,13 +1,5 @@
 require('Comment').setup()
 
-local function map(mode, lhs, rhs, opts)
-    local options = { noremap = true, silent = true }
-    if opts then
-        options = vim.tbl_extend('force', options, opts)
-    end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-
 vim.cmd([[
 func! ToggleArabic()
 if &rl
@@ -54,7 +46,7 @@ vim.keymap.set('n', 'Q', 'gq')
 
 vim.keymap.set('n', '<leader>o', ':setlocal spell! spelllang=en_us<CR>')
 
-vim.keymap.set('n', '<leader>w', ':w<CR>')
+-- vim.keymap.set('n', '<leader>w', ':w<CR>')
 
 -- vim.keymap.set('n', '<leader>H', ':call ToggleHiddenAll()<CR>')
 -- xnorevim.keymap.set <silent> gP "+P

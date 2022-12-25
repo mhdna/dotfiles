@@ -60,19 +60,10 @@ return packer.startup(function(use)
     -- LSP
     use("neovim/nvim-lspconfig") -- enable LSP
     use("theprimeagen/harpoon")
-    -- use( "williamboman/nvim-lsp-installer") -- simple to use language server installer
     use { "williamboman/mason.nvim" }
-    require("mason").setup({
-        ui = {
-            icons = {
-                package_installed = "✓",
-                package_pending = "➜",
-                package_uninstalled = "✗"
-            }
-        }
-    })
+    require("mason").setup()
 
-    use('jose-elias-alvarez/null-ls.nvim')
+    -- use('jose-elias-alvarez/null-ls.nvim')
 
     -- Treesitter
     use({
@@ -111,7 +102,6 @@ return packer.startup(function(use)
 
     -- use("vivkin/flatland.vim")
     use('NLKNguyen/papercolor-theme')
-    use('tanvirtin/monokai.nvim')
     -- use('vim-scripts/Tango-colour-scheme')
     -- use('conweller/muted.vim')
     -- use('keqizeng/nightelf')
@@ -122,7 +112,7 @@ return packer.startup(function(use)
     use({
         "ibhagwan/fzf-lua",
         config = -- fzf
-            vim.cmd [[let g:fzf_layout = { 'down': '~40%' } ]]
+        vim.cmd [[let g:fzf_layout = { 'down': '~40%' } ]]
         -- config = function()
         --     require('fzf-lua').setup({
         --         winopts = { height = 0.6 } --split = "belowright new", preview = { hidden = 'hidden' },
@@ -130,12 +120,12 @@ return packer.startup(function(use)
         -- end
     })
 
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
-        -- or                            , branch = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} }
-    }
-
+    -- use {
+    --     'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    --     -- or                            , branch = '0.1.x',
+    --     requires = { {'nvim-lua/plenary.nvim'} }
+    -- }
+    --
 
     -- use('powerline/powerline')
     -- java setup
@@ -153,12 +143,16 @@ return packer.startup(function(use)
     })
 
     -- Debug
-    use("mfussenegger/nvim-dap")
+    use {
+        'mfussenegger/nvim-dap'
+        -- config = function() require('user.nvim-dap') end,
+    }
+    use("rcarriga/cmp-dap")
     use("rcarriga/nvim-dap-ui")
     use("theHamsta/nvim-dap-virtual-text")
 
     -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
+    -- Put this at the end after all the plugins
     if PACKER_BOOTSTRAP then
         require("packer").sync()
     end

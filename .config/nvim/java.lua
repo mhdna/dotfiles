@@ -27,26 +27,28 @@ extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 
 local on_attach = function(client, bufnr)
-    jdtls.setup.add_commands()
-    require('jdtls.dap').setup_dap_main_class_configs()
+jdtls.setup.add_commands()
+require("jdtls").setup_dap()
+require('jdtls.dap').setup_dap_main_class_configs()
 
-    -- Default keymaps
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    require("user.lsp-default-bindings").on_attach(client, bufnr)
+-- Default keymaps
+local bufopts = { noremap = true, silent = true, buffer = bufnr }
+require("user.lsp-default-bindings").on_attach(client, bufnr)
 
-    -- Java extensions
-    vim.keymap.set("n", "<C-o>", jdtls.organize_imports, bufopts, "Organize imports")
-    vim.keymap.set("n", "<leader>lt", jdtls.test_class, bufopts, "Test class (DAP)")
-    vim.keymap.set("n", "<leader>lT", jdtls.test_nearest_method, bufopts, "Test method (DAP)")
-    vim.keymap.set("n", "<space>lev", jdtls.extract_variable, bufopts, "Extract variable")
-    vim.keymap.set("n", "<space>lec", jdtls.extract_constant, bufopts, "Extract constant")
-    vim.keymap.set("v", "<space>lem", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], bufopts,
-        "Extract method")
+-- Java extensions
+vim.keymap.set("n", "<C-o>", jdtls.organize_imports, bufopts, "Organize imports")
+vim.keymap.set("n", "<leader>lt", jdtls.test_class, bufopts, "Test class (DAP)")
+vim.keymap.set("n", "<leader>lT", jdtls.test_nearest_method, bufopts, "Test method (DAP)")
+vim.keymap.set("n", "<space>lev", jdtls.extract_variable, bufopts, "Extract variable")
+vim.keymap.set("n", "<space>lec", jdtls.extract_constant, bufopts, "Extract constant")
+vim.keymap.set("v", "<space>lem", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], bufopts, "Extract method")
+
+
 end
 
 
 local bundles = {
-  vim.fn.glob(home.."/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", 1),
+    vim.fn.glob(home.."/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", 1),
 }
 
 local extra_bundles = vim.split(vim.fn.glob(home .. "/.local/share/nvim/mason/packages/java-test/extension/server/*.jar", 1), "\n")
@@ -168,16 +170,20 @@ local config = {
 }
 
 
+-- vim.cmd(
+--     "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"
+-- )
+-- vim.cmd(
+--     "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)"
+-- )
+-- vim.cmd("command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()")
+-- -- vim.cmd "command! -buffer JdtJol lua require('jdtls').jol()"
+-- vim.cmd("command! -buffer JdtBytecode lua require('jdtls').javap()")
+--
+--
+--
+--
 
-vim.cmd(
-  "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"
-)
-vim.cmd(
-  "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)"
-)
-vim.cmd("command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()")
--- vim.cmd "command! -buffer JdtJol lua require('jdtls').jol()"
-vim.cmd("command! -buffer JdtBytecode lua require('jdtls').javap()")
 -- vim.cmd "command! -buffer JdtJshell lua require('jdtls').jshell()"
 -- -- nvim-dap
 -- nnoremap("<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Set breakpoint")
@@ -203,4 +209,3 @@ vim.cmd("command! -buffer JdtBytecode lua require('jdtls').javap()")
 -- nnoremap('<leader>dh', '<cmd>Telescope dap commands<cr>', "List commands")
 
 require("jdtls").start_or_attach(config)
-require("jdtls").setup_dap({ hotcodereplace = 'auto' })

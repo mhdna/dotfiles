@@ -5,7 +5,6 @@ vim.opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
 -- vim.opt.laststatus = 2
 vim.opt.pumheight= 15
 
-vim.opt.showmatch = true -- Highlight matching parenthesis
 vim.opt.foldmethod = 'marker' -- Enable folding (default 'foldmarker')
 -- mah
 -- for always block cursor
@@ -96,3 +95,10 @@ vim.o.splitright = true
 -- set updatetime=50
 -- set inccommand=nosplit
 -- opt.statusline="%F" --"t (tail -filename-), f relative path, F full path
+
+-- disable all languages but lua and vimscript for editing
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python_provider = 0
+vim.g.loaded_python3_provider = 0
