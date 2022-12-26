@@ -39,14 +39,14 @@ lspconfig.rust_analyzer.setup {
     }
 }
 
-lspconfig.sumneko_lua.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    diagnostics = {
-        globals = { 'vim' },
-    },
-}
-
-
+-- lspconfig.sumneko_lua.setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+--     diagnostics = {
+--         globals = { 'vim' },
+--     },
+-- }
+--
+--
 -- Disable inline error messages
 vim.diagnostic.config({ virtual_text = false })

@@ -202,5 +202,5 @@ vim.cmd("command! -buffer JdtBytecode lua require('jdtls').javap()")
 -- nnoremap('<leader>df', '<cmd>Telescope dap frames<cr>', "List frames")
 -- nnoremap('<leader>dh', '<cmd>Telescope dap commands<cr>', "List commands")
 
+require("jdtls").setup_dap()
 require("jdtls").start_or_attach(config)
-require("jdtls").setup_dap({ hotcodereplace = 'auto' })

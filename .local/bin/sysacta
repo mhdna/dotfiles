@@ -14,7 +14,7 @@ esac
 case "$(printf "lock\nleave $WM\nrenew $WM\nhibernate\nreboot\npoweroff\nsleep" | dmenu -i -p 'Action: ')" in
   #\n📺 display of
 	'lock') mpc pause& pauseallmpv& slock ;;
-	"leave $WM") killall $WM ;;
+    "leave $WM") pkill -15 -t tty"$XDG_VTNR" Xorg ;; # kill xorg in currently running virtual terminal (tty)
 	"renew $WM") echo 'awesome.restart()' | awesome-client ;;
 	'hibernate') mpc pause& pauseallmpv& slock $ctl hibernate ;;
 	'sleep') mpc pause& pauseallmpv& slock $ctl suspend -i;;

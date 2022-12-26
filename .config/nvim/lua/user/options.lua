@@ -23,32 +23,32 @@ vim.opt.updatetime = 700 -- ms to wait for trigger an event
 -- Disable nvim intro
 -- opt.shortmess:append "sI"
 -- Disable builtins plugins
--- local disabled_built_ins = {
+local disabled_built_ins = {
 --     "netrw",
 --     "netrwPlugin",
 --     "netrwSettings",
 --     "netrwFileHandlers",
---     "gzip",
---     "zip",
---     "zipPlugin",
---     "tar",
---     "tarPlugin",
---     "getscript",
---     "getscriptPlugin",
---     "vimball",
---     "vimballPlugin",
---     "2html_plugin",
---     "logipat",
---     "rrhelper",
---     "spellfile_plugin",
---     "matchit"
--- }
--- for _, plugin in pairs(disabled_built_ins) do
-    -- g["loaded_" .. plugin] = 1
--- end
+    "gzip",
+    "zip",
+    "zipPlugin",
+    "tar",
+    "tarPlugin",
+    "getscript",
+    "getscriptPlugin",
+    "vimball",
+    "vimballPlugin",
+    "2html_plugin",
+    "logipat",
+    "rrhelper",
+    "spellfile_plugin",
+    "matchit"
+}
+for _, plugin in pairs(disabled_built_ins) do
+    vim.g["loaded_" .. plugin] = 1
+end
 
 
-vim.o.exrc       = true -- so if a vimrc file is in a dir, it's automatically sourced (for custom projects)
+-- vim.o.exrc       = true -- so if a vimrc file is in a dir, it's automatically sourced (for custom projects)
 vim.o.compatible = false
 vim.o.incsearch  = true -- highlight incrementaly rather than the whole word word
 vim.o.ignorecase = true
@@ -60,14 +60,13 @@ vim.opt.signcolumn = "yes" --for linting, lsp error, left column
 vim.o.hlsearch   = true -- keep the previous search occurance highlighted
 vim.o.swapfile   = false
 
--- vim.wo.relativenumber = true
+vim.wo.relativenumber = true
 vim.o.number = true
 vim.o.scrolloff = 8
 vim.opt.termguicolors = true -- Enable 24-bit RGB colors
 vim.opt.linebreak = false
 vim.bo.tabstop = 4
 vim.bo.shiftwidth = 4
-vim.opt.shiftwidth = 4
 
 vim.o.title = true
 vim.o.go = a
@@ -76,7 +75,7 @@ vim.o.undofile = true
 vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim-undodir"
 
 vim.o.encoding = "utf-8"
--- vim.o.guifont = "hack:h10" -- the font used in graphical neovim applications
+-- vim.o.guifont = "hack:h10" -- the font used in neovim gui
 
 vim.o.autochdir = true
 -- Tab command mode completion

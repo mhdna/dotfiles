@@ -3,7 +3,7 @@
 (setq EMACS_DIR "~/.emacs.d/")
 ;; (setq user-init-file "~/.emacs.d/init.el")
 (setq user-init-file "~/.emacs.d/init.el")
-;; function for 
+;; function for mantually natively compiling packages
 ;; (native-compile-async "~/.emacs.d/elpa/" 4 t)
 
 (require 'package)
@@ -109,8 +109,8 @@
 (save-place-mode 1)
 (setq-default diff-update-on-the-fly nil)
 ;; recentf
-;; (recentf-mode 1)
-;; (run-at-time nil (* 5 60) 'recentf-save-list)
+(recentf-mode 1)
+(run-at-time nil (* 5 60) 'recentf-save-list)
 ;; bookmarks default file
 (setq bookmark-default-file (concat (file-name-as-directory EMACS_DIR) "/bookmarks"))
 (tooltip-mode -1)
@@ -148,9 +148,10 @@
 (setq ring-bell-function 'ignore)
 ;; (load-file "~/.emacs.d/organic-green-theme.el")
 ;; (load-theme 'organic-green t)
-(use-package flatland-theme
-	:ensure t)
-(load-theme 'flatland t)
+;; (use-package flatland-theme
+;; 	:ensure t)
+
+(load-theme 'tango-dark t)
 ;; (set-background-color "white")
 ;; (set-foreground-color "black")
 ;; (set-cursor-color "black")
@@ -206,13 +207,13 @@
 
 
 ;; Font settings
-(set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 120)
+(set-face-attribute 'default nil :font "Liberation Mono" :height 120)
 
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "DejaVu Sans Mono" :height 120)
+(set-face-attribute 'fixed-pitch nil :font "Liberation Mono" :height 120)
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "DejaVu Sans Mono" :height 120 :weight 'regular)
-(set-fontset-font "fontset-default" 'arabic (font-spec :family "Dejavu Sans Mono"))
+(set-face-attribute 'variable-pitch nil :font "Liberation Mono" :height 120 :weight 'regular)
+(set-fontset-font "fontset-default" 'arabic (font-spec :family "DejaVu Sans Mono"))
 (setq my/font-change-increment 1.1)
 
 
@@ -238,7 +239,6 @@
     )
   (message "%s" bidi-paragraph-direction))
 
-
 ;; Key bindings/unbindings
 (use-package emacs
   :ensure nil
@@ -250,7 +250,6 @@
          ("C-z"     . undo-only)
          ("C-S-z"   . undo-redo)
          ("C-x C-u" . undo-redo)
-         ("<f1>" . toggle-input-method)
 				 ("<f5>" . recompile)
 				 ("C-c s" . flyspell-mode)
          ("C-c w"   . fixup-whitespace)
@@ -259,15 +258,12 @@
          ;; ("M-S-u"     . negative-argument)
          ;; ("M-u"     . universal-argument)
          ("M-1" . delete-other-windows)
-         ;; ("C-;" . comment-line)
-         ;; ("C-x C-;" . comment-box)
-				 ;; ("C-x C-;" . eval-buffer)
-         ;; ("M-;" . eval-last-sexp)
-         ))
+         ("C-;" . comment-line)
+				 ("C-'" . toggle-input-method)
+         ("C-x C-;" . comment-box)
+				 ))
 
-(defun back-window ()
-  (interactive)
-  (other-window -1))
+
 ;; (global-set-key (kbd "C-/") 'comment-line)
 ;; (global-set-key (kbd "C-S-/") 'comment-box)
 ;; (global-set-key (kbd "M-/") 'comment-dwim)
@@ -278,24 +274,6 @@
 ;;(setq ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf"))
 ;;(setq ido-create-new-buffer 'always)
 (define-key input-decode-map "\e[1;2A" [S-up])
-;; unbind C-x C-x for closing, and C-x C-z for suspending
-(global-unset-key (kbd "C-x C-c"))
-(global-unset-key (kbd "C-x C-z"))
-
-;; Useful functions
-(defun split-and-follow-horizontally ()
-  (interactive)
-  (split-window-below)
-  (balance-windows)
-  (other-window 1))
-(global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
-(defun split-and-follow-vertically ()
-  (interactive)
-  (split-window-right)
-  (balance-windows)
-  (other-window 1))
-(global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
-(ido-mode t)
 
 ;; electric paris for automatically closing brackets
 ;; (setq electric-pair-pairs '(
@@ -336,7 +314,7 @@
   (use-package java-snippets
     :ensure t)
   ;; (yas-reload-all)
-) ;needed so you don't always refresh when adding your own
+	) ;needed so you don't always refresh when adding your own
 ;; ;
 (add-hook 'css-mode-hook 'yas-minor-mode)
 (add-hook 'html-mode-hook 'yas-minor-mode)
@@ -362,74 +340,65 @@
 ;;     (let ((indent-tabs-mode nil))
 ;;       ad-do-it)))
 
-;; ;;; COMPLETION
-;; (use-package vertico
-;;   :ensure t
-;;   :init
-;; ;;;; Out Of Order Compleiton
-;;   (use-package orderless
-;;     :commands (orderless)
-;;     :custom (completion-styles '(orderless flex)))
+(use-package vertico
+  :ensure t
+	:init
+;;;; Out Of Order Compleiton
+  (use-package orderless
+    :commands (orderless)
+    :custom (completion-styles '(orderless flex)))
 
 ;; ;;;; Extra Completion Functions
-;; 	(use-package consult
-;; 		:ensure t
-;; 		:bind (
-;; 					 ;; ("C-x b"       . consult-buffer)
-;; 					 ("C-x C-k C-k" . consult-kmacro)
-;; 					 ("M-y"         . consult-yank-pop)
-;; 					 ("M-g g"       . consult-goto-line)
-;; 					 ("M-g M-g"     . consult-goto-line)
-;; 					 ("M-g f"       . consult-flymake)
-;; 					 ;; ("M-i"       . consult-imenu)
-;; 					 ;; ("M-s l"       . consult-line)
-;; 					 ;; ("M-s L"       . consult-line-multi)
-;; 					 ("M-s u"       . consult-focus-lines)
-;; 					 ("M-s g"       . consult-ripgrep)
-;; 					 ("C-x C-SPC"   . consult-global-mark)
-;; 					 ("C-x M-:"     . consult-complex-command)
-;; 					 ("C-c n"       . consult-org-agenda)
-;; 					 ("C-c m"     . my/notegrep)
-;; 					 :map dired-mode-map
-;; 					 ("O" . consult-file-externally)
-;; 					 :map help-map
-;; 					 ("a" . consult-apropos)
-;; 					 :map minibuffer-local-map
-;; 					 ("M-r" . consult-history))
-;; 		:custom
-;; 		(completion-in-region-function #'consult-completion-in-region)
-;; 		:config
-;; 		(defun my/notegrep ()
-;; 			"Use interactive grepping to search my notes"
-;; 			(interactive)
-;; 			(consult-ripgrep org-directory))
-;; 		(add-hook 'completion-setup-hook #'hl-line-mode)
-;; 		(recentf-mode t))
+(use-package consult
+	:ensure t
+	:bind (
+				 ("C-x b"       . consult-buffer)
+				 ("C-x C-k C-k" . consult-kmacro)
+				 ("M-y"         . consult-yank-pop)
+				 ("M-g g"       . consult-goto-line)
+				 ("M-g M-g"     . consult-goto-line)
+				 ("M-g f"       . consult-flymake)
+				 ("M-i"       . consult-imenu)
+				 ("M-s l"       . consult-line)
+				 ("M-s L"       . consult-line-multi)
+				 ("M-s u"       . consult-focus-lines)
+				 ("M-s g"       . consult-ripgrep)
+				 ("C-x C-SPC"   . consult-global-mark)
+				 ("C-x M-:"     . consult-complex-command)
+				 ("C-c n"       . consult-org-agenda)
+				 ("C-c m"     . my/notegrep)
+				 :map dired-mode-map
+				 ("O" . consult-file-externally)
+				 :map help-map
+				 ("a" . consult-apropos)
+				 :map minibuffer-local-map
+				 ("M-r" . consult-history))
+	:custom
+	(completion-in-region-function #'consult-completion-in-region)
+	:config
+	(add-hook 'completion-setup-hook #'hl-line-mode))
 
-;;   ;; (load (concat user-emacs-directory
-;;   ;;               "lisp/affe-config.el"))
+  (use-package marginalia
+    :ensure t
+    :custom
+    (marginalia-annotators
+     '(marginalia-annotators-heavy marginalia-annotators-light nil))
+    :init
+    (marginalia-mode))
+  ;; Enable vertico using the vertico-flat-mode
+  (require 'vertico-directory)
+  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+  (vertico-mode t)
+  :config
+  ;; Used for the vertico-directory extension
+  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
 
-;;   (use-package marginalia
-;;     :ensure t
-;;     :custom
-;;     (marginalia-annotators
-;;      '(marginalia-annotators-heavy marginalia-annotators-light nil))
-;;     :init
-;;     (marginalia-mode))
-;;   ;; Enable vertico using the vertico-flat-mode
-;;   (require 'vertico-directory)
-;;   (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
-;;   (vertico-mode t)
-;;   :config
-;;   ;; Used for the vertico-directory extension
-;;   (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
-
-;;   ;; Do not allow the cursor in the minibuffer prompt
-;;   (setq minibuffer-prompt-properties
-;;         '(read-only t cursor-intangible t face minibuffer-prompt))
-;;   (add-hook 'minibuffer-setu
-;;   ;; Enable recursive minibuffers
-;;   (setq enable-recursive-minibuffers t)))
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setu
+  ;; Enable recursive minibuffers
+  (setq enable-recursive-minibuffers t)))
 
 ;; (use-package magit
 ;;   :ensure t)
@@ -468,106 +437,93 @@
 ;; (global-set-key (kbd "M-/")  #'hippie-expand)
 
 
-;; for explicitly completing using <tab>
-;; (setq tab-always-indent 'complete)
-
-;; (use-package corfu
-;; 	:ensure t
-;;   ;; Optional customizations
-;;   :custom
-;;   (corfu-cycle t)                 ; Allows cycling through candidates
-;;   (corfu-auto t)                  ; Enable auto completion
-;;   (corfu-auto-prefix 1)
-;;   (corfu-auto-delay 0.0)
-;;   (corfu-echo-documentation 0.25) ; Enable documentation for completions
-;;   (corfu-preview-current 'insert) ; Do not preview current candidate
-;;   (corfu-preselect-first t)
-;;   (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
-;;   ;; Optionally use TAB for cycling, default is `corfu-complete'.
-;;   :bind (:map corfu-map
-;;               ("M-SPC" . corfu-insert-separator)
-;;               ("TAB"     . corfu-next)
-;;               ([tab]     . corfu-next)
-;;               ("S-TAB"   . corfu-previous)
-;;               ([backtab] . corfu-previous)
-;;               ("S-<return>" . nil)
-;;               ("RET"     . corfu-insert) ;; leave my enter alone!
-;; 							;; ("<escape>" . (lambda () (interactive) (corfu-quit) (evil-normal-state)))
-;;               )
-;;   :init
-;;   (global-corfu-mode)
-;;   (corfu-history-mode)
-;;   :config
-;; 	;; exit with evil-escape
-;; 	(advice-add 'evil-escape-func :after 'corfu-quit)
-;;   (setq tab-always-indent 'complete)
-;;   (add-hook 'eshell-mode-hook
-;;             (lambda () (setq-local corfu-quit-at-boundary t
-;;                                    corfu-quit-no-match t
-;;                                    corfu-auto nil)
-;;               (corfu-mode))))
-;; ;; Use Dabbrev with Corfu!
-;; (use-package dabbrev
-;;   ;; Swap M-/ and C-M-/
-;;   :bind (("M-/" . dabbrev-completion)
-;;          ("C-M-/" . dabbrev-expand))
-;;   ;; Other useful Dabbrev configurations.
-;;   :custom
-;;   (dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'")))
-;; ;; fuzzy completion for corfu
-;; (use-package orderless
-;;   :ensure t
-;;   :init
-;;   ;; Tune the global completion style settings to your liking!
-;;   ;; This affects the minibuffer and non-lsp completion at point.
-;;   (setq completion-styles '(orderless partial-completion basic)
-;;         completion-category-defaults nil
-;;         completion-category-overrides nil))
-
-(use-package company
-  :ensure t
-  :bind
-  (:map company-active-map
-        ("<tab>" . company-complete-selection)
-				("RET" . nil)
-                    ;; ("<escape>" . company-abort)
-        )
-  ;; (:map lsp-mode-map
-  ;; ("<tab>" . company-indent-or-complete-common))
-  :hook
-  (prog-mode)
-	;; (add-hook 'after-init-hook 'global-company-mode) ;not only for programming moed
+(use-package corfu
+	:ensure t
+  ;; Optional customizations
+  :custom
+  (corfu-cycle t)                 ; Allows cycling through candidates
+  (corfu-auto t)                  ; Enable auto completion
+  (corfu-auto-prefix 1)
+  (corfu-auto-delay 0.1)
+  (corfu-echo-documentation 0.25) ; Enable documentation for completions
+  (corfu-preview-current 'insert) ; Do not preview current candidate
+  (corfu-preselect-first t)
+  (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
+  ;; Optionally use TAB for cycling, default is `corfu-complete'.
+  :bind (:map corfu-map
+              ("M-SPC" . corfu-insert-separator)
+              ("TAB"     . corfu-next)
+              ([tab]     . corfu-next)
+              ("S-TAB"   . corfu-previous)
+              ([backtab] . corfu-previous)
+              ("S-<return>" . nil)
+              ("RET"     . corfu-insert) ;; leave my enter alone!
+              )
+  :init
+  (global-corfu-mode)
+  (corfu-history-mode)
   :config
-  ;; exit in evil normal mode
-  ;; (add-hook 'company-mode-hook
-  ;;           (lambda ()
-  ;;             (add-hook 'evil-normal-state-entry-hook
-  ;;                       (lambda ()
-  ;;                         (company-abort)))))
-  (define-key company-active-map (kbd "C-n") #'company-select-next)
-  (define-key company-active-map (kbd "C-p") #'company-select-previous)
-  ;; (company-keymap--unbind-quick-access company-active-map) ;; disable using M-number to select items
-  ;; (company-tng-configure-default) ;; don't change the default tab behaviour
-  (setq company-idle-delay 0.1)
-  (setq company-tooltip-limit 10)
-  (setq company-minimum-prefix-length 1)
-  (setq company-tooltip-align-annotations t)
-  ;; invert the navigation direction if the the completion popup-isearch-match
-  ;; is displayed on top (happens near the bottom of windows)
-  (setq company-tooltip-flip-when-above t)
-  ;; (global-company-mode)
-  ;; (with-eval-after-load 'company
-  ;;   (define-key company-active-map (kbd "<return>") #'company-complete-selection))
+  (add-hook 'eshell-mode-hook
+            (lambda () (setq-local corfu-quit-at-boundary t
+                                   corfu-quit-no-match t
+                                   corfu-auto nil)
+              (corfu-mode))))
+;; Use Dabbrev with Corfu!
+(use-package dabbrev
+  ;; Swap M-/ and C-M-/
+  :bind (("M-/" . dabbrev-completion)
+         ("C-M-/" . dabbrev-expand))
+  ;; Other useful Dabbrev configurations.
+  :custom
+  (dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'")))
+;; fuzzy completion for corfu
+(use-package orderless
+  :ensure t
+  :init
+  ;; Tune the global completion style settings to your liking!
+  ;; This affects the minibuffer and non-lsp completion at point.
+  (setq completion-styles '(orderless partial-completion basic)
+        completion-category-defaults nil
+        completion-category-overrides nil))
 
-  ;;  :config
-  ;;  (setq lsp-completion-provider :capf))
-  )
-
-
-;; (use-package company-web
+;; (use-package company
 ;;   :ensure t
+;;   :bind
+;;   (:map company-active-map
+;;         ("<tab>" . company-complete-selection)
+;; 				("RET" . nil)
+;;         ;; ("<escape>" . company-abort)
+;;         )
+;;   ;; (:map lsp-mode-map
+;;   ;; ("<tab>" . company-indent-or-complete-common))
+;;   :hook
+;;   (prog-mode)
+;; 	;; (add-hook 'after-init-hook 'global-company-mode) ;not only for programming moed
 ;;   :config
-;;   (add-to-list 'company-backends 'company-web-html))
+;;   ;; exit in evil normal mode
+;;   ;; (add-hook 'company-mode-hook
+;;   ;;           (lambda ()
+;;   ;;             (add-hook 'evil-normal-state-entry-hook
+;;   ;;                       (lambda ()
+;;   ;;                         (company-abort)))))
+;;   (define-key company-active-map (kbd "C-n") #'company-select-next)
+;;   (define-key company-active-map (kbd "C-p") #'company-select-previous)
+;;   ;; (company-keymap--unbind-quick-access company-active-map) ;; disable using M-number to select items
+;;   ;; (company-tng-configure-default) ;; don't change the default tab behaviour
+;;   (setq company-idle-delay 0.1)
+;;   (setq company-tooltip-limit 10)
+;;   (setq company-minimum-prefix-length 1)
+;;   (setq company-tooltip-align-annotations t)
+;;   ;; invert the navigation direction if the the completion popup-isearch-match
+;;   ;; is displayed on top (happens near the bottom of windows)
+;;   (setq company-tooltip-flip-when-above t)
+;;   ;; (global-company-mode)
+;;   ;; (with-eval-after-load 'company
+;;   ;;   (define-key company-active-map (kbd "<return>") #'company-complete-selection))
+
+;;   ;;  :config
+;;   ;;  (setq lsp-completion-provider :capf))
+;;   )
 
 (use-package emmet-mode
   :ensure t
@@ -586,12 +542,6 @@
   ;; (lambda ()
   ;; (evil-define-key 'normal flycheck-mode-map (kbd "]e") 'flycheck-next-error)
   ;; (evil-define-key 'normal flycheck-mode-map (kbd "[e") 'flycheck-previous-error)))
-
-  ;; (add-hook 'python-mode-hook 'flycheck-mode)
-  ;; (add-hook 'lisp-mode 'flycheck-mode)
-  ;; (add-hook 'java-mode 'flycheck-mode)
-  ;; (add-hook 'go-mode-hook 'flycheck-mode)
-  ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
   )
 
 (use-package web-mode
@@ -678,8 +628,5 @@
 ;; 	)
 
 ;; ;; treesitter
-;; (add-hook 'c++-mode-hook 'c++-ts-mode)
 (add-hook 'java-mode-hook 'java-ts-mode)
-;; (add-hook 'c-mode-hook 'c-ts-mode)
-;; (add-hook 'python-mode-hook 'python-ts-mode)
 

@@ -13,3 +13,4 @@ run nm-applet
 run $TERMINAL -e my-tmux-session
 run $BROWSER
 run emacs
+run blueman-applet

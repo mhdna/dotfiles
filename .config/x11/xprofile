@@ -1,19 +1,19 @@
-#!/bin/sh
-
-xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!
-xset s 900 0 &
-xss-lock slock&
-redshift -l 31.77:35.23&
-remaps &
-picom --vsync&
-# xautolock -time 10 -locker  'slock'&
-# emacs --daemon&
-
-autostart="unclutter dunst mpd clipmenud pipewire "
-
-for program in $autostart; do
-	pidof -s "$program" || "$program" &
-done >/dev/null 2>&1
-
-# Ensure that xrdb has finished running before moving on to start the WM/DE.
-[ -n "$xrdbpid" ] && wait "$xrdbpid"
+# #!/bin/sh
+#
+# xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!
+# xset s 900 0 &
+# xss-lock slock&
+# redshift -l 31.77:35.23&
+# remaps &
+# picom --vsync&
+# # xautolock -time 10 -locker  'slock'&
+# # emacs --daemon&
+#
+# autostart="unclutter dunst mpd clipmenud pipewire "
+#
+# for program in $autostart; do
+# 	pidof -s "$program" || "$program" &
+# done >/dev/null 2>&1
+#
+# # Ensure that xrdb has finished running before moving on to start the WM/DE.
+# [ -n "$xrdbpid" ] && wait "$xrdbpid"

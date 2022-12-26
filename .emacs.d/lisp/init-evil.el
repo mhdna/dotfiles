@@ -248,7 +248,15 @@ is not used."
 	(evilnc-default-hotkeys t)
 	)
 
+;; unbind C-x C-x for closing, and C-x C-z for suspending
+(global-unset-key (kbd "C-x C-c"))
+(global-unset-key (kbd "C-x C-z"))
+
 (add-hook 'org-insert-heading-hook (apply-partially #'evil-insert 1))
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
+
+;; corfu exit with evil-escape
+(advice-add 'evil-escape-func :after 'corfu-quit)
+(setq tab-always-indent 'complete)
 
 (provide 'init-evil)

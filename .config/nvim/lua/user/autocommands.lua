@@ -38,6 +38,11 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     command = "set filetype=xdefaults",
 })
 
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    pattern = { "bm-dirs", "bm-files"},
+    command = "!shortcuts",
+})
+
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = { "*.md", "*.me", "*.mom", "*.man" },

@@ -85,6 +85,8 @@ return packer.startup(function(use)
     })
 
     use("mbbill/undotree")
+    use("gruvbox-community/gruvbox")
+    use("akinsho/toggleterm.nvim")
 
     -- use{'norcalli/nvim-colorizer.lua',
     -- config = function()
@@ -109,23 +111,25 @@ return packer.startup(function(use)
     -- use('jpo/vim-railscasts-theme')
     -- use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
-    use({
-        "ibhagwan/fzf-lua",
-        config = -- fzf
-        vim.cmd [[let g:fzf_layout = { 'down': '~40%' } ]]
-        -- config = function()
-        --     require('fzf-lua').setup({
-        --         winopts = { height = 0.6 } --split = "belowright new", preview = { hidden = 'hidden' },
-        --     })
-        -- end
-    })
+    -- use({
+    --     "ibhagwan/fzf-lua",
+    --     config = -- fzf
+    --     vim.cmd [[let g:fzf_layout = { 'down': '~40%' } ]]
+    --     -- config = function()
+    --     --     require('fzf-lua').setup({
+    --     --         winopts = { height = 0.6 } --split = "belowright new", preview = { hidden = 'hidden' },
+    --     --     })
+    --     -- end
+    -- })
 
-    -- use {
-    --     'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    --     -- or                            , branch = '0.1.x',
-    --     requires = { {'nvim-lua/plenary.nvim'} }
-    -- }
-    --
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        -- or                            , branch = '0.1.x',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    }
+    -- use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+    -- use 'simrat39/symbols-outline.nvim'
 
     -- use('powerline/powerline')
     -- java setup
@@ -141,6 +145,17 @@ return packer.startup(function(use)
             })
         end
     })
+    -- Lua
+    use {
+        "ahmedkhalf/project.nvim",
+        config = function()
+            require("project_nvim").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
 
     -- Debug
     use {

@@ -1,4 +1,4 @@
-require('Comment').setup()
+vim.g.mapleader = ' '
 
 vim.cmd([[
 func! ToggleArabic()
@@ -7,8 +7,7 @@ set norl
 set keymap=
 else
 set rl
-set keymap=arabic "Modified keymap. File in .vim/keymap
-set encoding=utf-8
+set keymap=arabic 
 set arabicshape
 " set nospell
 end
@@ -20,58 +19,27 @@ set norl
 set keymap=
 else
 set rl
-set keymap=persian "Modified keymap. File in .vim/keymap
+set keymap=persian 
 set nospell
-
 end
-endfunc
-
-]])
---[[ -- Arabic switch
-function ToggleArabic()
-if vim.g.rl == true then
-   vim.g.rl = true
-   vim.g.keymap=''
-else
-   vim.g.keymap='arabic'
-   vim.g.nospell= true
-end
---]]
-
-vim.g.mapleader = ' '
-
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>') -- exit
+endfunc ]])
 
 vim.keymap.set('n', 'Q', 'gq')
-
-vim.keymap.set('n', '<leader>o', ':setlocal spell! spelllang=en_us<CR>')
-
--- vim.keymap.set('n', '<leader>w', ':w<CR>')
-
+vim.keymap.set('n', 'gP', '"+P')
+vim.keymap.set('n', '<leader>s', ':setlocal spell! spelllang=en_us<CR>')
+vim.keymap.set('n', '<leader>w', ':w<CR>')
 -- vim.keymap.set('n', '<leader>H', ':call ToggleHiddenAll()<CR>')
--- xnorevim.keymap.set <silent> gP "+P
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set('n', 'J', 'mzJ`z')
-
+vim.keymap.set('c', 'w!!', "execute 'silent! write !sudo tee % >/dev/null' <bar> edit!")
 --vim.keymap.set ('n', '<Leader>ga', ':G<Space>add . %:p:h<CR>')
 --vim.keymap.set ('n', '<Leader>gc', ':G<Space>commit -m 'on "date +'%Y-%m-%d %H:%M:%S'`-- . %:p:h<CR>')
---
---cnorevim.keymap.set w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
---
-
 -- vim.keymap.set ('n', '<leader>d', '"_d')
 -- vim.keymap.set ('v', '<leader>d', '"_d')
-
-vim.keymap.set('n', '<leader>s', ':setlocal spell! spelllang=en_us<CR>')
-
-vim.keymap.set('v', 'vvim.keymap.set', '<silent><buffer> <CR> :MiniMDTaskToggle<CR>')
-
-vim.keymap.set('n', '<silent><buffer>', '= :MiniMDPromote<CR>')
-
-
 -- Perform dot commands over visual blocks
 vim.keymap.set('v', '.', ':normal .<CR>')
+vim.keymap.set('n', '!', ':!')
 
 -- vim.keymap.set ('n', '<leader>pp', ':!cd $PWD  && git add .&& git commit -m "generated files on `date +\'%Y-%m-%d %H:%M:%S\'`"&& git push -u origin main<CR>')
 -- vim.keymap.set ('n', '<leader>PP', ':!cd $PWD  && git pull && git merge<CR>')
@@ -81,39 +49,16 @@ vim.keymap.set('v', '<F1>', '<Esc>l:call ToggleArabic()<CR>i')
 vim.keymap.set('n', '<S-F1>', ':call TogglePersian()<CR>')
 vim.keymap.set('v', '<F2>', '<Esc>l:call TogglePersian()<CR>i')
 vim.keymap.set('i', '<F2>', '<Esc>l:call TogglePersian()<CR>i')
--- vim.keymap.set('n', '<Leader>m', ':call mkdir(expand("%:p:h"), "p")<CR>')
+vim.keymap.set('n', '<Leader>m', ':call mkdir(expand("%:p:h"), "p")<CR>')
 vim.keymap.set('n', '<Up>', '<c-w>+')
 vim.keymap.set('n', '<Down>', '<c-w>-')
 vim.keymap.set('n', '<Left>', '<c-w><')
 vim.keymap.set('n', '<Right>', '<c-w>>')
 
-vim.keymap.set('n', '!', ':!')
-
 vim.keymap.set('n', '<leader><S-C>', ':w! | !compiler "<c-r>%"<CR>')
---autocmd filetype cpp nnorevim.keymap.set <Leader>c :w! \| :split \| term g++ % -o %< && ./%< <CR>i
---autocmd filetype java nnorevim.keymap.set <Leader>c :w! \| :split \| term java % <CR>
-
-
 vim.keymap.set('n', '<leader>o', ':!opout <c-r>%<CR><CR>')
 
--- command line mode
---vim.keymap.set('c', '<C-A>', '<Home>')
---vim.keymap.set('c', '<C-f>', '<Right>')
---vim.keymap.set('c', '<A-f>', '<S-Right>')
---vim.keymap.set('c', '<C-b>', '<Left>')
---vim.keymap.set('c', '<A-b>', '<S-Left>')
-
-vim.keymap.set('n', '<leader>e', ':E<CR>')
-
--- vim.keymap.set('n', '<C-s>', '<Plug>(easymotion-overwin-f)')
--- vim.keymap.set ('n', '<C-j>', '<Plug>(easymotion-j)')
--- vim.keymap.set ('n', '<C-k>', '<Plug>(easymotion-k)')
--- vim.keymap.set ('n', '<C-s>', '<Plug>(easymotion-overwin-f2)')
-
--- vim.keymap.set('n', '<C-t>', "<cmd>ToggleTerm size=10 direction=horizontal<cr>")
--- vim.keymap.set('t', '<C-t>', "<cmd>ToggleTerm size=10 direction=horizontal<cr>")
--- vim.keymap.set('i', '<C-t>', "<cmd>ToggleTerm size=10 direction=horizontal<cr>")
-
+vim.keymap.set('n', '<leader>e', ':Texplore<CR>')
 -- copy file paths
 vim.keymap.set('n', 'yp', '<cmd>let @+ = expand("%")<cr>')
 vim.keymap.set('n', 'yP', '<cmd>let @+ = expand("%:p")<cr>')
@@ -140,13 +85,15 @@ vim.keymap.set('', '<A-h>', '<cmd>tabprevious<CR>')
 vim.keymap.set('n', '<C-s>', ':%s//g<Left><Left>')
 vim.keymap.set('v', '<C-s>', ':s//g<Left><Left>')
 -- delete empty lines
-vim.keymap.set('v', '<C-D>', '>:g/^$/d<CR>:nohl<CR>')
+vim.keymap.set('v', '<leader>D', ':g/^$/d<CR>:nohl<CR>')
 -- diagnostics
 vim.keymap.set('n', '<A-p>', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', '<A-n>', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<M-k>', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '<leader>ll', vim.diagnostic.setloclist, opts)
 
+vim.keymap.set('n', '<leader>x', "<cmd>w<CR><cmd>so %<CR>", opts)
 vim.keymap.set('n', '<leader>X', "<cmd>!chmod +x %<CR>", opts)
 
 vim.keymap.set('n', '<leader>c', ':nohl<CR>')
+vim.keymap.set('n', 'C-x>', ':<CR>')

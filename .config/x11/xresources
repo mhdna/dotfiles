@@ -3,119 +3,34 @@
 Emacs.alpha: 100
 *.font: monospace:pixelsize=15
 
-! Sxiv
-/* Sxiv.background: #ffffff */
-/* Sxiv.foreground: #000000 */
-/* Sxiv.font: mono:style:size=10 */
-
 *background: #262626
 *foreground: #fff
 *.cursorColor: #fff
+XTerm*cursorColor: white
 
-! Xcursor.theme: xcursor-black
-! Xcursor.theme_core: true
-! Xcursor.size: 16px
+!! Keybinding ========================================================
+! http://blog.rot13.org/2010/03/change-font-size-in-xterm-using-keyboard.html
+! - change fontsize on the fly (ctrl+plus = increase ; ctrl+minus = decrease, ctrl+0 = default)
+! - copy/paste hotkey (ctrl+shift+c = copy ; ctrl+shift+v = paste)
+! - open url (clickable links)
+!   1) double click to highlight the full url
+!   2) Shift + click it to open it
+XTerm.vt100.translations: #override \n\
+  Ctrl <Key> minus: smaller-vt-font() \n\
+  Ctrl <Key> plus: larger-vt-font() \n\
+  Ctrl <Key> 0: set-vt-font(d) \n\
+  Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+  Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+  Shift <Btn1Up>: exec-formatted("xdg-open '%t'", PRIMARY) \n\
+  <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0) \n\
+  <Btn2Up>: insert-selection(PRIMARY)
 
-! URxvt
-!URxvt.font: xft:fiamf3
-!URxvt.loginShell: true
-!URxvt.scrollTtyOutput: false
-!URxvt.scrollWithBuffer: true
-!URxvt.scrollTtyKeypress: true
-!URxvt.urgentOnBell: true
-!URxvt.scrollBar: false
-!URxvt.internalBorder: 0
-!URxvt.intensityStyles: false
-!URxvt.foreground: #D9D4CF
-!URxvt.background: #000000
-!URxvt.color0:  #232323
-!URxvt.color1:  #FF000F
-!URxvt.color2:  #8CE10B
-!URxvt.color3:  #FFB900
-!URxvt.color4:  #008DF8
-!URxvt.color5:  #6D43A6
-!URxvt.color6:  #00D8EB
-!URxvt.color7:  #FFFFFF
-!URxvt.color8:  #444444
-!URxvt.color9:  #FF2740
-!URxvt.color10: #ABE15B
-!URxvt.color11: #FFD242
-!URxvt.color12: #4FB4FF
-!URxvt.color13: #9A5FEB
-!URxvt.color14: #67FFF0
-!URxvt.color15: #FFFFFF
-!URxvt.cursorColor: #00ff00
-!URxvt.pointerColor: #00ff00
-!URxvt.termName: xterm-256color
-!*.pointerColor: #00ff00
-
-!###############################################################################
-! XTerm Settings
-!###############################################################################
-!XTerm.vt100.background: #000000
-!XTerm.vt100.foreground: #aaaaaa
-!XTerm.vt100.cursorColor: #00ff00
-!XTerm.vt100.pointerColor: #00ff00
-!XTerm*utf8Title: 1
-!XTerm*metaSendsEscape: true
-!###############################################################################
-! Modern Terminal Functionality
-! =============================
-XTerm*vt100.translations: #override \
-Shift <Key>Up:              scroll-back(1) \n\
-Meta Shift <Key>Up:              scroll-back(20) \n\
-Shift <Key>Down:            scroll-forw(1) \n\
-Meta Shift <Key>Down:            scroll-forw(20)
-!   ~Shift <Btn1Up>:            select-end(PRIMARY, CUT_BUFFER0) \n\ Shift <Btn1Up>:            select-end(CLIPBOARD, CUT_BUFFER1) \n\
-!   ~Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(PRIMARY, CUT_BUFFER0) \n\
-!    Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(CLIPBOARD, CUT_BUFFER1)
-!###############################################################################
-
-! Meta <=> Alt
-XTerm*VT100.Translations: #override \
-     Meta <KeyPress> C: copy-selection(CLIPBOARD) \n\
-     Meta <KeyPress> V: insert-selection(CLIPBOARD)
-     Meta Shift <Key>C:    copy-selection(PRIMARY) \n\
-     Meta Shift <Key>V:    insert-selection(PRIMARY)
-
-xterm*vt100.Translations: #override \
-    Meta <Key> =: larger-vt-font() \n\
-    Meta <Key> -: set-vt-font(d)
-
-! Meta <Key> -: smaller-vt-font() \n\
-
-
-! Hotkeys for increasing/decresing font-size
-! XTerm.VT100.translations: #override \
-!Meta <Key> K:              scroll-back(1) \n\
-!Meta <Key> J:            scroll-forw(1) \n\
-!Meta <Key> U:              scroll-back(20) \n\
-!Meta <Key> D:            scroll-forw(20)
-
-!XTerm*vt100.translations: #override \
-!    Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
-!    Shift Ctrl <Key> V: insert-selection(CLIPBOARD)
-!Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-!Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
-
-! Enable ALT shortcuts for programs
-XTerm.metaSendsEscape: true
-
-! Disable bold and use color instead
-!XTerm*colorBDMode: false
-!XTerm*colorBD: rgb:73/d2/16
-
-! Display newlines when highlighting text
-XTerm*highlightSelection: true
-
+! Misc. Settings
 ! dpi = 96 for thinkpad 1366x768 12.5 inch
 ! dpi = 96 for 1080p
 ! dpi = 157 for for 4K
-!Xft.dpi: 157
 Xft.dpi: 96
 Xft.rgba: rgb
-
-! Misc. Settings
 XTerm*termName: xterm-256color
 XTerm*visualBell: false
 XTerm*faceName: Mono
@@ -126,59 +41,28 @@ Xft.hinting: 1
 Xft.antialias: 1
 XTerm*faceSize: 12
 XTerm*transparent: true
-XTerm*saveLines: 4096
+XTerm*saveLines: 10000
 XTerm*scrollBar: false
-! xterm*rightScrollBar: true
-!XTerm*geometry: 80x24
+XTerm*geometry: 70x24
 XTerm*cursorBlink: true
 XTerm*eightBitInput: false
 XTerm*scrollTtyOutput: false
-XTerm*cursorColor: white
 XTerm*jumpScroll:         true
 XTerm*multiScroll:        true
 ! scroll input
 XTerm*scrollKey:          true
-XTerm*selectToClipboard:  true
 XTerm*loginShell:         true
 XTerm*backarrowKey: false
+! enable copy/paste hotkey to work (shift+insert = paste ; mouse highlight = copy)
+XTerm*selectToClipboard: true
+! disable fullscreen hotkey alt+enter (hotkey conflicts with weechat, midnight commander ...etc)
+XTerm*fullscreen: never
+! enable alt key to work
+XTerm*metaSendsEscape: true
+! Fix the backspace key (for Emacs)
+XTerm.vt100.backarrowKey: false
+XTerm.ttyModes: erase ^?
+XTerm.metaSendsEscape: true
+! Display newlines when highlighting text
+XTerm*highlightSelection: true
 
-
-/* /1* *.color0: #32302f *1/ */
-/* /1* *.color256: #32302f *1/ */
-/* /1* *.color15: #ebdbb2 *1/ */
-/* /1* *.color257: #ebdbb2 *1/ */
-
-/* !URxvt*color0: #2e3436 */
-/* !URxvt*color1: #cc0000 */
-/* !URxvt*color2: #4e9a06 */
-/* !URxvt*color3: #c4a000 */
-/* !URxvt*color4: #3465a4 */
-/* !URxvt*color5: #75507b */
-/* !URxvt*color6: #0b939b */
-/* !URxvt*color7: #d3d7cf */
-/* !URxvt*color8: #555753 */
-/* !URxvt*color9: #ef2929 */
-/* !URxvt*color10: #8ae234 */
-/* !URxvt*color11: #fce94f */
-/* !URxvt*color12: #729fcf */
-/* !URxvt*color13: #ad7fa8 */
-/* !URxvt*color14: #00f5e9 */
-
-/* /1* !! xterm *1/ */
-/* /1* *.color0:   #000000 *1/ */
-/* /1* *.color1:   #cd0000 *1/ */
-/* /1* *.color2:   #00cd00 *1/ */
-/* /1* *.color3:   #cdcd00 *1/ */
-/* /1* *.color4:   #0000cd *1/ */
-/* /1* *.color5:   #cd00cd *1/ */
-/* /1* *.color6:   #00cdcd *1/ */
-/* /1* *.color7:   #e5e5e5 *1/ */
-/* /1* *.color8:   #4d4d4d *1/ */
-/* /1* *.color9:   #ff0000 *1/ */
-/* /1* *.color10:  #00ff00 *1/ */
-/* /1* *.color11:  #ffff00 *1/ */
-/* /1* *.color12:  #0000ff *1/ */
-/* /1* *.color13:  #ff00ff *1/ */
-/* /1* *.color14:  #00ffff *1/ */
-/* /1* *.color15:  #aabac8 *1/ */
-/* /1* *.background:   #000000 *1/ */
