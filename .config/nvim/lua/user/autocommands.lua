@@ -73,10 +73,10 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
 
 
 -- automatic resizing
-vim.api.nvim_create_autocmd({ "VimResized" }, {
-    pattern = { "*" },
-    command = "tabdo wincmd =",
-})
+-- vim.api.nvim_create_autocmd({ "VimResized" }, {
+--     pattern = { "*" },
+--     command = "tabdo wincmd =",
+-- })
 
 -- auto formatting
 -- vim.api.nvim_create_autocmd({ "BufWritePre" }, {

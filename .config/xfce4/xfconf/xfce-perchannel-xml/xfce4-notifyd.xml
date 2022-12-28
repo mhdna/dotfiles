@@ -3,6 +3,7 @@
 <channel name="xfce4-notifyd" version="1.0">
   <property name="applications" type="empty">
     <property name="known_applications" type="array">
+      <value type="string" value="blueman"/>
       <value type="string" value="cbatticon"/>
       <value type="string" value="Firefox"/>
       <value type="string" value="mutt-wizard"/>
@@ -22,6 +23,6 @@
   <property name="log-level" type="uint" value="0"/>
   <property name="log-level-apps" type="uint" value="0"/>
   <property name="do-fadeout" type="bool" value="false"/>
-  <property name="initial-opacity" type="double" value="1.000000"/>
+  <property name="initial-opacity" type="double" value="1"/>
   <property name="notification-log" type="bool" value="true"/>
 </channel>

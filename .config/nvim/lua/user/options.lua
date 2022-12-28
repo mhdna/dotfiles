@@ -1,5 +1,6 @@
+vim.opt.signcolumn = "yes" --for linting, diagnostics, left column
+
 vim.opt.mouse = 'a' -- Enable mouse support
--- opt.cursorcolumn = true -- highlight cursor column
 vim.o.colorcolumn = 80 -- don't exceed 80 columns, maybe you're in the 3rd 4th indent so rethink
 vim.opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
 -- vim.opt.laststatus = 2
@@ -8,7 +9,7 @@ vim.opt.pumheight= 15
 vim.opt.foldmethod = 'marker' -- Enable folding (default 'foldmarker')
 -- mah
 -- for always block cursor
-vim.o.guicursor = true
+-- vim.o.guicursor = true
 
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true -- Autoindent new lines
@@ -23,29 +24,29 @@ vim.opt.updatetime = 700 -- ms to wait for trigger an event
 -- Disable nvim intro
 -- opt.shortmess:append "sI"
 -- Disable builtins plugins
-local disabled_built_ins = {
+-- local disabled_built_ins = {
 --     "netrw",
 --     "netrwPlugin",
 --     "netrwSettings",
 --     "netrwFileHandlers",
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-    "spellfile_plugin",
-    "matchit"
-}
-for _, plugin in pairs(disabled_built_ins) do
-    vim.g["loaded_" .. plugin] = 1
-end
+--     "gzip",
+--     "zip",
+--     "zipPlugin",
+--     "tar",
+--     "tarPlugin",
+--     "getscript",
+--     "getscriptPlugin",
+--     "vimball",
+--     "vimballPlugin",
+--     "2html_plugin",
+--     "logipat",
+--     "rrhelper",
+--     "spellfile_plugin",
+--     "matchit"
+-- }
+-- for _, plugin in pairs(disabled_built_ins) do
+--     vim.g["loaded_" .. plugin] = 1
+-- end
 
 
 -- vim.o.exrc       = true -- so if a vimrc file is in a dir, it's automatically sourced (for custom projects)
@@ -56,8 +57,7 @@ vim.o.smartcase  = true -- only ignore case if write uppercase letter
 vim.o.backup     = false
 vim.o.undofile   = true
 -- vim.o.showmode = false
-vim.opt.signcolumn = "yes" --for linting, lsp error, left column
-vim.o.hlsearch   = true -- keep the previous search occurance highlighted
+vim.o.hlsearch   = false -- keep the previous search occurance highlighted
 vim.o.swapfile   = false
 
 vim.wo.relativenumber = true
@@ -66,7 +66,7 @@ vim.o.scrolloff = 8
 vim.opt.termguicolors = true -- Enable 24-bit RGB colors
 vim.opt.linebreak = false
 vim.bo.tabstop = 4
-vim.bo.shiftwidth = 4
+vim.opt.shiftwidth = 4
 
 vim.o.title = true
 vim.o.go = a
@@ -77,7 +77,7 @@ vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim-undodir"
 vim.o.encoding = "utf-8"
 -- vim.o.guifont = "hack:h10" -- the font used in neovim gui
 
-vim.o.autochdir = true
+-- vim.o.autochdir = true
 -- Tab command mode completion
 -- vim.o.wildmode = longest,list,full
 

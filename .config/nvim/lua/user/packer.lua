@@ -38,6 +38,7 @@ return packer.startup(function(use)
     use("saadparwaiz1/cmp_luasnip") -- snippet completions
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-nvim-lua")
+    use("onsails/lspkind.nvim")
 
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
@@ -57,11 +58,14 @@ return packer.startup(function(use)
     use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
     use("tpope/vim-fugitive")
 
-    -- LSP
-    use("neovim/nvim-lspconfig") -- enable LSP
-    use("theprimeagen/harpoon")
-    use { "williamboman/mason.nvim" }
-    require("mason").setup()
+        -- LSP
+        use("neovim/nvim-lspconfig") -- enable LSP
+        use("theprimeagen/harpoon")
+        use { "williamboman/mason.nvim" ,
+                config = function()
+                        require("mason").setup()
+                end
+        }
 
     -- use('jose-elias-alvarez/null-ls.nvim')
 
@@ -87,6 +91,7 @@ return packer.startup(function(use)
     use("mbbill/undotree")
     use("gruvbox-community/gruvbox")
     use("akinsho/toggleterm.nvim")
+    -- use("kyazdani42/nvim-web-devicons")
 
     -- use{'norcalli/nvim-colorizer.lua',
     -- config = function()
@@ -94,21 +99,15 @@ return packer.startup(function(use)
     --     end
     -- }
 
-    use {
-        'nvim-lualine/lualine.nvim',
-        -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
+    -- use {
+    --     'nvim-lualine/lualine.nvim',
+    --     -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    -- }
 
     -- alternative to subword-mode in emacs
     -- use("haoren/vim-wordmotion")
 
-    -- use("vivkin/flatland.vim")
-    use('NLKNguyen/papercolor-theme')
-    -- use('vim-scripts/Tango-colour-scheme')
-    -- use('conweller/muted.vim')
-    -- use('keqizeng/nightelf')
-    -- use("mhinz/vim-janah")
-    -- use('jpo/vim-railscasts-theme')
+    -- use('NLKNguyen/papercolor-theme')
     -- use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
     -- use({
@@ -136,26 +135,27 @@ return packer.startup(function(use)
     -- local JDTLS_LOCATION = vim.fn.stdpath "data" .. "/lsp_servers/jdtls"
     use("mfussenegger/nvim-jdtls")
 
-    use({
-        "kylechui/nvim-surround",
-        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-        config = function()
-            require("nvim-surround").setup({
-                -- Configuration here, or leave empty to use defaults
-            })
-        end
-    })
+    -- use({
+    --     "kylechui/nvim-surround",
+    --     tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    --     config = function()
+    --         require("nvim-surround").setup({
+    --             -- Configuration here, or leave empty to use defaults
+    --         })
+    --     end
+    -- })
+
     -- Lua
-    use {
-        "ahmedkhalf/project.nvim",
-        config = function()
-            require("project_nvim").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end
-    }
+    -- use {
+    --     "ahmedkhalf/project.nvim",
+    --     config = function()
+    --         require("project_nvim").setup {
+    --             -- your configuration comes here
+    --             -- or leave it empty to use the default settings
+    --             -- refer to the configuration section below
+    --         }
+    --     end
+    -- }
 
     -- Debug
     use {

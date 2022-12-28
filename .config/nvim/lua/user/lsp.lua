@@ -49,4 +49,4 @@ lspconfig.rust_analyzer.setup {
 --
 --
 -- Disable inline error messages
-vim.diagnostic.config({ virtual_text = false })
+-- vim.diagnostic.config({ virtual_text = false })

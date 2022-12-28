@@ -32,9 +32,6 @@
       <property name="&lt;Alt&gt;&lt;Super&gt;s" type="empty"/>
     </property>
     <property name="custom" type="empty">
-      <property name="&lt;Alt&gt;F2" type="string" value="xfce4-appfinder --collapsed">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
       <property name="&lt;Alt&gt;Print" type="string" value="xfce4-screenshooter -w"/>
       <property name="XF86Mail" type="string" value="exo-open --launch MailReader"/>
       <property name="&lt;Alt&gt;F3" type="empty">
@@ -51,16 +48,12 @@
       <property name="override" type="bool" value="true"/>
       <property name="&lt;Super&gt;b" type="string" value="exo-open --launch WebBrowser"/>
       <property name="&lt;Super&gt;a" type="string" value="xfce4-popup-applicationsmenu"/>
-      <property name="&lt;Super&gt;d" type="empty">
+      <property name="&lt;Super&gt;d" type="string" value="xfce4-dict">
         <property name="startup-notify" type="bool" value="true"/>
       </property>
-      <property name="&lt;Super&gt;Return" type="string" value="xterm"/>
       <property name="&lt;Super&gt;F2" type="string" value="redshift -O4000"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;F2" type="string" value="redshift -x"/>
-      <property name="&lt;Super&gt;i" type="string" value="emacs"/>
-      <property name="&lt;Super&gt;e" type="string" value="xterm -e lfub"/>
       <property name="Print" type="string" value="xfce4-screenshooter --region "/>
-      <property name="&lt;Super&gt;m" type="string" value="xterm -e ncmpcpp"/>
       <property name="&lt;Super&gt;F11" type="string" value="mpc toggle"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;F11" type="string" value="pauseallmpv"/>
       <property name="&lt;Super&gt;F10" type="string" value="mpc seek -1%"/>
@@ -74,10 +67,7 @@
       <property name="&lt;Shift&gt;&lt;Super&gt;F4" type="string" value="remaps &amp; xmodmap ~/.config/Xmodmap2"/>
       <property name="&lt;Super&gt;F3" type="string" value="torwrap"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;F3" type="string" value="td-toggle"/>
-      <property name="&lt;Super&gt;period" type="string" value="brightnessctl set +2%"/>
-      <property name="&lt;Super&gt;comma" type="string" value="brightnessctl set 2%-"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;greater" type="string" value="brightnessctl set 100%"/>
-      <property name="&lt;Shift&gt;&lt;Super&gt;less" type="string" value="brightnessctl set 1%"/>
       <property name="MonBrightnessUp" type="string" value="brightnessctl set +10%"/>
       <property name="MonBrightnessDown" type="string" value="brightnessctl set 10%-"/>
       <property name="&lt;Super&gt;v" type="string" value="xfce4-popup-clipman"/>
@@ -86,8 +76,18 @@
       <property name="&lt;Super&gt;minus" type="string" value="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;plus" type="string" value="wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%%"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;underscore" type="string" value="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"/>
-      <property name="&lt;Super&gt;r" type="string" value="xfce4-appfinder -c"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;q" type="string" value="sysact"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;i" type="string" value="emacs"/>
+      <property name="&lt;Super&gt;comma" type="string" value="brightnessctl set 5%-"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;less" type="string" value="brightnessctl set 1%"/>
+      <property name="&lt;Super&gt;period" type="string" value="brightnessctl set +5%"/>
+      <property name="&lt;Super&gt;e" type="string" value="st -e lfub"/>
+      <property name="&lt;Super&gt;m" type="string" value="st -e ncmpcpp"/>
+      <property name="&lt;Super&gt;i" type="string" value="st -e my-tmux-session"/>
+      <property name="&lt;Super&gt;r" type="string" value="xfce4-appfinder --collapsed">
+        <property name="startup-notify" type="bool" value="true"/>
+      </property>
+      <property name="&lt;Super&gt;Return" type="string" value="xterm"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
@@ -183,7 +183,6 @@
       <property name="&lt;Primary&gt;F10" type="string" value="workspace_10_key"/>
       <property name="Left" type="string" value="left_key"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;KP_8" type="string" value="move_window_workspace_8_key"/>
-      <property name="&lt;Alt&gt;Insert" type="string" value="add_workspace_key"/>
       <property name="override" type="bool" value="true"/>
       <property name="&lt;Super&gt;w" type="string" value="maximize_window_key"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;exclam" type="string" value="move_window_workspace_1_key"/>

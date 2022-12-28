@@ -3,7 +3,7 @@ require('dap.ext.vscode').load_launchjs()
 require("nvim-dap-virtual-text").setup()
 require("dapui").setup()
 
--- dap.defaults.fallback.terminal_win_cmd = 'tabnew'
+dap.defaults.fallback.terminal_win_cmd = 'tabnew'
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()

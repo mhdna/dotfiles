@@ -35,9 +35,9 @@
     "S"  'delete-trailing-whitespace
 		"s" 'shell
     "u" 'undo-tree-visualize
-    "w"  'save-buffer
+    ;; "w"  'save-buffer
     "M" 'make-frame
-    "W"  'write-file
+    ;; "W"  'write-file
     "O"  'browse-url-xdg-open
     ;; "s"  'my/split-ansi-term
     "F" 'indent-buffer

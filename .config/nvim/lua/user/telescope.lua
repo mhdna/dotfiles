@@ -1,3 +1,7 @@
+local actions = require("telescope.actions")
+local builtin = require('telescope.builtin')
+-- local utils = require("telescope.utils")
+
 require('telescope').setup {
     defaults = {
         -- preview = true,
@@ -11,7 +15,8 @@ require('telescope').setup {
         },
         mappings = {
             i = {
-                ["<C-u>"] = false -- delete to the beginning using C-u
+                ["<C-u>"] = false, -- delete to the beginning using C-u
+                ["<esc>"] = actions.close,
             },
         },
     },
@@ -24,10 +29,8 @@ require('telescope').setup {
     }
 }
 
-local builtin = require('telescope.builtin')
-local utils = require("telescope.utils")
 
-vim.keymap.set('n', '<leader>f', function() builtin.find_files({ cwd = utils.buffer_dir()}) end,{} )
+vim.keymap.set('n', '<leader>f', builtin.find_files,{} )
 vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>b', builtin.buffers, {})
 vim.keymap.set('n', '<leader>ls',builtin.lsp_document_symbols, {})

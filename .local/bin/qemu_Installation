@@ -2,14 +2,16 @@
 # windows drivers:
 # https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.215-2/
 
-sudo pacman -S --needed libvirt-runit --needed virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs
+sudo pacman -S --needed libvirt virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs
+# for artix: libvirt-runit
 sudo ln -s /etc/runit/sv/libvirtd /run/runit/service
 sudo ln -s /etc/runit/sv/virtlogd /run/runit/service
 sudo sv up libvirtd
+
 sudo su
 sed -i "s/#unix_sock_ro_perms = \"0770\"/unix_sock_ro_perms = \"0770\"/" /etc/libvirt/libvirtd.conf
 sed -i "s/#unix_sock_rw_perms = \"0770\"/unix_sock_rw_perms = \"0770\"/" /etc/libvirt/libvirtd.conf
 sed -i "s/#unix_sock_group = \"libvirt\"/unix_sock_group = \"libvirt\"/" /etc/libvirt/libvirtd.conf
 
-usermod -aG libvirt mah
+usermod -aG libvirt mahdi
 sudo sv restart libvirtd

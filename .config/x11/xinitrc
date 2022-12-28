@@ -1,22 +1,20 @@
 #!/bin/sh
 
-xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!
-xset s 900 0 &
-xss-lock slock&
-redshift -l 31.77:35.23&
-remaps &
-picom --vsync&
-# xautolock -time 10 -locker  'slock'&
+# There are some small but important commands that need to be run when we start
+# the graphical environment. There is a link to this file in ~/.xprofile
+# because that file is run automatically if someone uses a display manager
+# (login screen) and so they are needed there. To prevent doubling up commands,
+# I source them here with the line below.
 
-autostart="unclutter dunst mpd clipmenud pipewire"
 
-for program in $autostart; do
-	pidof -s "$program" || "$program" &
-done >/dev/null 2>&1
-
-# Ensure that xrdb has finished running before moving on to start the WM/DE.
-[ -n "$xrdbpid" ] && wait "$xrdbpid"
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile" ]; then
+	. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile"
+else
+	. "$HOME/.xprofile"
+fi
 
 # dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 
-exec awesome
+while true; do
+	exec dwm
+done

@@ -6,21 +6,6 @@
 #	If given a directory, choose random file in it.
 #	If wal is installed, also generates a colorscheme.
 
-
-# Configuration files of applications that have their themes changed by pywal.
-# dunstconf="${XDG_CONFIG_HOME:-$HOME/.config}/dunst/dunstrc"
-# zathuraconf="${XDG_CONFIG_HOME:-$HOME/.config}/zathura/zathurarc"
-#
-# If pywal is installed, use it.
-# if command -v wal >/dev/null 2>&1 ; then
-# 	wal -i "$(readlink -f $bgloc)" -o "${XDG_CONFIG_HOME:-$HOME/.config}/wal/postrun" >/dev/null 2>&1 &&
-# 	pidof dwm >/dev/null && xdotool key super+F12
-# If pywal is removed, return config files to normal.
-# else
-# 	[ -f "$dunstconf.bak" ] && unlink "$dunstconf" && mv "$dunstconf.bak" "$dunstconf"
-# 	[ -f "$zathuraconf.bak" ] && unlink "$zathuraconf" && mv "$zathuraconf.bak" "$zathuraconf"
-# fi
-
 # Location of link to wallpaper link.
 bgloc="${XDG_DATA_HOME:-$HOME/.local/share/}/bg"
 
@@ -31,5 +16,5 @@ case "$(file --mime-type -b "$trueloc")" in
 	*) notify-send "Error" "Not a valid image." ; exit 1;;
 esac
 
-xwallpaper --maximize "$bgloc"
+xwallpaper --stretch "$bgloc"
 # feh --bg-max "$bgloc"

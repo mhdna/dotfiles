@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+# dependencies:
+# twitch-cli => https://github.com/twitchdev/twitch-cli
+# jq => https://github.com/stedolan/jq
+
+# one needs to setup an authentication token for the twitch api
+# before accessing stuff.
+# 
+# follow these instructions:
+# - https://github.com/twitchdev/twitch-cli/blob/main/docs/configure.md
+# - https://github.com/twitchdev/twitch-cli/blob/main/docs/token.md
+#
+
+TWITCH_USERNAME="${1:-kiprasmel}"
+shift
+
+while (( $# )); do
+	case "$1" in
+		-f) DISABLE_IF_OBS_NOT_RUNNING=0
+			shift
+			;;
+		*)
+			shift
+			echo "?"
+			exit 1
+			;;
+	esac
+done
+
+[ -z "$DISABLE_IF_OBS_NOT_RUNNING" ] && DISABLE_IF_OBS_NOT_RUNNING=1
+
+if [ "$DISABLE_IF_OBS_NOT_RUNNING" -eq 1 ] && ! ps aux | grep -i obs | grep -v grep &>/dev/null; then
+	exit 0
+fi
+
+RES="$(twitch-cli api get streams -q user_login="$TWITCH_USERNAME" | jq '.data[0].viewer_count')"
+
+LAST_RES_FILE="$HOME/.twitch-viewer-count-last"
+
+save_last() {
+	printf "$RES\n" > "$LAST_RES_FILE"
+}
+
+[ "$RES" = "null" ] && {
+	rm -f "$LAST_RES_FILE"
+	exit 1
+}
+
+printf "$RES\n"
+
+[ ! -f "$LAST_RES_FILE" ] && {
+	touch $LAST_RES_FILE
+	save_last
+}
+
+LAST_RES="$(cat $LAST_RES_FILE)"
+
+DIFF="$(($RES - $LAST_RES))"
+
+[ "$DIFF" -ne 0 ] && {
+	# minimum threshold
+	if (( $DIFF < 2 )); then
+		: # pass
+		#return 0
+	fi
+
+	if (( $DIFF > 0 )); then
+		notify-send "hey! 😄" " +$DIFF"
+	else
+		notify-send "bye 😢" " $DIFF"
+	fi
+}
+
+save_last
+

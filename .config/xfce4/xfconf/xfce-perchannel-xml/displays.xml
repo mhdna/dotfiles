@@ -7,13 +7,13 @@
       <property name="Active" type="bool" value="true"/>
       <property name="EDID" type="string" value="26cc871f0df47f370db58f2368d4dae81d543dd4"/>
       <property name="Resolution" type="string" value="1366x768"/>
-      <property name="RefreshRate" type="double" value="59.988993"/>
+      <property name="RefreshRate" type="double" value="59.988993000000001"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="true"/>
       <property name="Scale" type="empty">
-        <property name="X" type="double" value="1.000000"/>
-        <property name="Y" type="double" value="1.000000"/>
+        <property name="X" type="double" value="1"/>
+        <property name="Y" type="double" value="1"/>
       </property>
       <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>
@@ -24,13 +24,13 @@
       <property name="Active" type="bool" value="true"/>
       <property name="EDID" type="string" value="26cc871f0df47f370db58f2368d4dae81d543dd4"/>
       <property name="Resolution" type="string" value="1366x768"/>
-      <property name="RefreshRate" type="double" value="59.988993"/>
+      <property name="RefreshRate" type="double" value="59.988992845349479"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="false"/>
       <property name="Scale" type="empty">
-        <property name="X" type="double" value="1.000000"/>
-        <property name="Y" type="double" value="1.000000"/>
+        <property name="X" type="double" value="1"/>
+        <property name="Y" type="double" value="1"/>
       </property>
       <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>
@@ -43,13 +43,13 @@
       <property name="Active" type="bool" value="true"/>
       <property name="EDID" type="string" value="26cc871f0df47f370db58f2368d4dae81d543dd4"/>
       <property name="Resolution" type="string" value="1366x768"/>
-      <property name="RefreshRate" type="double" value="59.988993"/>
+      <property name="RefreshRate" type="double" value="59.988993000000001"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="true"/>
       <property name="Scale" type="empty">
-        <property name="X" type="double" value="1.000000"/>
-        <property name="Y" type="double" value="1.000000"/>
+        <property name="X" type="double" value="1"/>
+        <property name="Y" type="double" value="1"/>
       </property>
       <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>
@@ -60,13 +60,13 @@
       <property name="Active" type="bool" value="true"/>
       <property name="EDID" type="string" value="26cc871f0df47f370db58f2368d4dae81d543dd4"/>
       <property name="Resolution" type="string" value="1366x768"/>
-      <property name="RefreshRate" type="double" value="59.988993"/>
+      <property name="RefreshRate" type="double" value="59.988992845349479"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="false"/>
       <property name="Scale" type="empty">
-        <property name="X" type="double" value="1.000000"/>
-        <property name="Y" type="double" value="1.000000"/>
+        <property name="X" type="double" value="1"/>
+        <property name="Y" type="double" value="1"/>
       </property>
       <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>
@@ -74,4 +74,5 @@
       </property>
     </property>
   </property>
+  <property name="Notify" type="int" value="1"/>
 </channel>

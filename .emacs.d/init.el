@@ -148,13 +148,13 @@
 (setq ring-bell-function 'ignore)
 ;; (load-file "~/.emacs.d/organic-green-theme.el")
 ;; (load-theme 'organic-green t)
-;; (use-package flatland-theme
-;; 	:ensure t)
+(use-package flatland-theme
+	:ensure t)
 
-(load-theme 'tango-dark t)
-;; (set-background-color "white")
-;; (set-foreground-color "black")
-;; (set-cursor-color "black")
+;; (load-theme 'flatland t)
+(set-background-color "white")
+(set-foreground-color "black")
+(set-cursor-color "black")
 ;; Line numbers
 ;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 ;; (global-display-line-numbers-mode 1)
@@ -164,8 +164,8 @@
 ;; (set-face-attribute 'region nil :background "#ffff00")
 ;; (set-face-background 'minibuffer-prompt "#770000")
 ;; (set-face-foreground 'minibuffer-prompt "white")
-(set-window-scroll-bars (minibuffer-window) nil nil)
-;; (blink-cursor-mode -1)
+;; (set-window-scroll-bars (minibuffer-window) nil nil)
+(blink-cursor-mode -1)
 ;; (setq scroll-margin 0
 ;;       scroll-conservatively 100000
 ;;       scroll-preserve-screen-position 1)
@@ -207,12 +207,12 @@
 
 
 ;; Font settings
-(set-face-attribute 'default nil :font "Liberation Mono" :height 120)
+(set-face-attribute 'default nil :font "hack" :height 115)
 
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Liberation Mono" :height 120)
+(set-face-attribute 'fixed-pitch nil :font "hack" :height 115)
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Liberation Mono" :height 120 :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "Sans" :height 115 :weight 'regular)
 (set-fontset-font "fontset-default" 'arabic (font-spec :family "DejaVu Sans Mono"))
 (setq my/font-change-increment 1.1)
 
@@ -400,8 +400,8 @@
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t)))
 
-;; (use-package magit
-;;   :ensure t)
+(use-package magit
+  :ensure t)
 
 ;; (use-package ediff
 ;;   :after (magit vc)
@@ -523,7 +523,7 @@
 
 ;;   ;;  :config
 ;;   ;;  (setq lsp-completion-provider :capf))
-;;   )
+;;  )
 
 (use-package emmet-mode
   :ensure t

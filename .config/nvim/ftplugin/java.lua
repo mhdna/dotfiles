@@ -35,7 +35,7 @@ local on_attach = function(client, bufnr)
     require("user.lsp-default-bindings").on_attach(client, bufnr)
 
     -- Java extensions
-    vim.keymap.set("n", "<C-o>", jdtls.organize_imports, bufopts, "Organize imports")
+    vim.keymap.set("n", "<leader>lo", jdtls.organize_imports, bufopts, "Organize imports")
     vim.keymap.set("n", "<leader>lt", jdtls.test_class, bufopts, "Test class (DAP)")
     vim.keymap.set("n", "<leader>lT", jdtls.test_nearest_method, bufopts, "Test method (DAP)")
     vim.keymap.set("n", "<space>lev", jdtls.extract_variable, bufopts, "Extract variable")
@@ -79,17 +79,8 @@ local config = {
 
     root_dir = root_dir,
     -- capabilities = require("lvim.lsp").common_capabilities(),
-
-    -- Here you can configure eclipse.jdt.ls specific settings
-    -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-    -- for a list of options
     settings = {
         java = {
-            -- jdt = {
-            --   ls = {
-            --     vmargs = "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m"
-            --   }
-            -- },
             eclipse = {
                 downloadSources = true,
             },
@@ -115,9 +106,6 @@ local config = {
             },
             format = {
                 enabled = true,
-                -- settings = {
-                --   profile = "asdf"
-                -- }
             },
         },
         signatureHelp = { enabled = true },
@@ -154,14 +142,6 @@ local config = {
     on_init = function(client)
         client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
     end,
-    handlers = {
-        ["language/status"] = function() end,
-        ["workspace/diagnostic/refresh"] = function() end,
-        ["textDocument/codeAction"] = function() end,
-        ["textDocument/rename"] = function() end,
-        ["workspace/applyEdit"] = function() end,
-        ["textDocument/documentHighlight"] = function() end,
-    },
     init_options = {
         bundles = bundles
     },

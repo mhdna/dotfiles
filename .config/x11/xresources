@@ -1,9 +1,9 @@
 ! Transparency (0-1)
 *.alpha: 1
 Emacs.alpha: 100
-*.font: monospace:pixelsize=15
+*.font: monospace:pixelsize=16
 
-*background: #262626
+*background: #000000
 *foreground: #fff
 *.cursorColor: #fff
 XTerm*cursorColor: white
@@ -43,7 +43,7 @@ XTerm*faceSize: 12
 XTerm*transparent: true
 XTerm*saveLines: 10000
 XTerm*scrollBar: false
-XTerm*geometry: 70x24
+XTerm*geometry: 80x24
 XTerm*cursorBlink: true
 XTerm*eightBitInput: false
 XTerm*scrollTtyOutput: false
