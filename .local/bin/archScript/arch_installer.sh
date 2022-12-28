@@ -55,7 +55,7 @@ sed -i 's/quiet/pci=noaer/g' /etc/default/grub
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=3/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
-pacman -S zsh xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xprop \
+pacman -S --noconfirm zsh xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xprop \
 xorg-xwininfo xdotool xorg-xdpyinfo xclip xorg-xset tlp pipewire \
 pipewire-pulse wireplumber gnome-keyring xcape xorg-xev xorg-xinput \
 xss-lock tmux numlockx cronie python-pip unclutter man-db dosfstools \
@@ -125,7 +125,6 @@ git clone https://aur.archlinux.org/pikaur.git
 cd pikaur
 makepkg -fsri
 cd
-pikaur -S 
 mkdir dl dox imp music pix pub code
 mkdir -p .cache/thumbnails/mpv-gallery
 # echo shutdown-hook \'\`pkill -RTMIN+12 dwmblocks\`\' >> ~/.config/mutt/muttrc
@@ -137,6 +136,11 @@ alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 dots config --local status.showUntrackedFiles no
 
 crontab - < "~/.local/bin/archScript/cronjobs.txt"
+pikaur -S - < ~/.local/bin/archScript/aur.txt
+# You might need:
 # sudo pacman -S --needed - < ~/.local/bin/archScript/packages.txt
-pikaur -S - < aur.txt
+# pip install pyright
+# npm i -g vscode-langservers-extracted
+# npm install -g typescript typescript-language-server
+# npm install -g browser-sync
 exit

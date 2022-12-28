@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = { "*.md", "*.me", "*.mom", "*.man" },
+    pattern = { "*.me", "*.mom", "*.man" },
     command = "set filetype=groff",
 })
 

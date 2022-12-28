@@ -1,8 +1,0 @@
-sudo npm install -g browser-sync
-pacman -S ccls jre-openjdk
-pip install pyright || npm install -g pyright
-npm install -g typescript typescript-language-server
-npm i -g vscode-langservers-extracted
-
-# for emacs lsp
-pip install 'python-lsp-server[all]'

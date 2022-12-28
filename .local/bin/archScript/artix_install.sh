@@ -1,7 +1,7 @@
 # == Artix Installation Script == #
 #part1
 printf '\033c'
-echo "Welcome to Artix Installation Script"
+echo "Welcome to Arch Installation Script"
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 5/" /etc/pacman.conf
 
 location = Asia/Beirut
@@ -257,11 +257,11 @@ exit
 
 
 # creating  symlinks
-ln -s /home/media/dox ~/dox
-ln -s /home/media/pix ~/pix
-ln -s /home/media/vids ~/vids
-ln -s /home/media/music ~/music
-ln -s /home/media/.local/share/transmission ~/.local/share/transmission
+ln -s /media/dox ~/dox
+ln -s /media/pix ~/pix
+ln -s /media/vids ~/vids
+ln -s /media/music ~/music
+ln -s /media/.local/share/transmission ~/.local/share/transmission
 ## for mpv error
 mkdir -p .cache/thumbnails/mpv-gallery
 # slock

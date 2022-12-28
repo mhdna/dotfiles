@@ -157,7 +157,7 @@
 (set-cursor-color "black")
 ;; Line numbers
 ;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-;; (global-display-line-numbers-mode 1)
+(global-display-line-numbers-mode 1)
 ;; (line-number-mode 1)
 ;;   (setq display-line-numbers-type 'relative)
 ;; Change mark region color
@@ -400,8 +400,8 @@
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t)))
 
-(use-package magit
-  :ensure t)
+;; (use-package magit
+;;   :ensure t)
 
 ;; (use-package ediff
 ;;   :after (magit vc)

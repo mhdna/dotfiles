@@ -1,3 +1,0 @@
-stardict-oald
-stardict
-termdown

@@ -1,8 +1,5 @@
-# 0,15,30,45 * * * * export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; . $HOME/.zprofile; $HOME/.local/bin/cron/newsup
-# 0,10,20,30,40,50 * * * * export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; . $HOME/.zprofile; /home/mah/.local/bin/cron/mailup
-# * * 1 * * export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; . $HOME/.zprofile; $HOME/.local/bin/cron/checkup
-#@weekly DISPLAY=:0 $HOME/.local/bin/cron/Checkup
+*/15 * * * * export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; . $HOME/.zprofile; $HOME/.local/bin/cron/newsup
+*/10 * * * * export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; . $HOME/.zprofile; /home/mah/.local/bin/cron/mailup
 #*/1 * * * * DISPLAY=:0 $HOME/.local/bin/cron/batMonitor
-*/15 * * * * DISPLAY=:0 $HOME/.local/bin/cron/newsup
-*/10 * * * * DISPLAY=:0 $HOME/.local/bin/cron/mailup
-00 * * * * mpc update
+# */15 * * * * DISPLAY=:0 $HOME/.local/bin/cron/newsup
+# */10 * * * * DISPLAY=:0 $HOME/.local/bin/cron/mailup

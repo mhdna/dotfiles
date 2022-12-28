@@ -75,7 +75,6 @@ newsboat
 bc
 xsel
 clipmenu
-calcurse
 pulsemixer
 highlight
 fzf
@@ -88,11 +87,8 @@ zathura-pdf-mupdf
 feh
 mlocate
 libreoffice-still
-texlive-most
-pandoc
 telegram-desktop
 gimp
-screenkey
 android-tools
 kdeconnect
 syncthing
@@ -108,13 +104,9 @@ patch
 make
 firefox
 mlocate
-btop
 bat
 lynx
-r
 torbrowser-launcher
-dhcpcd
-bmon
 ttf-dejavu
 ttf-caladea
 ttf-carlito
@@ -139,3 +131,4 @@ pass
 jdk-openjdk
 flameshot
 oxygen-icons
+ccls 
