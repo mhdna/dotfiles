@@ -43,12 +43,12 @@ return packer.startup(function(use)
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
     use("windwp/nvim-autopairs")
-    use {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end
-    }
+use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+}
     use("JoosepAlviste/nvim-ts-context-commentstring")
     use("romgrk/nvim-treesitter-context")
 
@@ -89,8 +89,8 @@ return packer.startup(function(use)
     })
 
     use("mbbill/undotree")
-    use("gruvbox-community/gruvbox")
-    use("akinsho/toggleterm.nvim")
+    -- use("gruvbox-community/gruvbox")
+    use "lukas-reineke/indent-blankline.nvim"
     -- use("kyazdani42/nvim-web-devicons")
 
     -- use{'norcalli/nvim-colorizer.lua',
@@ -103,6 +103,7 @@ return packer.startup(function(use)
     --     'nvim-lualine/lualine.nvim',
     --     -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     -- }
+    -- use("ap/vim-buftabline")
 
     -- alternative to subword-mode in emacs
     -- use("haoren/vim-wordmotion")

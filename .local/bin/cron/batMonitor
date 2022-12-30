@@ -28,8 +28,7 @@ MaxPercent=99
 	if [ "$BatStatus" = "Discharging" ] && [ $BatPercent -le $MinPercent ]; then
 		# export DISPLAY=:0; export $(dbus-launch)
         	notify-send  -u critical -t 5000 "$BatPercent% Shutting down..."
-		echo "shutted down at '$(date)'" > /home/mah/file.txt
-		loginctl poweroff
+            systemctl poweroff
 	fi
 
 	# sleep $Refresh

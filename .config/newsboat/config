@@ -23,12 +23,12 @@ bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
 
-# color listnormal blue default
-# color listfocus black yellow standout bold
-# color listnormal_unread cyan default
-# color listfocus_unread yellow default bold
-# color info red black bold
-# color article white default bold
+color listnormal blue default
+color listfocus black yellow standout bold
+color listnormal_unread cyan default
+color listfocus_unread yellow default bold
+color info red black bold
+color article white default bold
 
 browser linkhandler
 macro , open-in-browser
@@ -43,7 +43,7 @@ macro C set browser "youtube-viewer --comments=%u --comments-order=relevance" ; 
 macro p set browser "peertubetorrent %u 480" ; open-in-browser ; set browser linkhandler
 macro P set browser "peertubetorrent %u 1080" ; open-in-browser ; set browser linkhandler
 
-highlight all "---.*---" yellow
+# highlight all "---.*---" yellow
 highlight feedlist ".*(0/0))" black
 highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
 highlight article "(^Link:.*|^Date:.*)" default default

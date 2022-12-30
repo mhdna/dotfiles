@@ -77,9 +77,13 @@ vim.keymap.set('', '<A-3>', '<cmd>vsplit<CR>')
 -- managing tabs
 vim.keymap.set('', '<A-4>', '<C-w>T')
 vim.keymap.set('', '<A-t>', '<cmd>tabnew<CR>')
+vim.keymap.set('t', '<A-t>', '<cmd>tabnew<CR>')
 vim.keymap.set('', '<A-C-t>', '<cmd>tabclose<CR>')
+vim.keymap.set('t', '<A-C-t>', '<cmd>tabclose<CR>')
 vim.keymap.set('', '<A-l>', '<cmd>tabnext<CR>')
+vim.keymap.set('t', '<A-l>', '<cmd>tabnext<CR>')
 vim.keymap.set('', '<A-h>', '<cmd>tabprevious<CR>')
+vim.keymap.set('t', '<A-h>', '<cmd>tabprevious<CR>')
 -- Substitute
 vim.keymap.set('n', '<C-s>', ':%s//g<Left><Left>')
 vim.keymap.set('v', '<C-s>', ':s//g<Left><Left>')

@@ -17,7 +17,7 @@ unsetopt PROMPT_SP
 
 # Default programs:
 export EDITOR="nvim"
-export TERMINAL="xterm"
+export TERMINAL="st"
 export BROWSER="firefox"
 export VIDEO="mpv"
 export IMAGE="sxiv"
@@ -31,13 +31,11 @@ export CM_MAX_CLIPS=50
 # Enable wayland for firefox and others
 # MOZZ_ENABLE_WAYLAND=1
 
-export WIKI=$HOME/stuff/wiki
-export COLLEGE=$HOME/stuff/college
-export XDG_DOWNLOAD_DIR="$HOME/downloads"
+export XDG_DOWNLOAD_DIR="$HOME/dl"
 export XDG_MUSIC_DIR="$HOME/music"
-export XDG_VIDEOS_DIR="$HOME/videos"
-export XDG_PICTURES_DIR="$HOME/pictures"
-export XDG_DOCUMENTS_DIR="$HOME/documents"
+export XDG_VIDEOS_DIR="$HOME/vids"
+export XDG_PICTURES_DIR="$HOME/pix"
+export XDG_DOCUMENTS_DIR="$HOME/dox"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"

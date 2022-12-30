@@ -9,7 +9,7 @@ vim.opt.pumheight= 15
 vim.opt.foldmethod = 'marker' -- Enable folding (default 'foldmarker')
 -- mah
 -- for always block cursor
--- vim.o.guicursor = true
+vim.o.guicursor = true
 
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true -- Autoindent new lines
@@ -52,7 +52,6 @@ vim.opt.updatetime = 700 -- ms to wait for trigger an event
 -- vim.o.exrc       = true -- so if a vimrc file is in a dir, it's automatically sourced (for custom projects)
 vim.o.compatible = false
 vim.o.incsearch  = true -- highlight incrementaly rather than the whole word word
-vim.o.ignorecase = true
 vim.o.smartcase  = true -- only ignore case if write uppercase letter
 vim.o.backup     = false
 vim.o.undofile   = true
@@ -60,8 +59,8 @@ vim.o.undofile   = true
 vim.o.hlsearch   = false -- keep the previous search occurance highlighted
 vim.o.swapfile   = false
 
-vim.wo.relativenumber = true
-vim.o.number = true
+-- vim.wo.relativenumber = true
+-- vim.o.number = true
 vim.o.scrolloff = 8
 vim.opt.termguicolors = true -- Enable 24-bit RGB colors
 vim.opt.linebreak = false

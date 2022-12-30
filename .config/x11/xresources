@@ -1,7 +1,7 @@
 ! Transparency (0-1)
 *.alpha: 1
 Emacs.alpha: 100
-*.font: monospace:pixelsize=16
+*.font: monospace:pixelsize=15
 
 *background: #000000
 *foreground: #fff
@@ -39,7 +39,7 @@ Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
 Xft.hinting: 1
 Xft.antialias: 1
-XTerm*faceSize: 12
+XTerm*faceSize: 10
 XTerm*transparent: true
 XTerm*saveLines: 10000
 XTerm*scrollBar: false

@@ -11,7 +11,7 @@ run dunst
 run cbatticon -r 1 -l 15 #-c 'loginctl poweroff'
 run pa-applet --disable-key-grabbing
 run nm-applet
-run $TERMINAL -e my-tmux-session
-run $BROWSER
-run emacs
+# run $TERMINAL -e my-tmux-session
+# run $BROWSER
+# run emacs
 run blueman-applet

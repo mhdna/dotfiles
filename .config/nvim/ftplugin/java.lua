@@ -28,6 +28,7 @@ extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 local on_attach = function(client, bufnr)
     jdtls.setup.add_commands()
+    require("jdtls").setup_dap()
     require('jdtls.dap').setup_dap_main_class_configs()
 
     -- Default keymaps
@@ -182,5 +183,4 @@ vim.cmd("command! -buffer JdtBytecode lua require('jdtls').javap()")
 -- nnoremap('<leader>df', '<cmd>Telescope dap frames<cr>', "List frames")
 -- nnoremap('<leader>dh', '<cmd>Telescope dap commands<cr>', "List commands")
 
-require("jdtls").setup_dap()
 require("jdtls").start_or_attach(config)

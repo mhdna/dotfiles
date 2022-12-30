@@ -14,7 +14,7 @@ local menubar = require("menubar")
 -- when client with a matching name is opened:
 -- require("awful.hotkeys_popup.keys")
 -- local batteryarc_widget = require("widgets.batteryarc.batteryarc")
--- local net_speed_widget = require("widgets.net-speed.net-speed")
+local net_speed_widget = require("widgets.net-speed.net-speed")
 -- local naughty_sidebar = require("widgets.sidebar")
 -- local net_widgets = require("widgets.net_widgets")
 -- net_wireless = net_widgets.wireless({interface="wlp2s0", indent = 4,  timeout = 5 })
@@ -177,20 +177,20 @@ awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     -- Table of layouts to cover with awful.layout.inc, order matters.
     awful.layout.layouts = {
-        awful.layout.suit.floating,
         awful.layout.suit.tile,
         awful.layout.suit.max,
         awful.layout.suit.tile.bottom,
+        awful.layout.suit.floating,
         --awful.layout.suit.spiral,
         --awful.layout.suit.fair,
         --awful.layout.suit.fair.horizontal,
         -- awful.layout.suit.magnifier,
     }
     layouts = {
-        awful.layout.suit.floating,
         awful.layout.suit.tile,
         awful.layout.suit.max,
         awful.layout.suit.tile.bottom,
+        awful.layout.suit.floating,
         --awful.layout.suit.spiral,
         --awful.layout.suit.fair,
         --awful.layout.suit.fair.horizontal,
@@ -199,8 +199,8 @@ awful.screen.connect_for_each_screen(function(s)
 
 
     tags = {
-        names = { "Main" }, -- , "2", "3", "4", "5"},
-        layout = { layouts[1]}, -- , layouts[1], layouts[1], layouts[1], layouts[1], layouts[3]},
+        names = { "1", "2", "3", "4", "5"},
+        layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[3]},
     }
     for s = 1, screen.count() do
         tags[s] = awful.tag(tags.names, s, tags.layout)
@@ -219,7 +219,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
-        filter  = awful.widget.taglist.filter.all, -- was all -- noempty
+        filter  = awful.widget.taglist.filter.noempty, -- was all 
         buttons = taglist_buttons
     }
 
@@ -238,14 +238,14 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
+            -- mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            -- net_speed_widget(),
+            net_speed_widget(),
             wibox.widget.systray(),
             mykeyboardlayout,
             mytextclock,
@@ -765,7 +765,7 @@ awful.rules.rules = {
             buttons = clientbuttons,
             screen = awful.screen.preferred,
             placement = awful.placement.no_overlap + awful.placement.no_offscreen, -- +awful.placement.centered,
-            -- size_hints_honor = false
+            size_hints_honor = false
         }
     },
 
@@ -774,29 +774,29 @@ awful.rules.rules = {
     -- except = {class= "mpv"}},
 
     -- Floating clients.
-    --  { rule_any = {
-    --      instance = {
-    --        "DTA",  -- Firefox addon DownThemAll.
-    --        "pinentry",
-    --      },
-    --      class = {
-    --        "Arandr","Gpick", "Kruler",
-    --        "MessageWin",  -- kalarm.
-    --        "Wpa_gui", "veromix", "xtightvncviewer"},
-    --
-    --      -- Note that the name property shown in xprop might be set slightly after creation of the client
-    --      -- and the name shown there might not match defined rules here.
-    --      name = {
-    --        "Event Tester",  -- xev.
-    --  "Media viewer", -- telegram media viewer
-    --      },
-    --      role = {
-    --        "AlarmWindow",  -- Thunderbird's calendar.
-    --        "ConfigManager",  -- Thunderbird's about:config.
-    --        "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-    --      }
-    --    }, properties = { floating = true , ontop = true}},
-    --
+     { rule_any = {
+         instance = {
+           "DTA",  -- Firefox addon DownThemAll.
+           "pinentry",
+         },
+         class = {
+           "Arandr","Gpick", "Kruler",
+           "MessageWin",  -- kalarm.
+           "Wpa_gui", "veromix", "xtightvncviewer"},
+
+         -- Note that the name property shown in xprop might be set slightly after creation of the client
+         -- and the name shown there might not match defined rules here.
+         name = {
+           "Event Tester",  -- xev.
+     "Media viewer", -- telegram media viewer
+         },
+         role = {
+           "AlarmWindow",  -- Thunderbird's calendar.
+           "ConfigManager",  -- Thunderbird's about:config.
+           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+         }
+       }, properties = { floating = true , ontop = true}},
+
     -- -- -- Add titlebars to normal clients and dialogs
      -- { rule_any = {type = { "normal", "dialog" }
      --   }, properties = { titlebars_enabled = true }},

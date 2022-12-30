@@ -152,12 +152,12 @@
 	:ensure t)
 
 ;; (load-theme 'flatland t)
-(set-background-color "white")
-(set-foreground-color "black")
-(set-cursor-color "black")
+;; (set-background-color "white")
+;; (set-foreground-color "black")
+;; (set-cursor-color "black")
 ;; Line numbers
 ;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(global-display-line-numbers-mode 1)
+;; (global-display-line-numbers-mode 1)
 ;; (line-number-mode 1)
 ;;   (setq display-line-numbers-type 'relative)
 ;; Change mark region color
@@ -207,12 +207,12 @@
 
 
 ;; Font settings
-(set-face-attribute 'default nil :font "hack" :height 115)
+(set-face-attribute 'default nil :font "monospace" :height 135)
 
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "hack" :height 115)
+(set-face-attribute 'fixed-pitch nil :font "monospace" :height 135)
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Sans" :height 115 :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "Sans" :height 135 :weight 'regular)
 (set-fontset-font "fontset-default" 'arabic (font-spec :family "DejaVu Sans Mono"))
 (setq my/font-change-increment 1.1)
 

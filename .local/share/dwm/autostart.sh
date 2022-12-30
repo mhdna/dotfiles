@@ -7,8 +7,7 @@ function run {
    fi
 }
 
-run cbatticon -r 1 -l 15 #-c 'loginctl poweroff'
-run pa-applet --disable-key-grabbing
-run blueman-applet
-run sb-mpdup
-run fbxkb
+# run cbatticon -r 1 -l 15 #-c 'loginctl poweroff'
+# run pa-applet --disable-key-grabbing
+# run blueman-applet
+# run sb-mpdup
