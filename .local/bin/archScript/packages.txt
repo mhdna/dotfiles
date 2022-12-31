@@ -12,8 +12,8 @@ xorg-xset
 tlp
 pipewire
 pipewire-pulse
-wireplumber
 gnome-keyring
+sxhkd
 emacs
 xcape
 xorg-xev

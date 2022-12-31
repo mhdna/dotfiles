@@ -8,7 +8,7 @@ remaps &
 picom --vsync&
 # xautolock -time 10 -locker  'slock'&
 
-autostart="mpd clipmenud dunst "
+autostart="sxhkd mpd clipmenud dunst"
 
 for program in $autostart; do
 	pidof -s "$program" || "$program" &
