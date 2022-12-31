@@ -26,7 +26,7 @@
 (add-to-list 'org-structure-template-alist
              '("el" . "src emacs-lisp"))
 (setq org-adapt-indentation nil)
-(setq org-directory "~/stuff/org")
+(setq org-directory "~/notes/org")
 (defun org-file-path (filename)
   "Return the absolute address of an org file, given its relative name."
   (concat (file-name-as-directory org-directory) filename))
@@ -183,7 +183,7 @@ non-empty lines in the block (excluding the line with
   (delete-other-windows)
   (find-file org-index-file)
   (org-agenda nil "p"))
-;; (global-set-key (kbd "C-c d") 'my/dashboard)
+(global-set-key (kbd "C-c d") 'my/dashboard)
 (defadvice org-agenda-set-mode-name (after truncate-org-agenda-mode-name activate)
   (setq mode-name '("Org-agenda")))
 (add-to-list 'org-agenda-custom-commands

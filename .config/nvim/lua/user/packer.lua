@@ -43,12 +43,14 @@ return packer.startup(function(use)
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
     use("windwp/nvim-autopairs")
-use {
-    'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
-    end
-}
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup(
+                { ignore = '^$' }
+            )
+        end
+    }
     use("JoosepAlviste/nvim-ts-context-commentstring")
     use("romgrk/nvim-treesitter-context")
 
@@ -58,14 +60,14 @@ use {
     use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
     use("tpope/vim-fugitive")
 
-        -- LSP
-        use("neovim/nvim-lspconfig") -- enable LSP
-        use("theprimeagen/harpoon")
-        use { "williamboman/mason.nvim" ,
-                config = function()
-                        require("mason").setup()
-                end
-        }
+    -- LSP
+    use("neovim/nvim-lspconfig") -- enable LSP
+    use("theprimeagen/harpoon")
+    use { "williamboman/mason.nvim" ,
+        config = function()
+            require("mason").setup()
+        end
+    }
 
     -- use('jose-elias-alvarez/null-ls.nvim')
 
