@@ -1,65 +1,59 @@
 super + i
-    st -e my-tmux-session
+    $TERMINAL -e my-tmux-session
 
 super + shift + i
-    emacs
+    emacsclient -c -a 'emacs'
 
 # menus
-super + shift + {d, p,b}
+super + shift + {d,p,b}
     {dmenuhandlerXclip, passmenu, dmenu-bookmarks }
 
 super + {v, grave, Insert, shift + Insert} 
     {clipmenu -i -l 15, dmenuunicode -i, bookmarkmenu, bookmarkit}
 
 super + shift + v
-    st -e pulsemixer
+    $TERMINAL -e pulsemixer
 
 super + shift + l
     slock
 
-super + grave
-    
-
-super + {slash, alt + slash, shift + slash}
-    {transXclip, st -e transs, transXcclip}
-
+#super + {slash, alt + slash, shift + slash}
+#    {transXclip, $TERMINAL -e transs, transXcclip}
 
 super + w
-    firefox
+    $BROWSER
 
 super + shift + w
-    st -e nmtui
-
-super + shift + b
+    $TERMINAL -e nmtui
 
 super + e
-    st -e lfub
+    $TERMINAL -e lfub
 
 super + {shift + e, shift + m, shift + r}
-    st -e bicon -e {neomutt, ncmpcpp, newsboatpkill}
+    $TERMINAL -e bicon -e {neomutt, ncmpcpp, newsboatpkill}
 
 {Print, shift + Print, super + Print, super + Delete}
     {maim $XDG_PICTURES_DIR/screenshots/-$(date '+%y%m%d-%H%M-%S').png pic-full-, maimpick, dmenurecord -i, dmenurecord kill}
 
 XF86Audio{RaiseVolume,LowerVolume,Mute}
-	pamixer --allow-boost -{i,d,t} 2; kill -44 $(pidof dwmblocks)
+	pamixer --allow-boost -{i,d,t} 5; kill -44 $(pidof dwmblocks)
 
 super + {equal,minus,shift+minus}
-	pamixer --allow-boost -{i,d,t} 2; kill -44 $(pidof dwmblocks)
+	pamixer --allow-boost -{i,d,t} 5; kill -44 $(pidof dwmblocks)
 
 super + {comma,shift+comma,period,shift+period}
-	brightnessctl {set 2%-,set 1%, set +2%, set 100%}
+	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
 
 {XF86MonBrightnessDown, super + XF86MonBrightnessDown, XF86MonBrightnessUp, super + XF86MonBrightnessUp}
 	brightnessctl set {10%-, 1%, +10%, 100%}
 
-ctrl + alt + Escape
+super + shift + ctrl + x
     xkill
 
 super + {BackSpace, shift + BackSpace, ctrl + BackSpace}
     dunstctl {close-all, history-pop, set-paused toggle && notify-send "Toggled dunst"}
 
-super + {F10, F11, shift + F11, F12, shift + F12}
+super + {F10, shift + F10, F11, F12, shift + F12}
     mpc {seek -1%, prev, toggle, seek +1%, next}
 
 super + shift + F11

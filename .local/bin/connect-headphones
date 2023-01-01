@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# devices
+hp_mac="41:42:56:CD:DC:E1"
+hp_sink="bluez_output.41:42:56:CD:DC:E1.a2dp-sink"
+default_sink="alsa_output.pci-0000_00_1b.0.pro-output-0"
+ 
+curr_device="$(pactl get-default-sink)"
+
+# if ["$curr_device" = $default_sink]
+# then
+    bluetoothctl agent on
+    bluetoothctl power on
+    bluetoothctl connect $hp_mac
+    pactl set-default-sink $hp_sink
+# else
+#     bluetoothctl power off
+#     bluetoothctl disconnect $hp_mac
+#     pactl set-default-sink $default_sink
+# fi

@@ -38,7 +38,7 @@ return packer.startup(function(use)
     use("saadparwaiz1/cmp_luasnip") -- snippet completions
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-nvim-lua")
-    use("onsails/lspkind.nvim")
+    -- use("onsails/lspkind.nvim")
 
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins

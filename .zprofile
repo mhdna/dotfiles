@@ -3,13 +3,10 @@
 # If you don't plan on reverting to bash, you can remove the link in ~/.profile
 # to clean up.
 
-export JAVA_HOME=/usr/lib/jvm/default
-
 #functions path
 fpath+=("$ZDOTDIR/functions")
-export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
-export PATH=~/.npm-global/bin:$PATH:$GOPATH/bin:~/.local/share/cargo/bin:$JAVA_HOME/bin
+export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}":~/.npm-global/bin:$GOPATH/bin:~/.local/share/cargo/bin:$JAVA_HOME/bin
 
 unsetopt PROMPT_SP
 
@@ -32,7 +29,7 @@ export CM_MAX_CLIPS=50
 # MOZZ_ENABLE_WAYLAND=1
 
 export XDG_DOWNLOAD_DIR="$HOME/dl"
-export XDG_MUSIC_DIR="$HOME/music"
+export XDG_MUSIC_DIR="$HOME/aud"
 export XDG_VIDEOS_DIR="$HOME/vids"
 export XDG_PICTURES_DIR="$HOME/pix"
 export XDG_DOCUMENTS_DIR="$HOME/dox"
@@ -47,7 +44,7 @@ export NOTMUCH_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/notmuch-config"
 export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc-2.0"
 export LESSHISTFILE="-"
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
-export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/shell/inputrc"
+# export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/shell/inputrc"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 # Might break pipewire (If it doesn't exist) --mah
 # export ALSA_CONFIG_PATH="$XDG_CONFIG_HOME/alsa/asoundrc"
@@ -67,6 +64,7 @@ export ELECTRUMDIR="${XDG_DATA_HOME:-$HOME/.local/share}/electrum"
 # export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 # Other program settings:
 export DICS="/usr/share/stardict/dic/"
+export SDCV_PAGER='less --quit-if-one-screen -RX'
 export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
 export LESS=-R
 export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"

@@ -1,6 +1,7 @@
 lf-bin
 abook
 simple-mtpfs
+task-spooler
 urlview
 downgrade
 bicon-git

@@ -12,6 +12,8 @@ xorg-xset
 tlp
 pipewire
 pipewire-pulse
+wireplumber
+polkit
 gnome-keyring
 sxhkd
 emacs
@@ -31,10 +33,8 @@ arandr
 dosfstools
 mtools
 socat
-exfat-utils
 picom
 libnotify
-exfat-utils
 ntfs-3g
 xcape
 xorg-xdpyinfo
@@ -99,7 +99,6 @@ bluez-utils
 gnupg
 jq
 entr
-blueman
 patch
 make
 firefox
@@ -113,9 +112,10 @@ ttf-carlito
 ttf-liberation
 wqy-microhei
 noto-fonts-emoji
-speedtest-cli
 lxqt-powermanagement
-stardict
+abook
+sdcv
+pandoc
 arch-wiki-docs
 chromium
 npm

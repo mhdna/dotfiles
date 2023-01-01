@@ -331,7 +331,7 @@ cmd open ${{
 			lf -remote "send toggle"
 		done &
 		;;
-	image/vnd.djvu|application/pdf|application/octet-stream|application/postscript|application/epub) setsid -f zathura $fx >/dev/null 2>&1 ;;
+	image/vnd.djvu|application/pdf|application/octet-stream|application/postscript|application/epub) setsid -f zathura $f >/dev/null 2>&1 ;;
 	video/*) setsid -f mpv $fx -quiet --profile=pseudo-gui >/dev/null 2>&1;;
 	# swallow
 	# video/*) mpv $f ;; # -fs

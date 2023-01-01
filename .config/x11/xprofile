@@ -6,6 +6,7 @@ xss-lock slock&
 redshift -l 31.77:35.23&
 remaps &
 picom --vsync&
+emacs --daemon&
 # xautolock -time 10 -locker  'slock'&
 
 autostart="sxhkd mpd clipmenud dunst"
