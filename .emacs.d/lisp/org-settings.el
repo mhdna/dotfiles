@@ -8,7 +8,6 @@
 (setq coding-system-for-read 'utf-8 ) ; use utf-8 by default
 (setq coding-system-for-write 'utf-8 )
 (define-key global-map "\C-cl" 'org-store-link)
-
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 (use-package org

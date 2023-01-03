@@ -62,7 +62,7 @@ return packer.startup(function(use)
 
     -- LSP
     use("neovim/nvim-lspconfig") -- enable LSP
-    use("theprimeagen/harpoon")
+    -- use("theprimeagen/harpoon")
     use { "williamboman/mason.nvim" ,
         config = function()
             require("mason").setup()

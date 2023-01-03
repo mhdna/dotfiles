@@ -115,7 +115,6 @@ noto-fonts-emoji
 lxqt-powermanagement
 abook
 sdcv
-pandoc
 arch-wiki-docs
 chromium
 npm
@@ -129,6 +128,8 @@ brightnessctl
 isync
 pass
 jdk-openjdk
+openjdk-doc
 flameshot
 oxygen-icons
 ccls 
+python-docs

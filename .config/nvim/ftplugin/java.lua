@@ -43,6 +43,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<space>lec", jdtls.extract_constant, bufopts, "Extract constant")
     vim.keymap.set("v", "<space>lem", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], bufopts,
         "Extract method")
+
 end
 
 
@@ -106,7 +107,14 @@ local config = {
                 },
             },
             format = {
-                enabled = true,
+                -- enabled = true,
+                settings = {
+                    -- Use Google Java style guidelines for formatting
+                    -- To use, make sure to download the file from https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml
+                    -- and place it in the ~/.local/share/eclipse directory
+                    url = "~/.local/share/eclipse/eclipse-java-google-style.xml",
+                    profile = "GoogleStyle",
+                },
             },
         },
         signatureHelp = { enabled = true },

@@ -23,7 +23,6 @@
 (require 'my-functions)
 (require 'org-settings)
 ;; (require 'eglot-stuff)
-
 (setq byte-compile-warnings '(cl-functions))
 
 ;; config changes made through the customize UI will be stored here

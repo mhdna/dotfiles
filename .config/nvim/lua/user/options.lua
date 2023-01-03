@@ -61,7 +61,7 @@ vim.o.swapfile   = false
 
 -- vim.wo.relativenumber = true
 -- vim.o.number = true
-vim.o.scrolloff = 8
+-- vim.o.scrolloff = 8
 vim.opt.termguicolors = true -- Enable 24-bit RGB colors
 vim.opt.linebreak = false
 vim.bo.tabstop = 4

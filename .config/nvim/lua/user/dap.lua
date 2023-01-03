@@ -22,7 +22,7 @@ vim.keymap.set("n", "<leader>dB", "<cmd>lua require'dap'.set_breakpoint(vim.fn.i
 vim.keymap.set("n", "<leader>dR", "<cmd>lua require'dap'.clear_breakpoints()<cr>")
 vim.keymap.set("n", "<leader>dl", "<cmd>Telescope dap list_breakpoints<cr>")
 
-vim.keymap.set("n", "<F4>", "<cmd>lua require'dap'.continue()<cr>")
+vim.keymap.set("n", "<F4>", "<cmd>w<cr><cmd>lua require'dap'.continue()<cr>")
 vim.keymap.set("n", "<C-F4>", "<cmd>lua require'dapui'.toggle()<cr>")
 vim.keymap.set("n", "<F3>", "<cmd>lua require'dap'.step_over()<cr>")
 vim.keymap.set("n", "<F2>", "<cmd>lua require'dap'.step_into()<cr>")

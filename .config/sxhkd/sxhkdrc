@@ -20,6 +20,9 @@ super + shift + l
 #super + {slash, alt + slash, shift + slash}
 #    {transXclip, $TERMINAL -e transs, transXcclip}
 
+super + shift + slash
+    stardict
+
 super + w
     $BROWSER
 
@@ -29,17 +32,20 @@ super + shift + w
 super + e
     $TERMINAL -e lfub
 
-super + {shift + e, shift + m, shift + r}
+super + {shift + e, alt + m, shift + r}
     $TERMINAL -e bicon -e {neomutt, ncmpcpp, newsboatpkill}
 
 {Print, shift + Print, super + Print, super + Delete}
     {maim $XDG_PICTURES_DIR/screenshots/-$(date '+%y%m%d-%H%M-%S').png pic-full-, maimpick, dmenurecord -i, dmenurecord kill}
 
-XF86Audio{RaiseVolume,LowerVolume,Mute}
-	pamixer --allow-boost -{i,d,t} 5; kill -44 $(pidof dwmblocks)
+XF86Audio{RaiseVolume,LowerVolume}
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}; kill -44 $(pidof dwmblocks)
 
-super + {equal,minus,shift+minus}
-	pamixer --allow-boost -{i,d,t} 5; kill -44 $(pidof dwmblocks)
+{XF86AudioMute, super+shift+m}
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof dwmblocks)
+
+super + { minus, shift + minus, equal,shift + equal}
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 15%-, 5%+,15%+}; kill -44 $(pidof dwmblocks)
 
 super + {comma,shift+comma,period,shift+period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
@@ -72,10 +78,10 @@ super + {F4, shift + F4}
     {dmenumount -i, displayselect}
 
 super + F5
-    remaps && notify-send 'Keyboard layout' 'Has been reset to default'
+    remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to default'
 
 super + shift + F5
-    keyboardLogitech & notify-send 'Keyboard layout' 'Has been reset to Logitech'
+    keyboardLogitech & notify-send -t 1000 'Keyboard layout' 'Has been reset to Logitech'
 
 super + shift + q
 	sysact

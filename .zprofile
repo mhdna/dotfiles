@@ -5,6 +5,7 @@
 
 #functions path
 fpath+=("$ZDOTDIR/functions")
+export JAVA_HOME=/usr/lib/jvm/default
 export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}":~/.npm-global/bin:$GOPATH/bin:~/.local/share/cargo/bin:$JAVA_HOME/bin
 
