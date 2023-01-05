@@ -7,6 +7,6 @@ case $choice in
 	 "")
 		exit ;;
 	*) 
-		surf $(echo $choice|cut -d ";" -f2)
+		$BROWSER $(echo $choice|cut -d ";" -f2)
 esac
 

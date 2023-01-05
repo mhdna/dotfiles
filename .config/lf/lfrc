@@ -539,9 +539,9 @@ map <m-down>  down
 map y
 map yy copy
 ## yank path
-map yp $readlink -f $PWD | xclip -i -sel c
+map yp $readlink -f $PWD | xclip -sel c -i
 ## yank name
-map yn $basename -a -- $fx | head -c-1 | xclip -i -selection clipboard
+map yn $basename -a -- $fx | head -c-1 | xclip -selection clipboard -i
 ## yank path+name
 map yP $echo -n $fx | xclip -sel c -i
 

@@ -2,7 +2,7 @@ super + i
     $TERMINAL -e my-tmux-session
 
 super + shift + i
-    emacsclient -c -a 'emacs'
+    emacsclient  -c -a 'emacs'
 
 # menus
 super + shift + {d,p,b}
@@ -20,8 +20,8 @@ super + shift + l
 #super + {slash, alt + slash, shift + slash}
 #    {transXclip, $TERMINAL -e transs, transXcclip}
 
-super + shift + slash
-    stardict
+super + {alt + slash, shift + slash}
+    {transXcclip, transXclip}
 
 super + w
     $BROWSER
@@ -68,20 +68,26 @@ super + shift + F11
 super + {F1, shift + F1}
     {kdeconnect-indicator ; kdeconnect-cli --refresh, kill $(pgrep kdeconnect)}
 
-super + {F2, shift + F2}
-    redshift {-O 5000, -x}
+super + F2
+    redshift -O 5000
+
+super + shift + F2
+    redshift -x
 
 super + {F3, shift + F3}
     {torwrap, td-toggle}
 
 super + {F4, shift + F4}
-    {dmenumount -i, displayselect}
+    {displayselect, dmenumount -i}
 
 super + F5
-    remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to default'
+    remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to MYREMAPS'
 
 super + shift + F5
-    keyboardLogitech & notify-send -t 1000 'Keyboard layout' 'Has been reset to Logitech'
+    keyboardLogitech & notify-send -t 1000 'Keyboard layout' 'Has been reset to LOGITECH'
+
+super + ctrl + F5
+     setxkbmap -model pc105 -layout us,ara -option grp:alt_space_toggle && notify-send -t 1000 'Keyboard layout' 'Has been set to DEFAULT'
 
 super + shift + q
 	sysact

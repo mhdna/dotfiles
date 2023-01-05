@@ -16,7 +16,7 @@ unsetopt PROMPT_SP
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="firefox"
+export BROWSER="qutebrowser"
 export VIDEO="mpv"
 export IMAGE="sxiv"
 export CM_SELECTIONS="clipboard"

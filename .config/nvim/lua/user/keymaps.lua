@@ -54,7 +54,7 @@ vim.keymap.set('n', '<Down>', '<c-w>-')
 vim.keymap.set('n', '<Left>', '<c-w><')
 vim.keymap.set('n', '<Right>', '<c-w>>')
 
-vim.keymap.set('n', '<leader><S-C>', ':w! | !compiler "<c-r>%"<CR>')
+vim.keymap.set('n', '<leader>c', ':w! | !compiler "<c-r>%"<CR>')
 vim.keymap.set('n', '<leader>o', ':!opout <c-r>%<CR><CR>')
 
 vim.keymap.set('n', '<leader>e', ':Explore<CR>')

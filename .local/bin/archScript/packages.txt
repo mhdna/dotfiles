@@ -133,3 +133,5 @@ flameshot
 oxygen-icons
 ccls 
 python-docs
+gnome-themes-extra
+urlscan

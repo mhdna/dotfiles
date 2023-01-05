@@ -73,10 +73,10 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
 
 
 -- auto formatting
--- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
---     pattern = { "*" },
---     command = "lua vim.lsp.buf.formatting_sync()",
--- })
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = { "*.java", "*.cpp", "*.py" },
+    command = "lua vim.lsp.buf.formatting_sync()",
+})
 
 -- alpha
 --   augroup _alpha
