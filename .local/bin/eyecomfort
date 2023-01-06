@@ -1,0 +1,4 @@
+#!/bin/sh
+
+
+while true; do sleep 20m && notify-send -u critical '👁<fe0f> Time to get a break ' 'Look for something 20 feets far from you for 20 secs' && xset dpms force off ; done

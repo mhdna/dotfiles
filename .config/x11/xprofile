@@ -1,17 +1,14 @@
 #!/bin/sh
 
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!
-setbg&
 xset s 900 0 &
 xss-lock slock&
 redshift -l 31.77:35.23&
 remaps &
 picom --vsync&
-emacs --daemon&
-sb-mpdup&
 # xautolock -time 10 -locker  'slock'&
 
-autostart="sxhkd mpd clipmenud dunst"
+autostart="unclutter sxhkd mpd clipmenud "
 
 for program in $autostart; do
 	pidof -s "$program" || "$program" &

@@ -32,7 +32,7 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 ;; Don't clutter my folders
-(setq user-emacs-directory (expand-file-name "~/.cache/emacs"))
+(setq user-emacs-directory (expand-file-name "~/.cache/emacs2"))
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist `(("." . ,(expand-file-name "tmp/backups/" user-emacs-directory))))
 ;; auto-save files (#something#)
@@ -97,9 +97,10 @@
 ;; vim-like scrolling
 (setq scroll-conservatively 100)
 (setq ring-bell-function 'ignore)
-;; (set-background-color "black")
-;; (set-foreground-color "white")
-;; (set-cursor-color "white")
+
+(set-background-color "white")
+(set-foreground-color "black")
+(set-cursor-color "black")
 ;; Line numbers
 ;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 ;; (global-display-line-numbers-mode 1)
@@ -108,7 +109,7 @@
 ;;       scroll-conservatively 100000
 ;;       scroll-preserve-screen-position 1)
 ;; Do not load xresources
-;; (setq-default inhibit-x-resources 1)
+(setq-default inhibit-x-resources 1)
 
 ;; count the number of lines to use for line number width
 ;; (setq-default display-line-numbers-width-start t)
@@ -145,13 +146,13 @@
 
 
 ;; Font settings
-(set-face-attribute 'default nil :font "monospace" :height 135)
+(set-face-attribute 'default nil :font "monospace" :height 115)
 
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "monospace" :height 135)
+(set-face-attribute 'fixed-pitch nil :font "monospace" :height 115)
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Sans" :height 135 :weight 'regular)
-;; (set-fontset-font "fontset-default" 'arabic (font-spec :family "DejaVu Sans Mono"))
+(set-face-attribute 'variable-pitch nil :font "Sans" :height 115 :weight 'regular)
+(set-fontset-font "fontset-default" 'arabic (font-spec :family "DejaVu Sans Mono"))
 (setq my/font-change-increment 1.1)
 
 

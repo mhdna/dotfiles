@@ -101,10 +101,12 @@ return packer.startup(function(use)
     --     end
     -- }
 
-    -- use {
-    --     'nvim-lualine/lualine.nvim',
-    --     -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    -- }
+    use {
+        'nvim-lualine/lualine.nvim',
+        -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
+    use"olimorris/onedarkpro.nvim"
+   
     -- use("ap/vim-buftabline")
 
     -- alternative to subword-mode in emacs

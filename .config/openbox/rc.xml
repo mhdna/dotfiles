@@ -42,7 +42,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Bear2</name>
+    <name>Redmond 2009</name>
     <titleLayout>CSIML</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -58,7 +58,7 @@
     <animateIconify>yes</animateIconify>
     <font place="ActiveWindow">
       <name>sans</name>
-      <size>8</size>
+      <size>9</size>
       <!-- font size in points -->
       <weight>bold</weight>
       <!-- 'bold' or 'normal' -->
@@ -120,13 +120,10 @@
 
        use obconf if you want to change these without having to log out
        and back in -->
-    <number>4</number>
+    <number>1</number>
     <firstdesk>1</firstdesk>
     <names>
-      <name>D1</name>
-      <name>D2</name>
-      <name>D3</name>
-      <name>D4</name>
+      <name>Main Desktop</name>
     </names>
     <popupTime>0</popupTime>
     <!-- The number of milliseconds to show the popup for when switching
@@ -239,50 +236,50 @@
     <!--     <wrap>no</wrap> -->
     <!--   </action> -->
     <!-- </keybind> -->
-    <keybind key="W-1">
-      <action name="GoToDesktop">
-        <to>1</to>
-      </action>
-    </keybind>
-    <keybind key="W-2">
-      <action name="GoToDesktop">
-        <to>2</to>
-      </action>
-    </keybind>
-    <keybind key="W-3">
-      <action name="GoToDesktop">
-        <to>3</to>
-      </action>
-    </keybind>
-    <keybind key="W-4">
-      <action name="GoToDesktop">
-        <to>4</to>
-      </action>
-    </keybind>
-    <keybind key="W-S-1">
-      <action name="SendToDesktop">
-        <to>1</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
-    <keybind key="W-S-2">
-      <action name="SendToDesktop">
-        <to>2</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
-    <keybind key="W-S-3">
-      <action name="SendToDesktop">
-        <to>3</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
-    <keybind key="W-S-4">
-      <action name="SendToDesktop">
-        <to>4</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
+    <!-- <keybind key="W-1"> -->
+    <!--   <action name="GoToDesktop"> -->
+    <!--     <to>1</to> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-2"> -->
+    <!--   <action name="GoToDesktop"> -->
+    <!--     <to>2</to> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-3"> -->
+    <!--   <action name="GoToDesktop"> -->
+    <!--     <to>3</to> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-4"> -->
+    <!--   <action name="GoToDesktop"> -->
+    <!--     <to>4</to> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-S-1"> -->
+    <!--   <action name="SendToDesktop"> -->
+    <!--     <to>1</to> -->
+    <!--     <wrap>no</wrap> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-S-2"> -->
+    <!--   <action name="SendToDesktop"> -->
+    <!--     <to>2</to> -->
+    <!--     <wrap>no</wrap> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-S-3"> -->
+    <!--   <action name="SendToDesktop"> -->
+    <!--     <to>3</to> -->
+    <!--     <wrap>no</wrap> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-S-4"> -->
+    <!--   <action name="SendToDesktop"> -->
+    <!--     <to>4</to> -->
+    <!--     <wrap>no</wrap> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
     <keybind key="W-S-Left">
       <action name="SendToDesktop">
         <to>left</to>
@@ -311,168 +308,168 @@
       <action name="ToggleShowDesktop"/>
     </keybind>
     <!-- Tiling Windows -->
-    <keybind key="W-A-KP_7">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>0</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-A-KP_8">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>25%</x>
-        <y>0</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-A-KP_9">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>50%</x>
-        <y>0</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-A-KP_4">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>25%</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-A-KP_6">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>50%</x>
-        <y>25%</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-A-KP_1">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>50%</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-A-KP_2">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>25%</x>
-        <y>50%</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-A-KP_3">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>50%</x>
-        <y>50%</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-A-KP_5">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>center</x>
-        <y>center</y>
-        <width>95%</width>
-        <height>95%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_7">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>0%</x>
-        <y>0%</y>
-        <width>33%</width>
-        <height>33%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_8">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>33%</x>
-        <y>0%</y>
-        <width>34%</width>
-        <height>33%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_9">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>67%</x>
-        <y>0%</y>
-        <width>33%</width>
-        <height>33%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_4">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>0%</x>
-        <y>33%</y>
-        <width>33%</width>
-        <height>34%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_5">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>33%</x>
-        <y>33%</y>
-        <width>34%</width>
-        <height>34%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_6">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>67%</x>
-        <y>33%</y>
-        <width>33%</width>
-        <height>34%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_1">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>0%</x>
-        <y>67%</y>
-        <width>33%</width>
-        <height>33%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_2">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>33%</x>
-        <y>67%</y>
-        <width>34%</width>
-        <height>33%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_3">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>67%</x>
-        <y>67%</y>
-        <width>33%</width>
-        <height>33%</height>
-      </action>
-    </keybind>
+    <!-- <keybind key="W-A-KP_7"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>0</x> -->
+    <!--     <y>0</y> -->
+    <!--     <width>50%</width> -->
+    <!--     <height>50%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-A-KP_8"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>25%</x> -->
+    <!--     <y>0</y> -->
+    <!--     <width>50%</width> -->
+    <!--     <height>50%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-A-KP_9"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>50%</x> -->
+    <!--     <y>0</y> -->
+    <!--     <width>50%</width> -->
+    <!--     <height>50%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-A-KP_4"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>0</x> -->
+    <!--     <y>25%</y> -->
+    <!--     <width>50%</width> -->
+    <!--     <height>50%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-A-KP_6"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>50%</x> -->
+    <!--     <y>25%</y> -->
+    <!--     <width>50%</width> -->
+    <!--     <height>50%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-A-KP_1"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>0</x> -->
+    <!--     <y>50%</y> -->
+    <!--     <width>50%</width> -->
+    <!--     <height>50%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-A-KP_2"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>25%</x> -->
+    <!--     <y>50%</y> -->
+    <!--     <width>50%</width> -->
+    <!--     <height>50%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-A-KP_3"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>50%</x> -->
+    <!--     <y>50%</y> -->
+    <!--     <width>50%</width> -->
+    <!--     <height>50%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-A-KP_5"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>center</x> -->
+    <!--     <y>center</y> -->
+    <!--     <width>95%</width> -->
+    <!--     <height>95%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-KP_7"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>0%</x> -->
+    <!--     <y>0%</y> -->
+    <!--     <width>33%</width> -->
+    <!--     <height>33%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-KP_8"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>33%</x> -->
+    <!--     <y>0%</y> -->
+    <!--     <width>34%</width> -->
+    <!--     <height>33%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-KP_9"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>67%</x> -->
+    <!--     <y>0%</y> -->
+    <!--     <width>33%</width> -->
+    <!--     <height>33%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-KP_4"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>0%</x> -->
+    <!--     <y>33%</y> -->
+    <!--     <width>33%</width> -->
+    <!--     <height>34%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-KP_5"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>33%</x> -->
+    <!--     <y>33%</y> -->
+    <!--     <width>34%</width> -->
+    <!--     <height>34%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-KP_6"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>67%</x> -->
+    <!--     <y>33%</y> -->
+    <!--     <width>33%</width> -->
+    <!--     <height>34%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-KP_1"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>0%</x> -->
+    <!--     <y>67%</y> -->
+    <!--     <width>33%</width> -->
+    <!--     <height>33%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-KP_2"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>33%</x> -->
+    <!--     <y>67%</y> -->
+    <!--     <width>34%</width> -->
+    <!--     <height>33%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-KP_3"> -->
+    <!--   <action name="UnmaximizeFull"/> -->
+    <!--   <action name="MoveResizeTo"> -->
+    <!--     <x>67%</x> -->
+    <!--     <y>67%</y> -->
+    <!--     <width>33%</width> -->
+    <!--     <height>33%</height> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
     <keybind key="W-S-l">
       <action name="UnmaximizeFull"/>
       <action name="GrowToEdgeEast"/>
@@ -509,24 +506,24 @@
     <keybind key="S-W-c">
       <action name="Close"/>
     </keybind>
-    <keybind key="W-s">
-      <action name="Lower"/>
-      <action name="FocusToBottom"/>
-      <action name="Unfocus"/>
-    </keybind>
-    <keybind key="W-w">
+    <!-- <keybind key="W-s"> -->
+    <!--   <action name="Lower"/> -->
+    <!--   <action name="FocusToBottom"/> -->
+    <!--   <action name="Unfocus"/> -->
+    <!-- </keybind> -->
+    <keybind key="W-t">
       <action name="ToggleAlwaysOnTop"/>
     </keybind>
-    <keybind key="S-W-b">
-      <action name="ToggleDecorations"/>
-    </keybind>
+    <!-- <keybind key="S-W-b"> -->
+    <!--   <action name="ToggleDecorations"/> -->
+    <!-- </keybind> -->
     <keybind key="W-f">
       <action name="ToggleFullscreen"/>
     </keybind>
     <keybind key="W-S-s">
       <action name="Iconify"/>
     </keybind>
-    <keybind key="W-S-w">
+    <keybind key="W-w">
       <action name="ToggleMaximize"/>
     </keybind>
     <!-- Keybindings for window switching -->
@@ -605,301 +602,17 @@
         <height>50%</height>
       </action>
     </keybind>
-    <keybind key="W-C-r">
-      <action name="Reconfigure">
-      </action>
-    </keybind>
+    <!-- <keybind key="W-C-r"> -->
+    <!--   <action name="Reconfigure"> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
     <!-- Keybindings for launching terminal -->
-    <keybind key="W-Return">
-      <action name="Execute">
-        <command>st</command>
-      </action>
-    </keybind>
     <!-- Keybindings for running applications -->
     <!-- <keybind key="W-space"> -->
     <!--   <action name="ShowMenu"> -->
     <!--     <menu>root-menu</menu> -->
     <!--   </action> -->
     <!-- </keybind> -->
-    <keybind key="W-p">
-      <action name="Execute">
-        <command>dmenu_run</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-d">
-      <action name="Execute">
-        <command>dmenuhandlerXclip</command>
-      </action>
-    </keybind>
-    <!-- Keybindings for important applications -->
-    <keybind key="W-F2">
-      <action name="Execute">
-        <command>redshift -O 4000</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-F2">
-      <action name="Execute">
-        <command>redshift -x</command>
-      </action>
-    </keybind>
-    <keybind key="W-F1">
-      <action name="Execute">
-        <command>kdeconnect-indicator ; /usr/lib/kdeconnectd</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-F1">
-      <action name="Execute">
-        <command>killall kdeconnect-indicator kdeconnectd</command>
-      </action>
-    </keybind>
-    <keybind key="W-F3">
-      <action name="Execute">
-        <command>torwrap</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-F3">
-      <action name="Execute">
-        <command>td-toggle</command>
-      </action>
-    </keybind>
-    <keybind key="W-F12">
-      <action name="Execute">
-        <command>mpc seek +1</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-F12">
-      <action name="Execute">
-        <command>mpc next</command>
-      </action>
-    </keybind>
-    <keybind key="W-F11">
-      <action name="Execute">
-        <command>mpc toggle</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-F11">
-      <action name="Execute">
-        <command>mpc pause; pauseallmpv</command>
-      </action>
-    </keybind>
-    <keybind key="W-F10">
-      <action name="Execute">
-        <command>mpc seek -1</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-F10">
-      <action name="Execute">
-        <command>mpc prev</command>
-      </action>
-    </keybind>
-    <keybind key="Print">
-      <action name="Execute">
-        <command>maimFul</command>
-      </action>
-    </keybind>
-    <keybind key="W-Print">
-      <action name="Execute">
-        <command>dmenurecord</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-Print">
-      <action name="Execute">
-        <command>dmenurecord kill</command>
-      </action>
-    </keybind>
-    <keybind key="W-m">
-      <action name="Execute">
-        <command>st -e bicon -e ncmpcpp</command>
-      </action>
-    </keybind>
-    <keybind key="W-n">
-      <action name="Execute">
-        <command>st -e nvim ~/dox/wiki/QuickNote.md</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-p">
-      <action name="Execute">
-        <command>arandr</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-e">
-      <action name="Execute">
-        <command>st -e bicon -e neomutt</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-r">
-      <action name="Execute">
-        <command>quiterss</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-slash">
-      <action name="Execute">
-        <command>transXcclip</command>
-      </action>
-    </keybind>
-    <keybind key="W-slash">
-      <action name="Execute">
-        <command>transXclip</command>
-      </action>
-    </keybind>
-    <keybind key="W-A-slash">
-      <action name="Execute">
-        <command>st -e bicon -e transs</command>
-      </action>
-    </keybind>
-    <keybind key="W-grave">
-      <action name="Execute">
-        <command>dmenuunicode</command>
-      </action>
-    </keybind>
-    <keybind key="W-Print">
-      <action name="Execute">
-        <command>dmenurecord</command>
-      </action>
-    </keybind>
-    <keybind key="W-BackSpace">
-      <action name="Execute">
-        <command>dunstctl close-all</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-BackSpace">
-      <action name="Execute">
-        <command>dunstctl history-pop</command>
-      </action>
-    </keybind>
-    <keybind key="W-C-BackSpace">
-      <action name="Execute">
-        <command>dunstctl set-paused toggle</command>
-      </action>
-    </keybind>
-    <keybind key="S-Print">
-      <action name="Execute">
-        <command>maimWin</command>
-      </action>
-    </keybind>
-    <keybind key="C-Print">
-      <action name="Execute">
-        <command>maimSel</command>
-      </action>
-    </keybind>
-    <keybind key="XF86AudioRaiseVolume">
-      <action name="Execute">
-        <command>pamixer --allow-boost -i 5</command>
-      </action>
-    </keybind>
-    <keybind key="W-XF86AudioRaiseVolume">
-      <action name="Execute">
-        <command>pamixer --set-volume 100</command>
-      </action>
-    </keybind>
-    <keybind key="XF86AudioLowerVolume">
-      <action name="Execute">
-        <command>pamixer --allow-boost -d 5</command>
-      </action>
-    </keybind>
-    <keybind key="XF86AudioMute">
-      <action name="Execute">
-        <command>pamixer -t</command>
-      </action>
-    </keybind>
-    <!-- <keybind key="W-XF86MonBrightnessUp"> -->
-    <!--   <action name="Execute"> -->
-    <!--     <command>xbacklight -set 100</command> -->
-    <!--   </action> -->
-    <!-- </keybind> -->
-    <!-- <keybind key="W-XF86MonBrightnessDown"> -->
-    <!--   <action name="Execute"> -->
-    <!--     <command>xbacklight -set 1</command> -->
-    <!--   </action> -->
-    <!-- </keybind> -->
-    <keybind key="XF86MonBrightnessDown">
-      <action name="Execute">
-        <command>light -U 5</command>
-      </action>
-    </keybind>
-    <keybind key="XF86MonBrightnessUp">
-      <action name="Execute">
-        <command>light -A 5</command>
-      </action>
-    </keybind>
-    <keybind key="W-b">
-      <action name="Execute">
-        <command>firefox</command>
-      </action>
-    </keybind>
-    <keybind key="W-period">
-      <action name="Execute">
-        <command>light -A 5</command>
-      </action>
-    </keybind>
-    <keybind key="W-comma">
-      <action name="Execute">
-        <command>light -U 5</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-period">
-      <action name="Execute">
-        <command>light -S 100</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-comma">
-      <action name="Execute">
-        <command>light -S 1</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-bracketright">
-      <action name="Execute">
-        <command>pamixer --set-volume 100</command>
-      </action>
-      <keybind key="W-S-bracketleft">
-        <action name="Execute">
-          <command>pamixer -t</command>
-        </action>
-      </keybind>
-      <keybind key="W-bracketleft">
-        <action name="Execute">
-          <command>pamixer --allow-boost -d 5</command>
-        </action>
-      </keybind>
-      <keybind key="W-bracketright">
-        <action name="Execute">
-          <command>pamixer --allow-boost -i 5</command>
-        </action>
-      </keybind>
-    </keybind>
-    <keybind key="W-i">
-      <action name="Execute">
-        <command>emacsclient -c -a 'emacs'</command>
-      </action>
-    </keybind>
-    <keybind key="W-e">
-      <action name="Execute">
-        <command>st -e lfub</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-Escape">
-      <action name="Execute">
-        <command>xkill</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-v">
-      <action name="Execute">
-        <name>pulsemixer</name>
-        <command>st -e pulsemixer</command>
-      </action>
-    </keybind>
-    <keybind key="W-v">
-      <action name="Execute">
-        <command>clipmenu</command>
-      </action>
-    </keybind>
-    <!-- Keybindings for exiting out of Openbox -->
-    <keybind key="W-S-q">
-      <action name="Execute">
-        <name>sysact</name>
-        <command>sysact</command>
-      </action>
-    </keybind>
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>
@@ -1252,28 +965,20 @@
     <!-- show the manage desktops section in the client-list-(combined-)menu -->
   </menu>
   <applications>
-    <application class="*">
-      <!--titlebar -->
-      <decor>yes</decor>
-    </application>
+    <!--   <application class="*"> -->
+    <!--titlebar
+      <decor>yes</decor> -->
+    <!--   </application> -->
     <!-- <application name="firefox*"> -->
     <!--   <desktop>2</desktop> -->
     <!--   <!-\- <maximized>true</maximized> -\-> -->
     <!-- </application> -->
-    <application class="Dragon-drop*">
-      <position force="yes">
-        <x>center</x>
-        <y>center</y>
-      </position>
-    </application>
-    <application title="LibreOffice*">
-      <desktop>3</desktop>
-      <maximized>true</maximized>
-    </application>
-    <application class="Gimp*">
-      <desktop>4</desktop>
-      <maximized>true</maximized>
-    </application>
+    <!-- <application class="Dragon-drop*"> -->
+    <!--   <position force="yes"> -->
+    <!--     <x>center</x> -->
+    <!--     <y>center</y> -->
+    <!--   </position> -->
+    <!-- </application> -->
     <!--
   # this is an example with comments through out. use these to make your
   # own rules, but without the comments of course.

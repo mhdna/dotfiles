@@ -133,5 +133,8 @@ flameshot
 oxygen-icons
 ccls 
 python-docs
-gnome-themes-extra
 urlscan
+ttf-hack
+awesome
+cbatticon
+nm-applet

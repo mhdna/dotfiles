@@ -1,21 +1,24 @@
-super + i
-    $TERMINAL -e my-tmux-session
+super + Return
+    jumpapp Tmux
 
-super + shift + i
-    emacsclient  -c -a 'emacs'
+super + p
+    dmenu_run
+
+super + c
+    jumpapp xclock && sleep 1s && xdo lower -N XClock
+
+super + shift + Return
+    jumpapp -f emacs 
 
 # menus
 super + shift + {d,p,b}
     {dmenuhandlerXclip, passmenu, dmenu-bookmarks }
 
 super + {v, grave, Insert, shift + Insert} 
-    {clipmenu -i -l 15, dmenuunicode -i, bookmarkmenu, bookmarkit}
+    {clipmenu -i, dmenuunicode -i, bookmarkmenu, bookmarkit}
 
 super + shift + v
     $TERMINAL -e pulsemixer
-
-super + shift + l
-    slock
 
 #super + {slash, alt + slash, shift + slash}
 #    {transXclip, $TERMINAL -e transs, transXcclip}
@@ -24,7 +27,7 @@ super + {alt + slash, shift + slash}
     {transXcclip, transXclip}
 
 super + w
-    $BROWSER
+    jumpapp $BROWSER 
 
 super + shift + w
     $TERMINAL -e nmtui
@@ -94,4 +97,4 @@ super + shift + q
 
 # sxhkd reload 
 super + ctrl + r
-	pkill -USR1 -x sxhkd 
+	pkill -USR1 -x sxhkd ; echo 'awesome.restart()' | awesome-client

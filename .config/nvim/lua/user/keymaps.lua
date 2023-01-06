@@ -62,7 +62,7 @@ vim.keymap.set('n', '<leader>e', ':Explore<CR>')
 vim.keymap.set('n', 'yp', '<cmd>let @+ = expand("%")<cr>')
 vim.keymap.set('n', 'yP', '<cmd>let @+ = expand("%:p")<cr>')
 -- kill buffer
--- vim.keymap.set ('n', '<leader>k', '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>')
+vim.keymap.set ('n', '<leader>k', '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>')
 vim.keymap.set('', '<C-h>', '<C-w>h')
 vim.keymap.set('', '<C-j>', '<C-w>j')
 vim.keymap.set('', '<C-k>', '<C-w>k')

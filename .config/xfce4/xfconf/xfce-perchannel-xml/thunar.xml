@@ -7,8 +7,8 @@
   <property name="misc-single-click" type="bool" value="false"/>
   <property name="last-show-hidden" type="bool" value="false"/>
   <property name="last-side-pane" type="string" value="ThunarShortcutsPane"/>
-  <property name="last-window-maximized" type="bool" value="true"/>
-  <property name="last-window-width" type="int" value="611"/>
+  <property name="last-window-maximized" type="bool" value="false"/>
+  <property name="last-window-width" type="int" value="767"/>
   <property name="last-window-height" type="int" value="380"/>
   <property name="shortcuts-icon-emblems" type="bool" value="true"/>
   <property name="last-sort-column" type="string" value="THUNAR_COLUMN_DATE_MODIFIED"/>

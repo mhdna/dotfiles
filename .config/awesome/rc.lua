@@ -177,20 +177,20 @@ awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     -- Table of layouts to cover with awful.layout.inc, order matters.
     awful.layout.layouts = {
+        awful.layout.suit.floating,
         awful.layout.suit.tile,
         awful.layout.suit.max,
         awful.layout.suit.tile.bottom,
-        awful.layout.suit.floating,
         --awful.layout.suit.spiral,
         --awful.layout.suit.fair,
         --awful.layout.suit.fair.horizontal,
         -- awful.layout.suit.magnifier,
     }
     layouts = {
+        awful.layout.suit.floating,
         awful.layout.suit.tile,
         awful.layout.suit.max,
         awful.layout.suit.tile.bottom,
-        awful.layout.suit.floating,
         --awful.layout.suit.spiral,
         --awful.layout.suit.fair,
         --awful.layout.suit.fair.horizontal,
@@ -199,8 +199,8 @@ awful.screen.connect_for_each_screen(function(s)
 
 
     tags = {
-        names = { "1", "2", "3", "4", "5"},
-        layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[3]},
+        names = { "1"}, --, "2", "3", "4", "5"},
+        layout = { layouts[1]} --, layouts[1], layouts[1], layouts[1], layouts[1], layouts[3]},
     }
     for s = 1, screen.count() do
         tags[s] = awful.tag(tags.names, s, tags.layout)
@@ -408,113 +408,10 @@ globalkeys = gears.table.join(
     --     if #focused.clients > 0 then return end end end),
     --
 
-    awful.key({ modkey, }, "Escape", function() awful.util.spawn_with_shell("dunstctl close-all") end),
-    awful.key({ modkey, "Shift" }, "Escape", function() awful.util.spawn_with_shell("dunstctl history-pop") end),
-    awful.key({ modkey, "Control" }, "Escape",
-        function() awful.util.spawn_with_shell("dunstctl set-paused toggle && notify-send toggled") end),
-
-    -- brightness
-    awful.key({}, "XF86MonBrightnessUp", function() awful.util.spawn_with_shell("brightnessctl set +5%") end),
-    awful.key({ "Shift" }, "XF86MonBrightnessUp", function() awful.util.spawn_with_shell("brightnessctl set +2%") end),
-    awful.key({}, "XF86MonBrightnessDown", function() awful.util.spawn_with_shell("brightnessctl set -5%") end),
-    awful.key({ "Shift" }, "XF86MonBrightnessDown", function() awful.util.spawn_with_shell("brightnessctl set +2%") end)
-    ,
-    awful.key({ modkey }, "XF86MonBrightnessUp", function() awful.util.spawn_with_shell("brightnessctl set 100%") end),
-    awful.key({ modkey }, "XF86MonBrightnessDown", function() awful.util.spawn_with_shell("brightnessctl set 1%") end),
-
-
-    awful.key({ modkey }, "period", function() awful.util.spawn_with_shell("brightnessctl set +5%") end),
-    awful.key({ modkey }, "comma", function() awful.util.spawn_with_shell("brightnessctl set 5%-") end),
-    awful.key({ modkey, "Shift" }, "period", function() awful.util.spawn_with_shell("brightnessctl set 100%") end),
-    awful.key({ modkey, "Shift" }, "comma", function() awful.util.spawn_with_shell("brightnessctl set 1%") end),
-    awful.key({ "Shift" }, "XF86MonBrightnessUp", function() awful.util.spawn_with_shell("bbrightnessctl set +2%") end),
-    awful.key({}, "XF86MonBrightnessDown", function() awful.util.spawn_with_shell("bbrightnessctl set -10%") end),
-    awful.key({ "Shift" }, "XF86MonBrightnessDown",
-        function() awful.util.spawn_with_shell("bbrightnessctl set +10%") end),
-    awful.key({ modkey }, "XF86MonBrightnessUp", function() awful.util.spawn_with_shell("light -S 100") end),
-    awful.key({ modkey }, "XF86MonBrightnessDown", function() awful.util.spawn_with_shell("light -S 1") end),
-
-    awful.key({ modkey, "Mod1" }, "p", function() awful.util.spawn_with_shell("displayselect") end),
-    awful.key({ modkey }, ".", function() awful.util.spawn_with_shell("light -A 4") end),
-    awful.key({ modkey, "Shift" }, ".", function() awful.util.spawn_with_shell("light -S 100") end),
-    awful.key({ modkey }, ",", function() awful.util.spawn_with_shell("light -U 4") end),
-    awful.key({ modkey, "Shift" }, ",", function() awful.util.spawn_with_shell("light -S 1") end),
-
-    awful.key({}, "XF86AudioRaiseVolume",
-        function() awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+") end),
-    awful.key({ modkey }, "XF86AudioRaiseVolume",
-        function() awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%") end),
-    awful.key({}, "XF86AudioLowerVolume",
-        function() awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-") end),
-    awful.key({}, "XF86AudioMute",
-        function() awful.util.spawn_with_shell("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") end),
-    awful.key({ modkey }, "=", function() awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+") end),
-    awful.key({ modkey, "Shift" }, "=",
-        function() awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%") end),
-    awful.key({ modkey }, "-", function() awful.util.spawn_with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-") end),
-    awful.key({ modkey, "Shift" }, "-",
-        function() awful.util.spawn_with_shell("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") end),
-
-    awful.key({}, "Print", function() awful.util.spawn_with_shell("flameshot gui") end),
-    awful.key({ modkey }, "Print", function() awful.util.spawn_with_shell("maimpick") end),
-    awful.key({ "Shift" }, "Print", function() awful.util.spawn_with_shell("maimWin") end),
-    awful.key({ "Control" }, "Print", function() awful.util.spawn_with_shell("maimSel") end),
-    awful.key({ "Control", "Shift" }, "Print", function() awful.util.spawn_with_shell("maimXclip") end),
-    awful.key({ modkey }, "Print", function() awful.util.spawn_with_shell("dmenurecord -i") end),
-    awful.key({ modkey, "Shift" }, "Print", function() awful.util.spawn_with_shell("dmenurecord kill") end),
-    awful.key({ modkey }, "Insert", function() awful.util.spawn_with_shell("bookmarkmenu") end),
-    awful.key({ modkey, "Shift" }, "Insert", function() awful.util.spawn_with_shell("bookmarkit") end),
-
-    awful.key({ modkey, }, "Return", function() awful.util.spawn_with_shell(terminal) end),
-    awful.key({ "Control", "Shift", }, "Escape", function() awful.util.spawn_with_shell(terminal .. " -e htop") end),
-    awful.key({ "Control", "Mod1", }, "Escape", function() awful.util.spawn_with_shell("xkill") end),
-    awful.key({ modkey, }, "e", function() awful.spawn(terminal .. " -e lfub") end),
-    awful.key({ modkey, }, "i", function() awful.util.spawn_with_shell(terminal .. " -e my-tmux-session") end),
-    awful.key({ modkey, "Shift" }, "i", function() awful.util.spawn_with_shell("emacs") end),
-    awful.key({ modkey, }, "b", function() awful.util.spawn_with_shell(browser) end),
-    awful.key({ modkey, "Shift" }, "b", function() awful.util.spawn_with_shell(browser2) end),
-    awful.key({ modkey, }, "v", function() awful.util.spawn_with_shell("clipmenu -i -l 15") end),
-    awful.key({ modkey, "Shift" }, "v", function() awful.util.spawn_with_shell(terminal .. " -e pulsemixer") end),
-    awful.key({ modkey, "Shift" }, "a", function() awful.util.spawn_with_shell("xfce4-appfinder") end),
-    awful.key({ modkey, }, "c", function() awful.spawn(terminal .. " -e " .. " python " .. "-q") end),
-    awful.key({ modkey, "Mod1" }, "m", function() awful.spawn(terminal .. " -e bicon  -e ncmpcpp") end),
-    awful.key({ modkey, "Shift" }, "e", function() awful.spawn(terminal .. " -e  bicon -e  neomutt") end),
-    awful.key({ modkey, "Shift" }, "r", function() awful.spawn(terminal .. " -e bicon -e newsboat") end),
-
-    awful.key({ modkey, }, "F1",
-        function() awful.util.spawn_with_shell("kdeconnect-indicator & kdeconnect-cli --refresh") end),
-    awful.key({ modkey, "Shift" }, "F1",
-        function() awful.util.spawn_with_shell("killall kdeconnect-indicator kdeconnectd") end),
-    awful.key({ modkey, }, "F2", function() awful.util.spawn_with_shell("redshift -O 5000") end),
-    awful.key({ modkey, "Shift" }, "F2", function() awful.util.spawn_with_shell("redshift -x") end),
-    awful.key({ modkey, }, "F3", function() awful.util.spawn_with_shell("torwrap") end),
-    awful.key({ modkey, "Shift" }, "F3", function() awful.util.spawn_with_shell("td-toggle") end),
-    awful.key({ modkey, }, "F4", function() awful.util.spawn_with_shell("mw -Y && notify-send '📫 Mailboxes updated'") end),
-    awful.key({ modkey, }, "F5", function() awful.spawn("remaps") end),
-    awful.key({ modkey, }, "F10", function() awful.util.spawn_with_shell("mpc seek -10") end),
-    awful.key({ modkey, "Shift" }, "F10", function() awful.util.spawn_with_shell("mpc next") end),
-    awful.key({ modkey, }, "F11", function() awful.util.spawn_with_shell("mpc toggle") end),
-    awful.key({ modkey, "Shift" }, "F11", function() awful.util.spawn_with_shell("pauseallmpv") end),
-    awful.key({ modkey, }, "F12", function() awful.util.spawn_with_shell("mpc seek +10") end),
-    awful.key({ modkey, "Shift" }, "F12", function() awful.util.spawn_with_shell("mpc prev") end),
-
-    awful.key({ modkey, "Control" }, "r", awesome.restart,
-        { description = "reload awesome", group = "awesome" }),
+    -- awful.key({ modkey, "Control" }, "r", awesome.restart,
+    --     { description = "reload awesome", group = "awesome" }),
     -- awful.key({ modkey, "Mod1" }, "c", function() awful.spawn(editor_cmd .. " " .. awesome.conffile) end),
 
-
-    awful.key({ modkey, "Shift" }, "q", function() awful.util.spawn_with_shell("sysacta") end),
-
-    awful.key({ modkey, "Shift" }, "Delete", function() awful.util.spawn_with_shell("slock") end),
-    awful.key({ modkey, }, "Delete", function() awful.util.spawn_with_shell("prompt \"sleep?\" && loginctl suspend") end)
-    ,
-
-    awful.key({ modkey, }, "grave", function() awful.util.spawn_with_shell("dmenuunicode") end),
-    -- awful.key({ modkey,    }, "p", function() awful.util.spawn_with_shell("dmenu_run")end),
-    -- awful.key({ modkey,"Shift"    }, "p", function() awful.util.spawn_with_shell("passmenu -i ")end),
-    awful.key({ modkey, }, "/", function() awful.util.spawn_with_shell("transXclip") end),
-    awful.key({ modkey, "Mod1" }, "/", function() awful.spawn(terminal .. " -e transs") end),
-    awful.key({ modkey, "Shift" }, "/", function() awful.util.spawn_with_shell("transXcclip") end),
 
     -- old resizing
     awful.key({ modkey, }, "l", function() awful.tag.incmwfact(0.05) end,
@@ -530,12 +427,11 @@ globalkeys = gears.table.join(
     --           {description = "increase the number of columns", group = "layout"}),
     -- awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol(-1, nil, true)    end,
     --           {description = "decrease the number of columns", group = "layout"}),
-    awful.key({ modkey, "Shift" }, "Return", function() awful.layout.inc(1) end,
-        { description = "select next", group = "layout" }),
+    -- awful.key({ modkey, "Shift" }, "Return", function() awful.layout.inc(1) end,
+    --     { description = "select next", group = "layout" }),
     -- awful.key({ modkey, "Shift"   }, "\\", function () awful.layout.inc(-1)                end,
     --           {description = "select previous", group = "layout"}),
 
-    awful.key({ modkey, "Mod1" }, "d", function() awful.util.spawn_with_shell("dmenuhandlerXclip") end),
     awful.key({ modkey, "Shift" }, "p", function() awful.screen.focused().mypromptbox:run() end,
         { description = "run prompt", group = "launcher" }),
     -- Menubar
@@ -640,26 +536,26 @@ clientkeys = gears.table.join(
     awful.key({ modkey, }, "t", function(c) c.ontop = not c.ontop end,
         { description = "toggle keep on top", group = "client" }),
     awful.key({ modkey, }, "s", function(c) c.sticky = not c.sticky end),
-    awful.key({ modkey, "Shift" }, "m",
-        function(c)
-            -- The client currently has the input focus, so it cannot be
-            -- minimized, since minimized clients can't have the focus.
-            c.minimized = true
-        end,
-        { description = "minimize", group = "client" }),
+    -- awful.key({ modkey, "Shift" }, "m",
+    --     function(c)
+    --         -- The client currently has the input focus, so it cannot be
+    --         -- minimized, since minimized clients can't have the focus.
+    --         c.minimized = true
+    --     end,
+    --     { description = "minimize", group = "client" }),
 
 
-    awful.key({ modkey, "Control" }, "m",
-        function()
-            local c = awful.client.restore()
-            -- Focus restored client
-            if c then
-                c:emit_signal(
-                    "request::activate", "key.unminimize", { raise = true }
-                )
-            end
-        end,
-        { description = "restore minimized", group = "client" }),
+    -- awful.key({ modkey, "Control" }, "m",
+    --     function()
+    --         local c = awful.client.restore()
+    --         -- Focus restored client
+    --         if c then
+    --             c:emit_signal(
+    --                 "request::activate", "key.unminimize", { raise = true }
+    --             )
+    --         end
+    --     end,
+    --     { description = "restore minimized", group = "client" }),
 
 
     awful.key({ modkey, }, "m",
@@ -685,52 +581,52 @@ clientkeys = gears.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 9 do
-   globalkeys = gears.table.join(globalkeys,
-                                 -- View tag only.
-                                 awful.key({ modkey }, "#" .. i + 9,
-                                    function ()
-                                       local screen = awful.screen.focused()
-                                       local tag = screen.tags[i]
-                                       if tag then
-                                          tag:view_only()
-                                       end
-                                    end,
-                                    {description = "view tag #"..i, group = "tag"}),
-                                 -- Toggle tag display.
-                                 awful.key({ modkey, "Control" }, "#" .. i + 9,
-                                    function ()
-                                       local screen = awful.screen.focused()
-                                       local tag = screen.tags[i]
-                                       if tag then
-                                          awful.tag.viewtoggle(tag)
-                                       end
-                                    end,
-                                    {description = "toggle tag #" .. i, group = "tag"}),
-                                 -- Move client to tag.
-                                 awful.key({ modkey, "Shift" }, "#" .. i + 9,
-                                    function ()
-                                       if client.focus then
-                                          local tag = client.focus.screen.tags[i]
-                                          if tag then
-                                             client.focus:move_to_tag(tag)
-                                          end
-                                       end
-                                    end,
-                                    {description = "move focused client to tag #"..i, group = "tag"}),
-                                 -- Toggle tag on focused client.
-                                 awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
-                                    function ()
-                                       if client.focus then
-                                          local tag = client.focus.screen.tags[i]
-                                          if tag then
-                                             client.focus:toggle_tag(tag)
-                                          end
-                                       end
-                                    end,
-                                    {description = "toggle focused client on tag #" .. i, group = "tag"})
-   )
-end
+-- for i = 1, 9 do
+--    globalkeys = gears.table.join(globalkeys,
+--                                  -- View tag only.
+--                                  awful.key({ modkey }, "#" .. i + 9,
+--                                     function ()
+--                                        local screen = awful.screen.focused()
+--                                        local tag = screen.tags[i]
+--                                        if tag then
+--                                           tag:view_only()
+--                                        end
+--                                     end,
+--                                     {description = "view tag #"..i, group = "tag"}),
+--                                  -- Toggle tag display.
+--                                  awful.key({ modkey, "Control" }, "#" .. i + 9,
+--                                     function ()
+--                                        local screen = awful.screen.focused()
+--                                        local tag = screen.tags[i]
+--                                        if tag then
+--                                           awful.tag.viewtoggle(tag)
+--                                        end
+--                                     end,
+--                                     {description = "toggle tag #" .. i, group = "tag"}),
+--                                  -- Move client to tag.
+--                                  awful.key({ modkey, "Shift" }, "#" .. i + 9,
+--                                     function ()
+--                                        if client.focus then
+--                                           local tag = client.focus.screen.tags[i]
+--                                           if tag then
+--                                              client.focus:move_to_tag(tag)
+--                                           end
+--                                        end
+--                                     end,
+--                                     {description = "move focused client to tag #"..i, group = "tag"}),
+--                                  -- Toggle tag on focused client.
+--                                  awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+--                                     function ()
+--                                        if client.focus then
+--                                           local tag = client.focus.screen.tags[i]
+--                                           if tag then
+--                                              client.focus:toggle_tag(tag)
+--                                           end
+--                                        end
+--                                     end,
+--                                     {description = "toggle focused client on tag #" .. i, group = "tag"})
+--    )
+-- end
 
 clientbuttons = gears.table.join(
     awful.button({}, 1, function(c)
@@ -798,8 +694,8 @@ awful.rules.rules = {
        }, properties = { floating = true , ontop = true}},
 
     -- -- -- Add titlebars to normal clients and dialogs
-     -- { rule_any = {type = { "normal", "dialog" }
-     --   }, properties = { titlebars_enabled = true }},
+     { rule_any = {type = { "normal", "dialog" }
+       }, properties = { titlebars_enabled = true }},
     --
     -- { rule_any = {class = {"st", "XTerm",  "Emacs", "St","Zathura", "flow"}},
     --    properties = { titlebars_enabled = true }},

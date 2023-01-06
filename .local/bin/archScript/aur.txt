@@ -9,3 +9,5 @@ pam-gnupg
 stardict-oald
 pup-git
 tremc-git
+jumpapp-git
+pa-applet-git

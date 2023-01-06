@@ -3,7 +3,7 @@
 Emacs.alpha: 100
 *.font: monospace:pixelsize=15
 
-*background: #000
+*background: #21252b
 *foreground: #fff
 *.cursorColor: #fff
 

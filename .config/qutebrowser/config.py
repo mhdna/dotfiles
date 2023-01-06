@@ -2,7 +2,7 @@ config.source('scripts/redirector.py')
 config.load_autoconfig()
 c.new_instance_open_target = 'tab'
 c.downloads.position = 'bottom'
-c.tabs.position = 'bottom'
+c.tabs.position = 'top'
 c.statusbar.position = 'bottom'
 #c.spellcheck.languages = ['en-US']
 # config.set("url.default_page", "~/.startpage/index.html")

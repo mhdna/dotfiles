@@ -6,9 +6,10 @@ function run {
      $@&
    fi
 }
-
-run dunst
-run cbatticon -r 1 -l 15 #-c 'loginctl poweroff'
-run pa-applet --disable-key-grabbing
-run nm-applet
-run eyecomfort
+# run tint2
+# run setbg
+# run cbatticon
+# run nm-applet
+# run pa-applet --disable-key-grabbing
+# run fbxkb
+run xclock -bg white && xdo lower -N XClock
