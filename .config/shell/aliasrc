@@ -1,89 +1,70 @@
 #!/bin/sh
 
-#$HOME/.local/share/cheat.sh/ve/bin/python $HOME/.local/share/cheat.sh/lib/fetch.py update-all
-
-# Use neovim for vim if present.
 [ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
 
 # Use $XINITRC variable if file exists.
 [ -f "$XINITRC" ] && alias startx="startx $XINITRC"
 
 # sudo not required for some system commands
-# for command in mount umount sv pacman updatedb su ; do
-# 	alias $command="sudo $command"
-# done; unset command
+for command in mount umount updatedb su ; do
+	alias $command="sudo $command"
+done; unset command
 
-# Verbosity and settings that you pretty much just always are going to want.
-	# --add-metadata -ic -f bestvideo[height<=?1080]+bestaudio/best
-	# /usr/lib/kdeconnectd && kdeconnect-cli --refresh && /usr/bin/notify-send '☎️ Kdeconnect has been fired up'&" \
-	# lf="lfub" \
-    # xi="sudo xbps-install"\
-    # xq="xbps-query -Rs"\
-    # xr="sudo xbps-remove"\
 urlencode () {
-	declare str="$*"
-	declare encoded=""
-	declare i c x
-	for ((i = 0; i<${#str}; i++)); do
-		c=${str:$i:1}
-		case "$c" in
-			[-_.~~a-zA-Z0-9] ) x="$c" ;;
-			* ) printf -v x '%%%02x' "'c$" ;;
-		esac
-		encoded+="$x"
-	done
-	echo "$encoded"
+    declare str="$*"
+    declare encoded=""
+    declare i c x
+    for ((i = 0; i<${#str}; i++)); do
+        c=${str:$i:1}
+        case "$c" in
+            [-_.~~a-zA-Z0-9] ) x="$c" ;;
+            * ) printf -v x '%%%02x' "'c$" ;;
+        esac
+        encoded+="$x"
+    done
+    echo "$encoded"
 }
 duck () {
-	declare url=$(urlencode "$*")
-	lynx -lss ~/.config/lynx/lynx.lss -cfg=~/.config/lynx/lynx.cfg  "https://duckduckgo.com/lite?q=$url"
+    declare url=$(urlencode "$*")
+    lynx -lss ~/.config/lynx/lynx.lss -cfg=~/.config/lynx/lynx.cfg  "https://duckduckgo.com/lite?q=$url"
 }
-alias \
-	"?"=duck \
-	lynx="lynx -cfg=~/.config/lynx/lynx.cfg -lss ~/.config/lynx/lynx.lss" \
-	keyLogitech="xmodmap ~/.config/XmodmapLogitech && remaps" \
-	keyMain="xmodmap ~/.config/Xmodmap && remaps " \
-	tmu="tmux-wrapper && tmux-session restore" \
-	tms="tmux-session save" \
-	yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'\
-	abook="abook -C $XDG_CONFIG_HOME/abook/abookrc --datafile $XDG_CONFIG_HOME/abook/addressbook" \
-	cp="cp -iv" \
-	mv="mv -iv" \
-	rm="rm -vI" \
-	bc="bc -ql" \
-	mkd="mkdir -pv" \
-	ytfzff="ytfzf -t --thumbnail-quality=1" \
-	YT="yt-dlp --external-downloader aria2c --add-metadata -ic" \
-	YTA="yt-dlp -f bestaudio/best --external-downloader aria2c" \
-    aria2c="aria2c --auto-file-renaming=false"\
-	ffmpeg="ffmpeg -hide_banner" \
-	restartdwm='killall fbxkb ;kill -HUP "$(pgrep -u "$USER" "\bdwm$")"' \
-dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
-alias \
-	ls="ls -hN --color=auto --group-directories-first" \
-	grep="grep --color=auto" \
-	diff="diff --color=auto" \
-	ccat="highlight --out-format=ansi" \
-	ip="ip -color=auto" \
-    picom="picom --vsync"\
-	nf="notify-send "\
-    	awesomerestart="echo 'awesome.restart()' | awesome-client"\
-	kd="/usr/lib/kdeconnectd && kdeconnect-cli --refresh ; kdeconnect-indicator&" \
-	kdend="killall kdeconnectd kdeconnect-indicator&" \
-	# weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
-    	# getyou="rclone copy notes:/notes ~/notes"\
-    	# getphone="rclone copy notes:/notesp ~/notes/notesp"\
-    	# getme="rclone copy ~/notes notes:/notes"\
-    	# sugg="sudo grub-mkconfig -o /boot/grub/grub.cfg"\
-# Colorize commands when possible.
-# These common commands are just too long! Abbreviate them.
-alias \
-	lsAll='find . -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-' \
-	ka="killall" \
-	trem="transmission-remote" \
-	yt="youtube-viewer" \
-	yta="youtube-viewer --novideo" \
-  z="zathura"\
 
 alias \
-	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
+    "?"=duck \
+    lf="lfub" \
+    lynx="lynx -cfg=~/.config/lynx/lynx.cfg -lss ~/.config/lynx/lynx.lss" \
+    keyLogitech="xmodmap ~/.config/XmodmapLogitech && remaps" \
+    keyMain="xmodmap ~/.config/Xmodmap && remaps " \
+    tmu="tmux-wrapper && tmux-session restore" \
+    tms="tmux-session save" \
+    yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'\
+    abook="abook -C $XDG_CONFIG_HOME/abook/abookrc --datafile $XDG_CONFIG_HOME/abook/addressbook" \
+    cp="cp -iv" \
+    mv="mv -iv" \
+    rm="rm -vI" \
+    bc="bc -ql" \
+    mkd="mkdir -pv" \
+    ytfzff="ytfzf -t --thumbnail-quality=1" \
+    YT="yt-dlp --external-downloader aria2c --add-metadata -ic" \
+    YTA="yt-dlp -f bestaudio/best --external-downloader aria2c" \
+    aria2c="aria2c --auto-file-renaming=false" \
+    ffmpeg="ffmpeg -hide_banner" \
+    restartdwm='killall fbxkb ;kill -HUP "$(pgrep -u "$USER" "\bdwm$")"' \
+    dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
+    ls="ls -hN --color=auto --group-directories-first" \
+    grep="grep --color=auto" \
+    diff="diff --color=auto" \
+    ccat="highlight --out-format=ansi" \
+    ip="ip -color=auto" \
+    picom="picom --vsync" \
+    nf="notify-send " \
+    awesomerestart="echo 'awesome.restart()' | awesome-client" \
+    kd="/usr/lib/kdeconnectd && kdeconnect-cli --refresh ; kdeconnect-indicator&" \
+    kdend="killall kdeconnectd kdeconnect-indicator&" \
+    lsall='find . -type f -printf "%t@ %p\n" | sort -nr | cut -d\  -f2-' \
+    ka="killall" \
+    trem="transmission-remote" \
+    yt="youtube-viewer" \
+    yta="youtube-viewer --novideo" \
+    z="zathura" \
+    ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \

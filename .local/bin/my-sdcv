@@ -1,0 +1,3 @@
+#!/bin/sh
+
+$TERMINAL -c my-sdcv -e sdcv

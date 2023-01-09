@@ -30,7 +30,8 @@
     "E" 'eval-expression
     "y" 'consult-yank-pop
     "y" 'consult-yank-pop
-		"R" 'consult-ripgrep
+		"G" 'consult-ripgrep
+		"R" 'find-file-root
     "d" 'dired-jump
     "S"  'delete-trailing-whitespace
 		"s" 'shell
@@ -144,8 +145,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (abort-recursive-edit)))
 
   ;; Make escape quit everything, whenever possible.
-  (define-key evil-normal-state-map [escape] 'keyboard-escape-quit)
-  ;; (define-key evil-visual-state-map [escape] 'keyboard-quit)
+  ;; (define-key evil-normal-state-map [escape] 'keyboard-escape-quit)
+  (define-key evil-visual-state-map [escape] 'keyboard-quit)
   (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
   ;; (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)

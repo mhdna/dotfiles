@@ -7,7 +7,7 @@ local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
--- local naughty = require("naughty")
+local naughty = require("naughty")
 local menubar = require("menubar")
 -- local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
@@ -31,10 +31,10 @@ local focused = awful.screen.focused()
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
-    awful.spawn("notify-send -u critical 'an error happened!'")
-    -- naughty.notify({ preset = naughty.config.presets.critical,
-    -- 	title = "Oops, there were errors during startup!",
-    --                   text = awesome.startup_errors })
+    -- awful.spawn("notify-send -u critical 'an error happened!'")
+    naughty.notify({ preset = naughty.config.presets.critical,
+    	title = "Oops, there were errors during startup!",
+                      text = awesome.startup_errors })
 end
 
 -- Handle runtime errors after startup
@@ -44,11 +44,10 @@ do
         -- Make sure we don't go into an endless error loop
         if in_error then return end
         in_error = true
-        awful.spawn("notify-send -u critical 'an error happened!'")
-
-        --                           naughty.notify({ preset = naughty.config.presets.critical, title = "Oops, an error happened!",
-        --                                            text = tostring(err) })
-        --                           in_error = false
+        -- awful.spawn("notify-send -u critical 'an error happened!'")
+        naughty.notify({ preset = naughty.config.presets.critical, title = "Oops, an error happened!",
+                                                   text = tostring(err) })
+                                  in_error = false
     end)
 end
 
@@ -59,18 +58,11 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 beautiful.init(theme_path)
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
-browser = "firefox"
-browser2 = "chromium"
 home = os.getenv("HOME")
-wiki = home .. "/stuff/wiki/"
-os.getenv("WIKI")
-editor = "nvim" or os.getenv("EDITOR")
-editor_cmd = terminal .. " -e " .. editor or "emacs"
 
--- naughty.config.defaults['icon_size'] = 100
--- naughty.config.defaults.timeout = 20
--- naughty.config.defaults.position = 'top_right'
+naughty.config.defaults['icon_size'] = 100
+naughty.config.defaults.timeout = 20
+naughty.config.defaults.position = 'top_right'
 -- naughty.config.defaults.font = 'Serif 10'
 -- naughty.config.defaults.width = 200
 
@@ -199,8 +191,8 @@ awful.screen.connect_for_each_screen(function(s)
 
 
     tags = {
-        names = { "1"}, --, "2", "3", "4", "5"},
-        layout = { layouts[1]} --, layouts[1], layouts[1], layouts[1], layouts[1], layouts[3]},
+        names = { "1", "2", "3", "4", "5"},
+        layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[3]},
     }
     for s = 1, screen.count() do
         tags[s] = awful.tag(tags.names, s, tags.layout)
@@ -238,7 +230,7 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            -- mylauncher,
+            mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },
@@ -246,8 +238,8 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             net_speed_widget(),
-            wibox.widget.systray(),
             mykeyboardlayout,
+            wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
         },
@@ -387,8 +379,8 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Mod1" }, "Right", function() awful.screen.focus_relative(-1) end,
         { description = "focus the previous screen", group = "screen" }),
 
-    awful.key({ modkey, }, "u", awful.client.urgent.jumpto,
-        { description = "jump to urgent client", group = "client" }),
+    -- awful.key({ modkey, }, "u", awful.client.urgent.jumpto,
+    --     { description = "jump to urgent client", group = "client" }),
     awful.key({ "Mod1", }, "Tab",
         function()
             awful.client.focus.history.previous()
@@ -536,27 +528,25 @@ clientkeys = gears.table.join(
     awful.key({ modkey, }, "t", function(c) c.ontop = not c.ontop end,
         { description = "toggle keep on top", group = "client" }),
     awful.key({ modkey, }, "s", function(c) c.sticky = not c.sticky end),
-    -- awful.key({ modkey, "Shift" }, "m",
-    --     function(c)
-    --         -- The client currently has the input focus, so it cannot be
-    --         -- minimized, since minimized clients can't have the focus.
-    --         c.minimized = true
-    --     end,
-    --     { description = "minimize", group = "client" }),
+    awful.key({ modkey, "Shift" }, "m",
+        function(c)
+            -- The client currently has the input focus, so it cannot be
+            -- minimized, since minimized clients can't have the focus.
+            c.minimized = true
+        end,
+        { description = "minimize", group = "client" }),
 
-
-    -- awful.key({ modkey, "Control" }, "m",
-    --     function()
-    --         local c = awful.client.restore()
-    --         -- Focus restored client
-    --         if c then
-    --             c:emit_signal(
-    --                 "request::activate", "key.unminimize", { raise = true }
-    --             )
-    --         end
-    --     end,
-    --     { description = "restore minimized", group = "client" }),
-
+    awful.key({ modkey, "Control" }, "m",
+        function()
+            local c = awful.client.restore()
+            -- Focus restored client
+            if c then
+                c:emit_signal(
+                    "request::activate", "key.unminimize", { raise = true }
+                )
+            end
+        end,
+        { description = "restore minimized", group = "client" }),
 
     awful.key({ modkey, }, "m",
         function(c)
@@ -581,52 +571,52 @@ clientkeys = gears.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
--- for i = 1, 9 do
---    globalkeys = gears.table.join(globalkeys,
---                                  -- View tag only.
---                                  awful.key({ modkey }, "#" .. i + 9,
---                                     function ()
---                                        local screen = awful.screen.focused()
---                                        local tag = screen.tags[i]
---                                        if tag then
---                                           tag:view_only()
---                                        end
---                                     end,
---                                     {description = "view tag #"..i, group = "tag"}),
---                                  -- Toggle tag display.
---                                  awful.key({ modkey, "Control" }, "#" .. i + 9,
---                                     function ()
---                                        local screen = awful.screen.focused()
---                                        local tag = screen.tags[i]
---                                        if tag then
---                                           awful.tag.viewtoggle(tag)
---                                        end
---                                     end,
---                                     {description = "toggle tag #" .. i, group = "tag"}),
---                                  -- Move client to tag.
---                                  awful.key({ modkey, "Shift" }, "#" .. i + 9,
---                                     function ()
---                                        if client.focus then
---                                           local tag = client.focus.screen.tags[i]
---                                           if tag then
---                                              client.focus:move_to_tag(tag)
---                                           end
---                                        end
---                                     end,
---                                     {description = "move focused client to tag #"..i, group = "tag"}),
---                                  -- Toggle tag on focused client.
---                                  awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
---                                     function ()
---                                        if client.focus then
---                                           local tag = client.focus.screen.tags[i]
---                                           if tag then
---                                              client.focus:toggle_tag(tag)
---                                           end
---                                        end
---                                     end,
---                                     {description = "toggle focused client on tag #" .. i, group = "tag"})
---    )
--- end
+for i = 1, 9 do
+   globalkeys = gears.table.join(globalkeys,
+                                 -- View tag only.
+                                 awful.key({ modkey }, "#" .. i + 9,
+                                    function ()
+                                       local screen = awful.screen.focused()
+                                       local tag = screen.tags[i]
+                                       if tag then
+                                          tag:view_only()
+                                       end
+                                    end,
+                                    {description = "view tag #"..i, group = "tag"}),
+                                 -- Toggle tag display.
+                                 awful.key({ modkey, "Control" }, "#" .. i + 9,
+                                    function ()
+                                       local screen = awful.screen.focused()
+                                       local tag = screen.tags[i]
+                                       if tag then
+                                          awful.tag.viewtoggle(tag)
+                                       end
+                                    end,
+                                    {description = "toggle tag #" .. i, group = "tag"}),
+                                 -- Move client to tag.
+                                 awful.key({ modkey, "Shift" }, "#" .. i + 9,
+                                    function ()
+                                       if client.focus then
+                                          local tag = client.focus.screen.tags[i]
+                                          if tag then
+                                             client.focus:move_to_tag(tag)
+                                          end
+                                       end
+                                    end,
+                                    {description = "move focused client to tag #"..i, group = "tag"}),
+                                 -- Toggle tag on focused client.
+                                 awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+                                    function ()
+                                       if client.focus then
+                                          local tag = client.focus.screen.tags[i]
+                                          if tag then
+                                             client.focus:toggle_tag(tag)
+                                          end
+                                       end
+                                    end,
+                                    {description = "toggle focused client on tag #" .. i, group = "tag"})
+   )
+end
 
 clientbuttons = gears.table.join(
     awful.button({}, 1, function(c)
@@ -656,12 +646,12 @@ awful.rules.rules = {
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
             raise = true,
-            -- floating= true,
+            floating= true,
             keys = clientkeys,
             buttons = clientbuttons,
             screen = awful.screen.preferred,
             placement = awful.placement.no_overlap + awful.placement.no_offscreen, -- +awful.placement.centered,
-            size_hints_honor = false
+            -- size_hints_honor = false
         }
     },
 
@@ -670,32 +660,32 @@ awful.rules.rules = {
     -- except = {class= "mpv"}},
 
     -- Floating clients.
-     { rule_any = {
-         instance = {
-           "DTA",  -- Firefox addon DownThemAll.
-           "pinentry",
-         },
-         class = {
-           "Arandr","Gpick", "Kruler",
-           "MessageWin",  -- kalarm.
-           "Wpa_gui", "veromix", "xtightvncviewer"},
+     -- { rule_any = {
+     --     instance = {
+     --       "DTA",  -- Firefox addon DownThemAll.
+     --       "pinentry",
+     --     },
+     --     class = {
+     --       "Arandr","Gpick", "Kruler",
+     --       "MessageWin",  -- kalarm.
+     --       "Wpa_gui", "veromix", "xtightvncviewer"},
 
-         -- Note that the name property shown in xprop might be set slightly after creation of the client
-         -- and the name shown there might not match defined rules here.
-         name = {
-           "Event Tester",  -- xev.
-     "Media viewer", -- telegram media viewer
-         },
-         role = {
-           "AlarmWindow",  -- Thunderbird's calendar.
-           "ConfigManager",  -- Thunderbird's about:config.
-           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-         }
-       }, properties = { floating = true , ontop = true}},
+     --     -- Note that the name property shown in xprop might be set slightly after creation of the client
+     --     -- and the name shown there might not match defined rules here.
+     --     name = {
+     --       "Event Tester",  -- xev.
+     -- "Media viewer", -- telegram media viewer
+     --     },
+     --     role = {
+     --       "AlarmWindow",  -- Thunderbird's calendar.
+     --       "ConfigManager",  -- Thunderbird's about:config.
+     --       "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+     --     }
+     --   }, properties = { floating = true , ontop = true}},
 
     -- -- -- Add titlebars to normal clients and dialogs
-     { rule_any = {type = { "normal", "dialog" }
-       }, properties = { titlebars_enabled = true }},
+     -- { rule_any = {type = { "normal", "dialog" }
+     --   }, properties = { titlebars_enabled = true }},
     --
     -- { rule_any = {class = {"st", "XTerm",  "Emacs", "St","Zathura", "flow"}},
     --    properties = { titlebars_enabled = true }},
@@ -821,21 +811,21 @@ awful.mouse.snap.edge_enabled = false
 -- end)
 
 -- preserve current tag upon restart
-awesome.connect_signal('exit', function(reason_restart) if not reason_restart then return end
-    local file = io.open('/tmp/awesomewm-last-selected-tags', 'w+')
-    for s in screen do file:write(s.selected_tag.index, '\n') end
-    file:close()
-end)
+-- awesome.connect_signal('exit', function(reason_restart) if not reason_restart then return end
+--     local file = io.open('/tmp/awesomewm-last-selected-tags', 'w+')
+--     for s in screen do file:write(s.selected_tag.index, '\n') end
+--     file:close()
+-- end)
 
-awesome.connect_signal('startup',
-    function() local file = io.open('/tmp/awesomewm-last-selected-tags', 'r')
-        if not file then return end
-        local selected_tags = {}
-        for line in file:lines() do table.insert(selected_tags, tonumber(line)) end
-        for s in screen do local i = selected_tags[s.index]
-        local t = s.tags[i]
-        t:view_only() end
-        file:close()
-    end)
+-- awesome.connect_signal('startup',
+--     function() local file = io.open('/tmp/awesomewm-last-selected-tags', 'r')
+--         if not file then return end
+--         local selected_tags = {}
+--         for line in file:lines() do table.insert(selected_tags, tonumber(line)) end
+--         for s in screen do local i = selected_tags[s.index]
+--         local t = s.tags[i]
+--         t:view_only() end
+--         file:close()
+--     end)
 
 awful.spawn.with_shell("~/.config/awesome/autostart.sh")

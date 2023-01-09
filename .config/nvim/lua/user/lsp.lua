@@ -39,6 +39,9 @@ lspconfig.rust_analyzer.setup {
     }
 }
 
+-- require'lspconfig'.golangci_lint_ls.setup{}
+require'lspconfig'.gopls.setup{}
+
 -- lspconfig.sumneko_lua.setup {
 --     on_attach = on_attach,
 --     flags = lsp_flags,

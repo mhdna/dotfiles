@@ -32,7 +32,7 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 ;; Don't clutter my folders
-(setq user-emacs-directory (expand-file-name "~/.cache/emacs2"))
+(setq user-emacs-directory (expand-file-name "~/.cache/emacs"))
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist `(("." . ,(expand-file-name "tmp/backups/" user-emacs-directory))))
 ;; auto-save files (#something#)
@@ -97,10 +97,11 @@
 ;; vim-like scrolling
 (setq scroll-conservatively 100)
 (setq ring-bell-function 'ignore)
+(load-theme 'tsdh-dark t)
 
-(set-background-color "white")
-(set-foreground-color "black")
-(set-cursor-color "black")
+;; (set-background-color "white")
+;; (set-foreground-color "black")
+;; (set-cursor-color "black")
 ;; Line numbers
 ;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 ;; (global-display-line-numbers-mode 1)
@@ -451,7 +452,7 @@
   (setq leetcode-prefer-language "java")
   (setq leetcode-prefer-sql "mysql")
   (setq leetcode-save-solutions t)
-  (setq leetcode-directory "~/exercise/code/leetcode")
+  (setq leetcode-directory "~/code/exercise/leetcode")
 	)
 
 (defun indent-buffer ()

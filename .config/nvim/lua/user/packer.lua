@@ -105,14 +105,14 @@ return packer.startup(function(use)
         'nvim-lualine/lualine.nvim',
         -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
-    use"olimorris/onedarkpro.nvim"
+    -- use"olimorris/onedarkpro.nvim"
    
     -- use("ap/vim-buftabline")
 
     -- alternative to subword-mode in emacs
     -- use("haoren/vim-wordmotion")
 
-    -- use('NLKNguyen/papercolor-theme')
+    use('NLKNguyen/papercolor-theme')
     -- use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
     -- use({

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+sudo sh -c '
+umount /mnt/pt
+cryptsetup luksClose my_point2
+umount /mnt/pt2
+cryptsetup luksClose my_point
+umount /mnt/usb_pt
+cryptsetup luksClose my_usb_point'
+

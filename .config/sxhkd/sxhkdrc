@@ -1,14 +1,17 @@
 super + Return
     jumpapp Tmux
 
+super + shift + Return
+    $TERMINAL
+
 super + p
     dmenu_run
 
-super + c
-    jumpapp xclock && sleep 1s && xdo lower -N XClock
-
-super + shift + Return
+super + i
     jumpapp -f emacs 
+
+super + u
+    jumpapp zathura
 
 # menus
 super + shift + {d,p,b}
@@ -23,17 +26,20 @@ super + shift + v
 #super + {slash, alt + slash, shift + slash}
 #    {transXclip, $TERMINAL -e transs, transXcclip}
 
-super + {alt + slash, shift + slash}
-    {transXcclip, transXclip}
+super + {slash, alt + slash, shift + slash}
+    {jumpapp my-sdcv, transXcclip, transXclip}
 
 super + w
-    jumpapp $BROWSER 
+    jumpapp -f $BROWSER 
 
 super + shift + w
-    $TERMINAL -e nmtui
+    jumpapp chromium
+
+super + alt + w
+    jumpapp weather-report
 
 super + e
-    $TERMINAL -e lfub
+    jumpapp my-lf 
 
 super + {shift + e, alt + m, shift + r}
     $TERMINAL -e bicon -e {neomutt, ncmpcpp, newsboatpkill}
@@ -42,13 +48,13 @@ super + {shift + e, alt + m, shift + r}
     {maim $XDG_PICTURES_DIR/screenshots/-$(date '+%y%m%d-%H%M-%S').png pic-full-, maimpick, dmenurecord -i, dmenurecord kill}
 
 XF86Audio{RaiseVolume,LowerVolume}
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}; kill -44 $(pidof dwmblocks)
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+} #; kill -44 $(pidof dwmblocks)
 
-{XF86AudioMute, super+shift+m}
-    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof dwmblocks)
+{XF86AudioMute, super+shift+minus}
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle #; kill -44 $(pidof dwmblocks)
 
-super + { minus, shift + minus, equal,shift + equal}
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 15%-, 5%+,15%+}; kill -44 $(pidof dwmblocks)
+super + { minus, equal}
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+} #; kill -44 $(pidof dwmblocks)
 
 super + {comma,shift+comma,period,shift+period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
@@ -59,8 +65,8 @@ super + {comma,shift+comma,period,shift+period}
 super + shift + ctrl + x
     xkill
 
-super + {BackSpace, shift + BackSpace, ctrl + BackSpace}
-    dunstctl {close-all, history-pop, set-paused toggle && notify-send "Toggled dunst"}
+#super + {BackSpace, shift + BackSpace, ctrl + BackSpace}
+#    dunstctl {close-all, history-pop, set-paused toggle && notify-send "Toggled dunst"}
 
 super + {F10, shift + F10, F11, F12, shift + F12}
     mpc {seek -1%, prev, toggle, seek +1%, next}
@@ -97,4 +103,5 @@ super + shift + q
 
 # sxhkd reload 
 super + ctrl + r
-	pkill -USR1 -x sxhkd ; echo 'awesome.restart()' | awesome-client
+	pkill -USR1 -x sxhkd 
+#; echo 'awesome.restart()' | awesome-client

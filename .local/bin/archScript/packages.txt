@@ -107,8 +107,7 @@ bat
 lynx
 torbrowser-launcher
 ttf-dejavu
-ttf-caladea
-ttf-carlito
+adobe-source-code-pro-fonts
 ttf-liberation
 wqy-microhei
 noto-fonts-emoji
@@ -134,7 +133,6 @@ oxygen-icons
 ccls 
 python-docs
 urlscan
-ttf-hack
 awesome
 cbatticon
 nm-applet

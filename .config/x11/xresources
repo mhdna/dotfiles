@@ -3,9 +3,10 @@
 Emacs.alpha: 100
 *.font: monospace:pixelsize=15
 
-*background: #21252b
-*foreground: #fff
-*.cursorColor: #fff
+*.background: #222222
+*.foreground: #ffffff
+*.cursorColor: #ffffff
+
 
 !! Keybinding ========================================================
 ! http://blog.rot13.org/2010/03/change-font-size-in-xterm-using-keyboard.html
@@ -38,12 +39,12 @@ Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
 Xft.hinting: 1
 Xft.antialias: 1
-XTerm*faceSize: 13
+XTerm*faceSize: 11
 XTerm*transparent: true
 XTerm*saveLines: 10000
 XTerm*scrollBar: false
-XTerm*geometry: 80x24
-XTerm*cursorBlink: true
+XTerm*geometry: 80x37
+XTerm*cursorBlink: false
 XTerm*eightBitInput: false
 XTerm*scrollTtyOutput: false
 XTerm*jumpScroll:         true
