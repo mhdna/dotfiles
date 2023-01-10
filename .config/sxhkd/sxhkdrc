@@ -17,8 +17,8 @@ super + u
 super + shift + {d,p,b}
     {dmenuhandlerXclip, passmenu, dmenu-bookmarks }
 
-super + {v, grave, Insert, shift + Insert} 
-    {clipmenu -i, dmenuunicode -i, bookmarkmenu, bookmarkit}
+super + {grave, Insert, shift + Insert} 
+    {dmenuunicode -i, bookmarkmenu, bookmarkit}
 
 super + shift + v
     $TERMINAL -e pulsemixer
@@ -33,9 +33,6 @@ super + w
     jumpapp -f $BROWSER 
 
 super + shift + w
-    jumpapp chromium
-
-super + alt + w
     jumpapp weather-report
 
 super + e
@@ -47,14 +44,14 @@ super + {shift + e, alt + m, shift + r}
 {Print, shift + Print, super + Print, super + Delete}
     {maim $XDG_PICTURES_DIR/screenshots/-$(date '+%y%m%d-%H%M-%S').png pic-full-, maimpick, dmenurecord -i, dmenurecord kill}
 
-XF86Audio{RaiseVolume,LowerVolume}
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+} #; kill -44 $(pidof dwmblocks)
-
-{XF86AudioMute, super+shift+minus}
-    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle #; kill -44 $(pidof dwmblocks)
-
-super + { minus, equal}
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+} #; kill -44 $(pidof dwmblocks)
+# XF86Audio{RaiseVolume,LowerVolume}
+#     wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+} #; kill -44 $(pidof dwmblocks)
+# 
+# {XF86AudioMute, super+shift+minus}
+#     wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle #; kill -44 $(pidof dwmblocks)
+# 
+# super + { minus, equal}
+#     wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+} #; kill -44 $(pidof dwmblocks)
 
 super + {comma,shift+comma,period,shift+period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
@@ -104,4 +101,6 @@ super + shift + q
 # sxhkd reload 
 super + ctrl + r
 	pkill -USR1 -x sxhkd 
-#; echo 'awesome.restart()' | awesome-client
+
+super + ctrl + shift + r
+    echo 'awesome.restart()' | awesome-client

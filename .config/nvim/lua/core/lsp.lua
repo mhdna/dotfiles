@@ -1,4 +1,4 @@
-local on_attach = require("user.lsp-default-bindings").default_on_attach
+local on_attach = require("core.lsp-default-bindings").default_on_attach
 
 -- add completion capability
 local capabilities = vim.lsp.protocol.make_client_capabilities()

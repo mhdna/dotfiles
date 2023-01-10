@@ -92,7 +92,7 @@ return packer.startup(function(use)
 
     use("mbbill/undotree")
     -- use("gruvbox-community/gruvbox")
-    use "lukas-reineke/indent-blankline.nvim"
+    -- use "lukas-reineke/indent-blankline.nvim"
     -- use("kyazdani42/nvim-web-devicons")
 
     -- use{'norcalli/nvim-colorizer.lua',
@@ -112,7 +112,7 @@ return packer.startup(function(use)
     -- alternative to subword-mode in emacs
     -- use("haoren/vim-wordmotion")
 
-    use('NLKNguyen/papercolor-theme')
+    -- use('NLKNguyen/papercolor-theme')
     -- use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
     -- use({

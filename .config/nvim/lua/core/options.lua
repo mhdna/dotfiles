@@ -6,7 +6,7 @@ vim.opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
 -- vim.opt.laststatus = 2
 vim.opt.pumheight= 15
 
-vim.opt.foldmethod = 'marker' -- Enable folding (default 'foldmarker')
+-- vim.opt.foldmethod = 'marker' -- Enable folding (default 'foldmarker')
 -- mah
 -- for always block cursor
 vim.o.guicursor = true
@@ -76,7 +76,7 @@ vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim-undodir"
 vim.o.encoding = "utf-8"
 -- vim.o.guifont = "hack:h10" -- the font used in neovim gui
 
--- vim.o.autochdir = true
+vim.o.autochdir = true
 -- Tab command mode completion
 -- vim.o.wildmode = longest,list,full
 

@@ -3,9 +3,9 @@
 Emacs.alpha: 100
 *.font: monospace:pixelsize=15
 
-*.background: #222222
-*.foreground: #ffffff
-*.cursorColor: #ffffff
+*.background: #ffffff
+*.foreground: #000000
+*.cursorColor: #000000
 
 
 !! Keybinding ========================================================

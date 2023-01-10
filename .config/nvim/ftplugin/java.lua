@@ -33,7 +33,7 @@ local on_attach = function(client, bufnr)
 
     -- Default keymaps
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    require("user.lsp-default-bindings").on_attach(client, bufnr)
+    require("core.lsp-default-bindings").on_attach(client, bufnr)
 
     -- Java extensions
     vim.keymap.set("n", "<leader>lo", jdtls.organize_imports, bufopts, "Organize imports")

@@ -19,7 +19,7 @@ local function draw_signal(level)
     local img = cairo.ImageSurface.create(cairo.Format.ARGB32, 32, 32)
     local cr  = cairo.Context(img)
 
-    cr:set_source(gears.color("#ebdbb2"))
+    cr:set_source(gears.color("#aaaaaa"))
     if level > 75 then
         cr:arc(         32/2, 32/2, 32/2, 145*math.pi/180, 395*math.pi/180)
         cr:arc_negative(32/2, 32/2, 32/2-3, 395*math.pi/180, 145*math.pi/180)
@@ -94,10 +94,10 @@ local function worker(args)
     local connected = false
 
     -- Settings
-    local ICON_DIR      = awful.util.getdir("config").."/"..module_path.."widgets/net_widgets/icons/"
+    local ICON_DIR      = awful.util.getdir("config").."/"..module_path.."/net_widgets/icons/"
     local interface     = args.interface or "wlan0"
     local timeout       = args.timeout or 5
-    local font          = args.font or beautiful.font
+    local font          = args.font or beautiful.font or "Sans 8"
     local popup_signal  = args.popup_signal or false
     local popup_position = args.popup_position or naughty.config.defaults.position
     local onclick       = args.onclick
@@ -232,14 +232,8 @@ function wireless:attach(widget, args)
             awful.button({}, 1, function() awful.util.spawn(onclick) end)
             ))
     end
---    widget:connect_signal('mouse::enter', function () wireless:show(0) end)
-   widget:connect_signal('mouse::leave', function () wireless:hide() end)
-        widget:connect_signal('button::press', function(_, _, _, button)
-            if (button == 3) then wireless:show(0) end
-        end)
-        widget:connect_signal('button::press', function(_, _, _, button)
-            if (button == 1) then awful.util.spawn_with_shell("networkmanager_dmenu") end
-        end)
+    widget:connect_signal('mouse::enter', function () wireless:show(0) end)
+    widget:connect_signal('mouse::leave', function () wireless:hide() end)
     return widget
 end
 

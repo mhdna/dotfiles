@@ -1,10 +1,10 @@
 -------------------------------------------------
--- The Ultimate Volume Widget for Awesome Window Manager
+-- A purely pactl-based volume widget based on the original Volume widget
 -- More details could be found here:
--- https://github.com/streetturtle/awesome-wm-widgets/tree/master/volume-widget
+-- https://github.com/streetturtle/widgets/tree/master/pactl-widget
 
--- @author Pavel Makhov
--- @copyright 2020 Pavel Makhov
+-- @author Stefan Huber
+-- @copyright 2023 Stefan Huber
 -------------------------------------------------
 
 local awful = require("awful")
@@ -13,22 +13,17 @@ local spawn = require("awful.spawn")
 local gears = require("gears")
 local beautiful = require("beautiful")
 local watch = require("awful.widget.watch")
-local utils = require("awesome-wm-widgets.volume-widget.utils")
 
-
-local LIST_DEVICES_CMD = [[sh -c "pacmd list-sinks; pacmd list-sources"]]
-local function GET_VOLUME_CMD(device) return 'amixer -D ' .. device .. ' sget Master' end
-local function INC_VOLUME_CMD(device, step) return 'amixer -D ' .. device .. ' sset Master ' .. step .. '%+' end
-local function DEC_VOLUME_CMD(device, step) return 'amixer -D ' .. device .. ' sset Master ' .. step .. '%-' end
-local function TOG_VOLUME_CMD(device) return 'amixer -D ' .. device .. ' sset Master toggle' end
+local pactl = require("widgets.volume-widget.pactl")
+local utils = require("widgets.volume-widget.utils")
 
 
 local widget_types = {
-    icon_and_text = require("awesome-wm-widgets.volume-widget.widgets.icon-and-text-widget"),
-    icon = require("awesome-wm-widgets.volume-widget.widgets.icon-widget"),
-    arc = require("awesome-wm-widgets.volume-widget.widgets.arc-widget"),
-    horizontal_bar = require("awesome-wm-widgets.volume-widget.widgets.horizontal-bar-widget"),
-    vertical_bar = require("awesome-wm-widgets.volume-widget.widgets.vertical-bar-widget")
+    icon_and_text = require("widgets.volume-widget.widgets.icon-and-text-widget"),
+    icon = require("widgets.volume-widget.widgets.icon-widget"),
+    arc = require("widgets.volume-widget.widgets.arc-widget"),
+    horizontal_bar = require("widgets.volume-widget.widgets.horizontal-bar-widget"),
+    vertical_bar = require("widgets.volume-widget.widgets.vertical-bar-widget")
 }
 local volume = {}
 
@@ -48,9 +43,9 @@ local popup = awful.popup{
 
 local function build_main_line(device)
     if device.active_port ~= nil and device.ports[device.active_port] ~= nil then
-        return device.properties.device_description .. ' · ' .. device.ports[device.active_port]
+        return device.description .. ' · ' .. utils.split(device.ports[device.active_port], " ")[1]
     else
-        return device.properties.device_description
+        return device.description
     end
 end
 
@@ -70,9 +65,8 @@ local function build_rows(devices, on_checkbox_click, device_type)
         }
 
         checkbox:connect_signal("button::press", function()
-            spawn.easy_async(string.format([[sh -c 'pacmd set-default-%s "%s"']], device_type, device.name), function()
-                on_checkbox_click()
-            end)
+            pactl.set_default(device_type, device.name)
+            on_checkbox_click()
         end)
 
         local row = wibox.widget {
@@ -119,9 +113,8 @@ local function build_rows(devices, on_checkbox_click, device_type)
         end)
 
         row:connect_signal("button::press", function()
-            spawn.easy_async(string.format([[sh -c 'pacmd set-default-%s "%s"']], device_type, device.name), function()
-                on_checkbox_click()
-            end)
+            pactl.set_default(device_type, device.name)
+            on_checkbox_click()
         end)
 
         table.insert(device_rows, row)
@@ -143,21 +136,18 @@ local function build_header_row(text)
 end
 
 local function rebuild_popup()
-    spawn.easy_async(LIST_DEVICES_CMD, function(stdout)
+    for i = 0, #rows do
+        rows[i]=nil
+    end
 
-        local sinks, sources = utils.extract_sinks_and_sources(stdout)
+    local sinks, sources = pactl.get_sinks_and_sources()
+    table.insert(rows, build_header_row("SINKS"))
+    table.insert(rows, build_rows(sinks, function() rebuild_popup() end, "sink"))
+    table.insert(rows, build_header_row("SOURCES"))
+    table.insert(rows, build_rows(sources, function() rebuild_popup() end, "source"))
 
-        for i = 0, #rows do rows[i]=nil end
-
-        table.insert(rows, build_header_row("SINKS"))
-        table.insert(rows, build_rows(sinks, function() rebuild_popup() end, "sink"))
-        table.insert(rows, build_header_row("SOURCES"))
-        table.insert(rows, build_rows(sources, function() rebuild_popup() end, "source"))
-
-        popup:setup(rows)
-    end)
+    popup:setup(rows)
 end
-
 
 local function worker(user_args)
 
@@ -167,7 +157,7 @@ local function worker(user_args)
     local widget_type = args.widget_type
     local refresh_rate = args.refresh_rate or 1
     local step = args.step or 5
-    local device = args.device or 'pulse'
+    local device = args.device or '@DEFAULT_SINK@'
 
     if widget_types[widget_type] == nil then
         volume.widget = widget_types['icon_and_text'].get_widget(args.icon_and_text_args)
@@ -175,54 +165,70 @@ local function worker(user_args)
         volume.widget = widget_types[widget_type].get_widget(args)
     end
 
-    local function update_graphic(widget, stdout)
-        local mute = string.match(stdout, "%[(o%D%D?)%]")   -- \[(o\D\D?)\] - [on] or [off]
-        if mute == 'off' then widget:mute()
-        elseif mute == 'on' then widget:unmute()
+    local function update_graphic(widget)
+        local vol = pactl.get_volume(device)
+        if vol ~= nil then
+            widget:set_volume_level(vol)
         end
-        local volume_level = string.match(stdout, "(%d?%d?%d)%%") -- (\d?\d?\d)\%)
-        volume_level = string.format("% 3d", volume_level)
-        widget:set_volume_level(volume_level)
+
+        if pactl.get_mute(device) then
+            widget:mute()
+        else
+            widget:unmute()
+        end
     end
 
     function volume:inc(s)
-        spawn.easy_async(INC_VOLUME_CMD(device, s or step), function(stdout) update_graphic(volume.widget, stdout) end)
+        pactl.volume_increase(device, s or step)
+        update_graphic(volume.widget)
     end
 
     function volume:dec(s)
-        spawn.easy_async(DEC_VOLUME_CMD(device, s or step), function(stdout) update_graphic(volume.widget, stdout) end)
+        pactl.volume_decrease(device, s or step)
+        update_graphic(volume.widget)
     end
 
     function volume:toggle()
-        spawn.easy_async(TOG_VOLUME_CMD(device), function(stdout) update_graphic(volume.widget, stdout) end)
+        pactl.mute_toggle(device)
+        update_graphic(volume.widget)
+    end
+
+    function volume:popup()
+        if popup.visible then
+            popup.visible = not popup.visible
+        else
+            rebuild_popup()
+            popup:move_next_to(mouse.current_widget_geometry)
+        end
     end
 
     function volume:mixer()
         if mixer_cmd then
-            spawn.easy_async(mixer_cmd)
+            spawn(mixer_cmd)
         end
     end
 
     volume.widget:buttons(
             awful.util.table.join(
-                    awful.button({}, 3, function()
-                        if popup.visible then
-                            popup.visible = not popup.visible
-                        else
-                            rebuild_popup()
-                            popup:move_next_to(mouse.current_widget_geometry)
-                        end
-                    end),
-                    awful.button({}, 4, function() volume:inc() end),
-                    awful.button({}, 5, function() volume:dec() end),
+                    awful.button({}, 1, function() volume:toggle() end),
                     awful.button({}, 2, function() volume:mixer() end),
-                    awful.button({}, 1, function() volume:toggle() end)
+                    awful.button({}, 3, function() volume:popup() end),
+                    awful.button({}, 4, function() volume:inc() end),
+                    awful.button({}, 5, function() volume:dec() end)
             )
     )
 
-    watch(GET_VOLUME_CMD(device), refresh_rate, update_graphic, volume.widget)
+    gears.timer {
+        timeout   = refresh_rate,
+        call_now  = true,
+        autostart = true,
+        callback  = function()
+            update_graphic(volume.widget)
+        end
+    }
 
     return volume.widget
 end
+
 
 return setmetatable(volume, { __call = function(_, ...) return worker(...) end })

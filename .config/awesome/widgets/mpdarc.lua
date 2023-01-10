@@ -20,10 +20,10 @@ local STOP_MPD_CMD = "mpc stop"
 local NEXT_MPD_CMD = "mpc next"
 local PREV_MPD_CMD = "mpc prev"
 
-local PATH_TO_ICONS = "/usr/share/icons/"
-local PAUSE_ICON_NAME = PATH_TO_ICONS .. "/player_pause.png"
-local PLAY_ICON_NAME = PATH_TO_ICONS .. "/player_play.png"
-local STOP_ICON_NAME = PATH_TO_ICONS .. "/player_stop.png"
+local PATH_TO_ICONS = "/usr/share/icons/Arc"
+local PAUSE_ICON_NAME = PATH_TO_ICONS .. "/actions/24/player_pause.png"
+local PLAY_ICON_NAME = PATH_TO_ICONS .. "/actions/24/player_play.png"
+local STOP_ICON_NAME = PATH_TO_ICONS .. "/actions/24/player_stop.png"
 
 local icon = wibox.widget {
         id = "icon",
@@ -38,10 +38,10 @@ local mpdarc = wibox.widget {
     value = 0.75,
     thickness = 2,
     start_angle = 4.71238898, -- 2pi*3/4
-    forced_height = 24,
-    forced_width = 22,
+    forced_height = 32,
+    forced_width = 32,
     rounded_edge = true,
-    bg = "#ebdbb2",
+    bg = "#ffffff11",
     paddings = 0,
     widget = wibox.container.arcchart
 }
@@ -50,8 +50,7 @@ local mpdarc_icon_widget = wibox.container.mirror(mpdarc, { horizontal = true })
 local mpdarc_current_song_widget = wibox.widget {
     id = 'current_song',
     widget = wibox.widget.textbox,
-    font = 'monospace bold 8 ',
-    forced_width = 200
+    font = 'Play 9'
 }
 
 local update_graphic = function(widget, stdout, _, _, _)
@@ -99,25 +98,22 @@ local function show_MPD_status()
         function(stdout, _, _, _)
             notification = naughty.notify {
                 text = stdout,
-                title = "",
+                title = "MPD",
                 timeout = 5,
-                hover_timeout = 0.0,
+                hover_timeout = 0.5,
                 width = 600,
             }
         end)
 end
 
---mpdarc:connect_signal("mouse::enter", function() show_MPD_status() end)
-mpdarc:connect_signal("mouse::release", function() naughty.destroy(notification) end)
-mpdarc:connect_signal('button::press', function(_, _, _, button)
-        if (button == 1) then show_MPD_status() end
-    end)
+mpdarc:connect_signal("mouse::enter", function() show_MPD_status() end)
+mpdarc:connect_signal("mouse::leave", function() naughty.destroy(notification) end)
 
 watch(GET_MPD_CMD, 1, update_graphic, mpdarc)
 
 local mpdarc_widget = wibox.widget{
-    mpdarc_current_song_widget,
     mpdarc_icon_widget,
+    mpdarc_current_song_widget,
     layout = wibox.layout.align.horizontal,
     }
 return mpdarc_widget

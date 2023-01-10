@@ -13,14 +13,15 @@ local menubar = require("menubar")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 -- require("awful.hotkeys_popup.keys")
--- local batteryarc_widget = require("widgets.batteryarc.batteryarc")
+local batteryarc_widget = require("widgets.batteryarc.batteryarc")
 local net_speed_widget = require("widgets.net-speed.net-speed")
--- local naughty_sidebar = require("widgets.sidebar")
--- local net_widgets = require("widgets.net_widgets")
--- net_wireless = net_widgets.wireless({interface="wlp2s0", indent = 4,  timeout = 5 })
--- local mpdarc= require("widgets.mpdarc.mpdarc")
+local net_widgets = require("widgets.net_widgets")
+net_wireless = net_widgets.wireless({interface="wlp2s0", indent = 5,  timeout = 5 })
+local mpdarc= require("widgets.mpdarc")
+local volume_widget= require("widgets.volume-widget.volume")
 -- for non empty function
 local focused = awful.screen.focused()
+local spr     = wibox.widget.textbox('  ')
 
 -- source modules
 -- local config_path = awful.util.getdir("config")
@@ -237,8 +238,15 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            net_speed_widget(),
+            mpdarc,
+            spr,
             mykeyboardlayout,
+            spr,
+            volume_widget(),
+            spr,
+            batteryarc_widget(),
+            net_speed_widget(),
+            net_wireless,
             wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
@@ -424,11 +432,17 @@ globalkeys = gears.table.join(
     -- awful.key({ modkey, "Shift"   }, "\\", function () awful.layout.inc(-1)                end,
     --           {description = "select previous", group = "layout"}),
 
-    awful.key({ modkey, "Shift" }, "p", function() awful.screen.focused().mypromptbox:run() end,
-        { description = "run prompt", group = "launcher" }),
-    -- Menubar
-    awful.key({ modkey, }, "p", function() menubar.show() end,
-        { description = "show the menubar", group = "launcher" }),
+    -- awful.key({ modkey, "Shift" }, "p", function() awful.screen.focused().mypromptbox:run() end,
+    --     { description = "run prompt", group = "launcher" }),
+    -- -- Menubar
+    -- awful.key({ modkey, }, "p", function() menubar.show() end,
+    --     { description = "show the menubar", group = "launcher" }),
+awful.key({}, "XF86AudioRaiseVolume", function () volume_widget:inc(5) end),
+awful.key({}, "XF86AudioLowerVolume", function () volume_widget:dec(5) end),
+awful.key({}, "XF86AudioMute", function () volume_widget:toggle() end),
+awful.key({modkey}, "=", function () volume_widget:inc(5) end),
+awful.key({modkey}, "-", function () volume_widget:dec(5) end),
+awful.key({modkey, "Shift"}, "-", function () volume_widget:toggle() end),
 
     awful.key({ modkey, "Shift" }, "x",
         function()
@@ -684,8 +698,8 @@ awful.rules.rules = {
      --   }, properties = { floating = true , ontop = true}},
 
     -- -- -- Add titlebars to normal clients and dialogs
-     -- { rule_any = {type = { "normal", "dialog" }
-     --   }, properties = { titlebars_enabled = true }},
+     { rule_any = {type = { "normal", "dialog" }
+       }, properties = { titlebars_enabled = true }},
     --
     -- { rule_any = {class = {"st", "XTerm",  "Emacs", "St","Zathura", "flow"}},
     --    properties = { titlebars_enabled = true }},
@@ -828,4 +842,4 @@ awful.mouse.snap.edge_enabled = false
 --         file:close()
 --     end)
 
-awful.spawn.with_shell("~/.config/awesome/autostart.sh")
+-- awful.spawn.with_shell("~/.config/awesome/autostart.sh")

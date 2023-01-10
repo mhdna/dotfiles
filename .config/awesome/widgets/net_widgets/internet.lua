@@ -12,7 +12,7 @@ local function worker(args)
   local args = args or {}
   local widget = wibox.container.background()
   -- Icons made by http://www.flaticon.com/authors/maxim-basinski from www.flaticon.com
-  local ICON_DIR = awful.util.getdir("config").."/"..module_path.."widgets/net_widgets/icons/"
+  local ICON_DIR = awful.util.getdir("config").."/"..module_path.."/net_widgets/icons/"
   local yes_internet = wibox.widget {
     {
       widget = wibox.widget.imagebox,

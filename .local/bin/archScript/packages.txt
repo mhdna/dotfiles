@@ -74,7 +74,6 @@ neomutt
 newsboat
 bc
 xsel
-clipmenu
 pulsemixer
 highlight
 fzf
@@ -129,7 +128,7 @@ pass
 jdk-openjdk
 openjdk-doc
 flameshot
-oxygen-icons
+mate-icons
 ccls 
 python-docs
 urlscan
