@@ -211,7 +211,7 @@ non-empty lines in the block (excluding the line with
 (add-to-list 'org-capture-templates
              '("c" "Contact"
                entry
-               (file "~/notes/contacts.org")
+               (file "~/dox/notes/contacts.org")
                "* %(org-contacts-template-name"))
 ;; (add-to-list 'org-capture-templates
 ;;              '("d" "Delivery"
@@ -256,7 +256,7 @@ non-empty lines in the block (excluding the line with
 (add-to-list 'org-capture-templates
              '("s" "Subscribe to an RSS feed"
                plain
-               (file "~/notes/rss-feeds.org")
+               (file "~/dox/notes/rss-feeds.org")
                "*** [[%^{Feed URL}][%^{Feed add}]]"))
 (add-to-list 'org-capture-templates
              '("t" "Task"

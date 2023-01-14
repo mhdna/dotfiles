@@ -9,10 +9,9 @@
           '(flex))) ;; Configure flex
   :hook(
         (lsp-mode . lsp-enable-which-key-integration)
-        (c++-mode . #'lsp-defferred)
+        ;; (c++-mode . #'lsp-defferred)
         ;; (javascript-mode . #'lsp-defferred))
-        ;; for corfu
-        ;; (lsp-completion-mode . my/lsp-mode-setup-completion)
+        ;; (lsp-completion-mode . my/lsp-mode-setup-completion) ;; corfu
 	      )
   :init
   (setq
@@ -31,8 +30,9 @@
   (with-eval-after-load 'lsp-intelephense
     (setf (lsp--client-multi-root (gethash 'iph lsp-clients)) nil))
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
-  (setq lsp-eldoc-enable-hover t)
-  (setq lsp-ui-doc-enable nil)
+  (setq lsp-eldoc-enable-hover nil)
+	 (setq lsp-signature-auto-activate nil)
+	  (setq lsp-ui-doc-enable nil)
   :bind(:map lsp-mode-map
              ("C-c d" . lsp-describe-thing-at-point)
              ("C-c a" . lsp-execute-code-action))

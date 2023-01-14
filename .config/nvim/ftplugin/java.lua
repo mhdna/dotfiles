@@ -25,6 +25,10 @@ local workspace_dir = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(roo
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
+local bufopts = { noremap = true, silent = true, buffer = bufnr }
+vim.keymap.set("n", "<leader>c", ":w! | :split | :term java % <CR>", bufopts)
+vim.keymap.set("n", "<leader>S", ":so ~/.config/nvim/ftplugin/java.lua<CR>", bufopts)
+-- autocmd filetype java nnoremap <leader>c :w! | :split | :term cd $pwd ; !javac *.java ; java Tester <CR>
 
 local on_attach = function(client, bufnr)
     jdtls.setup.add_commands()
@@ -32,18 +36,15 @@ local on_attach = function(client, bufnr)
     require('jdtls.dap').setup_dap_main_class_configs()
 
     -- Default keymaps
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
     require("core.lsp-default-bindings").on_attach(client, bufnr)
 
     -- Java extensions
     vim.keymap.set("n", "<leader>lo", jdtls.organize_imports, bufopts, "Organize imports")
     vim.keymap.set("n", "<leader>lt", jdtls.test_class, bufopts, "Test class (DAP)")
     vim.keymap.set("n", "<leader>lT", jdtls.test_nearest_method, bufopts, "Test method (DAP)")
-    vim.keymap.set("n", "<space>lev", jdtls.extract_variable, bufopts, "Extract variable")
-    vim.keymap.set("n", "<space>lec", jdtls.extract_constant, bufopts, "Extract constant")
-    vim.keymap.set("v", "<space>lem", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], bufopts,
-        "Extract method")
-
+    vim.keymap.set("n", "<leader>lev", jdtls.extract_variable, bufopts, "Extract variable")
+    vim.keymap.set("n", "<leader>lec", jdtls.extract_constant, bufopts, "Extract constant")
+    vim.keymap.set("v", "<leader>lem", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], bufopts, "Extract method")
 end
 
 

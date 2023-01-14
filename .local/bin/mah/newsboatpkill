@@ -1,4 +1,0 @@
-#!/bin/sh
-
-
-killall newsboat ; newsboat ; pkill -RTMIN+6 dwmblocks

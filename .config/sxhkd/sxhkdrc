@@ -1,57 +1,54 @@
 super + Return
-    jumpapp Tmux
-
-super + shift + Return
     $TERMINAL
 
-super + p
+super + d
     dmenu_run
 
 super + i
-    jumpapp -f emacs 
+    $TERMINAL -e sh -c 'tmux a || tmux'
 
-super + u
-    jumpapp zathura
+super + shift + i
+    emacs
 
 # menus
-super + shift + {d,p,b}
-    {dmenuhandlerXclip, passmenu, dmenu-bookmarks }
+super + shift + {d,p}
+    {dmenuhandlerXclip, passmenu}
 
-super + {grave, Insert, shift + Insert} 
-    {dmenuunicode -i, bookmarkmenu, bookmarkit}
+super + {grave, Insert, shift + Insert, b}
+    {dmenuunicode -i, dmenu-bookmarks, bookmarkit, dmenu-snippets}
 
 super + shift + v
     $TERMINAL -e pulsemixer
 
-#super + {slash, alt + slash, shift + slash}
-#    {transXclip, $TERMINAL -e transs, transXcclip}
-
-super + {slash, alt + slash, shift + slash}
-    {jumpapp my-sdcv, transXcclip, transXclip}
+super + {shift + slash, ctrl + slash, alt + slash}
+    {transXclip, espeak "$(xclip -o)", transXcclip}
 
 super + w
-    jumpapp -f $BROWSER 
+    $BROWSER
+
+super + alt + w
+    $TERMINAL -e nmtui
 
 super + shift + w
-    jumpapp weather-report
+    weather-report
 
 super + e
-    jumpapp my-lf 
+    $TERMINAL -e lfub
 
 super + {shift + e, alt + m, shift + r}
-    $TERMINAL -e bicon -e {neomutt, ncmpcpp, newsboatpkill}
+    $TERMINAL -e bicon -e {neomutt, ncmpcpp, sh -c 'killall newsboat ; newsboat'}
 
 {Print, shift + Print, super + Print, super + Delete}
     {maim $XDG_PICTURES_DIR/screenshots/-$(date '+%y%m%d-%H%M-%S').png pic-full-, maimpick, dmenurecord -i, dmenurecord kill}
 
-# XF86Audio{RaiseVolume,LowerVolume}
-#     wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+} #; kill -44 $(pidof dwmblocks)
-# 
-# {XF86AudioMute, super+shift+minus}
-#     wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle #; kill -44 $(pidof dwmblocks)
-# 
-# super + { minus, equal}
-#     wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+} #; kill -44 $(pidof dwmblocks)
+XF86Audio{RaiseVolume,LowerVolume}
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+} ; kill -44 $(pidof dwmblocks)
+
+{XF86AudioMute, super+shift+m}
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ; kill -44 $(pidof dwmblocks)
+
+super + { minus, shift + minus, equal, shift + equal}
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 15%-, 5%+, 15%+} ; kill -44 $(pidof dwmblocks)
 
 super + {comma,shift+comma,period,shift+period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
@@ -59,11 +56,11 @@ super + {comma,shift+comma,period,shift+period}
 {XF86MonBrightnessDown, super + XF86MonBrightnessDown, XF86MonBrightnessUp, super + XF86MonBrightnessUp}
 	brightnessctl set {10%-, 1%, +10%, 100%}
 
-super + shift + ctrl + x
+super + ctrl + x
     xkill
 
-#super + {BackSpace, shift + BackSpace, ctrl + BackSpace}
-#    dunstctl {close-all, history-pop, set-paused toggle && notify-send "Toggled dunst"}
+super + {BackSpace, shift + BackSpace, ctrl + BackSpace}
+    dunstctl {close-all, history-pop, set-paused toggle && notify-send "Toggled dunst"}
 
 super + {F10, shift + F10, F11, F12, shift + F12}
     mpc {seek -1%, prev, toggle, seek +1%, next}
@@ -92,15 +89,8 @@ super + F5
 super + shift + F5
     keyboardLogitech & notify-send -t 1000 'Keyboard layout' 'Has been reset to LOGITECH'
 
-super + ctrl + F5
-     setxkbmap -model pc105 -layout us,ara -option grp:alt_space_toggle && notify-send -t 1000 'Keyboard layout' 'Has been set to DEFAULT'
-
 super + shift + q
 	sysact
 
-# sxhkd reload 
 super + ctrl + r
-	pkill -USR1 -x sxhkd 
-
-super + ctrl + shift + r
-    echo 'awesome.restart()' | awesome-client
+	pkill -USR1 -x sxhkd

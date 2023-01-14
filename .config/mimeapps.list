@@ -1,0 +1,57 @@
+[Added Associations]
+x-scheme-handler/tg=userapp-Telegram Desktop-OBQKO1.desktop;userapp-Telegram Desktop-FVBYT1.desktop;userapp-Telegram Desktop-CBR2V1.desktop;userapp-Telegram Desktop-HQY9V1.desktop;
+application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
+x-scheme-handler/http=xfce4-web-browser.desktop;userapp-Firefox-8JS5J1.desktop;
+x-scheme-handler/https=xfce4-web-browser.desktop;userapp-Firefox-8JS5J1.desktop;
+x-scheme-handler/chrome=userapp-Firefox-8JS5J1.desktop;firefox.desktop;
+text/html=browser.desktop;firefox.desktop;userapp-Firefox-8JS5J1.desktop;
+application/x-extension-htm=userapp-Firefox-8JS5J1.desktop;firefox.desktop;
+application/x-extension-html=browser.desktop;firefox.desktop;userapp-Firefox-8JS5J1.desktop;
+application/x-extension-shtml=browser.desktop;firefox.desktop;userapp-Firefox-8JS5J1.desktop;
+application/xhtml+xml=browser.desktop;firefox.desktop;userapp-Firefox-8JS5J1.desktop;
+application/x-extension-xhtml=browser.desktop;firefox.desktop;userapp-Firefox-8JS5J1.desktop;
+application/x-extension-xht=userapp-Firefox-8JS5J1.desktop;firefox.desktop;
+x-scheme-handler/mailto=xfce4-mail-reader.desktop;
+
+[Default Applications]
+text/x-shellscript=text.desktop;
+x-scheme-handler/magnet=torrent.desktop;
+application/x-bittorrent=torrent.desktop;
+x-scheme-handler/mailto=xfce4-mail-reader.desktop
+text/plain=text.desktop;
+application/postscript=pdf.desktop;
+image/png=img.desktop;
+image/jpeg=img.desktop;
+image/gif=img.desktop;
+video/x-matroska=video.desktop
+x-scheme-handler/lbry=lbry.desktop
+x-scheme-handler/tg=userapp-Telegram Desktop-HQY9V1.desktop
+application/oxps=org.pwmt.zathura.desktop
+application/epub+zip=org.pwmt.zathura.desktop
+application/vnd.ms-asf=mpv.desktop
+application/x-shorten=mpv.desktop
+application/sdp=mpv.desktop
+application/ogg=mpv.desktop
+application/vnd.apple.mpegurl=mpv.desktop
+application/mxf=mpv.desktop
+application/vnd.rn-realmedia=mpv.desktop
+application/x-cue=mpv.desktop
+application/x-matroska=mpv.desktop
+application/json=browser.desktop
+application/xhtml+xml=userapp-Firefox-8JS5J1.desktop
+application/xml=browser.desktop
+application/x-xpinstall=borwser.desktop
+text/html=userapp-Firefox-8JS5J1.desktop
+x-scheme-handler/http=userapp-Firefox-8JS5J1.desktop
+x-scheme-handler/https=userapp-Firefox-8JS5J1.desktop
+x-scheme-handler/about=browser.desktop
+x-scheme-handler/unknown=browser.desktop
+application/pdf=pdf.desktop
+x-scheme-handler/chrome=userapp-Firefox-8JS5J1.desktop
+application/x-extension-htm=userapp-Firefox-8JS5J1.desktop
+application/x-extension-html=userapp-Firefox-8JS5J1.desktop
+application/x-extension-shtml=userapp-Firefox-8JS5J1.desktop
+application/x-extension-xhtml=userapp-Firefox-8JS5J1.desktop
+application/x-extension-xht=userapp-Firefox-8JS5J1.desktop
+x-scheme-handler/eclipse+command x-scheme-handler/eclipse+mpc=_usr_lib_eclipse_.desktop
+

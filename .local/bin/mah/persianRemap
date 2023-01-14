@@ -1,6 +1,0 @@
-#!/bin/sh
-xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Tapping Enabled" 1
-
-xset r rate 300 50
-
-setxkbmap -model pc104 -layout us,ir -option grp:win_space_toggle -option "caps:swapescape" -option altwin:menu_win #,iq

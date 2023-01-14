@@ -1,12 +1,3 @@
 #!/bin/sh
 
-path="/home/$USER/.local/share/bookmarks"
-choice=$(cat $path | dmenu -l 10 -p "Select bookmark")
-
-case $choice in
-	 "")
-		exit ;;
-	*) 
-		$BROWSER --new-tab $(echo $choice|cut -d ";" -f2)
-esac
-
+xdotool type $(grep -v '^#' ~/.local/share/bookmarks | dmenu -i -l 20 | cut -d' ' -f1)

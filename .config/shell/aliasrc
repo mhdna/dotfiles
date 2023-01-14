@@ -31,6 +31,7 @@ duck () {
 
 alias \
     "?"=duck \
+    ll="ls -l" \
     lf="lfub" \
     lynx="lynx -cfg=~/.config/lynx/lynx.cfg -lss ~/.config/lynx/lynx.lss" \
     keyLogitech="xmodmap ~/.config/XmodmapLogitech && remaps" \
@@ -42,7 +43,7 @@ alias \
     cp="cp -iv" \
     mv="mv -iv" \
     rm="rm -vI" \
-    bc="bc -ql" \
+    bc="bc -q" \
     mkd="mkdir -pv" \
     ytfzff="ytfzf -t --thumbnail-quality=1" \
     YT="yt-dlp --external-downloader aria2c --add-metadata -ic" \

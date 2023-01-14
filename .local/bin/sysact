@@ -11,9 +11,9 @@ wmpid(){ # This function is needed if there are multiple instances of the window
 	echo "${tree%%)*}"
 }
 
-case "$(printf "lock\nleave $WM\nhibernate\nreboot\npoweroff\nsleep\ndisplay off" | dmenu -i -p 'Action: ')" in
+case "$(printf "lock\nleave\nhibernate\nreboot\npoweroff\nsleep\ndisplay off" | dmenu -i -p 'Action: ')" in
 	'lock') slock ;;
-	"leave $WM") pkill -15 -t tty"$XDG_VTNR" Xorg ;;
+	"leave") pkill -15 -t tty"$XDG_VTNR" Xorg ;;
 	'hibernate') slock $ctl hibernate ;;
 	'sleep') slock $ctl suspend -i;;
 	'reboot') $ctl reboot -i ;;

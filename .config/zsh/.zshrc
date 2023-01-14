@@ -4,14 +4,11 @@ setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
-
-
-
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 # [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
-#alias config='/usr/bin/git --git-dir=$HOME/dots/ --work-tree=$HOME'
+# alias config='/usr/bin/git --git-dir=$HOME/dots/ --work-tree=$HOME'
 # Basic auto/tab complete:
 autoload -U compinit
 zstyle ':completion:*' menu select
@@ -32,7 +29,6 @@ setopt INC_APPEND_HISTORY
 setopt HIST_FIND_NO_DUPS
 # Don't save history duplications
 setopt HIST_IGNORE_ALL_DUPS
-
 setopt   HIST_IGNORE_SPACE
 setopt   HIST_IGNORE_DUPS
 
@@ -101,7 +97,7 @@ bindkey -e
 
 # Load syntax highlighting; should be last.
 # fi
-# source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
 # source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.

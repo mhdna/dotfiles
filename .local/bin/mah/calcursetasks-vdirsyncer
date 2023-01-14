@@ -1,6 +1,6 @@
 #!/bin/sh
 
-calcurse-vdir -f -v export /home/mah/.local/share/calcurse/ics-tasks &&
-vdirsyncer -c /home/mah/.config/vdirsyncer/tasks/config sync &&
-calcurse-vdir -f -v import /home/mah/.local/share/calcurse/ics-tasks
+calcurse-vdir -f -v export $HOME/.local/share/calcurse/ics-tasks &&
+vdirsyncer -c $HOME/.config/vdirsyncer/tasks/config sync &&
+calcurse-vdir -f -v import $HOME/.local/share/calcurse/ics-tasks
 

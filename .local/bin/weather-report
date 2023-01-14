@@ -1,10 +1,9 @@
 #!/bin/sh
 
 weatherreport="${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport"
-getforecast() { curl -sf "wttr.in/$LOCATION" > "$weatherreport" || exit 1 ;}
+getforecast() { curl -sf "wttr.in/$LOCATION" > "$weatherreport" && sb-moonphase >> "$weatherreport" || exit 1 ;}
 
-# [ "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] ||
-rm $weatherreport
-getforecast
+[ -s "$weatherreport" ] && [ "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] ||
+	getforecast
 
-$TERMINAL -c weather-report -e less $weatherreport
+$TERMINAL -e less $weatherreport

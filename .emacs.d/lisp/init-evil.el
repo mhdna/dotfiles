@@ -257,7 +257,7 @@ is not used."
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
 ;; corfu exit with evil-escape
-(advice-add 'evil-escape-func :after 'corfu-quit)
-(setq tab-always-indent 'complete)
+;; (advice-add 'evil-escape-func :after 'corfu-quit)
+;; (setq tab-always-indent 'complete)
 
 (provide 'init-evil)

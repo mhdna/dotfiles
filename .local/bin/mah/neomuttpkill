@@ -1,4 +1,0 @@
-#!/bin/sh
-
-
-neomutt ; pkill -RTMIN+12 dwmblocks

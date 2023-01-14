@@ -37,7 +37,7 @@ local function worker(user_args)
     local medium_level_color = args.medium_level_color or '#c0ca33'
     local charging_color = args.charging_color or '#43a047'
 
-    local warning_msg_title = args.warning_msg_title or 'Houston, we have a problem'
+    local warning_msg_title = args.warning_msg_title or 'We have a problem'
     local warning_msg_text = args.warning_msg_text or 'Battery is dying'
     local warning_msg_position = args.warning_msg_position or 'bottom_right'
     local warning_msg_icon = args.warning_msg_icon or WIDGET_DIR .. '/warning.png'
@@ -80,8 +80,8 @@ local function worker(user_args)
             timeout = 25, -- show the warning for a longer time
             hover_timeout = 0.5,
             position = warning_msg_position,
-            bg = "#F06060",
-            fg = "#EEE9EF",
+            bg = "#ff0000",
+            fg = "#ffffff",
             width = 300,
         }
     end

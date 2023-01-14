@@ -1,2 +1,0 @@
-#!/bin/sh
-sudo rfkill toggle wifi && pkill -RTMIN+4 dwmblocks

@@ -2,16 +2,8 @@ vim.cmd [[
   augroup _general_settings
     autocmd!
     autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR>
-    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200})
-    autocmd BufWinEnter * :set formatoptions-=cro
+    autocmd FileType netrw setl bufhidden=delete
     autocmd FileType qf set nobuflisted
-  augroup end
-
-  " Cpp compile
-  autocmd filetype cpp nnoremap <leader>C :w! \| :split \| term g++ % -o %< && ./%< <CR>i
-  " java compile
-  autocmd filetype java nnoremap <leader>C :w! \| :split \| term java % <CR>i
-  " autocmd filetype java nnoremap <leader>c :w! | :split | :term cd $pwd ; !javac *.java ; java Tester <CR>
 
   " Return to last edit position when opening files (You want this!)
   autocmd BufReadPost *
@@ -19,14 +11,24 @@ vim.cmd [[
   \   exe "normal! g`\"" |
   \ endif
 
-
   " remove trailing whitespace
-  " autocmd BufWritePre * %s/\s\+$//e
-  " autocmd BufWritePre * %s/\n\+\%$//e
-  " autocmd BufWritePre *.[ch] %s/\%$/\r/e
-  " autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
-
+  autocmd BufWritePre * let currPos = getpos(".")
+  autocmd BufWritePre * %s/\s\+$//e
+  autocmd BufWritePre * %s/\n\+\%$//e
+  autocmd BufWritePre *.[ch] %s/\%$/\r/e
+  autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
 ]]
+
+-- highlight on yank
+vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+    pattern = { "*"},
+    command = "lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200})",
+})
+-- disable automatic commenting new lines
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+    pattern = { "*"},
+    command = "set formatoptions-=cro",
+})
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     pattern = { "Xresources", "Xdefaults", "xresources", "xdefaults" },

@@ -34,7 +34,7 @@ set default-bg                  "#808080"
 # set recolor                     "true"
 set recolor-keephue             true      # keep original colors when recoloring
 
-set guioptions none
+#set guioptions none
 #set render-loading              true
 
 map Y feedkeys ":exec sh -c \"echo $FILE | xclip -i -sel clip\"<Return>"
