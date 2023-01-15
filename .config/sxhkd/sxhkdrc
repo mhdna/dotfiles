@@ -12,7 +12,7 @@ super + shift + i
 
 # menus
 super + shift + {d,p}
-    {dmenuhandlerXclip, passmenu}
+    {dmenuhandler, passmenu}
 
 super + {grave, Insert, shift + Insert, b}
     {dmenuunicode -i, dmenu-bookmarks, bookmarkit, dmenu-snippets}
