@@ -1,7 +1,7 @@
 super + Return
     $TERMINAL
 
-super + d
+super + p
     dmenu_run
 
 super + i
@@ -17,8 +17,11 @@ super + shift + {d,p}
 super + {grave, Insert, shift + Insert, b}
     {dmenuunicode -i, dmenu-bookmarks, bookmarkit, dmenu-snippets}
 
+super + v
+    dmenuclip
+
 super + shift + v
-    $TERMINAL -e pulsemixer
+    saveclip
 
 super + {shift + slash, ctrl + slash, alt + slash}
     {transXclip, espeak "$(xclip -o)", transXcclip}
@@ -84,9 +87,12 @@ super + {F4, shift + F4}
     {displayselect, dmenumount -i}
 
 super + F5
+    $TERMINAL -e pulsemixer
+
+super + F6
     remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to MYREMAPS'
 
-super + shift + F5
+super + shift + F6
     keyboardLogitech & notify-send -t 1000 'Keyboard layout' 'Has been reset to LOGITECH'
 
 super + shift + q
