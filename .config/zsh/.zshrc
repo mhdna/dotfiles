@@ -20,7 +20,7 @@ _comp_options+=(globdots)		# Include hidden files.
 export HISTSIZE=10000000
 export HISTFILESIZE=100000000
 export SAVEHIST=10000
-export HISTFILE=~/.config/zsh/.history
+export HISTFILE=~/.config/shell/.history
 setopt INC_APPEND_HISTORY
 # export HISTTIMEFORMAT="[%F %T] "
 # Add timestamp to history (it's excution time) -showed with -E flag-
@@ -97,7 +97,7 @@ bindkey -e
 
 # Load syntax highlighting; should be last.
 # fi
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
 # source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
