@@ -1,4 +1,0 @@
-#!/bin/sh
-
-
-cat $HOME/.config/savedclips.txt | dmenu -l 10 | xclip -sel c -rmlastnl #tr -d '\n' |
