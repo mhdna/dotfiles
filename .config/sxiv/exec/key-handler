@@ -44,9 +44,9 @@ do
 
 	"g")	ifinstalled gimp && setsid -f gimp "$file" ;;
 	"i")	notify-send "File information" "$(mediainfo "$file")" ;;
-        "o")
-            name=$(echo ${file%.*})
-            setsid -f mpv "$name.webm" -quiet >/dev/null 2>&1
-            setsid -f mpv "$name.mkv" -quiet >/dev/null 2>&1 ;;
+    "o")
+        name=$(echo ${file%.*})
+        setsid -f mpv "$name.webm" -quiet >/dev/null 2>&1
+        setsid -f mpv "$name.mkv" -quiet >/dev/null 2>&1 ;;
 esac
 done
