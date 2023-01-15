@@ -78,13 +78,13 @@ export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
 export LESSOPEN="| /usr/bin/highlight -O ansi %s 2>/dev/null"
 export MOZ_USE_XINPUT2="1"		# Mozilla smooth scrolling/touchpads.
 export AWT_TOOLKIT="MToolkit wmname LG3D"	#May have to install wmname
-# export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm/bspwm
+export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm/bspwm
 
  [ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ] && setsid shortcuts >/dev/null 2>&1
 
 
 # [ "$(tty)" = "/dev/tty1" ] && exec sway
-# Start graphical server on user's current tty if not already running and put the outputs into ~/.local/share/xorg/ 
+# Start graphical server on user's current tty if not already running and put the outputs into ~/.local/share/xorg/
 [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC" -- -keeptty >~/.xorg.log 2>&1
 
 # Switch escape and caps if tty and no passwd required:
