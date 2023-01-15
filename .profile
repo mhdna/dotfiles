@@ -2,14 +2,9 @@
 
 [ -f "$HOME/.bashrc" ] && source ~/.bashrc
 
-#functions path
-# fpath+=("$ZDOTDIR/functions")
-# export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
-export PATH=$PATH:~/.npm-global/bin:$(find ~/.local/bin -type d -printf ":%p")
-
-# unsetopt PROMPT_SP
-
-# export GPG_TTY=$(tty)
+# export JAVA_HOME=/usr/lib/jvm/default
+export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
+export PATH=$PATH:~/.npm-global/bin:$(find ~/.local/bin -type d -printf ":%p"):$GOPATH
 
 # Default programs:
 export EDITOR="nvim"
@@ -76,7 +71,7 @@ export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
 export LESSOPEN="| /usr/bin/highlight -O ansi %s 2>/dev/null"
 export MOZ_USE_XINPUT2="1"		# Mozilla smooth scrolling/touchpads.
 export AWT_TOOLKIT="MToolkit wmname LG3D"	#May have to install wmname
-# export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm/bspwm
+export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm/bspwm
 
  [ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ] && setsid shortcuts >/dev/null 2>&1
 
