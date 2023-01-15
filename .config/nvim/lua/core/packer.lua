@@ -43,7 +43,13 @@ return packer.startup(function(use)
     -- LSP
     use("neovim/nvim-lspconfig")
     use("mfussenegger/nvim-jdtls")
-    use("nvim-treesitter/nvim-treesitter")
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function()
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
+        end,
+    }
     use("JoosepAlviste/nvim-ts-context-commentstring")
     use("romgrk/nvim-treesitter-context")
     use("L3MON4D3/LuaSnip")
