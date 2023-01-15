@@ -57,7 +57,6 @@ alias \
     diff="diff --color=auto" \
     ccat="highlight --out-format=ansi" \
     ip="ip -color=auto" \
-    picom="picom --vsync" \
     nf="notify-send " \
     awesomerestart="echo 'awesome.restart()' | awesome-client" \
     kd="/usr/lib/kdeconnectd && kdeconnect-cli --refresh ; kdeconnect-indicator&" \
