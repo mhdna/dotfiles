@@ -43,7 +43,7 @@ alias \
     cp="cp -iv" \
     mv="mv -iv" \
     rm="rm -vI" \
-    bc="bc -q" \
+    bc="bc -lq" \
     mkd="mkdir -pv" \
     ytfzff="ytfzf -t --thumbnail-quality=1" \
     YT="yt-dlp --external-downloader aria2c --add-metadata -ic" \
