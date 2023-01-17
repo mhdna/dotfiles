@@ -4,10 +4,7 @@ super + Return
 super + p
     dmenu_run
 
-super + i
-    $TERMINAL -e sh -c 'tmux a || tmux'
-
-super + shift + i
+super + shift + Return
     emacs
 
 # menus
@@ -28,9 +25,6 @@ super + {shift + slash, ctrl + slash, alt + slash}
 
 super + w
     $BROWSER
-
-super + alt + w
-    $TERMINAL -e nmtui
 
 super + shift + w
     weather-report
