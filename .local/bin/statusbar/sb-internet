@@ -17,16 +17,7 @@
  	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
  esac
 
- # For getting SSID
-if=wlan0
-    while IFS=$': \t' read -r label value
-    do
-        case $label in SSID) SSID=$value
-            ;;
-        signal) SIGNAL=$value
-            ;;
-    esac
-done < <(iw "$if" link)
+ssid=$(iw dev | grep ssid | cut -d ' ' -f2)
 
  if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null ; then
  	wifiicon="$(awk '/^\s*w/ { print "W-",int($3 * 100 / 70) "% " }' /proc/net/wireless)"
@@ -34,16 +25,4 @@ done < <(iw "$if" link)
  	grep -xq '0x1003' /sys/class/net/w*/flags && wifiicon="W-NoConnection " || wifiicon="OFF "
  fi
 
- printf "%s%s%s\n" "$wifiicon$SSID" " $(sed "s/down/E-DOWN/;s/up/E-UP/" /sys/class/net/e*/operstate 2>/dev/null)" "$(sed "s/.*/🔒/" /sys/class/net/tun*/operstate 2>/dev/null)"
-
-# ip=$(ip route get 8.8.8.8 2>/dev/null|grep -Eo 'src [0-9.]+'|grep -Eo '[0-9.]+')
-# if=wlan0
-#     while IFS=$': \t' read -r label value
-#     do
-#         case $label in SSID) SSID=$value
-#             ;;
-#         signal) SIGNAL=$value
-#             ;;
-#     esac
-# done < <(iw "$if" link)
-# echo -e "$SSID $SIGNAL $ip"
+printf "%s%s%s\n" "$wifiicon$ssid" " $(sed "s/down/E-DOWN/;s/up/E-UP/" /sys/class/net/e*/operstate 2>/dev/null)" "$(sed "s/.*/🔒/" /sys/class/net/tun*/operstate 2>/dev/null)"
