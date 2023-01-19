@@ -318,7 +318,7 @@ cmd open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
 	application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) setsid -f localc $fx >/dev/null 2>&1;;
         *opendocument*) setsid -f  lowriter $fx >/dev/null 2>&1;;
-	text/html) setsid -f  $BROWSER $fx >/dev/null 2>&1;;
+	text/html) setsid -f  surf $fx >/dev/null 2>&1;;
         text/*|application/json|inode/x-empty) setsid -f $TERMINAL -e $EDITOR $f >/dev/null 2>&1;;
 	# image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
 	image/svg+xml) display -- $fx ;;
@@ -507,7 +507,6 @@ map O $mimeopen --ask $f
 map <c-o> $mimeopen --ask-default $f
 map <c-e> $$TERMINAL -e $EDITOR $f
 
-#kdeconnect y430
 map K kdeconnect
 map ) upload0x0
 
@@ -623,7 +622,8 @@ map S Link
 map U !du -sh
 map E extract
 map <a-e> extract_sub
-#map <c-space> :toggle; up
+
+map <c-space> :toggle; up
 
 # Source Bookmarks
 source "~/.config/lf/shortcutrc"
