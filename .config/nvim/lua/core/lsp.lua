@@ -1,4 +1,4 @@
-local on_attach = require("core.lsp-default-bindings").default_on_attach
+local on_attach = require("core.lsp-default-bindings").on_attach
 
 -- add completion capability
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -15,8 +15,6 @@ lspconfig.tsserver.setup {
     flags = lsp_flags,
 }
 
-
-
 lspconfig.pylsp.setup {
     settings = {
         pylsp = {
@@ -30,14 +28,14 @@ lspconfig.pylsp.setup {
     }
 }
 
-lspconfig.rust_analyzer.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    -- Server-specific settings...
-    settings = {
-        ["rust-analyzer"] = {}
-    }
-}
+-- lspconfig.rust_analyzer.setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+--     -- Server-specific settings...
+--     settings = {
+--         ["rust-analyzer"] = {}
+--     }
+-- }
 
 -- require'lspconfig'.golangci_lint_ls.setup{}
 require'lspconfig'.gopls.setup{}
