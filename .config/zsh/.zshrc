@@ -1,5 +1,5 @@
 autoload -U colors && colors	# Load colors
-PS1="%{$fg[green]%}%{$fg[green]%}%n%{$fg[green]%}@%{$fg[green]%}%M %{$fg[green]%}%~%{$fg[green]%}%{$reset_color%}$ "
+PS1="%{$fg[green]%}[%{$fg[green]%}%n%{$fg[green]%}@%{$fg[green]%}%M %{$fg[green]%}%~%{$fg[green]%}]%{$reset_color%}$ "
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
@@ -17,10 +17,10 @@ compinit
 _comp_options+=(globdots)		# Include hidden files.
 
 # History in cache directory:
-export HISTSIZE=10000000
-export HISTFILESIZE=100000000
+export HISTSIZE=10000
+export HISTFILESIZE=10000
 export SAVEHIST=10000
-export HISTFILE=~/.config/shell/.history
+export HISTFILE=~/.cache/zsh/history
 setopt INC_APPEND_HISTORY
 # export HISTTIMEFORMAT="[%F %T] "
 # Add timestamp to history (it's excution time) -showed with -E flag-
