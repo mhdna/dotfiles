@@ -1,15 +1,16 @@
+# lf
+
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
 set icons
 set period 1
 set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml:lost+found"
-set sortby ctime
-set reverse!
-set info size
-set mouse on
 set cleaner '~/.config/lf/cleaner'
 set previewer '~/.config/lf/scope'
+set sortby ctime
+set info size
+set mouse on
 
 # Custom functions
 cmd Link %{{
@@ -30,11 +31,7 @@ cmd Link %{{
     lf -remote "send clear"
 }}
 
-cmd mkfile ${{
-  printf "File Name: "
-  read ans
-  $EDITOR $ans
-}}
+cmd mkfile $EDITOR -p "$(echo $* | tr ' ' '\ ')"
 
 cmd chmod ${{
  printf "Mode Bits: "
@@ -369,9 +366,8 @@ map <m-1>
 map <m-2> open  # primary
 map <m-3> updir  # secondary
 map <m-4> rename  # middle
-map <m-up>    up
 map <m-down>  down
-# map - $~/.config/lf/draw_img "$f"
+map - $~/.config/lf/draw_img "$f"
 
 # yank
 map y
@@ -391,10 +387,10 @@ map <c-a>b $tar cjvf "$f.tar.bz2" "$f" # tarbz2
 map E extract
 
 # custom functions
-map <c-n>
-map <c-n>f mkfile
-map <c-n>F sudomkfile
-map <c-n>d push :mkdir<space>
+map m
+map mf push :mkfile<space>
+map mF sudomkfile
+map md push :mkdir<space>
 
 # stipspace
 map ss %stripspace "$f"
@@ -408,17 +404,7 @@ map <c-d>m mvdragon
 map <c-d>c cpdragon
 map <c-d>d dlfile
 
-# Arabic keys
-map ت down
-map ن up
-map م open
-map ا updir
-map <c-ق> $lf -remote "send $id select '$(fzf)'"
-map لل top
-map ض  reload
-
 #usefull
-map <c-b> $lf -remote "send $id select $(printf '%q' $(all_files=(./*(ND)); printf '%s\n' ${all_files[@]} | fzf))"	# better asynchronious search
 # map <c-g> set globsearch!
 map <c-g> push :glob-select<space>*.
 map <c-f> :fzf_jump
