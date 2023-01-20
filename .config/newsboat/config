@@ -1,4 +1,4 @@
-#show-read-feeds no
+show-read-feeds no
 auto-reload yes
 max-items 20
 
@@ -32,8 +32,6 @@ color article white default bold
 
 browser linkhandler
 macro , open-in-browser
-# macro q set browser "qndl" ; open-in-browser ; set browser linkhandler
-# macro a set browser "tsp yt-dlp --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser linkhandler
 macro D set browser "setsid -f yt-dlp -q -f 22 -P '~/vids/yt' >/dev/null 2>&1" ; open-in-browser ; set browser linkhandler
 macro v set browser "setsid -f mpv >/dev/null 2>&1" ; open-in-browser ; set browser linkhandler
 macro w set browser "lynx" ; open-in-browser ; set browser linkhandler
