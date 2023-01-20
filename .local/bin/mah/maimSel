@@ -1,3 +1,0 @@
-#!/bin/sh
-
-maim -s $XDG_PICTURES_DIR/screenshots/-$(date '+%y%m%d-%H%M-%S').png pic-selected- && notify-send  -t 1500 '🖼️ printed'

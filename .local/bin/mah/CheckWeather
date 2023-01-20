@@ -1,5 +1,0 @@
-#!/bin/sh
-
-weatherreport="${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport"
-
-curl "wttr.in/$LOCATION" > "$weatherreport" && pkill -RTMIN+5 dwmblocks || rm $weatherreport && exit 1

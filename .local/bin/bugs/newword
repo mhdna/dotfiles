@@ -1,6 +1,0 @@
-#!/bin/sh
-
-word=$(dmenu -p "Enter Word: " <&-)
-mean=$(dmenu -p "Enter Meaning: " <&-)
-
-echo "$word - $mean" >> ~/.local/share/vocab/words.txt

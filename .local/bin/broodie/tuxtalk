@@ -1,3 +1,0 @@
-#!/bin/sh
-query="$(echo "" | dmenu -n)"
-tuxi -r "$query" | espeak --stdout | paplay

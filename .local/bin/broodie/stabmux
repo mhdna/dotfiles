@@ -1,3 +1,0 @@
-#!/bin/sh
-# Opens up st in tabbed and tmux
-tabbed -r 2 st -w '' tmux
