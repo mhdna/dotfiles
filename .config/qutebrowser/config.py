@@ -35,7 +35,7 @@ c.content.javascript.can_access_clipboard = False
 
 c.messages.timeout = 5000
 
-# c.auto_save.session = False
+c.auto_save.session = False
 
 config.set('url.searchengines', {"DEFAULT": "https://searx.be/?q={}", "s": "https://www.startpage.com/do/search?q={}", "w": "https://wiby.me/?q={}", "S": "https://www.searx.be/search?q={}", "aw": "https://wiki.archlinux.org/?search={}",
            "wi": "https://en.wikipedia.org/wiki/Special:Search/{}", "dic": "https://www.urbandictionary.com/define.php?term=%7B{}%7D", "y": "invidious.namazso.eu/search?q={}", "yt": "https://www.youtube.com/results?search_query={}", "yy": "https://yandex.com/images/search?text={}"})
@@ -190,7 +190,7 @@ c.aliases[
 
 #config.set ('content.headers.user_agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36')
 
-# config.set('fonts.default_family', 'mono')
+config.set('fonts.default_family', 'Terminus')
 # config.set('fonts.default_size', '10pt')
 # config.set('fonts.contextmenu', 'default_size default_family')
 # config.set('fonts.statusbar', 'default_size default_family')
