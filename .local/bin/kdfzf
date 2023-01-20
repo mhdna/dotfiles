@@ -1,0 +1,5 @@
+#!/bin/sh
+
+
+kdeconnect-cli --refresh
+kdeconnect-cli --device  "$(kdeconnect-cli -a | awk '{print $3}' |fzf)" --share $1 || notify-send '📱 Kdeconnect' 'Sending has failed'

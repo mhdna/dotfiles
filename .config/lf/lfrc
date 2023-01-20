@@ -254,18 +254,6 @@ application/vnd.oasis.opendocument.database) setsid -f lobase $fx >/dev/null 2>&
 
              cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
-             cmd kdeconnect ${{
-             clear; tput cup $(($(tput lines)/3)); tput bold
-             set -f
-             printf "%s\n\t" "$fx"
-             printf "Send to which device?"
-             read ans
-             [ $ans = "y" ] && kdeconnect-cli --refresh && kdeconnect-cli --device 415a811582e4a899 --share $fx || notify-send -t 2000 "failed"
-# [ "j" ]) kdeconnect-cli --refresh && kdeconnect-cli --device 415a811582e4a899 --share $fx || notify-send "Failed sending to J4";;
-# *) exit 1 ;;
-esac
-}}
-
 cmd upload0x0 ${{
 clear; tput cup $(($(tput lines)/3)); tput bold
 set -f
@@ -348,7 +336,7 @@ map O $mimeopen --ask $f
 map <c-o> $mimeopen --ask-default $f
 map <c-e> $$TERMINAL -e $EDITOR $f
 
-map K kdeconnect
+map K $kdfzf $fx
 map ) upload0x0
 
 map A rename # at the very end
