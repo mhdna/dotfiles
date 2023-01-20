@@ -1,5 +1,4 @@
 #!/bin/sh
-# export WM="openbox"
 case "$(readlink -f /sbin/init)" in
 	*systemd*) ctl='systemctl' ;;
 	*) ctl='loginctl' ;;
