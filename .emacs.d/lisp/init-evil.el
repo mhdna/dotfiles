@@ -119,6 +119,8 @@
 
   ;; Global bindings.
   (evil-define-key 'normal global-map (kbd "<backspace>") #'execute-extended-command)
+  (evil-define-key 'normal flycheck-mode-map (kbd "M-n") 'flycheck-next-error)
+  (evil-define-key 'normal flycheck-mode-map (kbd "M-p") 'flycheck-previous-error)
   (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
   (evil-define-key 'normal global-map (kbd "C-u")  'evil-scroll-up)
   (evil-define-key 'normal global-map (kbd "C-p")  'duplicate-line-or-region)
@@ -238,7 +240,7 @@ is not used."
           magit
           ;; elfeed
           ;; mu4e
-          which-key
+          ;; which-key
           ))
   (evil-collection-init))
 
@@ -248,10 +250,6 @@ is not used."
 	:config
 	(evilnc-default-hotkeys t)
 	)
-
-;; unbind C-x C-x for closing, and C-x C-z for suspending
-(global-unset-key (kbd "C-x C-c"))
-(global-unset-key (kbd "C-x C-z"))
 
 (add-hook 'org-insert-heading-hook (apply-partially #'evil-insert 1))
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
