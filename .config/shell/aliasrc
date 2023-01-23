@@ -36,8 +36,7 @@ alias \
     lynx="lynx -cfg=~/.config/lynx/lynx.cfg -lss ~/.config/lynx/lynx.lss" \
     keyLogitech="xmodmap ~/.config/XmodmapLogitech && remaps" \
     keyMain="xmodmap ~/.config/Xmodmap && remaps " \
-    tmu="tmux-wrapper && tmux-session restore" \
-    tms="tmux-session save" \
+    t="tmux a || tmux" \
     yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'\
     abook="abook -C $XDG_CONFIG_HOME/abook/abookrc --datafile $XDG_CONFIG_HOME/abook/addressbook" \
     cp="cp -iv" \
@@ -51,7 +50,7 @@ alias \
     aria2c="aria2c --auto-file-renaming=false" \
     ffmpeg="ffmpeg -hide_banner" \
     restartdwm='killall fbxkb ;kill -HUP "$(pgrep -u "$USER" "\bdwm$")"' \
-    dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
+    dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
     ls="ls -hN --color=auto --group-directories-first" \
     grep="grep --color=auto" \
     diff="diff --color=auto" \
@@ -68,3 +67,4 @@ alias \
     yta="youtube-viewer --novideo" \
     z="zathura" \
     ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
+    random_password="date +%s | sha256sum | base64 | head -c 15 ; echo" \
