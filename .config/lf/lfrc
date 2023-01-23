@@ -1,5 +1,4 @@
 # lf
-
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
@@ -8,31 +7,32 @@ set period 1
 set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml:lost+found"
 set cleaner '~/.config/lf/cleaner'
 set previewer '~/.config/lf/scope'
+set reverse on
 set sortby ctime
 set info size
 set mouse on
 set autoquit on
 
-# Custom functions
-cmd Link %{{
-    set -- $(cat ~/.local/share/lf/files)
-        mode="$1"
-        shift
-        if [ "$#" -lt 1 ]; then
-            lf -remote "send $id echo no files to link"
-                exit 0
-                fi
-    case "$mode" in
-# symbolically copy mode is indicating a soft link
-                copy) ln -sr -t . -- "$@";;
-# while a move mode is indicating a hard link
-                move) ln -t . -- "$@";;
-                esac
-                    rm ~/.local/share/lf/files
-                    lf -remote "send clear"
-}}
+# functions
+# cmd Link %{{
+#     set -- $(cat ~/.local/share/lf/files)
+#         mode="$1"
+#         shift
+#         if [ "$#" -lt 1 ]; then
+#             lf -remote "send $id echo no files to link"
+#                 exit 0
+#                 fi
+#     case "$mode" in
+# # symbolically copy mode is indicating a soft link
+#                 copy) ln -sr -t . -- "$@";;
+# # while a move mode is indicating a hard link
+#                 move) ln -t . -- "$@";;
+#                 esac
+#                     rm ~/.local/share/lf/files
+#                     lf -remote "send clear"
+# }}
 
-cmd mkfile $EDITOR -p "$(echo $* | tr ' ' '\ ')"
+cmd mkfile $$EDITOR -p "$(echo $* | tr ' ' '\ ')"
 
 cmd chmod ${{
     printf "Mode Bits: "
@@ -175,84 +175,61 @@ cmd fzf_jump ${{
                 lf -remote "send $id $cmd \"$res\""
 }}
 
-#dragon
-# cmd dragon %dragon-drop -a -x $fx
-cmd dragon %dragon-drop --and-exit -a $fx #dragon-stay
-#cmd dragon-individual %dragon $fx
-cmd cpdragon %cpdragon
-cmd mvdragon %mvdragon
-cmd dlfile %dlfile
-
 # select files commands
-cmd select-files ${{
-    { echo "$fs"; find -L "$(pwd)" -mindepth 1 -maxdepth 1 -type f; } |
-    if [ "$lf_hidden" = "false" ]; then
-# remove any hidden files so you only select files you can see.
-        grep -v '/\.[^/]\+$'
-    else
-        cat
-            fi |
-            sed '/^$/d' | sort | uniq -u |
-            xargs -d '\n' -r -I{} lf -remote "send $id toggle {}"
-}}
-
-cmd select-dirs ${{
-    { echo "$fs"; find -L "$(pwd)" -mindepth 1 -maxdepth 1 -type d; } |
-    if [ "$lf_hidden" = "false" ]; then
-        grep -v '/\.[^/]\+$'
-    else
-        cat
-            fi |
-            sed '/^$/d' | sort | uniq -u |
-            xargs -d '\n' -r -I{} lf -remote "send $id toggle {}"
-}}
-# boot_jump
-cmd broot_jump ${{
-    f=$(mktemp)
-        res="$(broot --outcmd $f && cat $f | sed 's/cd //')"
-        rm -f "$f"
-        if [ -f "$res" ]; then
-            cmd="select"
-                elif [ -d "$res" ]; then
-                cmd="cd"
-                fi
-                lf -remote "send $id $cmd \"$res\""
-}}
-
+# cmd select-files ${{
+#     { echo "$fs"; find -L "$(pwd)" -mindepth 1 -maxdepth 1 -type f; } |
+#     if [ "$lf_hidden" = "false" ]; then
+# # remove any hidden files so you only select files you can see.
+#         grep -v '/\.[^/]\+$'
+#     else
+#         cat
+#             fi |
+#             sed '/^$/d' | sort | uniq -u |
+#             xargs -d '\n' -r -I{} lf -remote "send $id toggle {}"
+# }}
+# cmd select-dirs ${{
+#     { echo "$fs"; find -L "$(pwd)" -mindepth 1 -maxdepth 1 -type d; } |
+#     if [ "$lf_hidden" = "false" ]; then
+#         grep -v '/\.[^/]\+$'
+#     else
+#         cat
+#             fi |
+#             sed '/^$/d' | sort | uniq -u |
+#             xargs -d '\n' -r -I{} lf -remote "send $id toggle {}"
+# }}
 
 # cmds/functions
-# image/svg+xml) display -- $f ;;
 cmd open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
         application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) setsid -f localc $fx >/dev/null 2>&1;;
         *opendocument*) setsid -f  lowriter $fx >/dev/null 2>&1;;
         text/html) setsid -f  surf $fx >/dev/null 2>&1;;
         text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $f ;;
-# image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
-image/svg+xml) display -- $fx ;;
-audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
-video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
-setsid -f sxiv -aio 2>/dev/null | while read -r file; do
-[ -z "$file" ] && continue
-lf -remote "send select \"$file\""
-lf -remote "send toggle"
-done &
-;;
-image/vnd.djvu|application/pdf|application/octet-stream|application/postscript|application/epub) setsid -f zathura $f >/dev/null 2>&1 ;;
-application/pgp-encrypted) $EDITOR $fx ;;
-# libreoffice stuff
-application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text) setsid -f lowriter $fx >/dev/null 2>&1 ;;
-application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template) setsid -f localc $fx >/dev/null 2>&1 ;;
-application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint) setsid -f loimpress $fx >/dev/null 2>&1 ;;
-application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template) setsid -f lodraw $fx >/dev/null 2>&1 ;;
-application/vnd.oasis.opendocument.formula) setsid -f lomath $fx >/dev/null 2>&1 ;;
-application/vnd.oasis.opendocument.database) setsid -f lobase $fx >/dev/null 2>&1 ;;
-             *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
-             esac
-             }}
+        # image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
+        image/svg+xml) display -- $fx ;;
+        audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
+        video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+        image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
+        setsid -f sxiv -aio 2>/dev/null | while read -r file; do
+        [ -z "$file" ] && continue
+        lf -remote "send select \"$file\""
+        lf -remote "send toggle"
+        done &
+        ;;
+        image/vnd.djvu|application/pdf|application/octet-stream|application/postscript|application/epub) setsid -f zathura $f >/dev/null 2>&1 ;;
+        application/pgp-encrypted) $EDITOR $fx ;;
+        # libreoffice filetypes
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text) setsid -f lowriter $fx >/dev/null 2>&1 ;;
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template) setsid -f localc $fx >/dev/null 2>&1 ;;
+        application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint) setsid -f loimpress $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template) setsid -f lodraw $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.formula) setsid -f lomath $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.database) setsid -f lobase $fx >/dev/null 2>&1 ;;
+        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+    esac
+}}
 
-             cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
+cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 cmd upload0x0 ${{
 clear; tput cup $(($(tput lines)/3)); tput bold
@@ -312,29 +289,34 @@ cmd copyto ${{
                 notify-send -t 2000 "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
-
-map F $setsid -f mpv --no-osc --autofit=30%  --title="mpvfloat" $f >/dev/null 2>&1
-
 # KeyBindings
-map Z pdfConvert
-map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
 map g top
-map P $pcmanfm
 map D delete
 map <c-d>D shred
 map Y copyto
 map M moveto
+map Z pdfConvert
+
 map W $setsid -f $TERMINAL >/dev/null 2>&1
+map <enter> shell
+map x $$f
+map X chmod
+map <c-x> !$f
+
+map U !du -sh
+map u :clear; unselect
+
+map <c-g> push :glob-select<space>*.
+map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
+map <c-f> :fzf_jump
+map <c-space> :toggle; up
 
 map <c-r> reload
-map <enter> shell
-map X chmod
-map x $$f
-map <c-x> !$f
-map o open $f
-map O $mimeopen --ask $f
-map <c-o> $mimeopen --ask-default $f
-map <c-e> $$TERMINAL -e $EDITOR $f
+map - redraw
+
+map o &mimeopen "$f"
+map O $mimeopen --ask "$fx"
+map <c-o> $mimeopen --ask-default "$f"
 
 map K $kdfzf $fx
 map ) upload0x0
@@ -343,66 +325,49 @@ map A rename # at the very end
 map c push A<c-u> # new rename
 map I push A<c-a> # at the very beginning
 map i push A<a-b><a-b><a-f> # before extention
-    map a push A<a-b> # after extention
+map a push A<a-b> # after extention
 map B $vimv $fx #bulkrename (formally vidir)
-    map b $setbg $fx
-
-    map u :clear; unselect
-    map V push :!nvim<space>
+map b $setbg $fx
 
 # Mouse
-    map <m-1>
-    map <m-2> open  # primary
-    map <m-3> updir  # secondary
-    map <m-4> rename  # middle
-    map <m-down>  down
-    map - $~/.config/lf/draw_img "$f"
+map <m-1>
+map <m-2> open  # primary
+map <m-3> updir  # secondary
+map <m-4> rename  # middle
+map <m-down>  down
 
 # yank
-    map y
-    map yy copy
-## yank path
-    map yp $readlink -f $PWD | xclip -sel c -i
-## yank name
-    map yn $basename -a -- $fx | head -c-1 | xclip -selection clipboard -i
-## yank path+name
-    map yP $echo -n $fx | xclip -sel c -i
+map y
+map yy copy
+map yp $readlink -f $PWD | xclip -sel c -i # yank path
+map yn $basename -a -- $fx | head -c-1 | xclip -selection clipboard -i # yank name
+map yP $echo -n $fx | xclip -sel c -i # yank name+path
 
 # archive mappings
-    map <c-a>z $zip -r "$f.zip" "$f" # zip
-    map <c-a>t $tar cvf "$f.tar" "$f" # tar
-    map <c-a>g $tar cvzf "$f.tar.gz" "$f" # targz
-    map <c-a>b $tar cjvf "$f.tar.bz2" "$f" # tarbz2
-    map E extract
+map <c-a>z $zip -r "$f.zip" "$f" # zip
+map <c-a>t $tar cvf "$f.tar" "$f" # tar
+map <c-a>g $tar cvzf "$f.tar.gz" "$f" # targz
+map <c-a>b $tar cjvf "$f.tar.bz2" "$f" # tarbz2
+map E extract
+map <c-e> extract_sub
 
-# custom functions
-    map m
-    map mf push :mkfile<space>
-    map mF sudomkfile
-    map md push :mkdir<space>
+# map S Link
+
+map m
+map mf push :mkfile<space>
+map mF sudomkfile
+map md push :mkdir<space>
 
 # stipspace
-    map ss %stripspace "$f"
+map ss %stripspace "$f"
 
 #dragon
-    map <c-d>
-    map <c-d><c-d> dragon
-#map <c-d>i dragon-individual
-    map <c-d>s dragon-stay
-    map <c-d>m mvdragon
-    map <c-d>c cpdragon
-    map <c-d>d dlfile
+map <c-d>
+map <c-d><c-d> %dragon-drop --and-exit -a $fx
+map <c-d>m %mvdragon
+map <c-d>c %cpdragon
+map <c-d>d %dlfile
 
-#usefull
-# map <c-g> set globsearch!
-    map <c-g> push :glob-select<space>*.
-    map <c-f> :fzf_jump
-    map S Link
-    map U !du -sh
-    map E extract
-    map <a-e> extract_sub
-
-    map <c-space> :toggle; up
 
 # Source Bookmarks
-    source "~/.config/lf/shortcutrc"
+source "~/.config/lf/shortcutrc"
