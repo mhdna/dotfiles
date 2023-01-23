@@ -4,10 +4,6 @@ require('lualine').setup {
     theme = 'powerline_dark',
     -- component_separators = { left = '', right = ''},
     -- section_separators = { left = '', right = ''},
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
     ignore_focus = {},
     always_divide_middle = true,
     globalstatus = false,
@@ -33,8 +29,4 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
 }
