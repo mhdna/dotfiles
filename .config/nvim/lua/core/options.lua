@@ -60,6 +60,13 @@ vim.o.splitright = true
 -- set inccommand=nosplit
 -- vim.opt.statusline="%F"
 
+-- Treesitter folding module
+vim.opt.foldmethod='expr'
+vim.cmd([[
+set foldexpr=nvim_treesitter#foldexpr()
+set nofoldenable                     " Disable folding at startup.
+]])
+
 -- Disable nvim intro
 vim.opt.shortmess:append "sI"
 -- Disable builtins plugins
