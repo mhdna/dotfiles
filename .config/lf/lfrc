@@ -10,7 +10,7 @@ set previewer '~/.config/lf/scope'
 set reverse on
 set sortby ctime
 set info size
-set mouse on
+# set mouse on
 set autoquit on
 
 # functions
@@ -255,7 +255,7 @@ set -f
 printf "%s\n\t" "$fx"
 printf "delete?[y/n]"
 read ans
-[ $ans = "y" ] && rm -rf -- $fx
+[ $ans = "y" ] && rm -- $fx
 }}
 
 cmd shred ${{
@@ -300,8 +300,8 @@ map Z pdfConvert
 map W $setsid -f $TERMINAL >/dev/null 2>&1
 map <enter> shell
 map x $$f
-map X chmod
-map <c-x> !$f
+map X !$f
+map <c-x> chmod
 
 map U !du -sh
 map u :clear; unselect
@@ -330,11 +330,11 @@ map B $vimv $fx #bulkrename (formally vidir)
 map b $setbg $fx
 
 # Mouse
-map <m-1>
-map <m-2> open  # primary
-map <m-3> updir  # secondary
-map <m-4> rename  # middle
-map <m-down>  down
+# map <m-1>
+# map <m-2> open  # primary
+# map <m-3> updir  # secondary
+# map <m-4> rename  # middle
+# map <m-down>  down
 
 # yank
 map y
