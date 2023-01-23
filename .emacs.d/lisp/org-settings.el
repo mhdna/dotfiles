@@ -7,10 +7,6 @@
 (setq org-adapt-indentation nil)
 (setq coding-system-for-read 'utf-8 ) ; use utf-8 by default
 (setq coding-system-for-write 'utf-8 )
-(define-key global-map "\C-cl" 'org-store-link)
-
-(define-key global-map "\C-ca" 'org-agenda)
-(define-key global-map "\C-cc" 'org-capture)
 (use-package org
   :config
   (require 'org-tempo))
@@ -30,15 +26,14 @@
 (defun org-file-path (filename)
   "Return the absolute address of an org file, given its relative name."
   (concat (file-name-as-directory org-directory) filename))
-;; (setq org-inbox-file "~/sync/Dropbox/inbox.org")
-(setq org-index-file (org-file-path "inbox.org"))
+(setq org-index-file (org-file-path "index.org"))
 (setq org-archive-location
       (concat
        (org-file-path (format "archive/archive-%s.org" (format-time-string "%Y")))
        "::* From %s"))
 (setq org-refile-targets `((,org-index-file :level . 1)
                            ;; (,(org-file-path "environment.org") :level . 1)
-                           (,(org-file-path "inbox.org") :level . 1)
+                           (,(org-file-path "index.org") :level . 1)
                            (,(org-file-path "goals.org") :level . 1)
                            (,(org-file-path "links.org") :level . 1)
                            (,(org-file-path "media.org") :level . 1)))
@@ -60,7 +55,6 @@ save the Org buffers."
   (org-todo 'done)
   (org-archive-subtree)
   (org-save-all-org-buffers))
-(define-key org-mode-map (kbd "C-c C-x C-a") 'my/mark-done-and-archive)
 (setq org-log-done 'time)
 ;; (setq org-log-done 'note)
 (setq org-enforce-todo-dependencies t)
@@ -118,7 +112,7 @@ non-empty lines in the block (excluding the line with
 (add-to-list 'org-agenda-custom-commands
              '("p" "Personal agenda"
                ((tags-todo "plan"
-                           ((org-agenda-overriding-header "Inbox")
+                           ((org-agenda-overriding-header "Index")
                             (org-agenda-hide-tags-regexp "plan\\|daily\\|weekly\\|yearly")))
                 (tags-todo "daily"
                            ((org-agenda-overriding-header "Today")
@@ -183,7 +177,6 @@ non-empty lines in the block (excluding the line with
   (delete-other-windows)
   (find-file org-index-file)
   (org-agenda nil "p"))
-(global-set-key (kbd "C-c d") 'my/dashboard)
 (defadvice org-agenda-set-mode-name (after truncate-org-agenda-mode-name activate)
   (setq mode-name '("Org-agenda")))
 (add-to-list 'org-agenda-custom-commands
@@ -221,13 +214,9 @@ non-empty lines in the block (excluding the line with
 ;; (add-to-list 'org-capture-templates
 ;;              '("e" "Email"
 ;;                entry
-;;                (file+headline org-index-file "Inbox")
+;;                (file+headline org-index-file "Index")
 ;;                "* TODO %?\n%a\n"))
-(add-to-list 'org-capture-templates
-             '("b" "Books finished"
-               entry
-               (file+headline "~/dox/notes/books-read.org" "Books")
-               "* %^{Title} -- %^{Author}\n** Summary\n%^{Summary}\n%t\n"))
+
 ;; (add-to-list 'org-capture-templates
 ;;              '("k" "Kookaburra ingest"
 ;;                entry
@@ -236,7 +225,7 @@ non-empty lines in the block (excluding the line with
 (add-to-list 'org-capture-templates
              '("m" "Media queue"
                item
-               (file+headline "~/dox/notes/media.org" "Inbox")
+               (file+headline "~/dox/notes/media.org" "Index")
                "- [ ] %?\n"))
 (add-to-list 'org-capture-templates
              '("n" "News item"
@@ -261,7 +250,7 @@ non-empty lines in the block (excluding the line with
 (add-to-list 'org-capture-templates
              '("t" "Task"
                entry
-               (file+headline org-index-file "Inbox")
+               (file+headline org-index-file "Index")
                "* TODO %?\n"))
 (add-to-list 'org-capture-templates
              '("Q" "Quote"
@@ -275,6 +264,21 @@ non-empty lines in the block (excluding the line with
 ;;                "* TODO %?\n"))
 ;; Languages templates
 (add-to-list 'org-capture-templates
+						 '("r" "Readlater"
+               plain
+               (file+headline org-index-file "ReadLater")
+               "** %^{Title or link to readlater}"))
+(add-to-list 'org-capture-templates
+						 '("b" "Book to read"
+               plain
+               (file+headline org-index-file "Books")
+               "** %^{Book Title}"))
+(add-to-list 'org-capture-templates
+             '("B" "Red Book"
+               entry
+               (file+headline "~/dox/notes/red_books.org" "Red Books")
+               "* %^{Title} -- %^{Author}\n%t\n** Review\n%^{Review}\n** Summary\n%^{Summary}"))
+(add-to-list 'org-capture-templates
              '("e" "English word"
                plain
                (file+headline "~/dox/notes/language.org" "English Words")
@@ -285,7 +289,7 @@ non-empty lines in the block (excluding the line with
                (file+headline "~/dox/notes/language.org" "English Phrases")
                "- %^{Phrase}: %^{Meaning}"))
 (add-to-list 'org-capture-templates
-             '("I" "Idioms"
+             '("I" "Idiom"
                plain
                (file+headline "~/dox/notes/language.org" "Idioms")
                "- %^{Idiom}: %^{Meaning}"))
@@ -332,18 +336,12 @@ non-empty lines in the block (excluding the line with
 (defun org-capture-todo ()
   (interactive)
   (org-capture :keys "t"))
-(global-set-key (kbd "M-S-i") 'org-capture-todo)
-(add-hook 'gfm-mode-hook
-          (lambda () (local-set-key (kbd "M-S-i") 'org-capture-todo)))
-(add-hook 'haskell-mode-hook
-          (lambda () (local-set-key (kbd "M-S-i") 'org-capture-todo)))
 ;; (defun my/open-work-file ()
 ;;   "Open the work TODO list."
 ;;   (interactive)
 ;;   (find-file (org-file-path "work.org"))
 ;;   (flycheck-mode -1)
 ;;   (end-of-buffer))
-;; (global-set-key (kbd "C-c w") 'my/open-work-file)
 
 (defun my/org-insert-link-dwim ()
   "Like `org-insert-link' but with personal dwim preferences."
@@ -370,7 +368,6 @@ non-empty lines in the block (excluding the line with
                                                           'title))))))))
           (t
            (call-interactively 'org-insert-link)))))
-(define-key org-mode-map (kbd "C-c C-l") 'my/org-insert-link-dwim)
 
 (setq org-confirm-babel-evaluate nil)
 (setq org-export-with-smart-quotes t)
@@ -379,62 +376,71 @@ non-empty lines in the block (excluding the line with
 
 ;; publishing
 
-(require 'ox-publish)
+;; (require 'ox-publish)
 
-(setq org-publish-project-alist
-      `(("pages"
-         :base-directory "~/mhdna.io/org/"
-         :base-extension "org"
-         :recursive t
-         :publishing-directory "~/mhdna.io/html/"
-         :publishing-function org-html-publish-to-html
-				 )
-        ("static"
-         :base-directory "~/mhdna.io/org/"
-         :base-extension "css\\|txt\\|jpg\\|gif\\|png"
-         :recursive t
-         :publishing-directory  "~/mhdna.io/html/"
-         :publishing-function org-publish-attachment
- 				 ;; Exporting template
-				 :html-doctype "html5"
-				 :html-html5-fancy t
-																				; Disable some Org's HTML defaults
-				 :html-head-include-scripts nil
-				 :html-head-include-default-style nil
-				 :html-head "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>"
-				 :html-preamble "<nav>
-  <a href=\"/\">&lt; Home</a>
-</nav>
-<div id=\"updated\">Updated: %C</div>"
+;; (setq org-publish-project-alist
+;;       `(("pages"
+;;          :base-directory "~/mhdna.io/org/"
+;;          :base-extension "org"
+;;          :recursive t
+;;          :publishing-directory "~/mhdna.io/html/"
+;;          :publishing-function org-html-publish-to-html
+;; 				 )
+;;         ("static"
+;;          :base-directory "~/mhdna.io/org/"
+;;          :base-extension "css\\|txt\\|jpg\\|gif\\|png"
+;;          :recursive t
+;;          :publishing-directory  "~/mhdna.io/html/"
+;;          :publishing-function org-publish-attachment
+;;  				 ;; Exporting template
+;; 				 :html-doctype "html5"
+;; 				 :html-html5-fancy t
+;; 																				; Disable some Org's HTML defaults
+;; 				 :html-head-include-scripts nil
+;; 				 :html-head-include-default-style nil
+;; 				 :html-head "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>"
+;; 				 :html-preamble "<nav>
+;;   <a href=\"/\">&lt; Home</a>
+;; </nav>
+;; <div id=\"updated\">Updated: %C</div>"
 				 
-				 :html-postamble "<hr/>
-<footer>
-  <div class=\"copyright-container\">
-    <div class=\"copyright\">
-      Copyright &copy; 2017-2020 Thomas Ingram some rights reserved<br/>
-      Content is available under
-      <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
-        CC-BY-SA 4.0
-      </a> unless otherwise noted
-    </div>
-    <div class=\"cc-badge\">
-      <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
-        <img alt=\"Creative Commons License\"
-             src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" />
-      </a>
-    </div>
-  </div>
+;; 				 :html-postamble "<hr/>
+;; <footer>
+;;   <div class=\"copyright-container\">
+;;     <div class=\"copyright\">
+;;       Copyright &copy; 2017-2020 Thomas Ingram some rights reserved<br/>
+;;       Content is available under
+;;       <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
+;;         CC-BY-SA 4.0
+;;       </a> unless otherwise noted
+;;     </div>
+;;     <div class=\"cc-badge\">
+;;       <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
+;;         <img alt=\"Creative Commons License\"
+;;              src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" />
+;;       </a>
+;;     </div>
+;;   </div>
 
-  <div class=\"generated\">
-    Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
-  </div>
-</footer>"
-				 :auto-sitemap t
-				 :sitemap-filename "sitemap.org"
+;;   <div class=\"generated\">
+;;     Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
+;;   </div>
+;; </footer>"
+;; 				 :auto-sitemap t
+;; 				 :sitemap-filename "sitemap.org"
 
-				 )
+;; 				 )
 
-        ("mhdna.io" :components ("pages" "static"))))
+;;         ("mhdna.io" :components ("pages" "static"))))
 
+(define-key org-mode-map (kbd "C-c C-l") 'my/org-insert-link-dwim)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cc" 'org-capture)
+(define-key org-mode-map (kbd "C-c C-x C-a") 'my/mark-done-and-archive)
+(global-set-key (kbd "C-c d") 'my/dashboard)
+(global-set-key (kbd "C-c t") 'org-capture-todo)
+(global-set-key (kbd "C-c D") 'my/diary-file-open)
+;; (global-set-key (kbd "C-c w") 'my/open-work-file)
 
 (provide 'org-settings)
