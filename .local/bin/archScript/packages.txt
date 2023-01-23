@@ -8,6 +8,7 @@ xorg-xwininfo
 xdotool
 xorg-xdpyinfo
 xf86-video-intel
+xorg-xbacklight
 xclip
 xorg-xset
 pipewire
@@ -122,7 +123,6 @@ dunst
 tk
 progress
 aspell
-brightnessctl
 isync
 pass
 jdk-openjdk
