@@ -2,6 +2,7 @@ vim.cmd [[
   augroup _general_settings
     autocmd!
     autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR>
+    " Do not keep netrw buffers open in the background
     autocmd FileType netrw setl bufhidden=delete
     autocmd FileType qf set nobuflisted
 
