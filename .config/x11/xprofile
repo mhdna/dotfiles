@@ -5,6 +5,7 @@ xset s 900 0 &
 xss-lock slock&
 redshift -l 31.77:35.23&
 remaps &
+emacs --daemon &
 
 autostart="unclutter sxhkd mpd dunst "
 

@@ -2,7 +2,7 @@ super + Return
     $TERMINAL
 
 super + shift + Return
-    emacs
+    emacsclient  -c -a 'emacs'
 
 super + p
     dmenu_run
