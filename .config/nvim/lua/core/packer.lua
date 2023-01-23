@@ -68,11 +68,10 @@ return packer.startup(function(use)
         end
     }
     -- use("jose-elias-alvarez/null-ls.nvim")
-    use("tpope/vim-fugitive")
     use("mbbill/undotree")
     -- alternative to subword-mode in Emacs
     -- use("haoren/vim-wordmotion")
-    -- use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
+    use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
     use {
         "nvim-telescope/telescope.nvim",
         requires = { {"nvim-lua/plenary.nvim"} }
