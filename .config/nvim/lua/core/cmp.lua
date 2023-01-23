@@ -44,20 +44,14 @@ end
 -- }
 
 cmp.setup {
-    -- automatically show autocomplete
-    -- completion = {
-    --     autocomplete = false,
-    --     -- keyword_length= 2,
-    -- },
-    -- enabled = true,
-    -- enabled = function()
-    --     if vim.bo.filetype == 'markdown' or 'text' then
-    --         return false
-    --     end
-    --
-    --     return true
-    -- end,
-    -- preselect = cmp.PreselectMode.None,
+    completion = {
+        -- autocomplete = false,
+        -- keyword_length= 2,
+      enabled = function()
+        -- disable completion if the cursor is `Comment` syntax group.
+        return not cmp.config.context.in_syntax_group('Comment')
+      end
+    },
 
     snippet = {
         expand = function(args)
@@ -86,27 +80,27 @@ cmp.setup {
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
             elseif check_backspace() then
-            cmp.mapping.complete()
+                cmp.mapping.complete()
                 fallback()
             else
                 fallback()
             end
         end, {
-            "i",
-            "s",
-        }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, {
-            "i",
-            "s",
-        }),
+        "i",
+        "s",
+    }),
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+            cmp.select_prev_item()
+        elseif luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+        else
+            fallback()
+        end
+    end, {
+    "i",
+    "s",
+}),
     },
     formatting = {
         fields = { "kind", "abbr", "menu" },
@@ -117,7 +111,7 @@ cmp.setup {
             vim_item.menu = ({
                 nvim_lsp = "[LSP]",
                 luasnip = "[Snippet]",
-                buffer = "[Buffer]",
+                -- buffer = "[Buffer]",
                 path = "[Path]",
             })[entry.source.name]
             return vim_item
@@ -127,7 +121,7 @@ cmp.setup {
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "path" },
-        { name = "buffer" },
+        -- { name = "buffer" },
     },
     confirm_opts = {
         behavior = cmp.ConfirmBehavior.Replace,
@@ -141,5 +135,11 @@ cmp.setup {
     experimental = {
         ghost_text = false,
         native_menu = false,
-    },
+    }
 }
+-- Disable for certain filetypes
+cmp.setup.filetype({ 'markdown', 'groff', 'nroff', 'rc', 'tex', 'help', 'sh', 'text'}, {
+    completion = {
+    autocomplete = false
+}
+})
