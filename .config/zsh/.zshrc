@@ -64,17 +64,17 @@ bindkey -e
 # zle -N vi-yank-xclip
 # bindkey -M vicmd 'y' vi-yank-xclip
 #
-# bindkey -s '^o' 'lfcd\n'
-# # Use lf to switch directories and bind it to ctrl-o
-# lfcd () {
-#    tmp="$(mktemp)"
-#     lfub -last-dir-path="$tmp" "$@"
-#     if [ -f "$tmp" ]; then
-#         dir="$(cat "$tmp")"
-#         rm -f "$tmp" >/dev/null
-#         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-#     fi
-# }
+bindkey -s '^o' 'lfcd\n'
+# Use lf to switch directories and bind it to ctrl-o
+lfcd () {
+   tmp="$(mktemp)"
+    lfub -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp" >/dev/null
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
 #
 #
 # # Change cursor shape for different vi modes.
