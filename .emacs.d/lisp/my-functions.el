@@ -26,20 +26,14 @@
   (split-window-below)
   (balance-windows)
   (other-window 1))
+
 (defun my/split-window-right-and-switch ()
   "Split the window vertically, then switch to the new pane."
   (interactive)
   (split-window-right)
   (balance-windows)
   (other-window 1))
-(defun my/delete-window-and-rebalance ()
-  "Delete the current window, then rebalance the remaining windows."
-  (interactive)
-  (delete-window)
-  (balance-windows))
-(global-set-key (kbd "C-x 2") 'my/split-window-below-and-switch)
-(global-set-key (kbd "C-x 3") 'my/split-window-right-and-switch)
-(global-set-key (kbd "C-x 0") 'my/delete-window-and-rebalance)
+
 (defun my/copy-file-path (&optional DirPathOnlyQ)
   "Copy current buffer file path or dired path.
 Result is full path.
@@ -124,29 +118,28 @@ Version 2019-11-09"
   (set-buffer (get-buffer-create "*scratch*"))
   (lisp-interaction-mode)
   (make-local-variable 'kill-buffer-query-functions)
-  (add-hook 'kill-buffer-query-functions 'kill-scratch-buffer))
+  (add-hook 'kill-buffer-query-functions 'my/kill-scratch-buffer))
 
-(defun kill-scratch-buffer ()
+(defun my/kill-scratch-buffer ()
   ;; The next line is just in case someone calls this manually
   (set-buffer (get-buffer-create "*scratch*"))
   ;; Kill the current (*scratch*) buffer
-  (remove-hook 'kill-buffer-query-functions 'kill-scratch-buffer)
+  (remove-hook 'kill-buffer-query-functions 'my/kill-scratch-buffer)
   (kill-buffer (current-buffer))
   ;; Make a brand new *scratch* buffer
   (set-buffer (get-buffer-create "*scratch*"))
   (lisp-interaction-mode)
   (make-local-variable 'kill-buffer-query-functions)
-  (add-hook 'kill-buffer-query-functions 'kill-scratch-buffer)
+  (add-hook 'kill-buffer-query-functions 'my/kill-scratch-buffer)
   ;; Since we killed it, don't let caller do that.
   nil)
 
-(defun config-visit ()
+(defun my/config-visit ()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
-;; (defun config-reload ()
-;; (interactive)
-;; (eval-buffer (expand-file-name "~/.emacs.d/init.el")))
-;; package-autoremove cleanup
+(defun my/config-reload ()
+(interactive)
+(eval-buffer (expand-file-name "~/.emacs.d/init.el")))
 
 ;; (defun my/split-ansi-term()
 ;;   (interactive)
@@ -171,7 +164,7 @@ Version 2019-11-09"
 (defvar find-file-root-hook nil
   "Normal hook for functions to run after finding a \"root\" file.")
 
-(defun find-file-root ()
+(defun my/find-file-root ()
   "*Open a file as the root user.
    Prepends `find-file-root-prefix' to the selected file name so that it
    maybe accessed via the corresponding tramp method."
@@ -197,5 +190,11 @@ Version 2019-11-09"
       (setq find-file-root-history file-name-history)
       ;; allow some user customization
       (run-hooks 'find-file-root-hook))))
+
+(defun my/switch-to-flycheck-list-errors ()
+	(interactive)
+	(flycheck-list-errors)
+	(pop-to-buffer "*Flycheck errors*"))
+
 
 (provide 'my-functions)
