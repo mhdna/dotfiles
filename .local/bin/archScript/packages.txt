@@ -7,8 +7,6 @@ xorg-xprop
 xorg-xwininfo
 xdotool
 xorg-xdpyinfo
-xf86-video-intel
-xorg-xbacklight
 xclip
 xorg-xset
 pipewire
@@ -34,6 +32,7 @@ arandr
 dosfstools
 mtools
 socat
+picom
 libnotify
 ntfs-3g
 xcape
@@ -123,6 +122,7 @@ dunst
 tk
 progress
 aspell
+brightnessctl
 isync
 pass
 jdk-openjdk
