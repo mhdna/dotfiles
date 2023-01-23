@@ -7,9 +7,9 @@ xorg-xprop
 xorg-xwininfo
 xdotool
 xorg-xdpyinfo
+xf86-video-intel
 xclip
 xorg-xset
-tlp
 pipewire
 pipewire-pulse
 wireplumber
@@ -33,7 +33,6 @@ arandr
 dosfstools
 mtools
 socat
-picom
 libnotify
 ntfs-3g
 xcape
@@ -107,6 +106,7 @@ lynx
 torbrowser-launcher
 ttf-dejavu
 ttf-hack
+terminus-font-ttf
 ttf-liberation
 wqy-microhei
 noto-fonts-emoji
@@ -128,7 +128,8 @@ pass
 jdk-openjdk
 flameshot
 urlscan
-ccls 
+ccls
 python-docs
 openjdk-doc
 arch-wiki-docs
+zsh-syntax-highlighting
