@@ -83,10 +83,10 @@ super + {F4, shift + F4}
     {displayselect, dmenumount -i}
 
 super + F5
-    remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to MYREMAPS'
+    remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to defaults'
 
 super + shift + F5
-    keyboardLogitech & notify-send -t 1000 'Keyboard layout' 'Has been reset to LOGITECH'
+    xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" 0 & notify-send -t 1000 'Touchpad Has been disabled'
 
 super + shift + q
 	sysact
