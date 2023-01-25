@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# A primitive way to convert my org files to markdown
+
+old=$1
+new="$(basename -s org $old)md"
+cp $old $new
+sed -i 's/^* /# /' $new
+sed -i 's/^** /## /' $new
+sed -i 's/^*** /### /' $new
+sed -i 's/^**** /#### /' $new
+sed -i 's/^***** /##### /' $new
+sed -i 's/^****** /###### /' $new
+sed -i 's/*/**/g' $new
+sed -i 's/_/*/g' $new
