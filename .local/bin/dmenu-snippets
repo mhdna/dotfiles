@@ -6,7 +6,6 @@ choice=$(cat $path | dmenu -l 10 -p "Select snippet")
 case $choice in
 	 "")
 		exit ;;
-	*) 
-		surf $(echo $choice|cut -d ";" -f2)
+	*)
+		$BROWSER --new-tab $(echo $choice|cut -d ";" -f2)
 esac
-
