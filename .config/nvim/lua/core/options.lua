@@ -1,5 +1,5 @@
 vim.opt.signcolumn = "yes" --for linting, diagnostics, left column
-vim.opt.mouse = 'a'
+vim.opt.mouse = ''
 vim.o.colorcolumn = 80 -- don't exceed 80 columns, maybe you're in the 3rd 4th indent so rethink
 vim.opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
 -- vim.opt.laststatus = 2
