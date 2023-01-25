@@ -50,10 +50,10 @@ super + { minus, equal}
     wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+} ; kill -44 $(pidof dwmblocks)
 
 super + {comma,shift+comma,period,shift+period}
-	xbacklight { -dec 5, -set 1, -inc 5, -set 100}
+	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
 
 {XF86MonBrightnessDown, super + XF86MonBrightnessDown, XF86MonBrightnessUp, super + XF86MonBrightnessUp}
-	xbacklight { -dec 5, -set 1, -inc 5, -set 100}
+	brightnessctl set {10%-, 1%, +10%, 100%}
 
 super + ctrl + x
     xkill
