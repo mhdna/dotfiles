@@ -36,7 +36,7 @@ alias \
     lynx="lynx -cfg=~/.config/lynx/lynx.cfg -lss ~/.config/lynx/lynx.lss" \
     keyLogitech="xmodmap ~/.config/XmodmapLogitech && remaps" \
     keyMain="xmodmap ~/.config/Xmodmap && remaps " \
-    t="tmux a || tmux" \
+    Tmux="tmux a || tmux" \
     yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'\
     abook="abook -C $XDG_CONFIG_HOME/abook/abookrc --datafile $XDG_CONFIG_HOME/abook/addressbook" \
     cp="cp -iv" \
