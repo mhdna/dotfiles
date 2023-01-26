@@ -35,7 +35,7 @@ set autoquit on
 cmd mkfile $$EDITOR -p "$(echo $* | tr ' ' '\ ')"
 
 cmd chmod ${{
-    printf "Mode Bits: "
+    clear; printf "Mode Bits: "
         read ans
 
         for file in "$fx"
@@ -47,7 +47,7 @@ cmd chmod ${{
 }}
 
 cmd sudomkfile ${{
-    printf "File Name: "
+    clear; printf "File Name: "
         read ans
         sudo $EDITOR $ans
 }}
@@ -200,12 +200,12 @@ cmd fzf_jump ${{
 
 # cmds/functions
 cmd open ${{
-    case $(file --mime-type "$(readlink -f $f)" -b) in
+    clear; case $(file --mime-type "$(readlink -f $f)" -b) in
         application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) setsid -f localc $fx >/dev/null 2>&1;;
         *opendocument*) setsid -f  lowriter $fx >/dev/null 2>&1;;
         text/html) setsid -f  surf $fx >/dev/null 2>&1;;
         text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $f ;;
-        # image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
+        image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
         image/svg+xml) display -- $fx ;;
         audio/*|video/x-ms-asf|video/webm) mpv --audio-display=no $f ;;
         video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
@@ -299,9 +299,8 @@ map Z pdfConvert
 
 map W $setsid -f $TERMINAL >/dev/null 2>&1
 map <enter> shell
-map x $$f
-map X !$f
-map <c-x> chmod
+map x !clear; $f
+map X chmod
 
 map U !du -sh
 map u :clear; unselect
@@ -316,7 +315,7 @@ map - redraw
 
 map o &mimeopen "$f"
 map O $mimeopen --ask "$fx"
-map <c-o> $mimeopen --ask-default "$f"
+map <c-o> $clear; mimeopen --ask-default "$f"
 
 map K $kdfzf $fx
 map ) upload0x0
@@ -327,7 +326,7 @@ map I push A<c-a> # at the very beginning
 map i push A<a-b><a-b><a-f> # before extention
 map a push A<a-b> # after extention
 map B $vimv $fx #bulkrename (formally vidir)
-map b $setbg $fx
+# map b $setbg $fx
 
 # Mouse
 # map <m-1>
