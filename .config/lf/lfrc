@@ -207,7 +207,7 @@ cmd open ${{
         text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $f ;;
         # image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
         image/svg+xml) display -- $fx ;;
-        audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
+        audio/*|video/x-ms-asf|video/webm) mpv --audio-display=no $f ;;
         video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
         image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
         setsid -f sxiv -aio 2>/dev/null | while read -r file; do
