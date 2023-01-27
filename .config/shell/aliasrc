@@ -50,7 +50,6 @@ alias \
     aria2c="aria2c --auto-file-renaming=false" \
     ffmpeg="ffmpeg -hide_banner" \
     restartdwm='killall fbxkb ;kill -HUP "$(pgrep -u "$USER" "\bdwm$")"' \
-    dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
     ls="ls -hN --color=auto --group-directories-first" \
     grep="grep --color=auto" \
     diff="diff --color=auto" \
