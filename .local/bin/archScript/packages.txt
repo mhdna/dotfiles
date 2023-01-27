@@ -19,7 +19,7 @@ emacs
 xcape
 xorg-xev
 xorg-xinput
-xss-lock
+xautolock
 xtrlock
 slock
 tmux
@@ -122,6 +122,7 @@ dunst
 tk
 progress
 aspell
+aspell-en
 brightnessctl
 isync
 pass
