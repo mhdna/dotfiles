@@ -5,19 +5,19 @@
 url="${1:-$(printf "%s" | dmenu -p 'Paste url or file path')}"
 base="$(basename "$url")"
 
-case "$(printf "Copy url\\nsxiv\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\nmpv\\nmpvAudio\\nmpv float\\nYT\\nYTA\\nYT any quality\\nHtml\\nariaAdd\\nariaDownload" | dmenu -i -p "Open it with?")" in #\\nqueue download\\nqueue yt-dl\\nqueue yt-dl audio
+case "$(printf "Copy url\\nsxiv\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\nmpv\\nmpvAudio\\nmpv float\\nyt\\nyta\\nyt any quality\\nHtml\\nariaAdd\\nariaDownload" | dmenu -i -p "Open it with?")" in #\\nqueue download\\nqueue yt-dl\\nqueue yt-dl audio
 	"Copy url") echo "$url" | tr -d '\n' | xclip -selection clipboard ;;
 	mpv) setsid -f mpv -quiet "$url" >/dev/null 2>&1 ;;
 	mpvAudio) $TERMINAL -e mpv -quiet --no-video "$url"  ;;
 	# "mpv loop") setsid -f mpv -quiet --loop "$url" >/dev/null 2>&1 ;;
 	# "mpv float") setsid -f "$TERMINAL" -e mpv --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
 	"mpv float") setsid -f mpv --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
-	"YT")  notify-send "🎥 downloading "$base""
+	"yt")  notify-send "🎥 downloading "$base""
 		setsid -f yt-dlp --external-downloader aria2c -f 22 -P "$XDG_VIDEOS_DIR/youtube" "$url" > /dev/null 2>&1 ;;
-	"YT any quality")  notify-send "🎥 downloading "$base""
+	"yt any quality")  notify-send "🎥 downloading "$base""
 		setsid -f yt-dlp --external-downloader aria2c -P "$XDG_VIDEOS_DIR/youtube" "$url" > /dev/null 2>&1 ;;
-	"YTA")  notify-send "📢 downloading "$base""
-		yt-dlp -f bestaudio/best -P "$XDG_MUSIC_DIR" --external-downloader aria2c "$url" > /dev/null 2>&1;;
+	"yta")  notify-send "📢 downloading "$base""
+		yt-dlp --remux-video ogg -f bestaudio/best -P "$XDG_MUSIC_DIR" --external-downloader aria2c "$url" > /dev/null 2>&1;;
 	# "Max 720") qndl "$url" 'yt-dlp -f bestvideo[height<=?720]+bestaudio/best -P $XDG_VIDS_DIR/youtube --add-metadata -icx' >/dev/null 2>&1 ;;
 	#"queue yt-dl") qndl "$url" >/dev/null 2>&1 ;;
 	#"queue yt-dl audio") qndl "$url" 'yt-dlp -f bestaudio/best --add-metadata -icx' >/dev/null 2>&1 ;;
