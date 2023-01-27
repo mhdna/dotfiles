@@ -22,16 +22,3 @@ case "$icon" in
 esac
 
 echo "${icon-?} $name"
-
-case $BLOCK_BUTTON in
-	3) notify-send "🌜 Moon phase module" "Displays current moon phase.
-- 🌑: New
-- 🌒: Waxing Crescent
-- 🌓: First Quarter
-- 🌔: Waxing Gibbous
-- 🌕: Full
-- 🌖: Waning Gibbous
-- 🌗: Last Quarter
-- 🌘: Waning Crescent" ;;
-	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
-esac
