@@ -34,7 +34,7 @@ super + shift + w
 super + e
     $TERMINAL -e lfub
 
-super + {shift + e,  shift + m, shift + r}
+super + {shift + e,  shift + n, shift + r}
     $TERMINAL -e bicon -e {neomutt, ncmpcpp, sh -c 'killall newsboat ; newsboat'}
 
 {Print, shift + Print, super + Print, super + Delete}
@@ -43,11 +43,11 @@ super + {shift + e,  shift + m, shift + r}
 XF86Audio{RaiseVolume,LowerVolume}
     wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+} ; kill -44 $(pidof dwmblocks)
 
-{XF86AudioMute, super+shift+minus}
+{XF86AudioMute, super+shift+m}
     wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ; kill -44 $(pidof dwmblocks)
 
-super + { minus, equal}
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+} ; kill -44 $(pidof dwmblocks)
+super + { minus, shift + minus, equal, shift+ equal}
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 15%-, 5%+, 15%+} ; kill -44 $(pidof dwmblocks)
 
 super + {comma,shift+comma,period,shift+period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
@@ -86,7 +86,7 @@ super + F5
     remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to defaults'
 
 super + shift + F5
-    xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" 0 & notify-send -t 1000 'Touchpad Has been disabled'
+    remaps && xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" 0 & notify-send -t 1000 'Touchpad Has been disabled'
 
 super + shift + q
 	sysact
