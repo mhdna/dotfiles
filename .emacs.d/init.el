@@ -121,6 +121,8 @@
 
 (blink-cursor-mode -1)
 
+(setq dictionary-server "dict.org")
+
 ;; System notifications
 ;; (setq compilation-finish-functions
 ;; 			(append compilation-finish-functions
