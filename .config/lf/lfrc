@@ -207,7 +207,7 @@ cmd open ${{
         text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $f ;;
         image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
         image/svg+xml) display -- $fx ;;
-        audio/*|video/x-ms-asf|video/webm) mpv --config-dir=$XDG_CONFIG_HOME/mpv/audio --audio-display=no $f ;;
+        audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
         video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
         image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
         setsid -f sxiv -aio 2>/dev/null | while read -r file; do
@@ -253,9 +253,15 @@ cmd delete ${{
 clear; tput cup $(($(tput lines)/3)); tput bold
 set -f
 printf "%s\n\t" "$fx"
+if [ -d $fx ]; then
+printf "delete?[yes/no all capitalized]"
+read ans
+[ $ans = "YES" ] && rm -rf -- $fx
+else
 printf "delete?[y/n]"
 read ans
 [ $ans = "y" ] && rm -- $fx
+fi
 }}
 
 cmd shred ${{
