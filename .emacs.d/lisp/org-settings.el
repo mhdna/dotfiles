@@ -1,4 +1,5 @@
 ;; Org settings
+(add-hook 'org-mode-hook 'flyspell-mode)
 (setq org-export-with-sub-superscripts nil)
 (setq org-pretty-entities nil)
 (setq-default tab-width 2)
@@ -268,6 +269,11 @@ non-empty lines in the block (excluding the line with
                plain
                (file+headline org-index-file "ReadLater")
                "** %^{Title or link to readlater}"))
+(add-to-list 'org-capture-templates
+						 '("q" "Question"
+               plain
+               (file+headline org-index-file "Questions")
+               "** %^{Question}"))
 (add-to-list 'org-capture-templates
 						 '("b" "Book to read"
                plain
