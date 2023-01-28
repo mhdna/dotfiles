@@ -1,4 +1,4 @@
-show-read-feeds no
+#show-read-feeds no
 auto-reload yes
 max-items 20
 
