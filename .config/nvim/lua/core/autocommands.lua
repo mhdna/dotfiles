@@ -1,33 +1,27 @@
+local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
 vim.cmd [[
-  augroup _general_settings
-    autocmd!
-    autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR>
-    " Do not keep netrw buffers open in the background
-    autocmd FileType netrw setl bufhidden=delete
-    autocmd FileType qf set nobuflisted
-
-  " Return to last edit position when opening files (You want this!)
-  autocmd BufReadPost *
-  \ if line("'\"") > 0 && line("'\"") <= line("$") |
-  \   exe "normal! g`\"" |
-  \ endif
-
-  " remove trailing whitespace
-  autocmd BufWritePre * let currPos = getpos(".")
-  autocmd BufWritePre * %s/\s\+$//e
-  autocmd BufWritePre * %s/\n\+\%$//e
-  autocmd BufWritePre *.[ch] %s/\%$/\r/e
-  autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+\ if line("'\"") > 0 && line("'\"") <= line("$") |
+\   exe "normal! g`\"" |
+\ endif
 ]]
 
 -- highlight on yank
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
-    pattern = { "*"},
-    command = "lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200})",
+    pattern = { "*" },
+    callback = function()
+        vim.highlight.on_yank({
+            higroup = 'IncSearch',
+            timeout = 200,
+        })
+    end,
 })
+
 -- disable automatic commenting new lines
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-    pattern = { "*"},
+    pattern = { "*" },
     command = "set formatoptions-=cro",
 })
 
@@ -42,7 +36,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    pattern = { "bm-dirs", "bm-files"},
+    pattern = { "bm-dirs", "bm-files" },
     command = "!shortcuts",
 })
 
@@ -52,11 +46,76 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     command = "set filetype=groff",
 })
 
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = { "*.tex" },
-    command = "set filetype=tex",
+-- tex settings
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "tex" },
+    callback = function ()
+        vim.api.nvim_create_autocmd({'BufWritePre', 'BufNewFile'}, {
+                command = "set filetype=tex",
+        })
+        vim.api.nvim_create_autocmd('BufWritePost', {
+            command = 'silent! execute "!compiler % >/dev/null 2>&1" | redraw!',
+        })
+        vim.api.nvim_create_autocmd('VimLeave', {
+            command = '!texclear %',
+        })
+    end,
 })
 
+-- Remove trailing whitespace
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = "*",
+    command = "%s/\\s\\+$//e",
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = {'netrw', 'qf', 'help', 'man', 'lspinfo'},
+    callback = function()
+        vim.keymap.set('n', 'q', ":close<CR>", bufopts)
+   end,
+})
+
+-- Do not keep netrw buffers open in the background
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'netrw' ,
+    callback = function()
+       vim.bo.bufhidden=delete
+   end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'qf' ,
+    callback = function()
+       vim.bo.buflisted= true
+   end,
+})
+
+-- autoformat
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = {'python', 'java', 'cpp'},
+    callback = function ()
+        vim.api.nvim_create_autocmd('BufWritePre', {
+            callback = function()
+                vim.lsp.buf.format()
+            end
+        })
+    end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'cpp',
+    callback = function ()
+                vim.keymap.set("n", "<leader>c", ":w! | :split | term g++ % -o %< && ./%< <CR>i", bufopts)
+    end,
+})
+
+
+
+-- alpha
+--   augroup _alpha
+--     autocmd!
+-- autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
+-- augroup end
 
 -- vim.api.nvim_create_autocmd({"BufWritePre"}, {
 --     pattern = {"*"},
@@ -64,25 +123,3 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- })
 --
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    pattern = { "*.tex" },
-    command = 'silent! execute "!compiler % >/dev/null 2>&1" | redraw!',
-})
-
-vim.api.nvim_create_autocmd({ "VimLeave" }, {
-    pattern = { "*.tex" },
-    command = '!texclear %',
-})
-
-
--- auto formatting
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = { "*.java", "*.cpp", "*.py" },
-    command = "lua vim.lsp.buf.formatting_sync()",
-})
-
--- alpha
---   augroup _alpha
---     autocmd!
--- autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
--- augroup end
