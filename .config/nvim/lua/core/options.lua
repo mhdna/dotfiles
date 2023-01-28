@@ -67,6 +67,11 @@ set foldexpr=nvim_treesitter#foldexpr()
 set nofoldenable                     " Disable folding at startup.
 ]])
 
+-- better netrw
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
+
 -- Disable nvim intro
 vim.opt.shortmess:append "sI"
 -- Disable builtins plugins
