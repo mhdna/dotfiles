@@ -87,8 +87,6 @@
 	:ensure nil
 	:defer nil
 	:bind (
-				 ("M-2" . 'my/split-window-below-and-switch)
-				 ("M-3" . 'my/split-window-right-and-switch)
 				 ("C-x u"   . undo-only)
 				 ("C-z"     . nil)
 				 ("C-x C-z"     . nil)
@@ -102,11 +100,6 @@
 				 ("M-o"   . other-window)
 				 ("C-x s"   . shell)
 				 ("C-;" . toggle-input-method)
-				 ("C-c ! l" . 'my/switch-to-flycheck-list-errors)
-
-         ("M-u"     . universal-argument)
-         ("M-u"     . universal-argument)
-         ("M-S-u"     . negative-argument)
 				 ))
 
 ;; Look and feel
@@ -122,18 +115,6 @@
 (blink-cursor-mode -1)
 
 (setq dictionary-server "dict.org")
-
-;; System notifications
-;; (setq compilation-finish-functions
-;; 			(append compilation-finish-functions
-;; 							'(fmq-compilation-finish)))
-
-;; (defun fmq-compilation-finish (buffer status)
-;; 	(call-process "notify-send" nil nil nil
-;; 								"-t" "0"
-;; 								"-i" "emacs"
-;; 								"Compilation finished in Emacs"
-;; 								status))
 
 ;; Font settings
 (set-face-attribute 'default nil :font "monospace" :height 115)
@@ -168,39 +149,18 @@
 		)
 	(message "%s" bidi-paragraph-direction))
 
-;; electric paris for automatically closing brackets
-;; (setq electric-pair-pairs '(
-;;                             (?\( . ?\))
-;;                             (?\[ . ?\])
-;;                             ))
-;; (electric-pair-mode t)
-;; (electric-indent-mode +1)
-
-;; Latex
-;; (use-package auctex
-;;   :ensure t
-;;   :defer t
-;;   :hook (LaTeX-mode . (lambda ()
-;;                         (push (list 'output-pdf "Zathura")
-;;                               TeX-view-program-selection))))
-
 (use-package rainbow-mode
 	:ensure t
 	:hook
-	(prog-mode)
-	)
+	(prog-mode))
 
 (use-package yasnippet
 	:ensure t
 	:config
 	(use-package yasnippet-snippets
 		:ensure t)
-	(use-package java-snippets
-		:ensure t)
-	)
-
-(add-hook 'css-mode-hook 'yas-minor-mode)
-(add-hook 'html-mode-hook 'yas-minor-mode)
+	(add-hook 'css-mode-hook 'yas-minor-mode)
+	(add-hook 'html-mode-hook 'yas-minor-mode))
 
 (use-package popup-kill-ring
 	:ensure t
@@ -208,96 +168,84 @@
 
 ;; Enable vertico
 (use-package vertico
-  :init
-  (vertico-mode)
-
-  ;; Different scroll margin
-  ;; (setq vertico-scroll-margin 0)
-
-  ;; Show more candidates
-  ;; (setq vertico-count 20)
-
-  ;; Grow and shrink the Vertico minibuffer
-  ;; (setq vertico-resize t)
-
-  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-  ;; (setq vertico-cycle t)
-  )
-
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :init
-  (savehist-mode))
+	:init
+	(vertico-mode)
+	:config
+	(use-package orderless
+		:ensure t
+		:init
+		;; Configure a custom style dispatcher (see the Consult wiki)
+		;; (setq orderless-style-dispatchers '(+orderless-dispatch)
+		;;       orderless-component-separator #'orderless-escapable-split-on-space)
+		(setq completion-styles '(orderless basic)
+					completion-category-defaults nil
+					completion-category-overrides '((file (styles partial-completion))))))
 
 ;; A few more useful configurations...
 (use-package emacs
-  :init
-  ;; Add prompt indicator to `completing-read-multiple'.
-  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
-  (defun crm-indicator (args)
-    (cons (format "[CRM%s] %s"
-                  (replace-regexp-in-string
-                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                   crm-separator)
-                  (car args))
-          (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+	:init
+	;; Add prompt indicator to `completing-read-multiple'.
+	;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+	(defun crm-indicator (args)
+		(cons (format "[CRM%s] %s"
+									(replace-regexp-in-string
+									 "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+									 crm-separator)
+									(car args))
+					(cdr args)))
+	(advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setq minibuffer-prompt-properties
-        '(read-only t cursor-intangible t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+	;; Do not allow the cursor in the minibuffer prompt
+	(setq minibuffer-prompt-properties
+				'(read-only t cursor-intangible t face minibuffer-prompt))
+	(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
 
-  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-  ;; Vertico commands are hidden in normal buffers.
-  ;; (setq read-extended-command-predicate
-  ;;       #'command-completion-default-include-p)
-
-	;; (use-package consult
-	;; 	:ensure t
-	;; 	:bind (
-	;; 				 ("C-x b"       . consult-buffer)
-	;; 				 ("C-c r"       . consult-recent-file)
-	;; 				 ("C-x C-k C-k" . consult-kmacro)
-	;; 				 ("M-y"         . consult-yank-pop)
-	;; 				 ("M-g g"       . consult-goto-line)
-	;; 				 ("M-g M-g"     . consult-goto-line)
-	;; 				 ("M-g f"       . consult-flymake)
-	;; 				 ("M-i"       . consult-imenu)
-	;; 				 ("M-s l"       . consult-line)
-	;; 				 ("M-s L"       . consult-line-multi)
-	;; 				 ("M-s u"       . consult-focus-lines)
-	;; 				 ("M-s g"       . consult-ripgrep)
-	;; 				 ("C-x C-SPC"   . consult-global-mark)
-	;; 				 ("C-x M-:"     . consult-complex-command)
-	;; 				 ("C-c n"       . consult-org-agenda)
-	;; 				 ("C-c m"     . my/notegrep)
-	;; 				 :map dired-mode-map
-	;; 				 ("O" . consult-file-externally)
-	;; 				 :map help-map
-	;; 				 ("a" . consult-apropos)
-	;; 				 :map minibuffer-local-map
-	;; 				 ("M-r" . consult-history))
-	;; 	:custom
-	;; 	(completion-in-region-function #'consult-completion-in-region)
-	;; 	:config
-	;; 	(add-hook 'completion-setup-hook #'hl-line-mode))
-
-(use-package magit
-	:ensure t)
-
-(use-package emmet-mode
+(use-package consult
 	:ensure t
+	:bind (
+				 :map dired-mode-map
+				 ("O" . consult-file-externally)
+				 :map help-map
+				 ("a" . consult-apropos)
+				 :map minibuffer-local-map
+				 ("M-r" . consult-history))
+	:custom
+	(completion-in-region-function #'consult-completion-in-region)
 	:config
-	(add-hook 'web-mode-hook 'emmet-mode)
-	;; (add-hook 'js2-mode-hook 'emmet-mode)
-	)
+	(add-hook 'completion-setup-hook #'hl-line-mode))
 
-(use-package flycheck
+;; hippie expand
+(setq hippie-expand-try-functions-list '(try-expand-dabbrev
+																				 try-expand-dabbrev-all-buffers
+																				 try-expand-dabbrev-from-kill
+																				 try-complete-file-name-partially
+																				 try-complete-file-name
+																				 try-expand-all-abbrevs
+																				 try-expand-list
+																				 try-expand-line
+																				 try-complete-lisp-symbol-partially
+																				 try-complete-lisp-symbol))
+(global-set-key (kbd "M-/")  #'hippie-expand)
+
+(use-package company
 	:ensure t
 	:hook
 	(prog-mode)
+	:config
+	(company-tng-configure-default) ;; use vim-like tab completion
+	(define-key company-active-map (kbd "C-n") #'company-select-next)
+	(define-key company-active-map (kbd "C-p") #'company-select-previous)
+	(setq company-idle-delay 0.1)
+	(setq company-tooltip-limit 10)
+	(setq company-minimum-prefix-length 1)
+	(setq company-tooltip-align-annotations t)
+	;; invert the navigation direction if the the completion popup-isearch-match
+	;; is displayed on top (happens near the bottom of windows)
+	(setq company-tooltip-flip-when-above t)
 	)
+
+(use-package magit
+	:ensure t)
 
 (use-package web-mode
 	:ensure t
@@ -305,28 +253,26 @@
 	(setq web-mode-markup-indent-offset 2
 				web-mode-css-indent-offset 2
 				web-mode-code-indent-offset 2
-				web-mode-indent-style 2))
+				web-mode-indent-style 2)
+	(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+	(add-to-list 'auto-mode-alist '("\\.htm\\'" . web-mode)))
 
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.htm\\'" . web-mode))
+(use-package emmet-mode
+	:ensure t
+	:config
+	(add-hook 'web-mode-hook 'emmet-mode))
 
-;; ;; Javascript
-;; (use-package js2-mode
-;;   :ensure t)
-;; ;; set as the default mode for javascript
-;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-;; (use-package js2-refactor
-;;   :ensure t)
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+	:init
+	(savehist-mode))
 
-;; (setq-default indent-tabs-mode nil)
-
-;; (defconst my/savefile-dir (expand-file-name "savefile" user-emacs-directory))
 (use-package saveplace
-:ensure t
-:config
-(setq save-place-file (expand-file-name "saveplace" my/savefile-dir))
-;; activate it for all buffers
-(setq-default save-place t))
+	:ensure t
+	:config
+	(setq save-place-file (expand-file-name "saveplace" user-emacs-directory))
+	;; activate it for all buffers
+	(setq-default save-place t))
 
 ;; leetcode
 (use-package leetcode
@@ -338,8 +284,11 @@
 	(setq leetcode-prefer-language "java")
 	(setq leetcode-prefer-sql "mysql")
 	(setq leetcode-save-solutions t)
-	(setq leetcode-directory "~/code/exercise/leetcode")
-	)
+	(setq leetcode-directory "~/code/exercise/leetcode"))
+
+(use-package flymake
+	:hook
+	(prog-mode))
 
 (use-package undo-tree
 	:ensure t
@@ -349,8 +298,40 @@
 				`((".*" . ,temporary-file-directory)))
 	(setq undo-tree-auto-save-history t)
 	(global-undo-tree-mode +1)
-	(evil-set-undo-system 'undo-tree)
-)
+
+	(when (package-installed-p 'evil)
+		(evil-set-undo-system 'undo-tree))
+	)
+
+;; Latex
+;; (use-package auctex
+;;   :ensure t
+;;   :defer t
+;;   :hook (LaTeX-mode . (lambda ()
+;;                         (push (list 'output-pdf "Zathura")
+;;                               TeX-view-program-selection))))
+
+;; System notifications
+;; (setq compilation-finish-functions
+;; 			(append compilation-finish-functions
+;; 							'(fmq-compilation-finish)))
+
+;; (defun fmq-compilation-finish (buffer status)
+;; 	(call-process "notify-send" nil nil nil
+;; 								"-t" "0"
+;; 								"-i" "emacs"
+;; 								"Compilation finished in Emacs"
+;; 								status))
+
+;; ;; Javascript
+;; (use-package js2-mode
+;;   :ensure t)
+;; ;; set as the default mode for javascript
+;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;; (use-package js2-refactor
+;;   :ensure t)
+
+;; (setq-default indent-tabs-mode nil)
 
 ;; ;; treesitter
 ;; (add-hook 'java-mode-hook 'java-ts-mode)
