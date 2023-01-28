@@ -45,7 +45,7 @@ alias \
     bc="bc -lq" \
     mkd="mkdir -pv" \
     ytfzff="ytfzf -t --thumbnail-quality=1" \
-    yt="yt-dlp -f 22 --external-downloader aria2c --add-metadata -ic" \
+    yt="yt-dlp --external-downloader aria2c --add-metadata -ic" \
     yta="yt-dlp --remux-video ogg -f bestaudio/best --external-downloader aria2c" \
     aria2c="aria2c --auto-file-renaming=false" \
     ffmpeg="ffmpeg -hide_banner" \
