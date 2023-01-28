@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ -t 1 ]; then
+    >&2 echo "Refusing to diff image in terminal without redirecting stdout."
+    exit 1
+fi
+
+if [[ $1 == "-grayscale" ]]; then
+    shift 1
+    convert '(' "$2" -flatten -grayscale Rec709Luminance ')' \
+        '(' "$1" -flatten -grayscale Rec709Luminance ')' \
+        '(' -clone 0-1 -compose darken -composite ')' \
+        -channel RGB -combine png:-;
+else
+    compare "$2" "$1" -highlight-color seagreen png:- | montage -geometry +4+4 "$2" - "$1" png:-;
+fi
