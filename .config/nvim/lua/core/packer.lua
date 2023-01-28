@@ -39,16 +39,13 @@ return packer.startup(function(use)
     use("hrsh7th/cmp-nvim-lua")
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
-    use("windwp/nvim-autopairs") -- similar to rainbow parameters
+    -- use("windwp/nvim-autopairs") -- similar to rainbow parameters
     -- LSP
     use("neovim/nvim-lspconfig")
     use("mfussenegger/nvim-jdtls")
     use {
         'nvim-treesitter/nvim-treesitter',
-        run = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
-        end,
+        run = ':TSUpdate'
     }
     use("JoosepAlviste/nvim-ts-context-commentstring")
     use("romgrk/nvim-treesitter-context")
@@ -87,7 +84,7 @@ return packer.startup(function(use)
     --     end
     -- })
     use("lukas-reineke/indent-blankline.nvim")
-    use("nvim-lualine/lualine.nvim")
+    -- use("nvim-lualine/lualine.nvim")
     -- Debug
     use("mfussenegger/nvim-dap")
     use("rcarriga/cmp-dap")

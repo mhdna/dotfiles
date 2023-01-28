@@ -7,4 +7,4 @@ getusdreport() { curl --compressed 'https://www.leb.today/usd/' -H 'User-Agent: 
 [ -s "$usdreport" ] && [ "$(stat -c %y "$usdreport" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] ||
 	getusdreport
 
-$TERMINAL -e more $usdreport
+$TERMINAL -e less $usdreport
