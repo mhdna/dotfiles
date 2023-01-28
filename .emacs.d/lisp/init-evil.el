@@ -22,8 +22,7 @@
     "g"  'magit-status
     ;; "h"  'fontify-and-browse    ;; HTML-ize the buffer and browse the result
     "l"  'consult-flymake
-    "L"  'switch-to-flycheck-list-errors
-    ;; "L"  'whitespace-mode       ;; Show invisible characters
+    "L"  'whitespace-mode       ;; Show invisible characters
     ;; "nn" 'air-narrow-dwim       ;; Narrow to region and enter normal mode
     ;; "nw" 'air-org-narrow-to-prose-dwim
     ;; "r"  'chrome-reload
@@ -41,7 +40,7 @@
     ;; "W"  'write-file
     "O"  'browse-url-xdg-open
     ;; "s"  'my/split-ansi-term
-    "F" 'indent-buffer
+    "F" 'my/indent-buffer
     "f" 'find-file
     "v" 'find-alternate-file
     "b" 'switch-to-buffer
@@ -254,6 +253,13 @@ is not used."
 (add-hook 'org-insert-heading-hook (apply-partially #'evil-insert 1))
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
+(global-set-key (kbd "M-0")  'my/delete-window-and-rebalance)
+(global-set-key (kbd "M-1")  'delete-other-windows)
+(global-set-key (kbd "M-2")  'my/split-window-below-and-switch)
+(global-set-key (kbd "M-3")  'my/split-window-right-and-switch)
+
+(global-set-key (kbd "M-u")  'universal-argument)
+(global-set-key (kbd "M-S-u")  'negative-argument)
 ;; corfu exit with evil-escape
 ;; (advice-add 'evil-escape-func :after 'corfu-quit)
 ;; (setq tab-always-indent 'complete)
