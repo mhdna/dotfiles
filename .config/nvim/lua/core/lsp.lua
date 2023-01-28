@@ -28,26 +28,16 @@ lspconfig.pylsp.setup {
     }
 }
 
--- lspconfig.rust_analyzer.setup {
---     on_attach = on_attach,
---     flags = lsp_flags,
---     -- Server-specific settings...
---     settings = {
---         ["rust-analyzer"] = {}
---     }
--- }
-
--- require'lspconfig'.golangci_lint_ls.setup{}
 require'lspconfig'.gopls.setup{}
 
--- lspconfig.sumneko_lua.setup {
---     on_attach = on_attach,
---     flags = lsp_flags,
---     diagnostics = {
---         globals = { 'vim' },
---     },
--- }
---
---
+lspconfig.sumneko_lua.setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    diagnostics = {
+        globals = { 'vim' },
+    },
+}
+
+
 -- Disable inline error messages
 vim.diagnostic.config({ virtual_text = false })
