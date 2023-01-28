@@ -34,6 +34,17 @@
   (balance-windows)
   (other-window 1))
 
+(defun my/delete-window-and-rebalance ()
+  "Delete the current window, then rebalance the remaining windows."
+  (interactive)
+  (delete-window)
+  (balance-windows))
+
+(defun my/indent-buffer ()
+      (interactive)
+      (save-excursion
+        (indent-region (point-min) (point-max) nil)))
+
 (defun my/copy-file-path (&optional DirPathOnlyQ)
   "Copy current buffer file path or dired path.
 Result is full path.
@@ -190,11 +201,5 @@ Version 2019-11-09"
       (setq find-file-root-history file-name-history)
       ;; allow some user customization
       (run-hooks 'find-file-root-hook))))
-
-(defun my/switch-to-flycheck-list-errors ()
-	(interactive)
-	(flycheck-list-errors)
-	(pop-to-buffer "*Flycheck errors*"))
-
 
 (provide 'my-functions)
