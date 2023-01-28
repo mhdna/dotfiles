@@ -1,8 +1,7 @@
 #!/bin/sh
 
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!
-xset s 900 0 &
-xss-lock slock&
+xautolock -time 10 -locker  'slock'&
 redshift -l 31.77:35.23&
 remaps &
 emacs --daemon &
