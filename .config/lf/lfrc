@@ -320,7 +320,7 @@ map <c-r> reload
 map - redraw
 
 map o &mimeopen "$f"
-map O $mimeopen --ask "$fx"
+map O $clear; mimeopen --ask "$fx"
 map <c-o> $clear; mimeopen --ask-default "$f"
 
 map K $kdfzf $fx
