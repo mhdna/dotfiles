@@ -4,29 +4,30 @@ local opts = { noremap = true, silent = true, buffer = bufnr }
 vim.cmd([[
 func! ToggleArabic()
 if &rl
-set norl
-set keymap=
+    set norl
+    set keymap=
 else
-set rl
-set keymap=arabic
-set arabicshape
-" set nospell
+    set rl
+    set keymap=arabic
+    set arabicshape
+    " set nospell
 end
 endfunc
 
 func! TogglePersian()
 if &rl
-set norl
-set keymap=
+    set norl
+    set keymap=
 else
-set rl
-set keymap=persian
-set nospell
+    set rl
+    set keymap=persian
+    set nospell
 end
 endfunc ]])
 
 vim.keymap.set('n', 'Q', 'gq', opts)
 vim.keymap.set('n', '<leader>s', ':setlocal spell! spelllang=en_us<CR>', opts)
+vim.keymap.set('n', '<leader>F', 'gg=G<C-o>', opts)
 -- vim.keymap.set('n', '<leader>H', ':call ToggleHiddenAll()<CR>', opts)
 vim.keymap.set('n', 'n', 'nzzzv', opts)
 vim.keymap.set('n', 'N', 'Nzzzv', opts)
