@@ -1,2 +1,3 @@
+api.unmap('<Ctrl-i>');
 settings.smoothScroll = false;
 settings.defaultSearchEngine= "d";
