@@ -1,17 +1,17 @@
 #!/bin/sh
 sudo pacman -D --asdeps $(pacman -Qqe)
 
-sudo pacman -D --asexplicit base linux-lts linux-firmware xorg-server \
+sudo pacman -D --asexplicit base $(pacman -Qqg base-devel) linux-lts linux-firmware xorg-server \
     xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop wpa_supplicant connman\
     xorg-xwininfo xdotool xorg-xdpyinfo xclip xorg-xset xorg-xinput \
     pipewire pipewire-pulse xcape xorg-xev python-pip xautolock \
     unclutter man-db arandr dosfstools mtools socat exfat-utils picom \
     libnotify gnome-keyring ntfs-3g poppler mediainfo atool moreutils usbutils \
-    wget curl perl-file-mimeinfo xdg-user-dirs unrar unzip ffmpeg maim \
+    wget curl perl-file-mimeinfo xdg-user-dirs unrar unzip ffmpeg maim flameshot \
     yt-dlp sxiv xwallpaper ncmpcpp mpc mpd imagemagick ueberzug \
     git aria2 transmission-cli neomutt newsboat bc xsel \
     pulsemixer highlight fzf espeak-ng kbd zathura \
-    zathura-pdf-mupdf wqy-microhei noto-fonts-emoji ttf-dejavu feh mlocate \
+    zathura-pdf-mupdf wqy-microhei noto-fonts-emoji ttf-dejavu ttf-hack ttf-hack feh mlocate \
     libreoffice-still pandoc telegram-desktop gimp android-tools pikaur \
     lf-bin abook simple-mtpfs htop mutt-wizard urlview \
     downgrade tremc-git bicon-git lynx bat dragon-drop \
@@ -22,12 +22,10 @@ sudo pacman -D --asexplicit base linux-lts linux-firmware xorg-server \
     cmake autoconf torbrowser-launcher sxhkd emacs slock tmux cronie xterm \
     kbd bluez-utils ttf-liberation terminus-font \
     noto-fonts-emoji lxqt-powermanagement chromium npm ripgrep neovim tk \
-    progress aspell brightnessctl isync pass jdk-openjdk ccls openjdk-doc python-docs\
+    progress aspell aspell-en brightnessctl isync pass jdk-openjdk ccls openjdk-doc python-docs\
     wireplumber rsync hugo urlscan translate-shell mutt-wizard-git go \
     libvirt virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs \
     jellyfin-server-bin jellyfin-web-bin jellyfin-bin \
     texlive-bibtexextra  texlive-core  texlive-fontsextra  texlive-formatsextra  texlive-latexextra  texlive-pictures  texlive-pstricks  texlive-publishers  texlive-langextra
 
 sudo pacman -Qtdq | sudo pacman -Rns -
-
-sudo pacman -S base base-devel
