@@ -203,7 +203,7 @@ cmd open ${{
     clear; case $(file --mime-type "$(readlink -f $f)" -b) in
         application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) setsid -f localc $fx >/dev/null 2>&1;;
         *opendocument*) setsid -f  lowriter $fx >/dev/null 2>&1;;
-        text/html) setsid -f  surf $fx >/dev/null 2>&1;;
+        text/html) setsid -f $BROWSER $fx >/dev/null 2>&1;;
         text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $f ;;
         image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
         image/svg+xml) display -- $fx ;;
@@ -316,9 +316,6 @@ map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//'
 map <c-f> :fzf_jump
 map <c-space> :toggle; up
 
-map <c-r> reload
-map - redraw
-
 map o &mimeopen "$f"
 map O $clear; mimeopen --ask "$fx"
 map <c-o> $clear; mimeopen --ask-default "$f"
@@ -373,6 +370,8 @@ map <c-d>m %mvdragon
 map <c-d>c %cpdragon
 map <c-d>d %dlfile
 
+map q $$HOME/.config/lf/cleaner
+map <c-q> quit
 
 # Source Bookmarks
 source "~/.config/lf/shortcutrc"
