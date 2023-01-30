@@ -295,6 +295,8 @@ cmd copyto ${{
                 notify-send -t 2000 "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
+cmd ref source "~/.config/lf/shortcutrc"
+
 # KeyBindings
 map g top
 map D delete
@@ -369,6 +371,7 @@ map <c-d><c-d> %dragon-drop --and-exit -a $fx
 map <c-d>m %mvdragon
 map <c-d>c %cpdragon
 map <c-d>d %dlfile
+map <c-q> quit
 
 map q $$HOME/.config/lf/cleaner
 map <c-q> quit
