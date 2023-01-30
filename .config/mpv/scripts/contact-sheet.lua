@@ -585,5 +585,5 @@ end)
 
 mp.add_key_binding(nil, "contact-sheet-open", start)
 mp.add_key_binding(nil, "contact-sheet-close", stop)
-mp.add_key_binding('c', "contact-sheet-toggle", toggle)
+mp.add_key_binding(nil, "contact-sheet-toggle", toggle)
 mp.add_key_binding(nil, "contact-sheet-seek", seek_to_selection)
