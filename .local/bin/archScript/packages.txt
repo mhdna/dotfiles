@@ -110,7 +110,6 @@ terminus-font-ttf
 ttf-liberation
 wqy-microhei
 noto-fonts-emoji
-lxqt-powermanagement
 abook
 sdcv
 chromium
