@@ -159,8 +159,12 @@
 	:config
 	(use-package yasnippet-snippets
 		:ensure t)
-	(add-hook 'css-mode-hook 'yas-minor-mode)
-	(add-hook 'html-mode-hook 'yas-minor-mode))
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"                 
+        ))
+(yas-global-mode 1) 
+)
+
 
 (use-package popup-kill-ring
 	:ensure t
@@ -203,10 +207,6 @@
 (use-package consult
 	:ensure t
 	:bind (
-				 :map dired-mode-map
-				 ("O" . consult-file-externally)
-				 :map help-map
-				 ("a" . consult-apropos)
 				 :map minibuffer-local-map
 				 ("M-r" . consult-history))
 	:custom
@@ -232,7 +232,7 @@
 	:hook
 	(prog-mode)
 	:config
-	(company-tng-configure-default) ;; use vim-like tab completion
+	;; (company-tng-configure-default) ;; use vim-like tab completion
 	(define-key company-active-map (kbd "C-n") #'company-select-next)
 	(define-key company-active-map (kbd "C-p") #'company-select-previous)
 	(setq company-idle-delay 0.1)
