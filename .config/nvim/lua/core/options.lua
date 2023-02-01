@@ -19,6 +19,7 @@ vim.opt.updatetime = 700 -- ms to wait for trigger an event
 -- vim.o.exrc       = true -- so if a vimrc file is in a dir, it's automatically sourced (for custom projects)
 vim.o.compatible = false
 vim.o.incsearch  = true -- highlight incrementaly rather than the whole word word
+vim.o.ignorecase  = true -- only ignore case if write uppercase letter
 vim.o.smartcase  = true -- only ignore case if write uppercase letter
 vim.o.backup     = false
 vim.o.undofile   = true
