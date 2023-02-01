@@ -14,8 +14,14 @@ for battery in /sys/class/power_supply/BAT?*; do
 		*) exit 1 ;;
 	esac
 	capacity="$(cat "$battery/capacity" 2>&1)"
+    counter="/tmp/battery-counter"
 	# Will make a warn variable if discharging and low
-	[ "$status" = "Discharging " ] && [ "$capacity" -le 15 ] && warn="WARNING "
+    if [ "$status" = "Discharging " ] && [ "$capacity" -le 10 ]; then
+        warn="WARNING "
+        i=$(cat $counter)
+        echo $(( i + 1 )) > $counter
+        [ $i -eq 20 ] && notify-send -u critical -t 5000 '⚠️ Battery level' "Critical: $capacity%" && echo '0' > $counter
+    fi
 	# Prints the info
 	printf "%s%s%d%%" "$status" "$warn" "$capacity"; unset warn
 done && printf "\\n"
