@@ -117,36 +117,34 @@
 
 ;; Font settings
 (set-face-attribute 'default nil :font "monospace" :height 115)
-
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "monospace" :height 115)
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "Sans" :height 115 :weight 'regular)
-(set-fontset-font "fontset-default" 'arabic (font-spec :family "DejaVu Sans Mono"))
+(set-fontset-font t 'arabic "monospace")
+(set-fontset-font t nil "monospace" nil 'append)
 (setq my/font-change-increment 1.1)
 
 
 ;; bidi settings
-(setq-default bidi-display-reordering nil)
-(defun bidi-reordering-toggle ()
-	"Toggle bidirectional display reordering."
-	(interactive)
-	(setq bidi-display-reordering (not bidi-display-reordering))
-	(message "bidi reordering is %s" bidi-display-reordering))
-(defun bidi-display-reordering-on ()
-	"Sets bidi-display-reordering-on"
-	(setq-local bidi-display-reordering t))
-(add-hook 'text-mode-hook 'bidi-display-reordering-on)
-(defun bidi-direction-toggle ()
-	"Will switch the explicit direction of text for current
- buffer. This will set BIDI-DISPLAY-REORDERING to T"
-	(interactive "")
-	(setq bidi-display-reordering t)
-	(if (equal bidi-paragraph-direction 'right-to-left)
-			(setq bidi-paragraph-direction 'left-to-right)
-		(setq bidi-paragraph-direction 'right-to-left)
-		)
-	(message "%s" bidi-paragraph-direction))
+;; (setq-default bidi-display-reordering nil)
+;; (defun bidi-reordering-toggle ()
+;; 	"Toggle bidirectional display reordering."
+;; 	(interactive)
+;; 	(setq bidi-display-reordering (not bidi-display-reordering))
+;; 	(message "bidi reordering is %s" bidi-display-reordering))
+;; (defun bidi-display-reordering-on ()
+;; 	"Sets bidi-display-reordering-on"
+;; 	(setq-local bidi-display-reordering t))
+;; (add-hook 'text-mode-hook 'bidi-display-reordering-on)
+;; (defun bidi-direction-toggle ()
+;; 	"Will switch the explicit direction of text for current
+;;  buffer. This will set BIDI-DISPLAY-REORDERING to T"
+;; 	(interactive "")
+;; 	(setq bidi-display-reordering t)
+;; 	(if (equal bidi-paragraph-direction 'right-to-left)
+;; 			(setq bidi-paragraph-direction 'left-to-right)
+;; 		(setq bidi-paragraph-direction 'right-to-left)
+;; 		)
+;; 	(message "%s" bidi-paragraph-direction))
 
 (use-package rainbow-mode
 	:ensure t
