@@ -111,7 +111,6 @@ wqy-microhei
 noto-fonts-emoji
 abook
 sdcv
-chromium
 npm
 ripgrep
 neovim
