@@ -45,8 +45,8 @@ alias \
     bc="bc -lq" \
     mkd="mkdir -pv" \
     ytfzff="ytfzf -t --thumbnail-quality=1" \
-    yt="yt-dlp --external-downloader aria2c --add-metadata -ic" \
-    yta="yt-dlp --remux-video ogg -f bestaudio/best --external-downloader aria2c" \
+    yt="yt-dlp --external-downloader aria2c --add-metadata -ic -P $XDG_VIDEOS_DIR/yt " \
+    yta="yt-dlp --remux-video ogg -f bestaudio/best --external-downloader aria2c -P $XDG_MUSIC_DIR " \
     aria2c="aria2c --auto-file-renaming=false" \
     ffmpeg="ffmpeg -hide_banner" \
     restartdwm='killall fbxkb ;kill -HUP "$(pgrep -u "$USER" "\bdwm$")"' \
