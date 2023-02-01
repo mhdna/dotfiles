@@ -105,7 +105,6 @@ bat
 lynx
 torbrowser-launcher
 ttf-dejavu
-ttf-hack
 terminus-font-ttf
 ttf-liberation
 wqy-microhei
