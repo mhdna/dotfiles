@@ -1,3 +1,3 @@
 #!/bin/sh
 
-notify-send -u critical -t 20000 '👁 Time to get a break ' 'Look for something 20 feets far from you for 20 secconds' 
+notify-send '👁 Time to get a break ' 'Look at something 20 feets far, for 20 secconds'
