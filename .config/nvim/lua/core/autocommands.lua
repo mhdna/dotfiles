@@ -30,6 +30,11 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     command = "!xrdb %",
 })
 
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    pattern = { "cronjobs.txt"},
+    command = "!crontab - < %"
+})
+
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = { "Xresources", "Xdefaults", "xresources", "xdefaults" },
     command = "set filetype=xdefaults",
@@ -92,7 +97,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- autoformat
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = {'python', 'java', 'cpp'},
+    pattern = {'python', 'java', 'c', 'cpp'},
     callback = function ()
         vim.api.nvim_create_autocmd('BufWritePre', {
             callback = function()
