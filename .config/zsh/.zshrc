@@ -19,7 +19,6 @@ setprompt() {
     %F{cyan}][%f
     %F{blue}%~%f
     %F{cyan}]%f
-    ${vim_mode}
     %(!.%F{red}%#%f.%F{green}%#%f)
     " "
   '}}
@@ -29,9 +28,8 @@ setprompt() {
 }
 setprompt
 
-
 setopt autocd		# Automatically cd into typed directory.
-stty stop undef		# Disable ctrl-s to freeze terminal.
+# stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
 # Load aliases and shortcuts if existent.
@@ -52,48 +50,21 @@ export HISTFILESIZE=10000
 export SAVEHIST=10000
 export HISTFILE=~/.cache/zsh/history
 setopt INC_APPEND_HISTORY
-# export HISTTIMEFORMAT="[%F %T] "
-# Add timestamp to history (it's excution time) -showed with -E flag-
-# setopt EXTENDED_HISTORY
-# Don't list history duplications, but save them to the file
-setopt HIST_FIND_NO_DUPS
 # Don't save history duplications
 setopt HIST_IGNORE_ALL_DUPS
 setopt   HIST_IGNORE_SPACE
 setopt   HIST_IGNORE_DUPS
 
-# vi mode
-bindkey -v
-export KEYTIMEOUT=1
-# Use vim keys in tab complete menu:
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
-bindkey -s '^r' '$(tac ~/.cache/zsh/history | fzf --height 15)\n'
-# Edit line in vim with ctrl-e:
+bindkey -e
+# bindkey \^U backward-kill-line
+
+# # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
-bindkey -s '^a' 'bc -lq\n'
+bindkey '^[e' edit-command-line
+bindkey -s "^[a" 'bc -lq\n'
 # bindkey -s '^f' 'cd "$(dirname "$(fzf --height 15)")"\n'
-bindkey -s '^f' 'edit-file\n'
-bindkey -s '^o' 'lfcd\n'
-bindkey '^[[P' delete-char
-
-
-# # # Yank to the system clipboard
-function vi-yank-xclip {
-  zle vi-yank
-  echo "$CUTBUFFER" | tr -d '\n'| xclip -i -sel c
-}
-zle -N vi-yank-xclip
-bindkey -M vicmd 'y' vi-yank-xclip
-
-edit-file () {
-  file=$(fzf --height 15)
-  [ -f "$file" ] && $EDITOR "$file"
-}
+bindkey -s '^p' 'edit-file\n'
+bindkey -s '^[o' 'lfcd\n'
 
 lfcd () {
    tmp="$(mktemp)"
@@ -106,10 +77,7 @@ lfcd () {
     fi
 }
 
-# vi normal mode indicator
-vim_cmd_mode="%{$fg[blue]%}NOR%{$reset_color%}"
-function zle-keymap-select {
-  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)}"
-  zle reset-prompt
+edit-file () {
+  file=$(fzf --height 15)
+  [ -f "$file" ] && $EDITOR "$file"
 }
-zle -N zle-keymap-select
