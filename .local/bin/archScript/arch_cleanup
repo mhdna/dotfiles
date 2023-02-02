@@ -18,8 +18,8 @@ sudo pacman -D --asexplicit base $(pacman -Qqg base-devel) linux-lts linux-firmw
     pam-gnupg syncthing kdeconnect zsh sdcv stardict-oald xcolor dunst \
     ttf-qurancomplex-fonts ttf-arabeyes-fonts bluez grub gnupg jq entr \
     patch typespeed redshift ttf-sil-scheherazade ttf-amiri ttf-sil-lateef \
-    arch-wiki-docs bmon make firefox xtrlock tor \
-    cmake autoconf torbrowser-launcher sxhkd emacs slock tmux cronie xterm \
+    arch-wiki-docs bmon iw firefox xtrlock tor \
+    cmake autoconf torbrowser-launcher sxhkd emacs tmux cronie xterm \
     kbd bluez-utils ttf-liberation terminus-font \
     npm ripgrep neovim tk pup-git \
     progress aspell aspell-en brightnessctl isync pass jdk-openjdk ccls openjdk-doc python-docs\
