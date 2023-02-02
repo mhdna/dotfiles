@@ -5,7 +5,7 @@ xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Tapping Enabled" 1
 # Decrease key repeat delay to 300ms and increase key repeat rate to 50 per second.
 xset r rate 240 50
 
-setxkbmap -model pc105 -layout us,ara -option grp:alt_space_toggle -option caps:ctrl_modifier,shift:both_capslock,altwin:menu_win
+setxkbmap -model pc105 -layout us,ara -option grp:alt_space_toggle -option caps:ctrl_modifier,altwin:menu_win
 
 # when it is pressed only once, treat it as escape.
 killall xcape 2>/dev/null ; xcape -e 'Caps_Lock=Escape'
