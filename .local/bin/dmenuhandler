@@ -13,12 +13,12 @@ case "$(printf "Copy url\\nsxiv\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\nmpv\\nmpv
 	# "mpv float") setsid -f "$TERMINAL" -e mpv --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
 	"mpv float") setsid -f mpv --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
 	"yt")  notify-send "🎥 downloading "$base""
-		setsid -f yt-dlp --external-downloader aria2c -f 22 -P "$XDG_VIDEOS_DIR/youtube" "$url" > /dev/null 2>&1 ;;
+		setsid -f yt-dlp --external-downloader aria2c -f 22 -P "$XDG_VIDEOS_DIR/yt" "$url" > /dev/null 2>&1 ;;
 	"yt any quality")  notify-send "🎥 downloading "$base""
-		setsid -f yt-dlp --external-downloader aria2c -P "$XDG_VIDEOS_DIR/youtube" "$url" > /dev/null 2>&1 ;;
+		setsid -f yt-dlp --external-downloader aria2c -P "$XDG_VIDEOS_DIR/yt" "$url" > /dev/null 2>&1 ;;
 	"yta")  notify-send "📢 downloading "$base""
 		yt-dlp --remux-video ogg -f bestaudio/best -P "$XDG_MUSIC_DIR" --external-downloader aria2c "$url" > /dev/null 2>&1;;
-	# "Max 720") qndl "$url" 'yt-dlp -f bestvideo[height<=?720]+bestaudio/best -P $XDG_VIDS_DIR/youtube --add-metadata -icx' >/dev/null 2>&1 ;;
+	# "Max 720") qndl "$url" 'yt-dlp -f bestvideo[height<=?720]+bestaudio/best -P $XDG_VIDS_DIR/yt --add-metadata -icx' >/dev/null 2>&1 ;;
 	#"queue yt-dl") qndl "$url" >/dev/null 2>&1 ;;
 	#"queue yt-dl audio") qndl "$url" 'yt-dlp -f bestaudio/best --add-metadata -icx' >/dev/null 2>&1 ;;
 	#"queue download") qndl "$url" 'curl -LO' >/dev/null 2>&1 ;;
