@@ -63,7 +63,7 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^[e' edit-command-line
 bindkey -s "^[a" 'bc -lq\n'
 # bindkey -s '^f' 'cd "$(dirname "$(fzf --height 15)")"\n'
-bindkey -s '^p' 'edit-file\n'
+bindkey -s '^[p' 'edit-file\n'
 bindkey -s '^[o' 'lfcd\n'
 
 lfcd () {
