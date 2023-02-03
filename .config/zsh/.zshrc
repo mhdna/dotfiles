@@ -65,6 +65,7 @@ bindkey -s "^[a" 'bc -lq\n'
 # bindkey -s '^f' 'cd "$(dirname "$(fzf --height 15)")"\n'
 bindkey -s '^[p' 'edit-file\n'
 bindkey -s '^[o' 'lfcd\n'
+bindkey -s '^[m' 'mpcsearch\n'
 
 lfcd () {
    tmp="$(mktemp)"
