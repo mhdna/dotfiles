@@ -77,4 +77,4 @@ neogit.setup {
     }
   }
 }
-vim.keymap.set('n', '<leader>G', '<cmd>Neogit<CR>', opts)
+vim.keymap.set('n', '<leader>G', '<cmd>Neogit<CR>', { silent=true, noremap = true})
