@@ -15,12 +15,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
     vim.cmd([[packadd packer.nvim]])
 end
 
--- Autocommand that reloads neovim whenever you save the packer.lua file
--- vim.api.nvim_create_autocmd({"BufWritePost"}, {
---   pattern = {"packer.lua"},
---   command = "source <afile> | PackerSync",
--- })
-
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
@@ -39,7 +33,7 @@ return packer.startup(function(use)
     use("hrsh7th/cmp-nvim-lua")
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
-    -- use("windwp/nvim-autopairs") -- similar to rainbow parameters
+    use("windwp/nvim-autopairs") -- similar to rainbow parameters
     -- LSP
     use("neovim/nvim-lspconfig")
     use("mfussenegger/nvim-jdtls")
@@ -64,7 +58,6 @@ return packer.startup(function(use)
             require("mason").setup()
         end
     }
-    -- use("jose-elias-alvarez/null-ls.nvim")
     use("mbbill/undotree")
     -- alternative to subword-mode in Emacs
     -- use("haoren/vim-wordmotion")
@@ -78,13 +71,11 @@ return packer.startup(function(use)
         "kylechui/nvim-surround",
         tag = "*", -- Use for stability; omit to use `main` branch for the latest features
         config = function()
-            require("nvim-surround").setup({
-                -- Configuration here, or leave empty to use defaults
-            })
+            require("nvim-surround").setup({})
         end
     })
     use("lukas-reineke/indent-blankline.nvim")
-    -- use("nvim-lualine/lualine.nvim")
+    use("nvim-lualine/lualine.nvim")
     -- Debug
     use("mfussenegger/nvim-dap")
     use("rcarriga/cmp-dap")
