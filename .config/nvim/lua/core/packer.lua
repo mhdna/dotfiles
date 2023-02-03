@@ -74,15 +74,15 @@ return packer.startup(function(use)
         requires = { {"nvim-lua/plenary.nvim"} }
     }
     -- use {"nvim-telescope/telescope-fzf-native.nvim", run = "make" }
-    -- use({
-    --     "kylechui/nvim-surround",
-    --     tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-    --     config = function()
-    --         require("nvim-surround").setup({
-    --             -- Configuration here, or leave empty to use defaults
-    --         })
-    --     end
-    -- })
+    use({
+        "kylechui/nvim-surround",
+        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    })
     use("lukas-reineke/indent-blankline.nvim")
     -- use("nvim-lualine/lualine.nvim")
     -- Debug
