@@ -11,7 +11,7 @@ sudo pacman -D --asexplicit base $(pacman -Qqg base-devel) linux-lts linux-firmw
     yt-dlp sxiv xwallpaper ncmpcpp mpc mpd imagemagick ueberzug \
     git aria2 transmission-cli neomutt newsboat bc xsel \
     pulsemixer highlight fzf espeak-ng kbd zathura \
-    zathura-pdf-mupdf wqy-microhei noto-fonts-emoji ttf-dejavu feh mlocate \
+    zathura-pdf-mupdf wqy-microhei noto-fonts-emoji ttf-dejavu ttf-hack feh mlocate \
     libreoffice-still pandoc telegram-desktop gimp android-tools pikaur \
     lf-bin abook simple-mtpfs htop mutt-wizard urlview \
     downgrade tremc-git bicon-git lynx bat dragon-drop \

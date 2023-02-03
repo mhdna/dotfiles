@@ -104,6 +104,7 @@ mlocate
 bat
 lynx
 torbrowser-launcher
+ttf-hack
 ttf-dejavu
 terminus-font-ttf
 ttf-liberation
