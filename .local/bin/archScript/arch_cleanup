@@ -12,7 +12,7 @@ sudo pacman -D --asexplicit base $(pacman -Qqg base-devel) linux-lts linux-firmw
     git aria2 transmission-cli neomutt newsboat bc xsel \
     pulsemixer highlight fzf espeak-ng kbd zathura \
     zathura-pdf-mupdf wqy-microhei noto-fonts-emoji ttf-dejavu ttf-hack feh mlocate \
-    libreoffice-still pandoc telegram-desktop gimp android-tools pikaur \
+    libreoffice-still pandoc telegram-desktop gimp android-tools yay \
     lf-bin abook simple-mtpfs htop mutt-wizard urlview \
     downgrade tremc-git bicon-git lynx bat dragon-drop \
     pam-gnupg syncthing kdeconnect zsh sdcv stardict-oald xcolor dunst \
