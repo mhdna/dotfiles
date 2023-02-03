@@ -115,6 +115,7 @@ sdcv
 npm
 ripgrep
 neovim
+spellcheck
 acpi
 dunst
 tk
