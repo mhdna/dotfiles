@@ -4,6 +4,9 @@ require('lualine').setup {
     theme = 'powerline_dark',
     -- component_separators = { left = '', right = ''},
     -- section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+        'help', 'qf', 'man', 'lspinfo', 'prompt'
+    },
     ignore_focus = {},
     always_divide_middle = true,
     globalstatus = false,
