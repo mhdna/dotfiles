@@ -66,7 +66,7 @@ return packer.startup(function(use)
         "nvim-telescope/telescope.nvim",
         requires = { {"nvim-lua/plenary.nvim"} }
     }
-    -- use {"nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+    use {"nvim-telescope/telescope-fzf-native.nvim", run = "make" }
     use({
         "kylechui/nvim-surround",
         tag = "*", -- Use for stability; omit to use `main` branch for the latest features
