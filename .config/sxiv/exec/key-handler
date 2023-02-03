@@ -46,7 +46,9 @@ do
 	"i")	notify-send "File information" "$(mediainfo "$file")" ;;
     "o")
         name=$(echo ${file%.*})
-        setsid -f mpv "$name.webm" -quiet >/dev/null 2>&1
-        setsid -f mpv "$name.mkv" -quiet >/dev/null 2>&1 ;;
+        arr=(webm mkv mp4)
+        for ext in "${arr[@]}"; do
+            [ -f "$name.$ext" ] && setsid -f mpv "$name.$ext" -quiet >/dev/null 2>&1
+        done;;
 esac
 done
