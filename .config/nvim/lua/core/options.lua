@@ -1,5 +1,5 @@
 vim.opt.signcolumn = "yes" --for linting, diagnostics, left column
-vim.opt.mouse = ''
+vim.opt.mouse = 'nv'
 vim.o.colorcolumn = 80 -- don't exceed 80 columns, maybe you're in the 3rd 4th indent so rethink
 vim.opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
 -- vim.opt.laststatus = 2
@@ -39,7 +39,7 @@ vim.o.title = true
 vim.o.go = a
 vim.o.clipboard = "unnamedplus"
 vim.o.undofile = true
-vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim-undodir"
+vim.o.undodir = os.getenv("XDG_CACHE_HOME") .. "/nvim-undodir"
 
 vim.o.encoding = "utf-8"
 -- vim.o.guifont = "hack:h10" -- the font used in vim gui
