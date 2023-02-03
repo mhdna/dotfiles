@@ -67,11 +67,18 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- Remove trailing whitespace
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = "*",
-    command = "%s/\\s\\+$//e",
-})
+-- -- Remove trailing whitespace
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--     pattern = "*",
+--     command = "%s/\\s\\+$//e",
+-- })
+vim.cmd [[
+ 	autocmd BufWritePre * let currPos = getpos(".")
+	autocmd BufWritePre * %s/\s\+$//e
+	" autocmd BufWritePre * %s/\n\+\%$//e
+	autocmd BufWritePre *.[ch] %s/\%$/\r/e
+  	autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
+]]
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = {'netrw', 'qf', 'help', 'man', 'lspinfo'},
@@ -110,21 +117,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
     pattern = 'cpp',
     callback = function ()
-                vim.keymap.set("n", "<leader>c", ":w! | :split | term g++ % -o %< && ./%< <CR>i", bufopts)
+        vim.keymap.set("n", "<leader>c", ":w! | :split | term g++ % -o %< && ./%< <CR>i", bufopts)
     end,
 })
-
-
-
--- alpha
---   augroup _alpha
---     autocmd!
--- autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
--- augroup end
-
--- vim.api.nvim_create_autocmd({"BufWritePre"}, {
---     pattern = {"*"},
---     command = "let currPos = getpos("."")",
--- })
---
 
