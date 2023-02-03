@@ -9,7 +9,7 @@ ping -q -c 1 example.org > /dev/null || exit
 
 # echo   > /tmp/mailupdate
 # pkill -RTMIN+12 "${STATUSBAR:-dwmblocks}"
-/usr/bin/mw -a
+mw -Y
 # rm -f /tmp/mailupdate
 # pkill -RTMIN+12 "${STATUSBAR:-dwmblocks}"
 # /usr/bin/notify-send -t 500 "📫 Mailbox Update Complete."
