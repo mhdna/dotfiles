@@ -20,7 +20,7 @@ for battery in /sys/class/power_supply/BAT?*; do
         warn="WARNING "
         i=$(cat $counter)
         echo $(( i + 1 )) > $counter
-        [ $i -eq 20 ] && notify-send -u critical -t 5000 '⚠️ Battery level' "Critical: $capacity%" && echo '0' > $counter
+        [ $i -eq 12 ] && notify-send -u critical -t 5000 '⚠️ Battery level' "Critical: $capacity%" && echo '0' > $counter
     fi
 	# Prints the info
 	printf "%s%s%d%%" "$status" "$warn" "$capacity"; unset warn
