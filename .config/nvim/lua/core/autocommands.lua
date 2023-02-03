@@ -35,6 +35,11 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     command = "!crontab - < %"
 })
 
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+    pattern = { "cronjobs.txt"},
+    command = "set filetype=crontab"
+})
+
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = { "Xresources", "Xdefaults", "xresources", "xdefaults" },
     command = "set filetype=xdefaults",
