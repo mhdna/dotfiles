@@ -5,14 +5,7 @@ for battery in /sys/class/power_supply/BAT?*; do
 	# If non-first battery, print a space separator.
 	[ -n "${capacity+x}" ] && printf " "
 	# Sets up the status and capacity
-	case "$(cat "$battery/status" 2>&1)" in
-		"Full") status="Full " ;;
-		"Discharging") status="Discharging " ;;
-		"Charging") status="Charging " ;;
-		"Not charging") status="NOT CHARGING " ;;
-		"Unknown") status="Unknown " ;;
-		*) exit 1 ;;
-	esac
+	status="$(cat "$battery/status") "
 	capacity="$(cat "$battery/capacity" 2>&1)"
     counter="/tmp/battery-counter"
 	# Will make a warn variable if discharging and low

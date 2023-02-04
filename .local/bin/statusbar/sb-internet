@@ -1,15 +1,11 @@
 #!/bin/sh
 
- # Show wifi 📶 and percent strength or 📡 if none.
- # Show 🌐 if connected to ethernet or ❎ if none.
- # Show 🔒 if a vpn connection is active
-
 ssid=$(iw dev | grep ssid | cut -d ' ' -f2)
 
- if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null ; then
- 	wifiicon="$(awk '/^\s*w/ { print "W-",int($3 * 100 / 70) "% " }' /proc/net/wireless)"
- elif grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null ; then
- 	grep -xq '0x1003' /sys/class/net/w*/flags && wifiicon="W-NoConnection " || wifiicon="OFF "
- fi
+if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null ; then
+    wifiicon="$(awk '/^\s*w/ { print "W-",int($3 * 100 / 70) "% " }' /proc/net/wireless)"
+elif grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null ; then
+    grep -xq '0x1003' /sys/class/net/w*/flags && wifiicon="W-NoConnection " || wifiicon="down "
+fi
 
-printf "%s%s%s\n" "$wifiicon$ssid" " $(sed "s/down/E-DOWN/;s/up/E-UP/" /sys/class/net/e*/operstate 2>/dev/null)" "$(sed "s/.*/🔒/" /sys/class/net/tun*/operstate 2>/dev/null)"
+printf "%s%s%s\n" "$wifiicon$ssid" " E-$(cat /sys/class/net/e*/operstate 2>/dev/null)" "$(sed "s/.*/🔒/" /sys/class/net/tun*/operstate 2>/dev/null)"
