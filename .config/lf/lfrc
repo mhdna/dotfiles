@@ -253,15 +253,9 @@ cmd delete ${{
 clear; tput cup $(($(tput lines)/3)); tput bold
 set -f
 printf "%s\n\t" "$fx"
-if [ -d $fx ]; then
-printf "delete?[yes/no all capitalized]"
+printf "delete?[y/N]"
 read ans
-[ $ans = "YES" ] && rm -rf -- $fx
-else
-printf "delete?[y/n]"
-read ans
-[ $ans = "y" ] && rm -- $fx
-fi
+[ $ans = "y" ] && rm -rf -- $fx
 }}
 
 cmd shred ${{
