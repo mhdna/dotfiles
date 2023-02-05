@@ -14,10 +14,7 @@ super + {grave, Insert, shift + Insert, b}
     {dmenuunicode -i, dmenu-bookmarks, bookmarkit, dmenu-snippets}
 
 super + v
-    dmenuclip
-
-super + alt + v
-    saveclip
+    clipmenu
 
 super + shift + v
     $TERMINAL -e pulsemixer
@@ -26,7 +23,7 @@ super + {shift + slash, ctrl + slash, alt + slash}
     {transXclip, espeak "$(xclip -o)", transXcclip}
 
 super + w
-    firefox
+    $BROWSER
 
 super + shift + w
     weather-report
