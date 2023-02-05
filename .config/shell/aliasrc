@@ -31,8 +31,9 @@ duck () {
 
 alias \
     "?"=duck \
-    ll="ls -l" \
+    ll="ls -l --color=auto" \
     lf="lfub" \
+    emacsc="emacsclient  -c -a 'emacs'" \
     lynx="lynx -cfg=~/.config/lynx/lynx.cfg -lss ~/.config/lynx/lynx.lss" \
     keyLogitech="xmodmap ~/.config/XmodmapLogitech && remaps" \
     keyMain="xmodmap ~/.config/Xmodmap && remaps " \
