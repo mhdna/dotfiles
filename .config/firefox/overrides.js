@@ -21,3 +21,7 @@ user_pref("dom.webnotifications.serviceworker.enabled", false);
 user_pref("dom.push.enabled", false);
 // Disable automatic hiding for fullscreen
 user_pref("browser.fullscreen.autohide", false);
+// do not show bookmarks in toolbar
+user_pref("browser.toolbars.bookmarks.visibility", "never")
+// disable firefox-view
+user_pref("browser.tabs.firefox-view", false)
