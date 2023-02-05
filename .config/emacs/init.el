@@ -152,6 +152,7 @@
 	(prog-mode))
 
 (use-package yasnippet
+	:ensure t
   :config
   (setq yas-indent-line 'auto) ;; do not always indent
   (yas-global-mode 1)
@@ -165,6 +166,7 @@
 
 ;; Enable vertico
 (use-package vertico
+	:ensure t
 	:init
 	(vertico-mode)
 	:config
