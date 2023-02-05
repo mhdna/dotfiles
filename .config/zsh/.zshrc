@@ -29,7 +29,7 @@ setprompt() {
 setprompt
 
 setopt autocd		# Automatically cd into typed directory.
-# stty stop undef		# Disable ctrl-s to freeze terminal.
+stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
 # Load aliases and shortcuts if existent.
