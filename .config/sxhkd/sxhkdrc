@@ -1,6 +1,9 @@
 super + Return
     $TERMINAL
 
+super + Return
+    $TERMINAL
+
 super + shift + Return
     emacsclient  -c -a 'emacs'
 
@@ -19,14 +22,14 @@ super + v
 super + shift + v
     $TERMINAL -e pulsemixer
 
-super + {shift + slash, ctrl + slash, alt + slash}
-    {transXclip, espeak "$(xclip -o)", transXcclip}
+super + {shift + slash, alt + slash}
+    {transXclip, transXcclip}
 
 super + w
     $BROWSER
 
 super + shift + w
-    weather-report
+    weather-report show
 
 super + e
     $TERMINAL -e lfub

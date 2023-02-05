@@ -6,4 +6,5 @@ getforecast() { curl -sf "wttr.in/$LOCATION" > "$weatherreport" && sb-moonphase 
 [ -s "$weatherreport" ] && [ "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] ||
 	getforecast
 
-$TERMINAL -e less $weatherreport
+[ "$1" = "show" ] && $TERMINAL -e less $weatherreport
+[ "$1" = "get" ] && getforecast
