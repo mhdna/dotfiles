@@ -2,11 +2,8 @@
 
 ping -q -c 1 example.org > /dev/null || exit
 
-/usr/bin/notify-send -t 2000 "📰 Updating RSS feeds..."
-
-echo "REF" > /tmp/newsupdate
+echo "RSS ref" > /tmp/newsupdate
 pkill -RTMIN+6 "${STATUSBAR:-dwmblocks}"
 /usr/bin/newsboat -x reload
 rm -f /tmp/newsupdate
 pkill -RTMIN+6 "${STATUSBAR:-dwmblocks}"
-/usr/bin/notify-send -t 2000 "📰 RSS feed update complete."
