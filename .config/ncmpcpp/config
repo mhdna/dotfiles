@@ -1,0 +1,24 @@
+# vim: filetype=conf
+
+ncmpcpp_directory = "~/.config/ncmpcpp"
+lyrics_directory = "~/.local/share/lyrics"
+mpd_music_dir = "~/aud"
+message_delay_time = "1"
+visualizer_type = "spectrum"
+playlist_display_mode = columns
+browser_display_mode = columns
+progressbar_look = ->
+song_columns_list_format = "(10)[green]{l} (4)[yellow]{n:#} (20)[cyan]{a} (20)[red]{b} (80)[yellow]{t|f:Title}"
+media_library_primary_tag = album_artist
+media_library_albums_split_by_date = no
+startup_screen = browser
+user_interface = alternative
+ignore_leading_the = yes
+external_editor = nvim
+use_console_editor = yes
+empty_tag_color = magenta
+main_window_color = white
+progressbar_color = black:b
+progressbar_elapsed_color = blue:b
+statusbar_color = red
+statusbar_time_color = cyan:b
