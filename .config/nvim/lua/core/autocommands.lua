@@ -85,13 +85,6 @@ vim.cmd [[
   	autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
 ]]
 
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = {'netrw', 'qf', 'help', 'man', 'lspinfo'},
-    callback = function()
-        vim.keymap.set('n', 'q', ":close<CR>", bufopts)
-   end,
-})
-
 -- Do not keep netrw buffers open in the background
 vim.api.nvim_create_autocmd('FileType', {
     pattern = 'netrw' ,
