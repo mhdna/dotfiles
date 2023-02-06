@@ -1,7 +1,0 @@
-*/10 * * * * export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; $HOME/.local/bin/cron/mailup
-30,00 * * * * export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; $HOME/.local/bin/cron/eyecomfort
-5 */5 * * * export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; $HOME/.local/bin/cron/eyecomfort
-@hourly /usr/bin/newsboat -x reload
-*/1 * * * * $HOME/.local/bin/cron/datelog
-@hourly /usr/bin/mpc update
-@hourly /usr/bin/updatedb
