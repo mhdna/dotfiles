@@ -31,6 +31,13 @@ return packer.startup(function(use)
     use("saadparwaiz1/cmp_luasnip") -- snippet completions
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-nvim-lua")
+    -- use("gavinok/spaceway.vim")
+    use {
+        "lewis6991/gitsigns.nvim",
+        config = function()
+            require('gitsigns').setup()
+        end
+    }
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
     use("windwp/nvim-autopairs") -- similar to rainbow parameters
@@ -53,7 +60,7 @@ return packer.startup(function(use)
             )
         end
     }
-    use { "williamboman/mason.nvim" ,
+    use { "williamboman/mason.nvim",
         config = function()
             require("mason").setup()
         end
@@ -64,9 +71,9 @@ return packer.startup(function(use)
     use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
     use {
         "nvim-telescope/telescope.nvim",
-        requires = { {"nvim-lua/plenary.nvim"} }
+        requires = { { "nvim-lua/plenary.nvim" } }
     }
-    use {"nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+    use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
     use({
         "kylechui/nvim-surround",
         tag = "*", -- Use for stability; omit to use `main` branch for the latest features
