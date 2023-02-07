@@ -119,7 +119,7 @@
 (set-face-attribute 'default nil :font "monospace" :height 115)
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "Sans" :height 115 :weight 'regular)
-(set-fontset-font t 'arabic "monospace")
+(set-fontset-font t 'arabic "DejaVu Sans Mono")
 (set-fontset-font t nil "monospace" nil 'append)
 (setq my/font-change-increment 1.1)
 
