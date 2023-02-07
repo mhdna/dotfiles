@@ -35,7 +35,7 @@ super + e
     $TERMINAL -e lfub
 
 super + {shift + e,  n, shift + r}
-    $TERMINAL -e bicon -e {neomutt, ncmpcpp, sh -c 'killall newsboat ; newsboat'}
+    qterminal -e {neomutt, ncmpcpp, sh -c 'killall newsboat ; newsboat'}
 
 {Print, shift + Print, super + Print, super + Delete}
     {maim "$XDG_PICTURES_DIR/screenshots/$(date '+%y%m%d-%H%M-%S').png" pic-full- && notify-send -t 500 '🌄 Screenshot has been printed', maimpick, dmenurecord -i, dmenurecord kill}
@@ -62,7 +62,7 @@ super + {shift + BackSpace, ctrl + BackSpace}
     dunstctl {history-pop, set-paused toggle && notify-send "Toggled dunst"}
 
 super + {F10, shift + F10, F11, F12, shift + F12}
-    mpc {prev, seek -10%, toggle, next, seek +10%}
+    mpc {prev, seek -1%, toggle, next, seek +1%}
 
 super + shift + F11
     pauseallmpv
