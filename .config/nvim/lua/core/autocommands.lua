@@ -35,11 +35,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     command = "!crontab - < %"
 })
 
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-    pattern = { "cronjobs.txt"},
-    command = "set filetype=crontab"
-})
-
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = { "Xresources", "Xdefaults", "xresources", "xdefaults" },
     command = "set filetype=xdefaults",
@@ -60,9 +55,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "tex" },
     callback = function ()
-        vim.api.nvim_create_autocmd({'BufWritePre', 'BufNewFile'}, {
-                command = "set filetype=tex",
-        })
         vim.api.nvim_create_autocmd('BufWritePost', {
             command = 'silent! execute "!compiler % >/dev/null 2>&1" | redraw!',
         })
