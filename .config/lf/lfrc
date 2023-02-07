@@ -289,7 +289,7 @@ cmd copyto ${{
                 notify-send -t 2000 "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
-cmd refresh :{{
+cmd ref :{{
     reload
     source "~/.config/lf/shortcutrc"
     $$HOME/.config/lf/cleaner
@@ -369,8 +369,6 @@ map <c-d><c-d> %dragon-drop --and-exit -a $fx
 map <c-d>m %mvdragon
 map <c-d>c %cpdragon
 map <c-d>d %dlfile
-
-map <c-r> refresh
 
 # Source Bookmarks
 source "~/.config/lf/shortcutrc"
