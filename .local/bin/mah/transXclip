@@ -1,3 +1,0 @@
-#!/bin/sh
-
-notify-send "$(trans --no-bidi -b --target=ar "$(xclip -o)")"

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+opentrans() {
+    case "$(printf "Arabic\nEnglish\nPersian" | dmenu -i )" in
+        'Arabic') trans --target="arabic" --speak ;;
+        'English') trans --target="english" ;;
+        'Persian') trans --target="persian" ;;
+        *) exit 1 ;;
+    esac
+}
+
+case "$1" in
+    "p")
+    notify-send "$(trans --no-bidi -b --target=ar "$(xclip -o)")";;
+    "c")
+    notify-send "$(trans --no-bidi -b --target=ar "$(xclip -sel c -o)")";;
+    "o") opentrans ;;
+    *) exit 1;;
+esac

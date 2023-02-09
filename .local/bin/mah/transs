@@ -1,9 +1,0 @@
-#!/bin/sh
-case "$(printf "Arabic\nEnglish\nPersian\nUrban Dictionary" | dmenu -i )" in #  -p 'Action:'
-    'Arabic') trans --target="arabic" --speak ;; #--no-bidi
-	'English') trans --target="english" ;;
-	# 'Play') trans -speak -player mplayer ;;
-	'Persian') trans --target="persian" ;;
-	'Urban Dictionary') udict ;;
-	*) exit 1 ;;
-esac
