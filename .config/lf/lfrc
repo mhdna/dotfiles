@@ -297,8 +297,8 @@ cmd ref :{{
 
 # KeyBindings
 map g top
-map D delete
-map <c-d>D shred
+map DD delete
+map DS shred
 map Y copyto
 map M moveto
 map Z pdfConvert
@@ -323,11 +323,11 @@ map <c-o> $clear; mimeopen --ask-default "$f"
 map K $kdfzf $fx
 map ) upload0x0
 
+map a push A<a-b> # after extention
 map A rename # at the very end
 map c push A<c-u> # new rename
 map I push A<c-a> # at the very beginning
 map i push A<a-b><a-b><a-f> # before extention
-map a push A<a-b> # after extention
 map B $vimv $fx #bulkrename (formally vidir)
 # map b $setbg $fx
 
@@ -364,11 +364,12 @@ map md push :mkdir<space>
 map ss %stripspace "$f"
 
 #dragon
-map <c-d>
-map <c-d><c-d> %dragon-drop --and-exit -a $fx
-map <c-d>m %mvdragon
-map <c-d>c %cpdragon
-map <c-d>d %dlfile
+map d
+map dd cut
+map dr %dragon-drop --and-exit -a $fx
+map dm %mvdragon
+map dc %cpdragon
+map dl %dlfile
 
 # Source Bookmarks
 source "~/.config/lf/shortcutrc"
