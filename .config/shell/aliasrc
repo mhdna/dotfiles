@@ -31,8 +31,10 @@ duck () {
 
 alias \
     "?"=duck \
+    xq="xbps-query" \
+    xr="sudo xbps-remove" \
+    xi="sudo xbps-install" \
     ll="ls -l --color=auto" \
-    lf="lfub" \
     emacsc="emacsclient  -c -a 'emacs'" \
     lynx="lynx -cfg=~/.config/lynx/lynx.cfg -lss ~/.config/lynx/lynx.lss" \
     keyLogitech="xmodmap ~/.config/XmodmapLogitech && remaps" \
@@ -64,5 +66,5 @@ alias \
     ka="killall" \
     trem="transmission-remote" \
     z="zathura" \
-    ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" \
+    ref="shortcuts >/dev/null; source $XDG_CONFIG_HOME/shell/shortcutrc; source $XDG_CONFIG_HOME/shell/aliasrc" \
     random_password="date +%s | sha256sum | base64 | head -c 15 ; echo" \
