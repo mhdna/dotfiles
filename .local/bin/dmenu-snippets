@@ -7,5 +7,5 @@ case $choice in
 	 "")
 		exit ;;
 	*)
-		$BROWSER --new-tab $(echo $choice|cut -d ";" -f2)
+		$BROWSER -new-tab $(echo $choice|cut -d ";" -f2)
 esac
