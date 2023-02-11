@@ -1,9 +1,0 @@
-#!/bin/sh
-    case "$(printf "start\npause\nstop\nclock" | dmenu -i )" in #  -p 'Action:'
-    'start') pomo stop && pomo start && notify-send '🍅 started' $(pomo clock) && pomo notify  ;;
-    'pause') pomo pause&& notify-send '🍅 paused' $(pomo clock);;
-    'stop') pomo stop&& notify-send '🍅 stopped';;
-    # 'Play') trans -speak -player mplayer ;;
-    'clock') notify-send 🍅 $(pomo clock);;
-	*) exit 1 ;;
-esac
