@@ -13,6 +13,7 @@
 /.config/shell/*
 !/.config/shell/aliasrc
 !/.config/shell/profile
+!/.config/shell/ttymaps.kmap
 /.config/emacs/*
 !/.config/emacs/init.el
 !/.config/emacs/lisp/*
