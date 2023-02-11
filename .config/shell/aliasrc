@@ -26,7 +26,7 @@ urlencode () {
 }
 duck () {
     declare url=$(urlencode "$*")
-    lynx -lss ~/.config/lynx/lynx.lss -cfg=~/.config/lynx/lynx.cfg  "https://duckduckgo.com/lite?q=$url"
+    lynx  "https://duckduckgo.com/lite?q=$url"
 }
 
 alias \
@@ -36,7 +36,6 @@ alias \
     xi="sudo xbps-install" \
     ll="ls -l --color=auto" \
     emacsc="emacsclient  -c -a 'emacs'" \
-    lynx="lynx -cfg=~/.config/lynx/lynx.cfg -lss ~/.config/lynx/lynx.lss" \
     keyLogitech="xmodmap ~/.config/XmodmapLogitech && remaps" \
     keyMain="xmodmap ~/.config/Xmodmap && remaps " \
     Tmux="tmux a || tmux" \
