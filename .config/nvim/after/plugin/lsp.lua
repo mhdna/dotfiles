@@ -31,6 +31,11 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local lspconfig = require('lspconfig')
 
 lspconfig.ccls.setup {
+    init_options = {
+        cache = {
+        directory = vim.env.XDG_CACHE_HOME .. "/ccls/",
+        -- or vim.fs.normalize "~/.cache/ccls" -- if on nvim 0.8 or higher
+    } },
     on_attach = on_attach,
     flags = lsp_flags,
 }
