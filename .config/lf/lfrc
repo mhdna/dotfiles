@@ -210,7 +210,7 @@ cmd open ${{
         audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
         video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
         image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
-        setsid -f sxiv -aio 2>/dev/null | while read -r file; do
+        setsid -f nsxiv -aio 2>/dev/null | while read -r file; do
         [ -z "$file" ] && continue
         lf -remote "send select \"$file\""
         lf -remote "send toggle"
