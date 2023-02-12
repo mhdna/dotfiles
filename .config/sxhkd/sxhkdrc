@@ -1,20 +1,26 @@
 super + Return
     $TERMINAL
 
-super + Return
-    $TERMINAL
-
 super + shift + Return
     emacsclient  -c -a 'emacs'
 
-super + p
-    dmenu_run
+super + w
+    $BROWSER
 
-super + shift + p
-    passmenu
+super + shift + w
+    weather-report show
+
+super + {d, p, shift + p}
+    {dmenu_run, passmenu, displayselect}
+
+super + m
+    dmenumount
+
+super + shift + m
+    dmenuumount
 
 super + {grave, Insert, shift + Insert, b}
-    {dmenuunicode -i, dmenu-bookmarks, bookmarkit, dmenu-snippets}
+    {dmenuunicode -i, dmenu-bookmarks, bookmarkit, dmenusnippet}
 
 super + v
     clipmenu
@@ -23,29 +29,34 @@ super + shift + v
     $TERMINAL -e pulsemixer
 
 super + {shift + slash, alt + slash}
-    {transXclip, transXcclip}
-
-super + w
-    $BROWSER
-
-super + shift + w
-    weather-report show
+    {transs p, transs c}
 
 super + e
-    $TERMINAL -e lfub
+    $TERMINAL -e lf
 
-super + {shift + e,  n, shift + r}
-    qterminal -e {neomutt, ncmpcpp, sh -c 'killall newsboat ; newsboat'}
+super + shift + e
+    qterminal -e neomutt
 
-{Print, shift + Print, super + Print, super + Delete}
-    {maim "$XDG_PICTURES_DIR/screenshots/$(date '+%y%m%d-%H%M-%S').png" pic-full- && notify-send -t 500 '🌄 Screenshot has been printed', maimpick, dmenurecord -i, dmenurecord kill}
+super + n
+    pkill newsboat; qterminal -e newsboat
 
-XF86Audio{RaiseVolume,LowerVolume}
+super + shift + n
+    qterminal -e ncmpcpp
 
-# wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+} ; kill -44 $(pidof dwmblocks)
+Print
+    maim "$XDG_PICTURES_DIR/screenshots/$(date '+%y%m%d-%H%M-%S').png" pic-full- && notify-send -t 500 'Screenshot has been printed'
+
+{shift + Print, super + Print, super + Delete}
+    {maimpick, dmenurecord -i, dmenurecord kill}
+
+XF86Audio{LowerVolume,RaiseVolume}
+    pamixer --allow-boost {-d , -i } 5; kill -44 $(pidof dwmblocks)
 
 {XF86AudioMute, super+shift+minus}
     pamixer -t; kill -44 $(pidof dwmblocks)
+
+{XF86MonBrightnessDown, super + XF86MonBrightnessDown, XF86MonBrightnessUp, super + XF86MonBrightnessUp}
+	brightnessctl set {10%-, 1%, +10%, 100%}
 
 super + { minus, equal}
     pamixer --allow-boost {-d , -i } 5; kill -44 $(pidof dwmblocks)
@@ -53,23 +64,11 @@ super + { minus, equal}
 super + {comma,shift+comma,period,shift+period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
 
-{XF86MonBrightnessDown, super + XF86MonBrightnessDown, XF86MonBrightnessUp, super + XF86MonBrightnessUp}
-	brightnessctl set {10%-, 1%, +10%, 100%}
-
-super + ctrl + x
-    xkill
-
 super + {shift + BackSpace, ctrl + BackSpace}
     dunstctl {history-pop, set-paused toggle && notify-send "Toggled dunst"}
 
-super + {F10, shift + F10, F11, F12, shift + F12}
-    mpc {prev, seek -1%, toggle, next, seek +1%}
-
-super + shift + F11
-    pauseallmpv
-
 super + {F1, shift + F1}
-    {kdeconnect-indicator ; kdeconnect-cli --refresh, kill $(pgrep kdeconnect)}
+    {kdeconnect-indicator ; kdeconnect-cli --refresh, pkill kdeconnect}
 
 super + F2
     redshift -O 5000
@@ -80,17 +79,23 @@ super + shift + F2
 super + {F3, shift + F3}
     {torwrap, td-toggle}
 
-super + {F4, shift + F4}
-    {displayselect, dmenumount -i}
-
-super + F5
+super + F4
     remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to defaults'
 
-super + shift + F5
+super + shift + F4
     remaps && xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" 0 & notify-send -t 1000 'Touchpad Has been disabled'
+
+super + {F10, shift + F10, F11, F12, shift + F12}
+    mpc {seek -1%, prev,  toggle, seek +1%, next}
+
+super + shift + F11
+    pauseallmpv
 
 super + shift + q
 	sysact
+
+super + ctrl + x
+    xkill
 
 super + ctrl + r
 	pkill -USR1 -x sxhkd
