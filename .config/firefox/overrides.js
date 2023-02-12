@@ -1,8 +1,8 @@
 user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
 user_pref("browser.uidensity", 1);
-user_pref("general.smoothScroll", false);
+// user_pref("general.smoothScroll", false);
 user_pref("extensions.pocket.enabled", false);
-user_pref("privacy.resistFingerprinting.letterboxing", false); // [HIDDEN PREF]
+// user_pref("privacy.resistFingerprinting.letterboxing", false); // [HIDDEN PREF]
 user_pref("keyword.enabled", true);
 user_pref("signon.rememberSignons", false);
 // Disable the Twitter/R*ddit/Faceberg ads in the URL bar:
@@ -25,3 +25,5 @@ user_pref("browser.fullscreen.autohide", false);
 user_pref("browser.toolbars.bookmarks.visibility", "never")
 // disable firefox-view
 user_pref("browser.tabs.firefox-view", false)
+// Disable Firefox sync and its menu entries
+user_pref("identity.fxaccounts.enabled", false);
