@@ -23,7 +23,7 @@
 (add-to-list 'org-structure-template-alist
              '("el" . "src emacs-lisp"))
 (setq org-adapt-indentation nil)
-(setq org-directory "~/dox/notes/")
+(setq org-directory "~/personal/notes/")
 (defun org-file-path (filename)
   "Return the absolute address of an org file, given its relative name."
   (concat (file-name-as-directory org-directory) filename))
@@ -187,9 +187,9 @@ non-empty lines in the block (excluding the line with
                 (org-agenda-start-day "-6d")
                 (org-agenda-span 14)
                 (org-agenda-files '(org-file-path "news.org"
-                                    ;; "~/dox/notes/recurring-events.org"
-                                    "~/dox/notes/books-read.org"
-                                    ;;                                         "~/dox/notes/papers-read.org"
+                                    ;; "recurring-events.org"
+                                    "books-read.org"
+                                    ;;                                         "papers-read.org"
                                     )))))
 (add-to-list 'org-agenda-custom-commands
              '("w" "Writing prompts"
@@ -200,17 +200,17 @@ non-empty lines in the block (excluding the line with
 (add-to-list 'org-capture-templates
              '("p" "Project idea"
                entry
-               (file "~/dox/notes/project-idea.org")
+               (file "project-idea.org")
                "* %?\n"))
 (add-to-list 'org-capture-templates
              '("c" "Contact"
                entry
-               (file "~/dox/notes/contacts.org")
+               (file "contacts.org")
                "* %(org-contacts-template-name"))
 ;; (add-to-list 'org-capture-templates
 ;;              '("d" "Delivery"
 ;;                entry
-;;                (file+headline "~/dox/notes/deliveries.org" "Deliveries")
+;;                (file+headline "deliveries.org" "Deliveries")
 ;;                "** %?\n   SCHEDULED: %t\n"))
 ;; (add-to-list 'org-capture-templates
 ;;              '("e" "Email"
@@ -221,32 +221,32 @@ non-empty lines in the block (excluding the line with
 ;; (add-to-list 'org-capture-templates
 ;;              '("k" "Kookaburra ingest"
 ;;                entry
-;;                (file+headline "~/dox/notes/kookaburra-ingest.org" "Queue")
+;;                (file+headline "kookaburra-ingest.org" "Queue")
 ;;                "* TODO %?\n"))
 (add-to-list 'org-capture-templates
              '("m" "Media queue"
                item
-               (file+headline "~/dox/notes/media.org" "Index")
+               (file+headline "media.org" "Index")
                "- [ ] %?\n"))
 (add-to-list 'org-capture-templates
              '("n" "News item"
                entry
-               (file "~/dox/notes/news.org")
+               (file "news.org")
                "* %?\n%t\n"))
 ;; (add-to-list 'org-capture-templates
 ;;              '("p" "Finished paper"
 ;;                entry
-;;                (file+headline "~/dox/notes/papers-read.org" "Papers")
+;;                (file+headline "papers-read.org" "Papers")
 ;;                "* %^{Title} -- %^{Author}\n%t\n"))
 (add-to-list 'org-capture-templates
              '("w" "Writing prompt"
                entry
-               (file "~/dox/notes/journal.org")
+               (file "journal.org")
                "* %?\n   %t\n"))
 (add-to-list 'org-capture-templates
              '("s" "Subscribe to an RSS feed"
                plain
-               (file "~/dox/notes/rss-feeds.org")
+               (file "rss-feeds.org")
                "*** [[%^{Feed URL}][%^{Feed add}]]"))
 (add-to-list 'org-capture-templates
              '("t" "Task"
@@ -256,12 +256,12 @@ non-empty lines in the block (excluding the line with
 (add-to-list 'org-capture-templates
              '("Q" "Quote"
                entry
-               (file "~/dox/notes/quotes.org")
+               (file "quotes.org")
                "* %?\n"))
 ;; (add-to-list 'org-capture-templates
 ;;              '("w" "Work task"
 ;;                entry
-;;                (file+headline "~/dox/notes/work.org" "Tasks")
+;;                (file+headline "work.org" "Tasks")
 ;;                "* TODO %?\n"))
 ;; Languages templates
 (add-to-list 'org-capture-templates
@@ -282,42 +282,42 @@ non-empty lines in the block (excluding the line with
 (add-to-list 'org-capture-templates
              '("B" "Red Book"
                entry
-               (file+headline "~/dox/notes/red_books.org" "Red Books")
+               (file+headline "red_books.org" "Red Books")
                "* %^{Title} -- %^{Author}\n%t\n** Review\n%^{Review}\n** Summary\n%^{Summary}"))
 (add-to-list 'org-capture-templates
              '("e" "English word"
                plain
-               (file+headline "~/dox/notes/language.org" "English Words")
+               (file+headline "language.org" "English Words")
                "- %^{Word}: %^{Meaning}"))
 (add-to-list 'org-capture-templates
              '("E" "English phrase"
                plain
-               (file+headline "~/dox/notes/language.org" "English Phrases")
+               (file+headline "language.org" "English Phrases")
                "- %^{Phrase}: %^{Meaning}"))
 (add-to-list 'org-capture-templates
              '("I" "Idiom"
                plain
-               (file+headline "~/dox/notes/language.org" "Idioms")
+               (file+headline "language.org" "Idioms")
                "- %^{Idiom}: %^{Meaning}"))
 (add-to-list 'org-capture-templates
              '("f" "Farsi word"
                plain
-               (file+headline "~/dox/notes/language.org" "Farsi Words")
+               (file+headline "language.org" "Farsi Words")
                "- %^{Word}: %^{Meaning}"))
 (add-to-list 'org-capture-templates
              '("F" "Farsi phrase"
                plain
-               (file+headline "~/dox/notes/language.org" "Farsi Phrases")
+               (file+headline "language.org" "Farsi Phrases")
                "- %^{Phrase}: %^{Meaning}"))
 (add-to-list 'org-capture-templates
              '("a" "Arabic word"
                item
-               (file+headline "~/dox/notes/language.org" "Arabic Words")
+               (file+headline "language.org" "Arabic Words")
                "- %^{Word}"))
 (add-to-list 'org-capture-templates
              '("A" "Arabic phrase"
                plain
-               (file+headline "~/dox/notes/language.org" "Arabic Phrases")
+               (file+headline "language.org" "Arabic Phrases")
                "- %^{Phrase}"))
 
 (setq org-refile-use-outline-path t)
@@ -332,7 +332,7 @@ non-empty lines in the block (excluding the line with
 (setq my/diary-file (org-file-path "/diary/days.org"))
 (defun my/diary-file-open()
   (interactive)
-  ;; (setq filename (concat "~/dox/notes/diary/" (format-time-string "%Y-%m-%d-%H-%M) " ".org"))
+  ;; (setq filename (concat "diary/" (format-time-string "%Y-%m-%d-%H-%M) " ".org"))
   (find-file my/diary-file)
   (end-of-buffer)
   (insert (concat "* " (format-time-string "%Y.%m.%d %H:%M %P ") "\n"))
