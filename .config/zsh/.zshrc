@@ -35,7 +35,6 @@ setopt interactive_comments
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Basic auto/tab complete:
 autoload -Uz compinit
@@ -56,7 +55,7 @@ setopt   HIST_IGNORE_SPACE
 setopt   HIST_IGNORE_DUPS
 
 bindkey -e
-# bindkey \^U backward-kill-line
+bindkey \^U backward-kill-line
 
 # # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
