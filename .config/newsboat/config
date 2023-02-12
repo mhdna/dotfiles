@@ -1,5 +1,6 @@
 #show-read-feeds no
-auto-reload yes
+reload-threads 50 # Parallel reloading
+auto-reload no
 max-items 20
 
 external-url-viewer "urlscan -dc -r 'linkhandler {}'"
@@ -18,11 +19,7 @@ bind-key a toggle-article-read
 bind-key n next-unread
 bind-key N prev-unread
 bind-key D pb-download
-bind-key U show-urls
 bind-key x pb-delete
-
-color listnormal blue default
-color info default black standout bold
 
 browser linkhandler
 macro , open-in-browser
@@ -35,15 +32,5 @@ macro C set browser "youtube-viewer --comments=%u --comments-order=relevance" ; 
 macro p set browser "peertubetorrent %u 480" ; open-in-browser ; set browser linkhandler
 macro P set browser "peertubetorrent %u 1080" ; open-in-browser ; set browser linkhandler
 
-# highlight all "---.*---" yellow
-highlight feedlist ".*(0/0))" black
-highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
-highlight article "(^Link:.*|^Date:.*)" default default
-highlight article "https?://[^ ]+" green default
-highlight article "^(Title):.*$" blue default
-highlight article "\\[[0-9][0-9]*\\]" magenta default bold
-highlight article "\\[image\\ [0-9]+\\]" green default bold
-highlight article "\\[embedded flash: [0-9][0-9]*\\]" green default bold
-highlight article ":.*\\(link\\)$" cyan default
-highlight article ":.*\\(image\\)$" blue default
-highlight article ":.*\\(embedded flash\\)$" magenta default
+# bookmark-autopilot yes # do not use interactive mode when bookmarking
+bookmark-cmd "~/.config/newsboat/bookmark.sh"
