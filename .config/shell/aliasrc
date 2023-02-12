@@ -31,9 +31,7 @@ duck () {
 
 alias \
     "?"=duck \
-    xq="xbps-query" \
-    xr="sudo xbps-remove" \
-    xi="sudo xbps-install" \
+    p="sudo pacman" \
     ll="ls -l --color=auto" \
     emacsc="emacsclient  -c -a 'emacs'" \
     keyLogitech="xmodmap ~/.config/XmodmapLogitech && remaps" \

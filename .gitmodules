@@ -1,0 +1,3 @@
+[submodule ".config/mpv/script-modules/mpv-gallery-view"]
+	path = .config/mpv/script-modules/mpv-gallery-view
+	url = https://github.com/occivink/mpv-gallery-view.git
