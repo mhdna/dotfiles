@@ -6,7 +6,7 @@
 [ -f "$XINITRC" ] && alias startx="startx $XINITRC"
 
 # sudo not required for some system commands
-for command in mount umount pacman updatedb su ; do
+for command in mount umount updatedb su ; do
 	alias $command="sudo $command"
 done; unset command
 
@@ -31,7 +31,9 @@ duck () {
 
 alias \
     "?"=duck \
-    p="sudo pacman" \
+    config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
+    p="pacman" \
+    P="sudo pacman" \
     ll="ls -l --color=auto" \
     emacsc="emacsclient  -c -a 'emacs'" \
     keyLogitech="xmodmap ~/.config/XmodmapLogitech && remaps" \
