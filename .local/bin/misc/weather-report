@@ -7,4 +7,3 @@ getforecast() { curl -sf "wttr.in/$LOCATION" > "$weatherreport" && curl -sf "wtt
 	getforecast
 
 [ "$1" = "show" ] && $TERMINAL -e less $weatherreport
-[ "$1" = "get" ] && getforecast
