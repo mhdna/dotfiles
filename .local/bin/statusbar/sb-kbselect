@@ -1,6 +1,0 @@
-#!/bin/sh
-# works on any init system
-# requirements: dmenu, xorg-setxkbmap
-kb="$(setxkbmap -query | grep -oP 'layout:\s*\K\w+')" || exit 1
-
-echo "$kb"

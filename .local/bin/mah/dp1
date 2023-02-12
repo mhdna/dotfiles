@@ -1,7 +1,0 @@
-#!/bin/bash
-xrandr --newmode "1384x1024_60.00" 117.75 1384 1472 1616 1848 1024 1027 1037 1063 -hsync +vsync ;
-xrandr --addmode DP-1 "1384x1024_60.00" ;
-xrandr --output DP-1 --mode "1384x1024_60.00";
-xrandr --output eDP-1 --off;
-# ; kill -HUP "$(pgrep -u "$USER" "\bdwm$")" ;
-xrandr --output eDP1 --off

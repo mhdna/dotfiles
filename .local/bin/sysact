@@ -4,12 +4,6 @@ case "$(readlink -f /sbin/init)" in
 	*) ctl='loginctl' ;;
 esac
 
-wmpid(){ # This function is needed if there are multiple instances of the window manager.
-	tree="$(pstree -ps $$)"
-	tree="${tree#*$WM(}"
-	echo "${tree%%)*}"
-}
-
 case "$(printf "lock\nleave\nhibernate\nreboot\npoweroff\nsleep\ndisplay off" | dmenu -i -p 'Action: ')" in
 	'lock') slock ;;
 	"leave") pkill -15 -t tty"$XDG_VTNR" Xorg ;;
