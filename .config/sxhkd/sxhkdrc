@@ -10,17 +10,14 @@ super + w
 super + shift + w
     weather-report show
 
-super + {d, p, shift + p}
-    {dmenu_run, passmenu, displayselect}
+super + {d, shift + d, p, shift + p}
+    {dmenu_run, dmenuunicode -i, passmenu, displayselect}
 
-super + m
-    dmenumount
+super + { m, shift + m}
+    {dmenumount, dmenuumount}
 
-super + shift + m
-    dmenuumount
-
-super + {grave, Insert, shift + Insert, b}
-    {dmenuunicode -i, dmenu-bookmarks, bookmarkit, dmenusnippet}
+super + {Insert, shift + Insert, b}
+    {dmenu-bookmarks, bookmarkit, dmenusnippet}
 
 super + v
     clipmenu
@@ -90,6 +87,9 @@ super + {F10, shift + F10, F11, F12, shift + F12}
 
 super + shift + F11
     pauseallmpv
+
+super + q
+	physlock -s
 
 super + shift + q
 	sysact

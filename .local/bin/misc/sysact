@@ -5,10 +5,10 @@ case "$(readlink -f /sbin/init)" in
 esac
 
 case "$(printf "lock\nleave\nhibernate\nreboot\npoweroff\nsleep\ndisplay off" | dmenu -i -p 'Action: ')" in
-	'lock') slock ;;
+	'lock') physlock -s ;;
 	"leave") pkill -15 -t tty"$XDG_VTNR" Xorg ;;
-	'hibernate') slock $ctl hibernate ;;
-	'sleep') slock $ctl suspend -i;;
+	'hibernate') physlock -s $ctl hibernate ;;
+	'sleep') physlock -s $ctl suspend -i;;
 	'reboot') $ctl reboot -i ;;
 	'poweroff') $ctl poweroff -i ;;
 	'display off') xset dpms force off ;;
