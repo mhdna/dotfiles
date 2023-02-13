@@ -1,44 +1,28 @@
 #!/bin/sh
 
-# A dmenu prompt to unmount drives.
-# Provides you with mounted partitions, select one to unmount.
-# Drives mounted at /, /boot and /home will not be options to unmount.
+# Unmount USB drives or Android phones. Replaces the older `dmenuumount`. Fewer
+# prompt and also de-decrypts LUKS drives that are unmounted.
 
-unmountusb() {
-	[ -z "$drives" ] && exit
-	chosen="$(echo "$drives" | dmenu -i -p "Unmount which drive?")" || exit 1
-	chosen="$(echo "$chosen" | awk '{print $1}')"
-	[ -z "$chosen" ] && exit
-	sudo -A umount "$chosen" && notify-send "💻 USB unmounting" "$chosen unmounted."
-	}
+set -e
 
-unmountandroid() { \
-	chosen="$(awk '/simple-mtpfs/ {print $2}' /etc/mtab | dmenu -i -p "Unmount which device?")" || exit 1
-	[ -z "$chosen" ] && exit
-	sudo -A umount -l "$chosen" && notify-send "🤖 Android unmounting" "$chosen unmounted."
-	}
+mounteddroids="$(grep simple-mtpfs /etc/mtab | awk '{print "📱" $2}')"
+lsblkoutput="$(lsblk -nrpo "name,type,size,mountpoint")"
+mounteddrives="$(echo "$lsblkoutput" | awk '($2=="part"||$2="crypt")&&$4!~/\/boot|\/home$|SWAP/&&length($4)>1{printf "💾%s (%s)\n",$4,$3}')"
 
-asktype() { \
-	choice="$(printf "USB\\nAndroid" | dmenu -i -p "Unmount a USB drive or Android device?")" || exit 1
-	case "$choice" in
-		USB) unmountusb ;;
-		Android) unmountandroid ;;
-	esac
-	}
+allunmountable="$(echo "$mounteddroids
+$mounteddrives" | sed "/^$/d;s/ *$//")"
+test -n "$allunmountable"
 
-drives=$(lsblk -nrpo "name,type,size,mountpoint,label" | awk -F':' '{gsub(/ /,":")}$4!~/\/boot|\/efi|\/home$|SWAP/&&length($4)>1{printf "%s (%s) %s\n",$4,$3,$5}')
+chosen="$(echo "$allunmountable" | dmenu -i -p "Unmount which drive?")"
+chosen="${chosen%% *}"
+test -n "$chosen"
 
-if ! grep simple-mtpfs /etc/mtab; then
-	[ -z "$drives" ] && echo "No drives to unmount." &&  exit
-	echo "Unmountable USB drive detected."
-	unmountusb
-else
-	if [ -z "$drives" ]
-	then
-		echo "Unmountable Android device detected."
-	       	unmountandroid
-	else
-		echo "Unmountable USB drive(s) and Android device(s) detected."
-		asktype
-	fi
-fi
+sudo -A umount -l "/${chosen#*/}"
+notify-send "Device unmounted." "$chosen has been unmounted."
+
+# Close the chosen drive if decrypted.
+cryptid="$(echo "$lsblkoutput" | grep "/${chosen#*/}$")"
+cryptid="${cryptid%% *}"
+test -b /dev/mapper/"${cryptid##*/}"
+sudo -A cryptsetup close "$cryptid"
+notify-send "🔒Device dencryption closed." "Drive is now securely locked again."
