@@ -29,7 +29,7 @@ super + {shift + slash, alt + slash}
     {transs p, transs c}
 
 super + e
-    $TERMINAL -e lf
+    $TERMINAL -e lfub
 
 super + shift + e
     qterminal -e neomutt
