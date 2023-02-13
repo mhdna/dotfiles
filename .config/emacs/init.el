@@ -34,13 +34,10 @@
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs"))
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist `(("." . ,(expand-file-name "tmp/backups/" user-emacs-directory))))
-;; auto-save-mode doesn't create the path automatically! (#something#)
-(make-directory (expand-file-name "tmp/auto-saves/" user-emacs-directory) t)
-(setq auto-save-list-file-prefix (expand-file-name "tmp/auto-saves/sessions/" user-emacs-directory)
-			auto-save-file-name-transforms `((".*" ,(expand-file-name "tmp/auto-saves/" user-emacs-directory) t)))
-;; Files created by packages
-(setq projectile-known-projects-file (expand-file-name "tmp/projectile-bookmarks.eld" user-emacs-directory)
-			lsp-session-file (expand-file-name "tmp/.lsp-session-v1" user-emacs-directory))
+;; stop creating those #auto-save# files
+(setq auto-save-default nil)
+(setq create-lockfiles nil)
+(setq lsp-session-file (expand-file-name "tmp/.lsp-session-v1" user-emacs-directory))
 
 ;; Some global settings
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -221,23 +218,6 @@
 																				 try-complete-lisp-symbol-partially
 																				 try-complete-lisp-symbol))
 (global-set-key (kbd "M-/")  #'hippie-expand)
-
-(use-package company
-	:ensure t
-	:hook
-	(prog-mode)
-	:config
-	;; (company-tng-configure-default) ;; use vim-like tab completion
-	(define-key company-active-map (kbd "C-n") #'company-select-next)
-	(define-key company-active-map (kbd "C-p") #'company-select-previous)
-	(setq company-idle-delay 0.1)
-	(setq company-tooltip-limit 10)
-	(setq company-minimum-prefix-length 1)
-	(setq company-tooltip-align-annotations t)
-	;; invert the navigation direction if the the completion popup-isearch-match
-	;; is displayed on top (happens near the bottom of windows)
-	(setq company-tooltip-flip-when-above t)
-	)
 
 (use-package magit
 	:ensure t)
