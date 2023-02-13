@@ -5,7 +5,7 @@
 url="${1:-$(printf "%s" | dmenu -p 'Paste url or file path')}"
 base="$(basename "$url")"
 
-case "$(printf "Copy url\\nsxiv\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\nmpv\\nmpvAudio\\nmpv float\\nyt\\nyta\\nyt any quality\\nHtml\\nariaAdd\\nariaDownload" | dmenu -i -p "Open it with?")" in #\\nqueue download\\nqueue yt-dl\\nqueue yt-dl audio
+case "$(printf "Copy url\\nnsxiv\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\nmpv\\nmpvAudio\\nmpv float\\nyt\\nyta\\nyt any quality\\nHtml\\nariaAdd\\nariaDownload" | dmenu -i -p "Open it with?")" in #\\nqueue download\\nqueue yt-dl\\nqueue yt-dl audio
 	"Copy url") echo "$url" | tr -d '\n' | xclip -selection clipboard ;;
 	mpv) setsid -f mpv -quiet "$url" >/dev/null 2>&1 ;;
 	mpvAudio) $TERMINAL -e mpv -quiet --no-video "$url"  ;;
@@ -23,7 +23,7 @@ case "$(printf "Copy url\\nsxiv\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\nmpv\\nmpv
 	#"queue yt-dl audio") qndl "$url" 'yt-dlp -f bestaudio/best --add-metadata -icx' >/dev/null 2>&1 ;;
 	#"queue download") qndl "$url" 'curl -LO' >/dev/null 2>&1 ;;
 	PDF) curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && zathura "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
-	sxiv) curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && sxiv -a "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
+	nsxiv) curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && nsxiv -a "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
 	vim) curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && setsid -f "$TERMINAL" -e "$EDITOR" "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
 	setbg) curl -L "$url" > $XDG_CACHE_HOME/pic ; xwallpaper --zoom $XDG_CACHE_HOME/pic >/dev/null 2>&1 ;;
 	browser) setsid -f "$BROWSER" "$url" >/dev/null 2>&1 ;;
