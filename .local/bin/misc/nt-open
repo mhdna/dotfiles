@@ -1,7 +1,0 @@
-#!/bin/sh
-
-sudo sh -c '
-cryptsetup luksOpen /dev/sda7 my_point2 && mount /dev/mapper/my_point2 /mnt/pt
-cryptsetup luksOpen /dev/sdb2 my_point  && mount /dev/mapper/my_point /mnt/pt2
-cryptsetup luksOpen /dev/sdc2 my_usb_point && mount /dev/mapper/my_usb_point /mnt/usb_pt '
-

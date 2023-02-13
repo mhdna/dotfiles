@@ -1,4 +1,0 @@
-#!/bin/sh
-
-sudo sh -c 'rsync -rvuP --delete-after /mnt/pt/ /mnt/pt2 & rsync -rvuP --delete-after /mnt/pt/ /mnt/usb_pt'
-
