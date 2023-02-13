@@ -1,3 +1,6 @@
 [submodule ".config/mpv/script-modules/mpv-gallery-view"]
 	path = .config/mpv/script-modules/mpv-gallery-view
 	url = https://github.com/occivink/mpv-gallery-view.git
+[submodule ".config/tmux/tmux-resurrect"]
+	path = .config/tmux/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect
