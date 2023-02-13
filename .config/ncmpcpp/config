@@ -14,5 +14,5 @@ ignore_leading_the = yes
 external_editor = nvim
 use_console_editor = yes
 screen_switcher_mode = media_library, playlist
-execute_on_song_change = notify-send -t 4000 "Now Playing" "$(mpc --format '%title% \n%artist% - %album%' current)"
+execute_on_song_change = notify-send -t 4000 "Now Playing" "$(mpc --format '%file% \n%artist% - %album%' current)"
 search_engine_default_search_mode = 2
