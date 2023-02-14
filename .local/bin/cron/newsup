@@ -2,8 +2,5 @@
 
 ping -q -c 1 example.org > /dev/null || exit
 
-echo "RSS ref" > /tmp/newsupdate
-pkill -RTMIN+6 "${STATUSBAR:-dwmblocks}"
 /usr/bin/newsboat -x reload
-rm -f /tmp/newsupdate
-pkill -RTMIN+6 "${STATUSBAR:-dwmblocks}"
+notify-send '📰 RSS Feed' 'Has successfully been update'
