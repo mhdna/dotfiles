@@ -1,7 +1,9 @@
 #!/bin/sh
 
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!
-xautolock -time 10 -locker  'physlock -s'&
+# dim after 500 secs, lock after 10 mins
+xset s on & xset s 500 600&
+xss-lock -n dim-screen -- physlock -s&
 redshift -l 31.77:35.23&
 remaps &
 emacs --daemon &
