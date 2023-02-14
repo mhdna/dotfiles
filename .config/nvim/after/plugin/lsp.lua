@@ -59,7 +59,7 @@ lspconfig.pylsp.setup {
 
 require'lspconfig'.gopls.setup{}
 
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
     on_attach = on_attach,
     flags = lsp_flags,
     diagnostics = {
