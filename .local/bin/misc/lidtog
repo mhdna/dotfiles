@@ -1,7 +1,22 @@
 #!/bin/sh
 
-case "$(printf "Sleep on lid close\nDo not sleep on lid close" | dmenu -i )" in
-    'Sleep on lid close') sudo sh -c 'sed -i "s/^HandleLidSwitch=ignore/#HandleLidSwitch=suspend/" /etc/systemd/logind.conf;  systemctl kill -s HUP systemd-logind' ;;
-    'Do not sleep on lid close') sudo sh -c 'sed -i "s/^#HandleLidSwitch=suspend/HandleLidSwitch=ignore/" /etc/systemd/logind.conf; systemctl kill -s HUP systemd-logind' ;;
-	*) exit 1 ;;
+case "$(readlink -f /sbin/init)" in
+    *systemd*) init="sysd";;
+    *) init="notsysd";;
+esac
+
+case "$(printf "Lid Sleep\nLid Don't Sleep" | dmenu -i )" in
+    "Lid Sleep")
+        if [ $init = "sysd" ]; then
+            sudo sh -c 'sed -i "s/^HandleLidSwitch=ignore/#HandleLidSwitch=suspend/" /etc/systemd/logind.conf;  systemctl kill -s HUP systemd-logind'
+        else
+            sudo sh -c 'sed -i "s/^HandleLidSwitch=ignore/#HandleLidSwitch=suspend/" /etc/elogind/logind.conf; pkill -HUP elogind'
+        fi ;;
+    "Lid Don't Sleep")
+        if [ $init = "sysd" ]; then
+            sudo sh -c 'sed -i "s/^#HandleLidSwitch=suspend/HandleLidSwitch=ignore/" /etc/systemd/logind.conf; systemctl kill -s HUP systemd-logind'
+        else
+            sudo sh -c 'sed -i "s/^#HandleLidSwitch=suspend/HandleLidSwitch=ignore/" /etc/elogind/logind.conf; pkill -HUP elogind'
+        fi ;;
+    *) exit 1 ;;
 esac
