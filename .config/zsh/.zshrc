@@ -49,10 +49,13 @@ export HISTFILESIZE=10000
 export SAVEHIST=10000
 export HISTFILE=~/.cache/zsh/history
 setopt INC_APPEND_HISTORY
+# Don't list history duplications, but save them to the file
+setopt HIST_FIND_NO_DUPS
 # Don't save history duplications
 setopt HIST_IGNORE_ALL_DUPS
 setopt   HIST_IGNORE_SPACE
 setopt   HIST_IGNORE_DUPS
+
 
 bindkey -e
 bindkey \^U backward-kill-line
