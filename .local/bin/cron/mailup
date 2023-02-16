@@ -4,6 +4,5 @@ ping -q -c 1 example.org > /dev/null || exit
 
 echo "MAIL" > /tmp/mailupdate
 pkill -RTMIN+12 "${STATUSBAR:-dwmblocks}"
-mw -Y
-rm -f /tmp/mailupdate
+mw -Y && rm -f /tmp/mailupdate || echo "MAIL err" > /tmp/mailupdate
 pkill -RTMIN+12 "${STATUSBAR:-dwmblocks}"

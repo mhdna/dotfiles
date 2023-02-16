@@ -4,6 +4,5 @@ ping -q -c 1 example.org > /dev/null || exit
 
 echo "RSS" > /tmp/newsupdate
 pkill -RTMIN+6 "${STATUSBAR:-dwmblocks}"
-/usr/bin/newsboat -x reload
-rm -f /tmp/newsupdate
+/usr/bin/newsboat -x reload && rm -f /tmp/newsupdate || echo "RSS err" > /tmp/newsupdate
 pkill -RTMIN+6 "${STATUSBAR:-dwmblocks}"
