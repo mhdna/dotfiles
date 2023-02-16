@@ -3,24 +3,23 @@ while read -r file
 do
     case "$1" in
     "k")
-        kdeconnect-cli --refresh && kdeconnect-cli --device 415a811582e4a899 --share "$file" || notify-send -u low "send failed" & ;;
+        kdeconnect-cli --refresh && kdeconnect-cli --device "$(kdeconnect-cli -a | awk '{print $3}' | dmenu -i -p "Select your device:")" --share "$file" || notify-send "Sending failed" ;;
     "v")
         setsid -f mpv "$file" -quiet >/dev/null 2>&1 ;;
     "w")    setbg "$file" ;;
     "r")
         name="$(dmenu -p "rename $file to: ")" 2> /dev/null
-        if ! [ -z "$name" ]; then
-            #mv "$file" "$name"
-            mv "$file" "$(dirname $file)/$name"
+        if [ -n "$name" ]; then
+            mv "$file" "$(dirname "$file")/$name"
         fi
         ;;
     "c")
-        [ -z "$destdir" ] && destdir="$(sed "s/#.*$//;/^\s*$/d" ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | awk '{print $2}' | dmenu -l 20 -i -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
+        [ -z "$destdir" ] && destdir="$(sed "s/#.*$//;/^\s*$/d" "$XDG_CONFIG_HOME/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
         [ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
         cp "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file copied to $destdir." &
         ;;
     "m")
-        [ -z "$destdir" ] && destdir="$(sed "s/\s.*#.*$//;/^\s*$/d" ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | awk '{print $2}' | dmenu -l 20 -i -p "Move file(s) to where?" | sed "s|~|$HOME|g")"
+        [ -z "$destdir" ] && destdir="$(sed "s/\s.*#.*$//;/^\s*$/d" "$XDG_CONFIG_HOME/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -p "Move file(s) to where?" | sed "s|~|$HOME|g")"
         [ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
         mv "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "🚚 $file moved to $destdir." &
         ;;
@@ -45,9 +44,8 @@ do
 	"g")	ifinstalled gimp && setsid -f gimp "$file" ;;
 	"i")	notify-send "File information" "$(mediainfo "$file")" ;;
     "o")
-        name=$(echo ${file%.*})
-        arr=(webm mkv mp4)
-        for ext in "${arr[@]}"; do
+        name=${file%.*}
+        for ext in webm mkv mp4; do
             [ -f "$name.$ext" ] && setsid -f mpv "$name.$ext" -quiet >/dev/null 2>&1
         done;;
 esac
