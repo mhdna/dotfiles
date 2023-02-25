@@ -5,7 +5,7 @@ do
     "k")
         kdeconnect-cli --refresh && kdeconnect-cli --device "$(kdeconnect-cli -a | awk '{print $3}' | dmenu -i -p "Select your device:")" --share "$file" || notify-send "Sending failed" ;;
     "v")
-        setsid -f mpv "$file" -quiet >/dev/null 2>&1 ;;
+        setsid -f $VIDEO "$file" -quiet >/dev/null 2>&1 ;;
     "w")    setbg "$file" ;;
     "r")
         name="$(dmenu -p "rename $file to: ")" 2> /dev/null
@@ -46,7 +46,7 @@ do
     "o")
         name=${file%.*}
         for ext in webm mkv mp4; do
-            [ -f "$name.$ext" ] && setsid -f mpv "$name.$ext" -quiet >/dev/null 2>&1
+            [ -f "$name.$ext" ] && setsid -f $VIDEO "$name.$ext" -quiet >/dev/null 2>&1
         done;;
 esac
 done
