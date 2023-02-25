@@ -9,10 +9,10 @@ output="$XDG_PICTURES_DIR/screenshots/-$(date '+%y%m%d-%H%M-%S').png"
 xclip_cmd="xclip -sel clip -t image/png"
 
 case "$(printf "a selected area\\ncurrent window\\nfull screen\\na selected area (copy)\\ncurrent window (copy)\\nfull screen (copy)" | dmenu -l 6 -i -p "Screenshot which area?")" in
-    "a selected area") maim -s "${output}" pic-selected- ;;
+    "a selected area") maim -u -s "${output}" pic-selected- ;;
     "current window") maim -q -d 0.2 -i "$(xdotool getactivewindow)" "${output}" pic-window- ;;
     "full screen") maim -q -d 0.2 "${output}" pic-full- ;;
-    "a selected area (copy)") maim -s | ${xclip_cmd} ;;
+    "a selected area (copy)") maim -u -s | ${xclip_cmd} ;;
     "current window (copy)") maim -q -d 0.2 -i "$(xdotool getactivewindow)" | ${xclip_cmd} ;;
     "full screen (copy)") maim -q -d 0.2 | ${xclip_cmd} ;;
 esac
