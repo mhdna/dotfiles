@@ -1,6 +1,0 @@
-[global]
-    monitor = 0
-    width = 220
-    height = 300
-    offset = 10x50
-    enable_recursive_icon_lookup = true
