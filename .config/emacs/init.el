@@ -53,7 +53,7 @@
 ;; current subdir, instead of the current subdir of this dired buffer
 (setq dired-dwim-target t)
 (setq ibuffer-expert t)
-;; warn when opening files bigger than 100MB
+;; warn when o
 (setq large-file-warning-threshold 100000000)
 ;; Always load newest byte code
 (setq load-prefer-newer t)
@@ -65,8 +65,8 @@
 ;; bookmarks default file
 (setq bookmark-default-file (concat (file-name-as-directory EMACS_DIR) "/bookmarks"))
 (tooltip-mode -1)
-(defvar my-term-shell "/bin/zsh")
-(defadvice ansi-term (before force-zsh)
+(defvar my-term-shell "/bin/bash")
+(defadvice ansi-term (before force-bash)
 	(interactive (list my-term-shell)))
 (ad-activate 'ansi-term)
 ;; Automatically save bookmarks upon any modification to them
@@ -94,11 +94,17 @@
 				 ("<f5>" . recompile)
 				 ("C-c s" . flyspell-mode)
 				 ("M-o"   . other-window)
-				 ("C-x s"   . shell)
-				 ("C-;" . toggle-input-method)
+				 ;; ("C-x s"   . shell)
+				 ;; ("C-;" . toggle-input-method)
 				 ))
 
 ;; Look and feel
+;; (setq inhibit-x-resources 1)
+;; (set-foreground-color "white")
+;; (set-background-color "black")
+;; (set-cursor-color "white")
+;; Set up the visible bell
+(setq visible-bell t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -265,18 +271,18 @@
 	:hook
 	(prog-mode))
 
-(use-package undo-tree
-	:ensure t
-	:config
-	;; autosave the undo-tree history
-	(setq undo-tree-history-directory-alist
-				`((".*" . ,temporary-file-directory)))
-	(setq undo-tree-auto-save-history t)
-	(global-undo-tree-mode +1)
+;; (use-package undo-tree
+;; 	:ensure t
+;; 	:config
+;; 	;; autosave the undo-tree history
+;; 	(setq undo-tree-history-directory-alist
+;; 				`((".*" . ,temporary-file-directory)))
+;; 	(setq undo-tree-auto-save-history t)
+;; 	(global-undo-tree-mode +1)
 
-	(when (package-installed-p 'evil)
-		(evil-set-undo-system 'undo-tree))
-	)
+;; 	(when (package-installed-p 'evil)
+;; 		(evil-set-undo-system 'undo-tree))
+;; 	)
 
 ;; Latex
 ;; (use-package auctex
@@ -310,3 +316,75 @@
 
 ;; ;; treesitter
 ;; (add-hook 'java-mode-hook 'java-ts-mode)
+
+
+;; (use-package exwm
+;;   :ensure t
+;; 	:config
+;;   (require 'exwm-config)
+;;   (exwm-config-default)
+;;   ;; (global-set-key (kbd "s-k") 'exwm-workspace-delete)
+;;   ;; (global-set-key (kbd "s-w") 'exwm-workspace-swap)
+;;   ;; Set the default number of workspaces
+;;   (setq exwm-workspace-number 5)
+
+;;   ;; When window "class" updates, use it to set the buffer name
+;;   (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
+
+;;   ;; Rebind CapsLock to Ctrl
+;;   ;; (start-process-shell-command "xmodmap" nil "xmodmap ~/.emacs.d/exwm/Xmodmap")
+
+;;   ;; Set the screen resolution (update this to be the correct resolution for your screen!)
+;;   (require 'exwm-randr)
+;;   (exwm-randr-enable)
+;;   ;; (start-process-shell-command "xrandr" nil "xrandr --output Virtual-1 --primary --mode 2048x1152 --pos 0x0 --rotate normal")
+
+;;   ;; Load the system tray before exwm-init
+;;   (require 'exwm-systemtray)
+;;   (exwm-systemtray-enable)
+
+;;   ;; These keys should always pass through to Emacs
+;;   (setq exwm-input-prefix-keys
+;; 				'(?\C-x
+;; 					?\C-u
+;; 					?\C-h
+;; 					?\M-x
+;; 					?\M-`
+;; 					?\M-&
+;; 					?\M-:
+;; 					?\C-\M-j  ;; Buffer list
+;; 					?\C-\ ))  ;; Ctrl+Space
+
+;;   ;; Ctrl+Q will enable the next key to be sent directly
+;;   (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+
+;;   ;; Set up global key bindings.  These always work, no matter the input state!
+;;   ;; Keep in mind that changing this list after EXWM initializes has no effect.
+;;   (setq exwm-input-global-keys
+;;         `(
+;;           ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+;;           ([?\s-r] . exwm-reset)
+
+;;           ;; Move between windows
+;;           ([s-left] . windmove-left)
+;;           ([s-right] . windmove-right)
+;;           ([s-up] . windmove-up)
+;;           ([s-down] . windmove-down)
+
+;;           ;; Launch applications via shell command
+;;           ([?\s-&] . (lambda (command)
+;;                        (interactive (list (read-shell-command "$ ")))
+;;                        (start-process-shell-command command nil command)))
+
+;;           ;; Switch workspace
+;;           ([?\s-w] . exwm-workspace-switch)
+;;           ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
+
+;;           ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+;;           ,@(mapcar (lambda (i)
+;;                       `(,(kbd (format "s-%d" i)) .
+;;                         (lambda ()
+;;                           (interactive)
+;;                           (exwm-workspace-switch-create ,i))))
+;;                     (number-sequence 0 9))))
+;;   (exwm-enable)))
