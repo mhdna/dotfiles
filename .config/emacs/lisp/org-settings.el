@@ -35,14 +35,14 @@
 (setq org-refile-targets `((,org-index-file :level . 1)
 													 ;; (,(org-file-path "environment.org") :level . 1)
 													 (,(org-file-path "index.org") :level . 1)
-													 (,(org-file-path "goals.org") :level . 1)
+													 ;; (,(org-file-path "goals.org") :level . 1)
 													 (,(org-file-path "links.org") :level . 1)
 													 (,(org-file-path "media.org") :level . 1)))
 ;; (,(org-file-path "someday-maybe.org") :level . 1)
 ;; (,(org-file-path "work.org") :level . 1)))
 (setq org-agenda-files (list org-index-file
 														 ;; (org-file-path "calendars")
-														 (org-file-path "goals.org")
+														 ;; (org-file-path "goals.org")
 														 ;; (org-file-path "tasks.org")
 														 (org-file-path "habits.org")
 														 (org-file-path "news.org")
@@ -444,6 +444,7 @@ non-empty lines in the block (excluding the line with
 ;; 				 )
 
 ;;         ("mhdna.io" :components ("pages" "static"))))
+
 
 (define-key org-mode-map (kbd "C-c C-l") 'my/org-insert-link-dwim)
 (define-key global-map "\C-cl" 'org-store-link)
