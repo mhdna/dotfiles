@@ -20,7 +20,6 @@ map p print
 map g goto top
 
 # unmap q
-
 # set scroll-step 70
 
 map b toggle_statusbar
@@ -30,7 +29,6 @@ map <Space> navigate next
 map <S-Space> navigate previous
 
 set font                        "Mono 10"
-set default-bg                  "#808080"
 
 # set recolor                     "true"
 set recolor-keephue             true      # keep original colors when recoloring
