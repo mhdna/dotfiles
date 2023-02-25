@@ -7,7 +7,6 @@ user_pref("browser.toolbars.bookmarks.visibility", "never")
 // disable firefox-view
 user_pref("browser.tabs.firefox-view", false)
 user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
-user_pref("browser.uidensity", 1);
 user_pref("general.smoothScroll", false);
 user_pref("extensions.pocket.enabled", false);
 user_pref("keyword.enabled", true);
