@@ -204,13 +204,13 @@ cmd open ${{
         application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) setsid -f localc $fx >/dev/null 2>&1;;
         *opendocument*) setsid -f  lowriter $fx >/dev/null 2>&1;;
         text/html) setsid -f $BROWSER $fx >/dev/null 2>&1;;
-        text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $f ;;
+        text/*|application/json|inode/x-empty|application/x-subrip) setsid -f  $TERMINAL -e $EDITOR $f >/dev/null 2>&1;;
         image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
         image/svg+xml) display -- $fx ;;
-        audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
-        video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+        audio/*|video/x-ms-asf) $VIDEO --audio-display=no $f ;;
+        video/*) setsid -f $VIDEO $f -quiet >/dev/null 2>&1 ;;
         image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
-        setsid -f nsxiv -aio 2>/dev/null | while read -r file; do
+        setsid -f $IMAGE -aio 2>/dev/null | while read -r file; do
         [ -z "$file" ] && continue
         lf -remote "send select \"$file\""
         lf -remote "send toggle"
@@ -289,12 +289,6 @@ cmd copyto ${{
                 notify-send -t 2000 "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
-cmd ref :{{
-    reload
-    source "~/.config/lf/shortcutrc"
-    $$HOME/.config/lf/cleaner
-}}
-
 # KeyBindings
 map g top
 map DD delete
@@ -303,7 +297,6 @@ map Y copyto
 map M moveto
 map Z pdfConvert
 
-map W $setsid -f $TERMINAL >/dev/null 2>&1
 map <enter> shell
 map x !clear; $f
 map X chmod
@@ -359,6 +352,9 @@ map m
 map mf push :mkfile<space>
 map mF sudomkfile
 map md push :mkdir<space>
+
+map w $setsid -f $TERMINAL >/dev/null 2>&1
+map W $$SHELL
 
 # stipspace
 map ss %stripspace "$f"
