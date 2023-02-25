@@ -7,8 +7,8 @@ esac
 case "$(printf "lock\nleave\nhibernate\nreboot\npoweroff\nsleep\ndisplay off" | dmenu -i -p 'Action: ')" in
 	'lock') physlock -s ;;
 	"leave") pkill -15 -t tty"$XDG_VTNR" Xorg ;;
-	'hibernate') physlock -s $ctl hibernate ;;
-	'sleep') physlock -s $ctl suspend -i;;
+	'hibernate') $ctl hibernate ;;
+	'sleep') $ctl suspend -i;;
 	'reboot') $ctl reboot -i ;;
 	'poweroff') $ctl poweroff -i ;;
 	'display off') xset dpms force off ;;
