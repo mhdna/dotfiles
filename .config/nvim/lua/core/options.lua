@@ -17,6 +17,7 @@ vim.opt.lazyredraw = true -- Faster scrolling
 vim.opt.updatetime = 700 -- ms to wait for trigger an event
 
 -- vim.o.exrc       = true -- so if a vimrc file is in a dir, it's automatically sourced (for custom projects)
+-- vim.o.colorcolumn = '95'
 vim.o.compatible = false
 vim.o.incsearch  = true -- highlight incrementaly rather than the whole word word
 vim.o.ignorecase  = true -- only ignore case if write uppercase letter
@@ -27,10 +28,10 @@ vim.o.undofile   = true
 vim.o.hlsearch   = false -- Do not keep the previous search occurance highlighted
 -- vim.o.swapfile   = false
 
--- vim.wo.relativenumber = true
 -- vim.o.number = true
--- vim.o.scrolloff = 8
-vim.opt.termguicolors = true -- Enable 24-bit RGB colors
+-- vim.wo.relativenumber = true
+vim.o.scrolloff = 8
+-- vim.opt.termguicolors = true -- Enable 24-bit RGB colors
 vim.opt.linebreak = false
 vim.bo.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -54,9 +55,7 @@ vim.o.splitright = true
 
 -- Highlight current line
 -- vim.o.cursorline = true
--- set noshowcmd
 -- set formatoptions-=o
--- set delcombine                               " Delete part of combining character with x command. Useful for editing Arabic diacritics.
 -- set updatetime=50
 -- set inccommand=nosplit
 -- vim.opt.statusline="%F"
