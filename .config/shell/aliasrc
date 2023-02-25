@@ -32,14 +32,12 @@ duck () {
 alias \
     "?"=duck \
     config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
+    g='git' \
     p="pacman" \
     P="sudo pacman" \
     ll="ls -l --color=auto" \
     emacsc="emacsclient  -c -a 'emacs'" \
-    keyLogitech="xmodmap ~/.config/XmodmapLogitech && remaps" \
-    keyMain="xmodmap ~/.config/Xmodmap && remaps " \
     Tmux="tmux a || tmux" \
-    yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'\
     abook="abook -C $XDG_CONFIG_HOME/abook/abookrc --datafile $XDG_CONFIG_HOME/abook/addressbook" \
     cp="cp -iv" \
     mv="mv -iv" \
@@ -51,11 +49,9 @@ alias \
     yta="yt-dlp --remux-video ogg -f bestaudio/best --external-downloader aria2c -P $XDG_MUSIC_DIR " \
     aria2c="aria2c --auto-file-renaming=false" \
     ffmpeg="ffmpeg -hide_banner" \
-    restartdwm='killall fbxkb ;kill -HUP "$(pgrep -u "$USER" "\bdwm$")"' \
     ls="ls -hN --color=auto --group-directories-first" \
     grep="grep --color=auto" \
     diff="diff --color=auto" \
-    ccat="highlight --out-format=ansi" \
     ip="ip -color=auto" \
     nf="notify-send " \
     awesomerestart="echo 'awesome.restart()' | awesome-client" \
@@ -66,4 +62,4 @@ alias \
     trem="transmission-remote" \
     z="zathura" \
     ref="shortcuts >/dev/null; source $XDG_CONFIG_HOME/shell/shortcutrc; source $XDG_CONFIG_HOME/shell/aliasrc" \
-    random_password="date +%s | sha256sum | base64 | head -c 15 ; echo" \
+    # random_password="date +%s | sha256sum | base64 | head -c 15 ; echo" \
