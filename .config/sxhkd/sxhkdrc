@@ -1,11 +1,14 @@
 super + Return
     $TERMINAL
 
-super + shift + Return
-    emacsclient  -c -a 'emacs'
+super + i
+    fol Tmux "sh -c 'tmux a || tmux'" 1
 
-super + w
-    $BROWSER
+super + shift + i
+    pgrep emacs && xdo activate -N Emacs || emacs
+
+super + b
+    fol $BROWSER $BROWSER 0
 
 super + shift + w
     weather-report show
@@ -16,29 +19,32 @@ super + {d, shift + d, p, shift + p}
 super + { m, shift + m}
     {dmenumount, dmenuumount}
 
-super + {Insert, shift + Insert, b}
+super + {Insert, shift + Insert, shift + b}
     {dmenu-bookmarks, bookmarkit, dmenusnippet}
 
 super + v
     clipmenu
 
 super + shift + v
-    $TERMINAL -e pulsemixer
+    fol Pulsemixer pulsemixer 1
 
-super + {shift + slash, alt + slash}
+super + {BackSpace, shift + BackSpace}
+    {fol Sdcv sdcv 1 , fol Transs transs 1}
+
+super + {slash, shift + slash}
     {transs p, transs c}
 
 super + e
-    $TERMINAL -e lfub
+    fol Lfub lfub 1
 
 super + shift + e
-    qterminal -e neomutt
+    fol Neomutt "bicon -e neomutt" 1
 
 super + n
-    pkill newsboat; qterminal -e newsboat
+    fol Newsboat "bicon -e newsboat" 1
 
 super + shift + n
-    qterminal -e ncmpcpp
+    fol Ncmpcpp "bicon -e ncmpcpp" 1
 
 Print
     maim "$XDG_PICTURES_DIR/screenshots/$(date '+%y%m%d-%H%M-%S').png" pic-full- && notify-send -t 500 'Screenshot has been printed'
@@ -46,32 +52,26 @@ Print
 {shift + Print, super + Print, super + Delete}
     {maimpick, dmenurecord -i, dmenurecord kill}
 
-XF86Audio{LowerVolume,RaiseVolume}
-    pamixer --allow-boost {-d , -i } 5; kill -44 $(pidof dwmblocks)
+XF86Audio{RaiseVolume,LowerVolume}
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}
 
 {XF86AudioMute, super+shift+minus}
-    pamixer -t; kill -44 $(pidof dwmblocks)
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+super + { minus, equal}
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+}
 
 {XF86MonBrightnessDown, super + XF86MonBrightnessDown, XF86MonBrightnessUp, super + XF86MonBrightnessUp}
 	brightnessctl set {10%-, 1%, +10%, 100%}
 
-super + { minus, equal}
-    pamixer --allow-boost {-d , -i } 5; kill -44 $(pidof dwmblocks)
-
 super + {comma,shift+comma,period,shift+period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
-
-super + {shift + BackSpace, ctrl + BackSpace}
-    dunstctl {history-pop, set-paused toggle && notify-send "Toggled dunst"}
 
 super + {F1, shift + F1}
     {kdeconnect-indicator ; kdeconnect-cli --refresh, pkill kdeconnect}
 
-super + F2
-    redshift -O 5000
-
-super + shift + F2
-    redshift -x
+super + {F2, shift + F2}
+    redshift {-O 5000, -x}
 
 super + {F3, shift + F3}
     {torwrap, td-toggle}
@@ -97,5 +97,5 @@ super + shift + q
 super + ctrl + x
     xkill
 
-super + ctrl + r
+super + shift + r
 	pkill -USR1 -x sxhkd
