@@ -1,5 +1,0 @@
-Emacs.alpha: 100
-*.font: monospace:pixelsize=15
-*.background: #000
-*.foreground: #fff
-*.cursorcolor: #fff
