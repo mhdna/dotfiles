@@ -1,7 +1,7 @@
 #!/bin/sh
 
 path="/home/$USER/.local/share/snippets"
-choice=$(cat $path | dmenu -l 10 -p "Select snippet")
+choice=$(cat $path | dmenu -i -l 10 -p "Select snippet")
 
 case $choice in
 	 "")
