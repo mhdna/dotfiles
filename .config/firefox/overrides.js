@@ -7,7 +7,6 @@ user_pref("browser.toolbars.bookmarks.visibility", "never")
 // disable firefox-view
 user_pref("browser.tabs.firefox-view", false)
 user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
-user_pref("general.smoothScroll", false);
 user_pref("extensions.pocket.enabled", false);
 user_pref("keyword.enabled", true);
 // Disable the Twitter/R*ddit/Faceberg ads in the URL bar:
@@ -19,8 +18,5 @@ user_pref("signon.prefillForms", false);
 user_pref("browser.urlbar.autoFill", false);
 // Allow access to http (i.e. not https) sites:
 user_pref("dom.security.https_only_mode", false);
-// Keep cookies until expiration or user deletion:
-user_pref("network.cookie.lifetimePolicy", 0);
-user_pref("dom.webnotifications.serviceworker.enabled", false);
 // Disable push notifications:
 user_pref("dom.push.enabled", false);
