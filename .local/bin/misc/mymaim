@@ -1,0 +1,54 @@
+#!/bin/sh
+
+output="$XDG_PICTURES_DIR/screenshots/-$(date '+%y%m%d-%H%M-%S').png"
+xclip_cmd="xclip -sel clip -t image/png"
+
+# freeze() {
+#     # take screenshot without cursor and pipe to nsxiv, get its pid
+#     maim -u | nsxivpipe
+#     nsxiv_pid=$!
+
+#     # wait for nsxiv to start
+#     while [ -z "$(xdotool search --pid "$nsxiv_pid")" ]; do
+#         sleep 0.1
+#     done
+
+#     # get window ID of nsxiv
+#     wid="$(xdotool search --pid "$nsxiv_pid")"
+
+#     # fullscreen nsxiv and move top-left (works with multi-monitor)
+#     xdotool windowsize "$wid" 100% 100%
+#     xdotool windowmove "$wid" 0 0
+
+#     # take the new screenshot by selection, pipe to clipboard
+#     if [ "$1" = "c" ]; then
+#         maim -s | xclip -selection clipboard -t image/png
+#     else
+#         maim -u -s "${output}" pic-selected-
+#     fi
+
+#     # kill nsxiv
+#     kill "$nsxiv_pid"
+# }
+
+success () {
+    notify-send -t 1000 "Printed Successfully"
+}
+
+maimsel="maim -u -s"
+maimwin="maim -q -d 0.2 -i $(xdotool getactivewindow)"
+maimful="maim -q -d 0.2"
+
+case "$1" in
+    "s") $maimsel "${output}" pic-selected- && success;;
+    "w")  $maimwin "${output}" pic-window- && success;;
+    "f")  $maimful "${output}" pic-full- && success;;
+    # "F") freeze && success;;
+    "cs") $maimsel | ${xclip_cmd} ;;
+    "cw") $maimwin| ${xclip_cmd} ;;
+    "cf") $maimful | ${xclip_cmd} ;;
+    # "cF") freeze c;;
+    *) exit 1;;
+esac
+
+
