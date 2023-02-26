@@ -2,25 +2,25 @@ super + Return
     $TERMINAL
 
 super + i
-    fol Tmux "sh -c 'tmux a || tmux'" 1
+    xdo activate -N Tmux || $TERMINAL -n Tmux -e sh -c 'tmux a || tmux'
 
 super + shift + i
-    pgrep emacs && xdo activate -N Emacs || emacs
+    xdo activate -d -N Emacs || emacsclient -c -a 'emacs' # -d with xdo, so it works with emacs daemon as well
 
-super + b
-    fol $BROWSER $BROWSER 0
+super + {_,shift+} b
+    {fol $BROWSER $BROWSER 0,dmenusnippet}
 
 super + shift + w
     weather-report show
 
-super + {d, shift + d, p, shift + p}
+super + {_,shift+} {d,p}
     {dmenu_run, dmenuunicode -i, passmenu, displayselect}
 
 super + { m, shift + m}
     {dmenumount, dmenuumount}
 
-super + {Insert, shift + Insert, shift + b}
-    {dmenu-bookmarks, bookmarkit, dmenusnippet}
+super + {_,shift+} Insert
+    {dmenu-bookmarks, bookmarkit}
 
 super + v
     clipmenu
@@ -28,29 +28,32 @@ super + v
 super + shift + v
     fol Pulsemixer pulsemixer 1
 
-super + {BackSpace, shift + BackSpace}
-    {fol Sdcv sdcv 1 , fol Transs transs 1}
+super + {_,shift+ } BackSpace
+    fol {Sdcv sdcv ,Transs transs} 1
 
-super + {slash, shift + slash}
+super + {_,shift+} slash
     {transs p, transs c}
 
 super + e
     fol Lfub lfub 1
 
+super + Escape
+    fol Pad "$EDITOR $HOME/.cache/pad.md" 1
+
 super + shift + e
     fol Neomutt "bicon -e neomutt" 1
 
 super + n
-    fol Newsboat "bicon -e newsboat" 1
+    fol Newsboat " bicon -e newsboat" 1
 
 super + shift + n
-    fol Ncmpcpp "bicon -e ncmpcpp" 1
+    fol Ncmpcpp ncmpcpp 1
 
-Print
-    maim "$XDG_PICTURES_DIR/screenshots/$(date '+%y%m%d-%H%M-%S').png" pic-full- && notify-send -t 500 'Screenshot has been printed'
+{_,shift+} Print; {f, s, w}
+    mymaim { ,c}{f,s,w}
 
-{shift + Print, super + Print, super + Delete}
-    {maimpick, dmenurecord -i, dmenurecord kill}
+{super + Print, super + Delete}
+    {dmenurecord -i, dmenurecord kill}
 
 XF86Audio{RaiseVolume,LowerVolume}
     wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}
@@ -61,41 +64,35 @@ XF86Audio{RaiseVolume,LowerVolume}
 super + { minus, equal}
     wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+}
 
-{XF86MonBrightnessDown, super + XF86MonBrightnessDown, XF86MonBrightnessUp, super + XF86MonBrightnessUp}
+{_,super+ } XF86MonBrightness{Down,Up}
 	brightnessctl set {10%-, 1%, +10%, 100%}
 
-super + {comma,shift+comma,period,shift+period}
+super + {_,shift+ }{comma,period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
 
-super + {F1, shift + F1}
+super + {_, shift + } F1
     {kdeconnect-indicator ; kdeconnect-cli --refresh, pkill kdeconnect}
 
-super + {F2, shift + F2}
+super + {_, shift + } F2
     redshift {-O 5000, -x}
 
-super + {F3, shift + F3}
+super + {_, shift +} F3
     {torwrap, td-toggle}
 
-super + F4
-    remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to defaults'
+super + {_, shift+} F4
+    { remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to defaults', remaps && xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" 0 & notify-send -t 1000 'Touchpad Has been disabled'}
 
-super + shift + F4
-    remaps && xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" 0 & notify-send -t 1000 'Touchpad Has been disabled'
+super + {_, shift+}{F10, F12}
+    mpc {seek -1%, prev,  seek +1%, next}
 
-super + {F10, shift + F10, F11, F12, shift + F12}
-    mpc {seek -1%, prev,  toggle, seek +1%, next}
+super + {_, shift+} F11
+    {mpc toggle, pauseallmpv}
 
-super + shift + F11
-    pauseallmpv
-
-super + q
-	physlock -s
-
-super + shift + q
-	sysact
+super + {_,shift+} q
+	{physlock -s, sysact}
 
 super + ctrl + x
     xkill
 
 super + shift + r
-	pkill -USR1 -x sxhkd
+	pkill -USR1 -x sxhkd && notify-send -t 1000 'Sxhkd Config reloaded'
