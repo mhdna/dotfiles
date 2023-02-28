@@ -36,7 +36,7 @@ success () {
 }
 
 maimsel="maim -u -s"
-maimwin="maim -q -d 0.2 -i $(xdotool getactivewindow)"
+maimwin="maim -q -u -d 0.2 -i $(xdotool getactivewindow)"
 maimful="maim -q -d 0.2"
 
 case "$1" in
