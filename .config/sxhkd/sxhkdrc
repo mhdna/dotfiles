@@ -2,13 +2,14 @@ super + Return
     $TERMINAL
 
 super + i
-    xdo activate -N Tmux || $TERMINAL -n Tmux -e sh -c 'tmux a || tmux'
+    fol tmux "sh -c 'tmux a || tmux'"
 
 super + shift + i
-    xdo activate -d -N Emacs || emacsclient -c -a 'emacs' # -d with xdo, so it works with emacs daemon as well
+    # -d is needed with xdo, so it works with emacs daemon as well
+    xdo activate -d -N Emacs || emacsclient -c -a 'emacs'
 
 super + {_,shift+} b
-    {fol $BROWSER $BROWSER 0,dmenusnippet}
+    {fol g $BROWSER,dmenusnippet}
 
 super + shift + w
     weather-report show
@@ -26,36 +27,36 @@ super + v
     clipmenu
 
 super + shift + v
-    fol Pulsemixer pulsemixer 1
+    fol pulsemixer
 
 super + {_,shift+ } BackSpace
-    fol {Sdcv sdcv ,Transs transs} 1
+    fol {sdcv ,transs}
 
 super + {_,shift+} slash
     {transs p, transs c}
 
 super + e
-    fol Lfub lfub 1
+    fol lf
 
 super + Escape
-    fol Pad "$EDITOR $HOME/.cache/pad.md" 1
+    fol c pad "$TERMINAL -geometry 40x20 -name pad -e $EDITOR $HOME/.cache/pad.md"
 
 super + shift + e
-    fol Neomutt "bicon -e neomutt" 1
+    fol neomutt "bicon -e neomutt"
 
 super + n
-    fol Newsboat " bicon -e newsboat" 1
+    fol newsboat " bicon -e newsboat"
 
 super + shift + n
-    fol Ncmpcpp ncmpcpp 1
+    fol ncmpcpp
 
 {_,shift+} Print; {f, s, w}
     mymaim { ,c}{f,s,w}
 
-{super + Print, super + Delete}
-    {dmenurecord -i, dmenurecord kill}
+Print; r
+    kill -15 "$(cat /tmp/recordingpid)" && rm -f /tmp/recordingpid || dmenurecord -i
 
-XF86Audio{RaiseVolume,LowerVolume}
+XF86Audio{LowerVolume,RaiseVolume}
     wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}
 
 {XF86AudioMute, super+shift+minus}
