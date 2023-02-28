@@ -1,52 +1,83 @@
 #!/bin/sh
-while read -r file
-do
-    case "$1" in
+case "$1" in
     "k")
-        kdeconnect-cli --refresh && kdeconnect-cli --device "$(kdeconnect-cli -a | awk '{print $3}' | dmenu -i -p "Select your device:")" --share "$file" || notify-send "Sending failed" ;;
-    "v")
-        setsid -f $VIDEO "$file" -quiet >/dev/null 2>&1 ;;
-    "w")    setbg "$file" ;;
+        device=$(kdeconnect-cli -a | awk '{print $3}' | dmenu -i -p "Select your device:") || device="NULL"
+        while read -r file
+        do
+        kdeconnect-cli --refresh && kdeconnect-cli --device "$device"--share "$file" || notify-send "Sending $file to device $device Failed"
+    done;;
+    "w") setbg "$file" ;;
     "r")
+        while read -r file
+        do
         name="$(dmenu -p "rename $file to: ")" 2> /dev/null
         if [ -n "$name" ]; then
             mv "$file" "$(dirname "$file")/$name"
         fi
-        ;;
+        done;;
     "c")
-        [ -z "$destdir" ] && destdir="$(sed "s/#.*$//;/^\s*$/d" "$XDG_CONFIG_HOME/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
+        dirs=$(sed "s/#.*$//;/^\s*$/d" "$XDG_CONFIG_HOME/shell/bm-dirs" | awk '{print $2}')
+        [ -z "$destdir" ] && destdir="$(eval "echo \"$dirs\"" |  dmenu -l 20 -i -p "Copy file(s) to where?")" || destdir="NULL"
         [ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
+        while read -r file
+        do
         cp "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file copied to $destdir." &
-        ;;
+    done ;;
     "m")
-        [ -z "$destdir" ] && destdir="$(sed "s/\s.*#.*$//;/^\s*$/d" "$XDG_CONFIG_HOME/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -p "Move file(s) to where?" | sed "s|~|$HOME|g")"
+        dirs=$(sed "s/#.*$//;/^\s*$/d" "$XDG_CONFIG_HOME/shell/bm-dirs" | awk '{print $2}')
+        [ -z "$destdir" ] && destdir="$(eval "echo \"$dirs\"" |  dmenu -l 20 -i -p "Copy file(s) to where?")" || destdir="NULL"
         [ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
+        while read -r file
+        do
         mv "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "🚚 $file moved to $destdir." &
-        ;;
+    done ;;
 	"h")
-		convert -rotate 90 "$file" "$file" ;;
+        while read -r file
+        do
+		convert -rotate 90 "$file" "$file"
+        done;;
 	"l")
-		convert -rotate -90 "$file" "$file" ;;
+        while read -r file
+        do
+		convert -rotate -90 "$file" "$file"
+        done;;
 	"f")
-		convert -flop "$file" "$file" ;;
-	"y")
-		printf "%s" "$file" | tr -d '\n' | xclip -selection clipboard &&
-		notify-send "$file copied to clipboard" & ;;
+        while read -r file
+        do
+		convert -flop "$file" "$file"
+        done;;
+        "y") xclip -in -filter | tr '\n' ' ' | xclip -in -selection clipboard ;;
 	"Y")
+        while read -r file
+        do
 		readlink -f "$file" | tr -d '\n' | xclip -selection clipboard &&
-	    notify-send "$(readlink -f "$file") copied to clipboard" & ;;
+	    notify-send "$(readlink -f "$file") copied to clipboard" &
+        done;;
 	"d")
-		[ "$(printf "No\\nYes" | dmenu -i -p "Really delete $file?")" = "Yes" ] && rm "$file" && notify-send "$file deleted." ;;
+		[ "$(printf "No\\nYes" | dmenu -i -p "Really delete it?")" = "Yes" ] || exit
+        while read -r file
+        do
+            rm "$file" && notify-send "$file deleted."
+        done
+        ;;
 
 	"D")
-		[ "$(printf "No\\nYes" | dmenu -i -p "Really shred $file?")" = "Yes" ] && shred -uvzn3 "$file" && notify-send "$file shreded." ;;
-
-	"g")	ifinstalled gimp && setsid -f gimp "$file" ;;
-	"i")	notify-send "File information" "$(mediainfo "$file")" ;;
-    "o")
-        name=${file%.*}
-        for ext in webm mkv mp4; do
-            [ -f "$name.$ext" ] && setsid -f $VIDEO "$name.$ext" -quiet >/dev/null 2>&1
+        [ "$(printf "No\\nYes" | dmenu -i -p "Really shred $file?")" = "Yes" ] || exit
+        while read -r file
+        do
+        shred -uvz "$file" && notify-send "$file shreded."
+        done ;;
+	"g") tr '\n' '\0' | xargs -0 gimp & ;;
+	"i") while read -r file
+            do
+             notify-send "File information" "$(mediainfo "$file")"
+            done ;;
+        "o")
+        while read -r file
+        do
+            name=${file%.*}
+            for ext in webm mkv mp4; do
+                [ -f "$name.$ext" ] && setsid -f "$VIDEO" "$name.$ext" -quiet >/dev/null 2>&1
+            done
         done;;
 esac
-done
