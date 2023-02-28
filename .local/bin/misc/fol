@@ -9,14 +9,14 @@ case "$1" in
     else
         xdo activate -N "$2" || $3
     fi;;
-    "c") # custom program with custom class set
+    "c") # custom program with custom name set
         xdo activate -n "$2" || $3;;
     *)
     if [ -z "$2" ]; then
-        # tui program without custom class set
+        # tui program without custom name set
         xdo activate -d -n "$1" || $TERMINAL -name "$1" -e "$1"
     else
-        # tui program with custom class set
+        # tui program with custom name set
         xdo activate -d -n "$1" || $TERMINAL -name "$1" -e "$2"
     fi;;
 esac
