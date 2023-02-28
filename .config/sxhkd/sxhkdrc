@@ -5,8 +5,7 @@ super + i
     fol tmux "sh -c 'tmux a || tmux'"
 
 super + shift + i
-    # -d is needed with xdo, so it works with emacs daemon as well
-    xdo activate -d -N Emacs || emacsclient -c -a 'emacs'
+    fol C Emacs "emacsclient -c -a 'emacs'"
 
 super + {_,shift+} b
     {fol g $BROWSER,dmenusnippet}
