@@ -54,7 +54,6 @@ alias \
     diff="diff --color=auto" \
     ip="ip -color=auto" \
     nf="notify-send " \
-    awesomerestart="echo 'awesome.restart()' | awesome-client" \
     kd="/usr/lib/kdeconnectd && kdeconnect-cli --refresh ; kdeconnect-indicator&" \
     kdend="killall kdeconnectd kdeconnect-indicator&" \
     lsall='find . -type f -printf "%t@ %p\n" | sort -nr | cut -d\  -f2-' \
