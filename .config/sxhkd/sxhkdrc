@@ -10,8 +10,10 @@ super + shift + i
 super + {_,shift+} b
     {fol g $BROWSER,dmenusnippet}
 
-super + shift + w
-    weather-report show
+# less used bindings
+super + o; {w,n,z,c}
+    {weather-report show, $TERMINAL -e nmtui,fol g Zathura zathura, fol c bc "$TERMINAL -geometry 30x20 -name bc -e bc -lq"}
+
 
 super + {_,shift+} {d,p}
     {dmenu_run, dmenuunicode -i, passmenu, displayselect}
@@ -28,19 +30,19 @@ super + v
 super + shift + v
     fol pulsemixer
 
-super + {_,shift+ } BackSpace
-    fol {sdcv ,transs}
+super + t; {p, c, a, e, f}
+    transs {p,c,a,e,f}
 
-super + {_,shift+} slash
-    {transs p, transs c}
+super + t; d
+    fol sdcv
 
-super + e
-    fol lf
+super + f
+    fol lfub
 
 super + Escape
     fol c pad "$TERMINAL -geometry 40x20 -name pad -e $EDITOR $HOME/.cache/pad.md"
 
-super + shift + e
+super + e
     fol neomutt "bicon -e neomutt"
 
 super + n
@@ -77,7 +79,7 @@ super + {_, shift + } F2
     redshift {-O 5000, -x}
 
 super + {_, shift +} F3
-    {torwrap, td-toggle}
+    {fol torwrap, td-toggle}
 
 super + {_, shift+} F4
     { remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to defaults', remaps && xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" 0 & notify-send -t 1000 'Touchpad Has been disabled'}
@@ -94,5 +96,5 @@ super + {_,shift+} q
 super + ctrl + x
     xkill
 
-super + shift + r
-	pkill -USR1 -x sxhkd && notify-send -t 1000 'Sxhkd Config reloaded'
+super + ctrl + r
+	pkill -USR1 -x sxhkd&& echo 'awesome.restart()' | awesome-client
