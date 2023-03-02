@@ -5,9 +5,10 @@ xset s 600&
 xss-lock physlock -s&
 redshift -l 31.77:35.23&
 remaps &
+emacs --daemon&
 nm-applet&
 
-autostart="clipmenud sxhkd mpd dunst picom pipewire"
+autostart="xbanish clipmenud sxhkd mpd picom pipewire"
 
 for program in $autostart; do
 	pidof -s "$program" || "$program" &
@@ -16,5 +17,4 @@ done >/dev/null 2>&1
 # Ensure that xrdb has finished running before moving on to start the WM/DE.
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
 
-# probably dbus-launch isn't needed with systemd
-dbus-launch --exit-with-session awesome > "/tmp/awesome-$USER.log" 2>&1
+exec awesome
