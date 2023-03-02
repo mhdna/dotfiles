@@ -6,10 +6,9 @@ case "$1" in
         xrandr --addmode DP-1 "1384x1024_60.00"
         xrandr --output DP-1 --mode "1384x1024_60.00"
         xrandr --output eDP-1 --off
-        # ; kill -HUP "$(pgrep -u "$USER" "\bdwm$")" ;
         xrandr --output eDP1 --off ;;
     dp2)
-        xrandr --output eDP-1 --mode 1366x768 && xrandr --output DP-1 --off && xrandr --dpi 96 #&& kill -HUP "$(pgrep -u "$USER" "\bdwm$")"
+        xrandr --output eDP-1 --mode 1366x768 && xrandr --output DP-1 --off && xrandr --dpi 96
         ;;
     *) exit 1 ;;
 esac
