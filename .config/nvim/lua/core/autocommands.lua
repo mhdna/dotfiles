@@ -94,7 +94,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- autoformat
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = {'python', 'java', 'c', 'cpp'},
+    pattern = {'python', 'java', 'c', 'cpp', 'go'},
     callback = function ()
         vim.api.nvim_create_autocmd('BufWritePre', {
             callback = function()
@@ -108,6 +108,13 @@ vim.api.nvim_create_autocmd('FileType', {
     pattern = 'cpp',
     callback = function ()
         vim.keymap.set("n", "<leader>c", ":w! | :split | term g++ % -o %< && ./%< <CR>i", bufopts)
+    end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'go',
+    callback = function ()
+        vim.keymap.set("n", "<leader>c", ":w! | :split | term go run % <CR>i", bufopts)
     end,
 })
 
