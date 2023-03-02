@@ -1,24 +1,13 @@
-! Transparency (0-1)
-*.alpha: 1
 Emacs.alpha: 100
-*.font: monospace:pixelsize=15
 
 *.background: #000000
 *.foreground: #ffffff
-*.cursorColor: #ffffff
 
-
-!! Keybinding ========================================================
-! http://blog.rot13.org/2010/03/change-font-size-in-xterm-using-keyboard.html
-XTerm.vt100.translations: #override \n\
-  Ctrl <Key> minus: smaller-vt-font() \n\
-  Ctrl <Key> plus: larger-vt-font() \n\
-  Ctrl <Key> 0: set-vt-font(d) \n\
-  Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-  Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
-  Shift <Btn1Up>: exec-formatted("xdg-open '%t'", PRIMARY) \n\
-  <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0) \n\
-  <Btn2Up>: insert-selection(PRIMARY)
+xterm*vt100.translations: #override \n\
+ Ctrl <Key> Up: scroll-back(1) \n\
+ Ctrl <Key> Down: scroll-forw(1) \n\
+ Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+ Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
 
 ! Misc. Settings
 ! dpi = 157 for for 4K
@@ -34,9 +23,9 @@ Xft.hinting: 1
 Xft.antialias: 1
 XTerm*faceSize: 11
 XTerm*transparent: true
-XTerm*saveLines: 10000
+XTerm*saveLines: 4096
 XTerm*scrollBar: false
-XTerm*geometry: 80x34
+XTerm*geometry: 80x32
 XTerm*cursorBlink: true
 XTerm*eightBitInput: false
 XTerm*scrollTtyOutput: false
@@ -46,9 +35,6 @@ XTerm*multiScroll:        true
 XTerm*scrollKey:          true
 XTerm*loginShell:         true
 XTerm*backarrowKey: false
-! enable copy/paste hotkey to work (shift+insert = paste ; mouse highlight = copy)
-XTerm*selectToClipboard: true
-! disable fullscreen hotkey alt+enter (hotkey conflicts with weechat, midnight commander ...etc)
 XTerm*fullscreen: never
 ! enable alt key to work
 XTerm*metaSendsEscape: true
