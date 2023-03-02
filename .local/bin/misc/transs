@@ -1,18 +1,24 @@
 #!/bin/sh
 
-opentrans() {
-    case "$(printf "Arabic\nEnglish\nPersian" | dmenu -i )" in
-        'Arabic') trans --target="arabic" --speak ;;
-        'English') trans --target="english" ;;
-        'Persian') trans --target="persian" ;;
-        *) exit 1 ;;
-    esac
+if ! ping -q -c 1 1.1.1.1 >/dev/null; then
+    notify-send 'Trans: No connection' && exit 1
+fi
+
+tr(){
+    if [ "$1" = "arabic" ]; then
+        $TERMINAL -e trans --target="$1" --speak
+    else
+        $TERMINAL -e trans --target="$1"
+    fi
 }
 
 case "$1" in
     "p")
-    notify-send "$(trans --no-bidi -b --target=ar "$(xclip -o)")";;
+    notify-send "$(trans --no-bidi -b --target="arabic" "$(xclip -o)")";;
     "c")
-    notify-send "$(trans --no-bidi -b --target=ar "$(xclip -sel c -o)")";;
-    *) opentrans;;
+    notify-send "$(trans --no-bidi -b --target="arabic" "$(xclip -sel c -o)")";;
+    "a") tr "arabic";;
+    "e") tr "english";;
+    "f") tr "persian";;
+    *) exit 1;;
 esac
