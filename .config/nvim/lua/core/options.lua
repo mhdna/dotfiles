@@ -28,8 +28,8 @@ vim.o.undofile   = true
 vim.o.hlsearch   = false -- Do not keep the previous search occurance highlighted
 -- vim.o.swapfile   = false
 
--- vim.o.number = true
--- vim.wo.relativenumber = true
+vim.o.number = true
+vim.wo.relativenumber = true
 vim.o.scrolloff = 8
 -- vim.opt.termguicolors = true -- Enable 24-bit RGB colors
 vim.opt.linebreak = false
