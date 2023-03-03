@@ -80,8 +80,6 @@ return packer.startup(function(use)
             require("nvim-surround").setup({})
         end
     })
-    use("lukas-reineke/indent-blankline.nvim")
-    use("nvim-lualine/lualine.nvim")
     -- Debug
     use("mfussenegger/nvim-dap")
     use("rcarriga/cmp-dap")
