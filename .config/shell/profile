@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/bin/zsh
 
-source ~/.bashrc
-
+# Default programs:
 export JAVA_HOME=/usr/lib/jvm/default
 export GOPATH="$XDG_DATA_HOME/go"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -11,15 +10,10 @@ export PATH="$PATH:$( find $HOME/.local/bin/ -type d -printf ":%p" ):$NPM_PATH/b
 
 # Default programs:
 export EDITOR="nvim"
-export TERMINAL="xterm"
+export TERMINAL="st"
 export BROWSER="firefox"
 export VIDEO="mpv"
 export IMAGE="nsxiv"
-
-export CM_SELECTIONS="clipboard"
-export CM_DEBUG=1
-export CM_OUTPUT_CLIP=1
-export CM_MAX_CLIPS=50
 
 export MEDIA="/media"
 export XDG_DOWNLOAD_DIR="$MEDIA"
@@ -40,7 +34,7 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 export LESSHISTFILE="-"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 # export INPUTRC="$XDG_CONFIG_HOME/.config/shell/inputrc"
-# export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 # Might break pipewire (If it doesn't exist)
 # export ALSA_CONFIG_PATH="$XDG_CONFIG_HOME/alsa/asoundrc"
 # export GNUPGHOME="$XDG_CONFIG_HOME/.config/gnupg"
