@@ -57,14 +57,14 @@ super + shift + n
 Print; r
     kill -15 "$(cat /tmp/recordingpid)" && rm -f /tmp/recordingpid || dmenurecord -i
 
-XF86Audio{LowerVolume,RaiseVolume}
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}
-
-{XF86AudioMute, super+shift+minus}
-    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-
-super + { minus, equal}
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+}
+#XF86Audio{LowerVolume,RaiseVolume}
+#    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}
+#
+#{XF86AudioMute, super+shift+minus}
+#    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+#
+#super + { minus, equal}
+#    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+}
 
 {_,super+ } XF86MonBrightness{Down,Up}
 	brightnessctl set {10%-, 1%, +10%, 100%}
