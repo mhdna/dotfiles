@@ -22,7 +22,7 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'my-functions)
 (require 'org-settings)
-(require 'init-evil)
+;; (require 'init-evil)
 ;; (require 'lsp-stuff)
 ;; (require 'eglot-stuff)
 
@@ -38,6 +38,9 @@
 (setq auto-save-default nil)
 (setq create-lockfiles nil)
 (setq lsp-session-file (expand-file-name "tmp/.lsp-session-v1" user-emacs-directory))
+
+;; set default floating window size
+(when window-system (set-frame-size (selected-frame) 70 32))
 
 ;; Some global settings
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -71,6 +74,7 @@
 (ad-activate 'ansi-term)
 ;; Automatically save bookmarks upon any modification to them
 (setq bookmark-save-flag 1)
+
 
 ;; Startup performance
 ;; reduce 
@@ -202,15 +206,15 @@
 				'(read-only t cursor-intangible t face minibuffer-prompt))
 	(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
 
-(use-package consult
-	:ensure t
-	:bind (
-				 :map minibuffer-local-map
-				 ("M-r" . consult-history))
-	:custom
-	(completion-in-region-function #'consult-completion-in-region)
-	:config
-	(add-hook 'completion-setup-hook #'hl-line-mode))
+;; (use-package consult
+;; 	:ensure t
+;; 	:bind (
+;; 				 :map minibuffer-local-map
+;; 				 ("M-r" . consult-history))
+;; 	:custom
+;; 	(completion-in-region-function #'consult-completion-in-region)
+;; 	:config
+;; 	(add-hook 'completion-setup-hook #'hl-line-mode))
 
 ;; hippie expand
 (setq hippie-expand-try-functions-list '(try-expand-dabbrev
