@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 case "$1" in
     "g")
     # gui without custom class set
@@ -10,15 +11,17 @@ case "$1" in
         xdo activate -N "$2" || $3
     fi;;
     "c") # custom program with custom name set
-        xdo activate -dn "$2" || $3;;
+        rest=$(echo "$@" | cut -d ' ' -f3-)
+        xdo activate -dn "$2" || $rest;;
     "C") # custom program with custom class set
         xdo activate -dN "$2" || $3;;
     *)
     if [ -z "$2" ]; then
         # tui program without custom name set
-        xdo activate -dn "$1" || $TERMINAL -name "$1" -e "$1"
+        xdo activate -dn "$1" || $TERMINAL -n "$1" -e "$1"
     else
         # tui program with custom name set
-        xdo activate -dn "$1" || $TERMINAL -name "$1" -e "$2"
+        rest=$(echo "$@" | cut -d ' ' -f2-)
+        xdo activate -dn "$1" || $TERMINAL -n "$1" -e $rest
     fi;;
 esac
