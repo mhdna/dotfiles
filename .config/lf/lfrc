@@ -177,7 +177,7 @@ cmd open ${{
         text/*|application/json|inode/x-empty|application/x-subrip) setsid -f  $TERMINAL -e $EDITOR $f >/dev/null 2>&1;;
         image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
         image/svg+xml) display -- $fx ;;
-        audio/*|video/x-ms-asf) $VIDEO --audio-display=no $f ;;
+        audio/*|video/x-ms-asf) setsid -f $TERMINAL -e $VIDEO --audio-display=no $f >/dev/null 2>&1 ;;
         video/*) setsid -f $VIDEO $f -quiet >/dev/null 2>&1 ;;
         image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
         setsid -f $IMAGE -aio 2>/dev/null | while read -r file; do
