@@ -7,6 +7,7 @@ set period 1
 set cleaner '~/.config/lf/cleaner'
 set previewer '~/.config/lf/scope'
 set reverse on
+set globsearch on
 set sortby ctime
 set info size
 set mouse on
