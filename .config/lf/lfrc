@@ -1,4 +1,5 @@
 # lf
+set shell zsh
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
@@ -8,6 +9,7 @@ set cleaner '~/.config/lf/cleaner'
 set previewer '~/.config/lf/scope'
 set reverse on
 set globsearch on
+set incsearch on
 set sortby ctime
 set info size
 set mouse on
@@ -277,6 +279,8 @@ map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//'
 map <c-f> :fzf_jump
 map <c-space> :toggle; up
 
+map "E" &emacsclient -c -a emacs "$f"
+
 map o &mimeopen "$f"
 map O $clear; mimeopen --ask "$fx"
 map <c-o> $clear; mimeopen --ask-default "$f"
@@ -311,7 +315,6 @@ map <c-a>z $zip -r "$f.zip" "$f" # zip
 map <c-a>t $tar cvf "$f.tar" "$f" # tar
 map <c-a>g $tar cvzf "$f.tar.gz" "$f" # targz
 map <c-a>b $tar cjvf "$f.tar.bz2" "$f" # tarbz2
-map E extract
 map <c-e> extract_sub
 
 map m
