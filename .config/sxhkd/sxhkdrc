@@ -82,7 +82,7 @@ super + {_, shift +} F3
     {fol torwrap, td-toggle}
 
 super + {_, shift+} F4
-    { remaps && notify-send -t 1000 'Keyboard layout' 'Has been reset to defaults', remaps && xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" 0 & notify-send -t 1000 'Touchpad Has been disabled'}
+    remaps && xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" {1 && notify-send -t 2000 'Touchpad' 'enabled',0 && notify-send -2000 'Touchpad' 'disabled'}
 
 super + {_, shift+}{F10, F12}
     mpc {seek -1%, prev,  seek +1%, next}
