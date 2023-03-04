@@ -1,4 +1,4 @@
-PS1='%m %1d $ '
+PS1='%m %1d$ '
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
@@ -15,15 +15,10 @@ compinit
 _comp_options+=(globdots)		# Include hidden files.
 
 # History in cache directory:
-export HISTFILESIZE=1000000000
-export HISTSIZE=1000000000
-export SAVEHIST=10000
-export HISTFILE=~/.local/share/history
-setopt INC_APPEND_HISTORY
-# Don't list history duplications
-setopt HIST_FIND_NO_DUPS
-# Don't save history duplications to the file
-setopt HIST_IGNORE_ALL_DUPS
+HISTFILESIZE=1000000
+HISTSIZE=1000000
+SAVEHIST=1000000
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/shell/history"
 
 bindkey -e
 bindkey \^U backward-kill-line
@@ -32,7 +27,6 @@ bindkey \^U backward-kill-line
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^[e' edit-command-line
 bindkey -s "^[a" 'bc -lq\n'
-# bindkey -s '^f' 'cd "$(dirname "$(fzf --height 15)")"\n'
 bindkey -s '^[p' 'edit-file\n'
 bindkey -s '^[o' 'lfcd\n'
 bindkey -s '^[m' 'mpcsearch\n'
