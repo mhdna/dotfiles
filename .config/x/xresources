@@ -1,4 +1,5 @@
 Emacs.alpha: 100
+Emacs*geometry: 70x32
 
 *.background: #000000
 *.foreground: #ffffff

@@ -39,9 +39,6 @@
 (setq create-lockfiles nil)
 (setq lsp-session-file (expand-file-name "tmp/.lsp-session-v1" user-emacs-directory))
 
-;; set default floating window size
-(when window-system (set-frame-size (selected-frame) 70 32))
-
 ;; Some global settings
 (defalias 'yes-or-no-p 'y-or-n-p)
 ;; confirm quiting or not
