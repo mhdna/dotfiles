@@ -4,7 +4,6 @@ set ifs "\n"
 set scrolloff 10
 set icons
 set period 1
-set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml:lost+found"
 set cleaner '~/.config/lf/cleaner'
 set previewer '~/.config/lf/scope'
 set reverse on
