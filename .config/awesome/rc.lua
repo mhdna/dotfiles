@@ -580,7 +580,13 @@ clientkeys = gears.table.join(
         end,
         { description = "restore minimized", group = "client" }),
 
-    awful.key({ modkey, }, "w",
+awful.key({ modkey, }, "w",
+    function (c)
+        c.maximized_horizontal = not c.maximized_horizontal
+        c:raise()
+    end ,
+    {description = "(un)maximize horizontally", group = "client"}),
+    awful.key({ modkey, "Shift"}, "w",
         function(c)
             c.maximized = not c.maximized
             c:raise()
@@ -591,13 +597,7 @@ awful.key({ modkey, "Control" }, "w",
         c.maximized_vertical = not c.maximized_vertical
         c:raise()
     end ,
-    {description = "(un)maximize vertically", group = "client"}),
-awful.key({ modkey, "Shift"   }, "w",
-    function (c)
-        c.maximized_horizontal = not c.maximized_horizontal
-        c:raise()
-    end ,
-    {description = "(un)maximize horizontally", group = "client"})
+    {description = "(un)maximize vertically", group = "client"})
 )
 
 -- Bind all key numbers to tags.
