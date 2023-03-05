@@ -257,7 +257,9 @@ awful.screen.connect_for_each_screen(function(s)
             spr,
             volume_widget(),
             spr,
-            batteryarc_widget(),
+            batteryarc_widget({
+            show_notification_mode = 'on_click'
+        }),
             net_speed_widget(),
             -- net_wireless,
             -- spr,
