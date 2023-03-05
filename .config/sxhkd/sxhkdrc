@@ -40,7 +40,7 @@ super + f
     fol lfub
 
 super + Escape
-    fol c pad "$TERMINAL -g 40x20 -name pad -e $EDITOR $HOME/.cache/pad.md"
+    fol c pad "$TERMINAL -g 40x20 -n pad -e $EDITOR $HOME/.cache/pad.md"
 
 super + e
     fol neomutt bicon -e neomutt
