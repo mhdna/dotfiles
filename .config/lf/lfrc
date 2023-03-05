@@ -1,5 +1,4 @@
 # lf
-set shell zsh
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
@@ -282,7 +281,7 @@ map <c-space> :toggle; up
 map "E" &emacsclient -c -a emacs "$f"
 
 map o &mimeopen "$f"
-map O $clear; mimeopen --ask "$fx"
+map O $clear; mimeopen --ask $fx
 map <c-o> $clear; mimeopen --ask-default "$f"
 
 map K $kdfzf $fx
