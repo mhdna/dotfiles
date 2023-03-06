@@ -28,10 +28,10 @@ duck () {
     declare url=$(urlencode "$*")
     lynx  "https://duckduckgo.com/lite?q=$url"
 }
-yta(){
+YTA () {
     yt-dlp --remux-video ogg -f bestaudio/best --external-downloader aria2c -P $(find $XDG_MUSIC_DIR -maxdepth 2 -type d | fzf) $@
 }
-yt(){
+YT () {
     yt-dlp --external-downloader aria2c --add-metadata -ic -P $(find $XDG_VIDEOS_DIR -maxdepth 2 -type d | fzf) $@
 }
 
@@ -50,9 +50,9 @@ alias \
     rm="rm -vI" \
     bc="bc -lq" \
     mkd="mkdir -pv" \
-    yt=yt \
-    yta=yta \
-    ref="shortcuts >/dev/null; source $XDG_CONFIG_HOME/shell/shortcutrc ; source $XDG_CONFIG_HOME/shell/zshnameddirrc" \
+    yt=YT \
+    yta=YTA \
+    ref="shortcuts >/dev/null; source $XDG_CONFIG_HOME/shell/shortcutrc" \
     aria2c="aria2c --auto-file-renaming=false" \
     ffmpeg="ffmpeg -hide_banner" \
     ls="ls -hN --color=auto --group-directories-first" \
