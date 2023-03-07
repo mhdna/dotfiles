@@ -1,6 +1,19 @@
 #!/bin/sh
 
-word=$(dmenu -p "Enter Word: " <&-)
-mean=$(dmenu -p "Enter Meaning: " <&-)
+dst="$NOTES_DIR/language.org"
 
-echo "$word - $mean" >> ~/.local/share/vocab/words.txt
+getwords(){
+    word=$(dmenu -p "Enter Word: " <&-)
+    mean=$(dmenu -p "Enter Meaning: " <&-)
+}
+
+remind(){
+    word=$(grep "^- " "$dst" | shuf | head -n1)
+    notify-send "New Word" "⚔️$word"
+}
+
+if [ "$1" = "r" ]; then
+    remind
+else
+    getwords && sed -i "s/^** More words/- $word: $mean\n** More words/" "$dst"
+fi
