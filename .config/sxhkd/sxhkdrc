@@ -5,14 +5,14 @@ super + i
     xdo activate -dn tmux || $TERMINAL -n tmux -e sh -c 'tmux a || tmux'
 
 super + shift + i
-    fol C Emacs "emacsclient -c -a 'emacs'"
+    fol C Emacs emacs
 
 super + {_,shift+} b
     {fol g $BROWSER,dmenusnippet}
 
 # less used bindings
-super + o; {w,n,z,c}
-    {weather-report show, $TERMINAL -e nmtui,fol g Zathura zathura, fol C bc "$TERMINAL -g 30x20 -n bc -e bc -lq"}
+super + o; {w,N,z,c,n}
+    {weather-report, $TERMINAL -e nmtui,fol g Zathura zathura, fol C bc "$TERMINAL -g 30x20 -n bc -e bc -lq",newword}
 
 
 super + {_,shift+} {d,p}
@@ -72,22 +72,22 @@ Print; r
 super + {_,shift+ }{comma,period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
 
-super + {_, shift + } F1
+super + {_, shift+ }F1
     {kdeconnect-indicator ; kdeconnect-cli --refresh, pkill kdeconnect}
 
-super + {_, shift + } F2
-    redshift {-O 5000, -x}
+super + {_, shift+ }F2
+    redshift {-O 5000,-x}
 
-super + {_, shift +} F3
+super + {_, shift+ }F3
     {fol torwrap, td-toggle}
 
-super + {_, shift+} F4
+super + {_, shift+ }F4
     remaps && xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" {1 && notify-send -t 2000 'Touchpad' 'enabled',0 && notify-send -2000 'Touchpad' 'disabled'}
 
-super + {_, shift+}{F10, F12}
+super + {_, shift+ }{F10,F12}
     mpc {seek -1%, prev,  seek +1%, next}
 
-super + {_, shift+} F11
+super + {_, shift+ }F11
     {mpc toggle, pauseallmpv}
 
 super + {_,shift+} q
