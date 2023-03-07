@@ -22,6 +22,7 @@ export XSESSION="$XDG_CONFIG_HOME/x/xsession"
 # export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # Breaks some display managers like lightdm and sddm
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch-config"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
+export LESS=-R
 export LESSHISTFILE="-"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
