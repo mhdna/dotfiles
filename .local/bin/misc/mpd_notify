@@ -3,7 +3,7 @@
 while true
 do
     mpc idle player > /dev/null 2>&1
-    notify_title="Now Playing"
-    music_info=$(mpc current -f "%file%\\n%artist% - %album%")
+    notify_title="MPD"
+    music_info=$(mpc status)
     notify-send -u low -t 5000 "$notify_title"  "$music_info"
 done
