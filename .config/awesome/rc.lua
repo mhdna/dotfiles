@@ -16,12 +16,12 @@ local menubar           = require("menubar")
 -- require("awful.hotkeys_popup.keys")
 local batteryarc_widget = require("widgets.batteryarc.batteryarc")
 local net_speed_widget  = require("widgets.net-speed.net-speed")
--- local net_widgets       = require("widgets.net_widgets")
--- net_wireless            = net_widgets.wireless({ interface = "wlp2s0", indent = 5, timeout = 5 })
--- net_wired = net_widgets.indicator({
---     interfaces  = {"enp2s0", "another_interface", "and_another_one"},
---     timeout     = 5
--- })
+local net_widgets       = require("widgets.net_widgets")
+net_wireless            = net_widgets.wireless({ interface = "wlp2s0", indent = 5, timeout = 5 })
+net_wired = net_widgets.indicator({
+    interfaces  = {"enp2s0"},
+    timeout     = 5
+})
 local mpdarc            = require("widgets.mpdarc")
 local volume_widget     = require("widgets.volume-widget.volume")
 local spr               = wibox.widget.textbox('  ')
@@ -74,8 +74,8 @@ home = os.getenv("HOME")
 naughty.config.defaults['icon_size'] = 100
 naughty.config.defaults.timeout = 20
 naughty.config.defaults.position = 'top_right'
--- naughty.config.defaults.font = 'Serif 10'
--- naughty.config.defaults.width = 200
+naughty.config.defaults.max_width = 400
+naughty.config.defaults.ontop = true
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -153,10 +153,10 @@ local tasklist_buttons = gears.table.join(
         awful.menu.client_list({ theme = { width = 250 } })
     end),
     awful.button({}, 4, function()
-        awful.client.focus.byidx(1)
+        awful.client.focus.byidx( -1)
     end),
     awful.button({}, 5, function()
-        awful.client.focus.byidx( -1)
+        awful.client.focus.byidx(1)
     end))
 
 local function set_wallpaper(s)
@@ -205,8 +205,8 @@ awful.screen.connect_for_each_screen(function(s)
 
 
     tags = {
-        names = { "1"}, --, "2", "3", "4", "5" },
-        layout = { layouts[1]}, --, layouts[1], layouts[1], layouts[1], layouts[1], layouts[3] },
+        names = { "1", "2", "3", "4", "5" },
+        layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[3] },
     }
     for s = 1, screen.count() do
         tags[s] = awful.tag(tags.names, s, tags.layout)
@@ -245,7 +245,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
-            -- s.mytaglist,
+            s.mytaglist,
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
@@ -261,10 +261,10 @@ awful.screen.connect_for_each_screen(function(s)
             show_notification_mode = 'on_click'
         }),
             net_speed_widget(),
-            -- net_wireless,
-            -- spr,
-            -- net_wired,
-            -- spr,
+            net_wireless,
+            spr,
+            net_wired,
+            spr,
             wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
