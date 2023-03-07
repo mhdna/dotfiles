@@ -106,9 +106,9 @@ local function show_MPD_status()
         end)
 end
 
-mpdarc:connect_signal('button::press', function(_, _, _, button)
-        if (button == 1) then show_MPD_status() end
-end)
+-- mpdarc:connect_signal('button::press', function(_, _, _, button)
+--         if (button == 1) then show_MPD_status() end
+-- end)
 
 watch(GET_MPD_CMD, 1, update_graphic, mpdarc)
 
