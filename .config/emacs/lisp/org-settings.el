@@ -291,6 +291,11 @@ non-empty lines in the block (excluding the line with
                (file+headline "red_books.org" "Red Books")
                "* %^{Title} -- %^{Author}\n%t\n** Review\n%^{Review}\n** Summary\n%^{Summary}"))
 (add-to-list 'org-capture-templates
+             '("M" "Movie"
+               plain
+               (file "movies.org")
+               "* %^{Title} -- %t\n** Review\n%?"))
+(add-to-list 'org-capture-templates
              '("e" "English word"
                plain
                (file+headline "language.org" "English Words")
@@ -342,7 +347,7 @@ non-empty lines in the block (excluding the line with
   (find-file my/diary-file)
   (end-of-buffer)
   (insert (concat "* " (format-time-string "%Y.%m.%d %H:%M %P ") "\n"))
-  (evil-insert-state)
+  ;; (evil-insert-state)
   (flycheck-mode -1))
 
 (defun org-capture-todo ()
