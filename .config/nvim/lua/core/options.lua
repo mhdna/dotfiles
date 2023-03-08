@@ -22,8 +22,6 @@ vim.o.compatible = false
 vim.o.incsearch  = true -- highlight incrementaly rather than the whole word word
 vim.o.ignorecase  = true -- only ignore case if write uppercase letter
 vim.o.smartcase  = true -- only ignore case if write uppercase letter
-vim.o.backup     = false
-vim.o.undofile   = true
 -- vim.o.showmode = false
 vim.o.hlsearch   = false -- Do not keep the previous search occurance highlighted
 -- vim.o.swapfile   = false
@@ -40,8 +38,9 @@ vim.o.title = true
 vim.o.go = a
 vim.o.clipboard = "unnamedplus"
 vim.o.undofile = true
-vim.o.undodir = os.getenv("XDG_CACHE_HOME") .. "/nvim-undodir"
-
+vim.o.undodir = os.getenv("XDG_CACHE_HOME") .. "/nvim/undodir/"
+vim.o.backup     = true
+vim.o.backupdir     = os.getenv("XDG_CACHE_HOME") .. "/nvim/backup/"
 vim.o.encoding = "utf-8"
 -- vim.o.guifont = "hack:h10" -- the font used in vim gui
 
