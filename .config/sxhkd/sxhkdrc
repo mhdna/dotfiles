@@ -1,4 +1,4 @@
-super + Return
+super + shift + Return
     $TERMINAL
 
 super + i
@@ -14,8 +14,8 @@ super + {_,shift+} b
     {fol g $BROWSER,dmenusnippet}
 
 # less used bindings
-super + o; {f,w,N,z,c,n}
-    {fol flash,weather-report, $TERMINAL -e nmtui,fol g Zathura zathura, fol C bc "$TERMINAL -g 30x20 -n bc -e bc -lq",newword }
+super + o; {f,w,N,z,c,n,m}
+    {fol flash,weather-report, $TERMINAL -e nmtui,fol g Zathura zathura, fol C bc "$TERMINAL -g 30x20 -n bc -e bc -lq",newword, mpv --ytdl-format=22 "$(xclip -sel c -o)" }
 
 
 super + {_,shift+} {d,p}
@@ -28,7 +28,7 @@ super + {_,shift+} Insert
     {dmenu-bookmarks, bookmarkit}
 
 super + v
-    clipmenu
+    clipmenu -i
 
 super + shift + v
     fol pulsemixer
@@ -54,8 +54,11 @@ super + n
 super + shift + n
     fol ncmpcpp
 
-{_,shift+} Print; {f, s, w}
-    mymaim { ,c}{f,s,w}
+{_,shift+} Print; {a, s, w}
+    mymaim { ,c}{a,s,w}
+
+Print; f
+    flameshot gui
 
 Print; r
     kill -15 "$(cat /tmp/recordingpid)" && rm -f /tmp/recordingpid || dmenurecord -i
@@ -85,7 +88,7 @@ super + {_, shift+ }F3
     {fol torwrap, td-toggle}
 
 super + {_, shift+ }F4
-    remaps && xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" {1 && notify-send -t 2000 'Touchpad' 'enabled',0 && notify-send -2000 'Touchpad' 'disabled'}
+    remaps && xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" {1 && notify-send -t 2000 'Reconfigured Remaps' 'Touchpad enabled',0 && notify-send -t 2000 'Reconfigured Remaps' 'Touchpad disabled'}
 
 super + {_, shift+ }{F10,F12}
     mpc {seek -1%, prev,  seek +1%, next}
