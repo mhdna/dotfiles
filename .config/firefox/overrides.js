@@ -20,3 +20,5 @@ user_pref("browser.urlbar.autoFill", false);
 user_pref("dom.security.https_only_mode", false);
 // Disable push notifications:
 user_pref("dom.push.enabled", false);
+// save history
+user_pref("privacy.sanitize.sanitizeOnShutdown", false);
