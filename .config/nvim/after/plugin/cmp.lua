@@ -30,6 +30,13 @@ cmp.setup.filetype({ 'c', 'cpp', 'java', 'python', 'javascript', 'go' }, {
     end,
 })
 
+cmp.setup.filetype({ 'markdown'}, {
+    enabled = true,
+    completion = {
+        autocomplete = false,
+    }
+})
+
 cmp.setup {
     enabled = false,
     -- completion = {
