@@ -169,27 +169,25 @@ cmd Link ${{
 
 # cmds/functions
 cmd open ${{
-    case $(mimetype "$(readlink -f $f)" | awk '{print $2}') in
-        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) setsid -f localc $fx >/dev/null 2>&1;;
-        *opendocument*) setsid -f  lowriter $fx >/dev/null 2>&1;;
+    case $(mimetype -b $f) in
         text/html) setsid -f $BROWSER $fx >/dev/null 2>&1;;
         text/org) setsid -f $TERMINAL -e emacsclient -nw $f >/dev/null 2>&1 ;;
-        text/*|application/x-shellscript|application/json|inode/x-empty|application/x-subrip) setsid -f  $TERMINAL -e $EDITOR $f >/dev/null 2>&1;;
+        text/*|application/x-shellscript|application/json|inode/x-empty|application/x-subrip) setsid -f  $TERMINAL -e $EDITOR $f >/dev/null 2>&1 ;;
         image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
         image/svg+xml) display -- $fx ;;
+        image/vnd.djvu|application/pdf|application/octet-stream|application/postscript|application/epub) setsid -f zathura $f >/dev/null 2>&1 ;;
+        image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
+            setsid -f $IMAGE -aio 2>/dev/null | while read -r file; do
+            [ -z "$file" ] && continue
+            lf -remote "send select \"$file\""
+            lf -remote "send toggle"
+            done &
+        ;;
         audio/*|video/x-ms-asf) setsid -f $TERMINAL -e $VIDEO --audio-display=no $f >/dev/null 2>&1 ;;
         video/*) setsid -f $VIDEO $f -quiet >/dev/null 2>&1 ;;
-        image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
-        setsid -f $IMAGE -aio 2>/dev/null | while read -r file; do
-        [ -z "$file" ] && continue
-        lf -remote "send select \"$file\""
-        lf -remote "send toggle"
-        done &
-        ;;
-        image/vnd.djvu|application/pdf|application/octet-stream|application/postscript|application/epub) setsid -f zathura $f >/dev/null 2>&1 ;;
         application/pgp-encrypted) $EDITOR $fx ;;
         # libreoffice filetypes
-        application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text) setsid -f lowriter $fx >/dev/null 2>&1 ;;
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text/*opendocument*) setsid -f lowriter $fx >/dev/null 2>&1 ;;
         application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template) setsid -f localc $fx >/dev/null 2>&1 ;;
         application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint) setsid -f loimpress $fx >/dev/null 2>&1 ;;
         application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template) setsid -f lodraw $fx >/dev/null 2>&1 ;;
