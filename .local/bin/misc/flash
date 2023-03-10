@@ -274,7 +274,7 @@ ${LGREY}──────────────── Press [Enter] to contin
     print_head
     { [ "$NEXT" = q ] || [ "$NEXT" = Q ]; } && add_usage_entry && clear && exit 0
 
-    ANSWER=$(echo "${q[2]}" | fold -w 59)
+        ANSWER=$(echo "${q[2]}" | highlight --out-format=xterm256 --syntax=java ) #| fold -w 59)
 
     echo -e "___________________________________________________________
 
