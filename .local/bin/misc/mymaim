@@ -35,18 +35,22 @@ success () {
     notify-send -t 1000 "Printed Successfully"
 }
 
+copy () {
+    echo "$output" | tr -d '\n' | xclip -sel c -i
+}
+
 maimsel="maim -u -s"
 maimwin="maim -q -u -d 0.2 -i $(xdotool getactivewindow)"
 maimful="maim -q -d 0.2"
 
 case "$1" in
-    "s") $maimsel "${output}" pic-selected- && success;;
-    "w")  $maimwin "${output}" pic-window- && success;;
-    "f")  $maimful "${output}" pic-full- && success;;
+    "s") $maimsel "${output}" pic-selected- && copy && success;;
+    "w")  $maimwin "${output}" pic-window- && copy && success;;
+    "a")  $maimful "${output}" pic-full- && copy && success;;
     # "F") freeze && success;;
     "cs") $maimsel | ${xclip_cmd} ;;
     "cw") $maimwin| ${xclip_cmd} ;;
-    "cf") $maimful | ${xclip_cmd} ;;
+    "ca") $maimful | ${xclip_cmd} ;;
     # "cF") freeze c;;
     *) exit 1;;
 esac
