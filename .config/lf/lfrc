@@ -246,6 +246,18 @@ dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME
                 notify-send -t 2000 "🚚 File(s) moved." "File(s) moved to $dest."
 }}
 
+# move to current subdirectories
+cmd movecto ${{
+clear; tput cup $(($(tput lines)/3)); tput bold
+set -f
+clear; echo "Move to where?"
+dest="$(find . -maxdepth 2 -type d | fzf)" &&
+        for x in $fx; do
+            eval mv -iv \'$x\' \"$dest\"
+                done &&
+                notify-send -t 2000 "🚚 File(s) moved." "File(s) moved to $dest."
+}}
+
 cmd copyto ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
         set -f
@@ -273,6 +285,7 @@ map DD delete
 map DS shred
 map Y copyto
 map M moveto
+map <a-m> movecto
 map Z pdfConvert
 
 map / Search
