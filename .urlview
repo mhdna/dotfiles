@@ -1,1 +1,1 @@
-COMMAND $BROWSER
+COMMAND setsid -f "$BROWSER" %s >/dev/null 2>&1
