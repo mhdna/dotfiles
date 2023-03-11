@@ -1,6 +1,6 @@
-// Disable Firefox sync and its menu entries
+// disable Firefox sync
 user_pref("identity.fxaccounts.enabled", false);
-// Disable automatic hiding for fullscreen
+// disable fullscreen autohide
 user_pref("browser.fullscreen.autohide", false);
 // do not show bookmarks in toolbar
 user_pref("browser.toolbars.bookmarks.visibility", "never")
@@ -9,16 +9,19 @@ user_pref("browser.tabs.firefox-view", false)
 user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
 user_pref("extensions.pocket.enabled", false);
 user_pref("keyword.enabled", true);
-// Disable the Twitter/R*ddit/Faceberg ads in the URL bar:
+// disable the Twitter/R*ddit/Faceberg ads in the URL bar
 user_pref("browser.urlbar.quicksuggest.enabled", false);
 user_pref("browser.urlbar.suggest.topsites", false); // [FF78+]
 // Do not prefil forms:
 user_pref("signon.prefillForms", false);
 // Do not autocomplete in the URL bar:
 user_pref("browser.urlbar.autoFill", false);
-// Allow access to http (i.e. not https) sites:
+// allow access to http sites
 user_pref("dom.security.https_only_mode", false);
-// Disable push notifications:
+// disable push notifications
 user_pref("dom.push.enabled", false);
 // save history
 user_pref("privacy.sanitize.sanitizeOnShutdown", false);
+// maximum window size
+user_pref("privacy.window.maxInnerWidth", 1000);
+user_pref("privacy.window.maxInnerHeight", 1000);
