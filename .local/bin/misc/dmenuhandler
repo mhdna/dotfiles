@@ -5,13 +5,13 @@
 url="${1:-$(printf "%s" | dmenu -p 'Paste url or file path')}"
 base="$(basename "$url")"
 
-case "$(printf "Copy url\\n$IMAGE\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\n$VIDEO\\n$VIDEOAudio\\n$VIDEO float\\nyt\\nyta\\nyt any quality\\nHtml\\nariaAdd\\nariaDownload" | dmenu -i -p "Open it with?")" in #\\nqueue download\\nqueue yt-dl\\nqueue yt-dl audio
+case "$(printf "Copy url\\n$IMAGE\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\n$VIDEO\\n$VIDEO audio\\n$VIDEO float\\nyt\\nyta\\nyt any quality\\nHtml\\nariaAdd\\nariaDownload" | dmenu -i -p "Open it with?")" in #\\nqueue download\\nqueue yt-dl\\nqueue yt-dl audio
 	"Copy url") echo "$url" | tr -d '\n' | xclip -selection clipboard ;;
-	$VIDEO) setsid -f $VIDEO -quiet "$url" >/dev/null 2>&1 ;;
-	$VIDEOAudio) $TERMINAL -e $VIDEO -quiet --no-video "$url"  ;;
+	$VIDEO) setsid -f $VIDEO --ytdl-format=22 -quiet "$url" >/dev/null 2>&1 ;;
+	"$VIDEO audio") $TERMINAL -e $VIDEO -quiet --no-video "$url"  ;;
 	# "$VIDEO loop") setsid -f $VIDEO -quiet --loop "$url" >/dev/null 2>&1 ;;
 	# "$VIDEO float") setsid -f "$TERMINAL" -e $VIDEO --geometry=+0-0 --autofit=30%  --title="$VIDEOfloat" "$url" >/dev/null 2>&1 ;;
-	"$VIDEO float") setsid -f $VIDEO --geometry=+0-0 --autofit=30%  --title="$VIDEOfloat" "$url" >/dev/null 2>&1 ;;
+	"$VIDEO float") setsid -f $VIDEO --ytdl-format=22 --geometry=+0-0 --autofit=30%  --title="$VIDEOfloat" "$url" >/dev/null 2>&1 ;;
 	"yt")  notify-send "🎥 downloading "$base""
 		setsid -f yt-dlp --external-downloader aria2c -f 22 -P "$XDG_VIDEOS_DIR/yt" "$url" > /dev/null 2>&1 ;;
 	"yt any quality")  notify-send "🎥 downloading "$base""
