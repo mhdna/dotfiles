@@ -296,6 +296,11 @@ non-empty lines in the block (excluding the line with
                (file "movies.org")
                "* %^{Title} -- %t\n** Review\n%?"))
 (add-to-list 'org-capture-templates
+             '("d" "Advice"
+               plain
+               (file "advice.org")
+               "* %?"))
+(add-to-list 'org-capture-templates
              '("e" "English word"
                plain
                (file+headline "language.org" "English Words")
@@ -346,8 +351,8 @@ non-empty lines in the block (excluding the line with
   ;; (setq filename (concat "diary/" (format-time-string "%Y-%m-%d-%H-%M) " ".org"))
   (find-file my/diary-file)
   (end-of-buffer)
-  (insert (concat "* " (format-time-string "%Y.%m.%d %H:%M %P ") "\n"))
-  ;; (evil-insert-state)
+  (insert (concat "** " (format-time-string "%Y.%m.%d %H:%M %P ") "\n"))
+  (evil-insert-state)
   (flycheck-mode -1))
 
 (defun org-capture-todo ()
