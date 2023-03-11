@@ -1,21 +1,24 @@
-super + shift + Return
+super + Return
     $TERMINAL
 
 super + i
-    xdo activate -dn tmux || $TERMINAL -n tmux -e sh -c 'tmux a || tmux'
+    xdo activate -n tmux || $TERMINAL -n tmux -e sh -c 'tmux a || tmux'
 
 super + shift + i
     fol Emacs "emacsclient -nw"
 
-super + o; {a,d,l}
-    $TERMINAL  -e emacsclient -nw -e {'(org-agenda-list)' -e '(delete-other-windows)','(my/dashboard)' -e '(balance-windows)','(leetcode)'}
+super + o; a
+    xdo activate -n agenda || $TERMINAL -n agenda -g 40x20 -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
+
+super + o; {d,l}
+    $TERMINAL  -e emacsclient -nw -e {'(my/dashboard)' -e '(balance-windows)','(leetcode)'}
 
 super + {_,shift+} b
     {fol g $BROWSER,dmenusnippet}
 
 # less used bindings
 super + o; {f,w,N,z,c,n,m}
-    {fol flash,weather-report, $TERMINAL -e nmtui,fol g Zathura zathura, fol C bc "$TERMINAL -g 30x20 -n bc -e bc -lq",newword, mpv --ytdl-format=22 "$(xclip -sel c -o)" }
+    {fol flash,weather-report, $TERMINAL -e nmtui,fol g Zathura zathura, xdo activate -n bc || $TERMINAL -g 30x20 -n bc -e bc -lq",newword, mpv --ytdl-format=22 "$(xclip -sel c -o)" }
 
 
 super + {_,shift+} {d,p}
@@ -42,8 +45,8 @@ super + t; {s,S}
 super + f
     fol lfub
 
-super + Escape
-    fol c pad "$TERMINAL -g 40x20 -n pad -e $EDITOR $HOME/.cache/pad.md"
+super + BackSpace
+    xdo activate -n pad || $TERMINAL -g 40x20 -n pad -e $EDITOR $HOME/.cache/pad.md"
 
 super + e
     fol neomutt bicon -e neomutt
