@@ -3,14 +3,12 @@
 weatherreport="${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport"
 
 getforecast() {
-    if ping -q -c 1 1.1.1.1; then
-        curl -sf "wttr.in/$LOCATION" > "$weatherreport" && curl -sf "wttr.in/?format=%m" >> "$weatherreport" || notify-send "Weather report" "An error happened..."
-    else
-        notify-send "Weather report" "No internet Connection" && exit 1
-    fi
+        curl -sf "wttr.in/$LOCATION" > "$weatherreport" && curl -sf "wttr.in/?format=%m" >> "$weatherreport" || notify-send "Weather report" "Something went wrong..."
 }
 
-[ "$1" = "get" ] && [ -s "$weatherreport" ] && [ "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] ||
+[ "$1" = "get" ] && getforecast
+
+[ -s "$weatherreport" ] && [ "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] ||
 	getforecast
 
 $TERMINAL -e less "$weatherreport"
