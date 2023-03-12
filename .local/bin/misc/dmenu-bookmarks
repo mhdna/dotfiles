@@ -1,3 +1,5 @@
 #!/bin/sh
 
-xdotool type $(grep -v '^#' ~/.local/share/bookmarks | dmenu -i -l 20 | cut -d' ' -f1)
+url=$(grep -v '^#' ~/.local/share/bookmarks | dmenu -i -l 20 | cut -d' ' -f1)
+
+[ -n "$url" ] && $BROWSER --new-tab "$url"
