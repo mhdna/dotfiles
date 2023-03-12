@@ -1,12 +1,14 @@
-#/bin/sh
+#!/bin/sh
 
 bookmark=$(xclip -o)
 file="$HOME/.local/share/bookmarks"
 
+gettitle(){
+    title=$(dmenu -p "Bookmark title for $bookmark: " <&-)
+}
 
 if grep -q "$bookmark" "$file"; then
-   notify-send "Oops!" "Already bookmarked"
+   notify-send "Bookmarkit" "Already exists"
    else
-       notify-send "Bookmark added" "$bookmark is now saved to the file"
-       echo "$bookmark" >> "$file"
+       gettitle && echo "$bookmark : $title" >> "$file" && notify-send "Bookmark added" "$bookmark is now saved to the file"
 fi
