@@ -1,0 +1,14 @@
+#!/bin/sh
+
+snippet=$(xclip -o)
+file="$HOME/.local/share/snippets"
+
+gettitle(){
+    title=$(dmenu -p "Snippet title for $snippet: " <&-)
+}
+
+if grep -q "$snippet" "$file"; then
+   notify-send "Snipit" "Already exists"
+   else
+       gettitle && echo "$title; $snippet" >> "$file" && notify-send "Snippet added" "$snippet is now saved to the file"
+fi
