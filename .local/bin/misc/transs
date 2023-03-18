@@ -6,9 +6,9 @@ fi
 
 tr(){
     if [ "$1" = "arabic" ]; then
-        $TERMINAL -e trans --target="$1" --speak
+        trans --target="$1" --speak
     else
-        $TERMINAL -e trans --target="$1"
+        trans --target="$1"
     fi
 }
 
