@@ -42,7 +42,7 @@ super + t; {p, c}
     transs {p,c}
 
 super + t; {a, e, f}
-    fol Transs transs {a,e,f}
+    fol {Transa transs a,Transe transs e,Transf transs f}
 
 super + t; {s,S}
     {fol sdcv,$TERMINAL -e sdcv $(xclip -o)}
