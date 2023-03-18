@@ -2,33 +2,35 @@ super + Return
     $TERMINAL
 
 super + i
-    xdo activate -n tmux || $TERMINAL -n tmux -e sh -c 'tmux a || tmux'
+    xdo activate -n tmux || $TERMINAL -g 85x36 -n tmux -e sh -c 'tmux a || tmux'
 
 super + shift + i
-    fol Emacs "emacsclient -nw"
+    xdo activate -dN Emacs || emacsclient -c
+
+super + shift + y
+    fol g "jetbrains-idea-ce" idea
+
+super + y
+    fol mycli
 
 super + o; a
     xdo activate -n agenda || $TERMINAL -n agenda -g 40x20 -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
 
-super + o; {d,l}
-    $TERMINAL  -e emacsclient -nw -e {'(my/dashboard)' -e '(balance-windows)','(leetcode)'}
+super + o; l
+    emacsclient -c -e '(leetcode)'
 
-super + {_,shift+} b
-    {fol g $BROWSER,dmenusnippet}
+super + o; d
+    $TERMINAL  -e emacsclient -nw -e '(my/dashboard)' -e '(balance-windows)'
 
-# less used bindings
-super + o; {f,w,N,z,c,n,m}
-    {fol flash,weather-report, $TERMINAL -e nmtui,fol g Zathura zathura, xdo activate -n bc || $TERMINAL -g 30x20 -n bc -e bc -lq",newword, mpv --ytdl-format=22 "$(xclip -sel c -o)" }
+super +  w; {o,O,s,S}
+    {dmenu-bookmarks,dmenu-snippets,bookmarkit,snipit}
 
+super + shift + w
+    fol g $BROWSER
 
 super + {_,shift+} {d,p}
     {dmenu_run, dmenuunicode -i, passmenu, displayselect}
 
-super + { m, shift + m}
-    {dmenumount, dmenuumount}
-
-super + {_,shift+} Insert
-    {dmenu-bookmarks, bookmarkit}
 
 super + v
     clipmenu -i
@@ -36,8 +38,11 @@ super + v
 super + shift + v
     fol pulsemixer
 
-super + t; {p, c, a, e, f}
-    transs {p,c,a,e,f}
+super + t; {p, c}
+    transs {p,c}
+
+super + t; {a, e, f}
+    fol Transs transs {a,e,f}
 
 super + t; {s,S}
     {fol sdcv,$TERMINAL -e sdcv $(xclip -o)}
@@ -46,7 +51,7 @@ super + f
     fol lfub
 
 super + BackSpace
-    xdo activate -n pad || $TERMINAL -g 40x20 -n pad -e $EDITOR $HOME/.cache/pad.md"
+    xdo activate -n pad || $TERMINAL -g 40x20 -n pad -e $EDITOR $HOME/.cache/pad.md
 
 super + e
     fol neomutt bicon -e neomutt
@@ -99,11 +104,24 @@ super + {_, shift+ }{F10,F12}
 super + {_, shift+ }F11
     {mpc toggle, pauseallmpv}
 
-super + {_,shift+} q
-	{physlock -s, sysact}
+# less used keybinds
+super + o; {f,w,N,c,n,v}
+    {fol flash,weather-report, $TERMINAL -e nmtui,xdo activate -n bc || $TERMINAL -g 30x20 -n bc -e bc -lq,newword, mpv --ytdl-format=22 "$(xclip -sel c -o)" }
+
+super + o; { m, u}
+    {dmenumount, dmenuumount}
 
 super + ctrl + x
     xkill
 
-super + ctrl + r
-	pkill -USR1 -x sxhkd&& echo 'awesome.restart()' | awesome-client
+super + shift + q
+	sysact
+
+super + z
+    physlock -s
+
+super + shift + z
+	loginctl suspend
+
+super + shift + r
+	pkill -USR1 -x sxhkd&& notify-send 'Sxhkd' 'Reloaded'
