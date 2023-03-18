@@ -74,7 +74,7 @@
 
 
 ;; Startup performance
-;; reduce 
+;; reduce
 ;; each 50MB of allocated data (the default is on every 0.76MB)
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 100 1000 1000))
@@ -88,13 +88,13 @@
 				 ("C-z"     . nil)
 				 ("C-x C-z"     . nil)
 				 ("C-x C-u" . undo-redo)
-				 ("C-x k" . kill-current-buffer)
-				 ("C-c R" . revert-buffer)
+				 ;; ("C-x k" . kill-current-buffer)
+				 ;; ("C-c R" . revert-buffer)
 				 ("C-?"     . undo-redo)
 				 ("C-/"     . undo-only)
 				 ("<f5>" . recompile)
-				 ("C-c s" . flyspell-mode)
-				 ("M-o"   . other-window)
+				 ;; ("C-c s" . flyspell-mode)
+				 ;; ("M-o"   . other-window)
 				 ;; ("C-x s"   . shell)
 				 ;; ("C-;" . toggle-input-method)
 				 ))
@@ -105,15 +105,15 @@
 ;; (set-background-color "black")
 ;; (set-cursor-color "white")
 ;; Set up the visible bell
-(setq visible-bell t)
+;; (setq visible-bell 1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 ;; startup messages
 (setq inhibit-startup-message t)
 ;; vim-like scrolling
-(setq scroll-conservatively 100)
-(setq ring-bell-function 'ignore)
+;; (setq scroll-conservatively 100)
+;; (setq ring-bell-function 'ignore)
 
 (blink-cursor-mode -1)
 
@@ -131,24 +131,24 @@
 ;; bidi settings
 ;; (setq-default bidi-display-reordering nil)
 ;; (defun bidi-reordering-toggle ()
-;; 	"Toggle bidirectional display reordering."
-;; 	(interactive)
-;; 	(setq bidi-display-reordering (not bidi-display-reordering))
-;; 	(message "bidi reordering is %s" bidi-display-reordering))
+;;	"Toggle bidirectional display reordering."
+;;	(interactive)
+;;	(setq bidi-display-reordering (not bidi-display-reordering))
+;;	(message "bidi reordering is %s" bidi-display-reordering))
 ;; (defun bidi-display-reordering-on ()
-;; 	"Sets bidi-display-reordering-on"
-;; 	(setq-local bidi-display-reordering t))
+;;	"Sets bidi-display-reordering-on"
+;;	(setq-local bidi-display-reordering t))
 ;; (add-hook 'text-mode-hook 'bidi-display-reordering-on)
 ;; (defun bidi-direction-toggle ()
-;; 	"Will switch the explicit direction of text for current
+;;	"Will switch the explicit direction of text for current
 ;;  buffer. This will set BIDI-DISPLAY-REORDERING to T"
-;; 	(interactive "")
-;; 	(setq bidi-display-reordering t)
-;; 	(if (equal bidi-paragraph-direction 'right-to-left)
-;; 			(setq bidi-paragraph-direction 'left-to-right)
-;; 		(setq bidi-paragraph-direction 'right-to-left)
-;; 		)
-;; 	(message "%s" bidi-paragraph-direction))
+;;	(interactive "")
+;;	(setq bidi-display-reordering t)
+;;	(if (equal bidi-paragraph-direction 'right-to-left)
+;;			(setq bidi-paragraph-direction 'left-to-right)
+;;		(setq bidi-paragraph-direction 'right-to-left)
+;;		)
+;;	(message "%s" bidi-paragraph-direction))
 
 (use-package rainbow-mode
 	:ensure t
@@ -157,9 +157,9 @@
 
 (use-package yasnippet
 	:ensure t
-  :config
-  (setq yas-indent-line 'auto) ;; do not always indent
-  (yas-global-mode 1)
+	:config
+	(setq yas-indent-line 'auto) ;; do not always indent
+	(yas-global-mode 1)
 	(use-package yasnippet-snippets
 		:ensure t))
 
@@ -204,14 +204,14 @@
 	(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
 
 ;; (use-package consult
-;; 	:ensure t
-;; 	:bind (
-;; 				 :map minibuffer-local-map
-;; 				 ("M-r" . consult-history))
-;; 	:custom
-;; 	(completion-in-region-function #'consult-completion-in-region)
-;; 	:config
-;; 	(add-hook 'completion-setup-hook #'hl-line-mode))
+;;	:ensure t
+;;	:bind (
+;;				 :map minibuffer-local-map
+;;				 ("M-r" . consult-history))
+;;	:custom
+;;	(completion-in-region-function #'consult-completion-in-region)
+;;	:config
+;;	(add-hook 'completion-setup-hook #'hl-line-mode))
 
 ;; hippie expand
 (setq hippie-expand-try-functions-list '(try-expand-dabbrev
@@ -263,7 +263,7 @@
 	(leetcode-solution-mode-hook .
 															 (lambda() (flycheck-mode -1)))
 	:config
-	(setq leetcode-prefer-language "java")
+	(setq leetcode-prefer-language "cpp")
 	(setq leetcode-prefer-sql "mysql")
 	(setq leetcode-save-solutions t)
 	(setq leetcode-directory "~/code/exercise/leetcode"))
@@ -273,17 +273,17 @@
 	(prog-mode))
 
 ;; (use-package undo-tree
-;; 	:ensure t
-;; 	:config
-;; 	;; autosave the undo-tree history
-;; 	(setq undo-tree-history-directory-alist
-;; 				`((".*" . ,temporary-file-directory)))
-;; 	(setq undo-tree-auto-save-history t)
-;; 	(global-undo-tree-mode +1)
+;;	:ensure t
+;;	:config
+;;	;; autosave the undo-tree history
+;;	(setq undo-tree-history-directory-alist
+;;				`((".*" . ,temporary-file-directory)))
+;;	(setq undo-tree-auto-save-history t)
+;;	(global-undo-tree-mode +1)
 
-;; 	(when (package-installed-p 'evil)
-;; 		(evil-set-undo-system 'undo-tree))
-;; 	)
+;;	(when (package-installed-p 'evil)
+;;		(evil-set-undo-system 'undo-tree))
+;;	)
 
 ;; Latex
 ;; (use-package auctex
@@ -295,15 +295,15 @@
 
 ;; System notifications
 ;; (setq compilation-finish-functions
-;; 			(append compilation-finish-functions
-;; 							'(fmq-compilation-finish)))
+;;			(append compilation-finish-functions
+;;							'(fmq-compilation-finish)))
 
 ;; (defun fmq-compilation-finish (buffer status)
-;; 	(call-process "notify-send" nil nil nil
-;; 								"-t" "0"
-;; 								"-i" "emacs"
-;; 								"Compilation finished in Emacs"
-;; 								status))
+;;	(call-process "notify-send" nil nil nil
+;;								"-t" "0"
+;;								"-i" "emacs"
+;;								"Compilation finished in Emacs"
+;;								status))
 
 ;; ;; Javascript
 ;; (use-package js2-mode
@@ -321,7 +321,7 @@
 
 ;; (use-package exwm
 ;;   :ensure t
-;; 	:config
+;;	:config
 ;;   (require 'exwm-config)
 ;;   (exwm-config-default)
 ;;   ;; (global-set-key (kbd "s-k") 'exwm-workspace-delete)
@@ -346,15 +346,15 @@
 
 ;;   ;; These keys should always pass through to Emacs
 ;;   (setq exwm-input-prefix-keys
-;; 				'(?\C-x
-;; 					?\C-u
-;; 					?\C-h
-;; 					?\M-x
-;; 					?\M-`
-;; 					?\M-&
-;; 					?\M-:
-;; 					?\C-\M-j  ;; Buffer list
-;; 					?\C-\ ))  ;; Ctrl+Space
+;;				'(?\C-x
+;;					?\C-u
+;;					?\C-h
+;;					?\M-x
+;;					?\M-`
+;;					?\M-&
+;;					?\M-:
+;;					?\C-\M-j  ;; Buffer list
+;;					?\C-\ ))  ;; Ctrl+Space
 
 ;;   ;; Ctrl+Q will enable the next key to be sent directly
 ;;   (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)

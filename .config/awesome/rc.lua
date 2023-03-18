@@ -17,7 +17,7 @@ local menubar = require("menubar")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
-
+local cyclefocus = require('cyclefocus')
 
 -- Widgets
 local batteryarc_widget = require("widgets.batteryarc.batteryarc")
@@ -30,7 +30,6 @@ net_wired = net_widgets.indicator({
 })
 local volume_widget     = require("widgets.volume-widget.volume")
 local spr               = wibox.widget.textbox('  ')
-local cyclefocus = require('cyclefocus')
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -235,6 +234,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             spr,
+            mykeyboardlayout,
             spr,
             volume_widget(),
             spr,
@@ -249,7 +249,6 @@ awful.screen.connect_for_each_screen(function(s)
             wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
-            mykeyboardlayout,
         },
     }
 end)
@@ -390,39 +389,11 @@ globalkeys = gears.table.join(
     --         end
     --     end,
     --     {description = "go back", group = "client"}),
-cyclefocus.key({ "Mod1", }, "Tab", {
-    -- cycle_filters as a function callback:
-    -- cycle_filters = { function (c, source_c) return c.screen == source_c.screen end },
-
-    -- cycle_filters from the default filters:
-    cycle_filters = { cyclefocus.filters.same_screen, cyclefocus.filters.common_tag },
-    keys = {'Tab', 'ISO_Left_Tab'}  -- default, could be left out
-}),
     -- Standard program
     -- awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
     --           {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-
-awful.key({ modkey, }, "\\", naughty.destroy_all_notifications),
-
-awful.key({ modkey, "Shift" }, "\\",
-function ()
-    naughty.toggle()
-    naughty.notify({
-        preset = naughty.config.presets.normal,
-        title="notification toggled",
-        text=(function ()
-            if naughty.is_suspended() then
-                return "suspended"
-            else
-                return "resumed"
-            end
-        end)(),
-        timeout = 3,
-        screen = awful.screen.focused(),
-    })
-end),
 
     -- awful.key({ modkey, "Shift"   }, "q", awesome.quit,
     --           {description = "quit awesome", group = "awesome"}),
@@ -451,7 +422,8 @@ end),
     awful.key({}, "XF86AudioMute", function() volume_widget:toggle() end),
     awful.key({ modkey }, "=", function() volume_widget:inc(5) end),
     awful.key({ modkey }, "-", function() volume_widget:dec(5) end),
-    awful.key({ modkey, "Shift" }, "-", function() volume_widget:toggle() end)
+    awful.key({ modkey, "Shift" }, "-", function() volume_widget:toggle() end),
+awful.key({ modkey, "Control" }, "\\", naughty.destroy_all_notifications)
 
     -- Prompt
     -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
@@ -513,6 +485,33 @@ clientkeys = gears.table.join(
     end,
         { description = "Floating Move Right", group = "client" }),
 
+awful.key({ modkey, "Mod1" }, "\\",
+function ()
+    naughty.toggle()
+    naughty.notify({
+        preset = naughty.config.presets.normal,
+        title="notification toggled",
+        text=(function ()
+            if naughty.is_suspended() then
+                return "suspended"
+            else
+                return "resumed"
+            end
+        end)(),
+        timeout = 3,
+        screen = awful.screen.focused(),
+    })
+end),
+-- Alt-Tab: cycle through clients on the same screen.
+-- This must be a clientkeys mapping to have source_c available in the callback.
+cyclefocus.key({ "Mod1", }, "Tab", {
+    -- cycle_filters as a function callback:
+    -- cycle_filters = { function (c, source_c) return c.screen == source_c.screen end },
+
+    -- cycle_filters from the default filters:
+    cycle_filters = { cyclefocus.filters.same_screen, cyclefocus.filters.common_tag },
+    keys = {'Tab', 'ISO_Left_Tab'}  -- default, could be left out
+}),
     awful.key({ modkey,           "Shift" }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
@@ -788,3 +787,5 @@ awful.mouse.snap.edge_enabled = false
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- awful.spawn.with_shell("")
