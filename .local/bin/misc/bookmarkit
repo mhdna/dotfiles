@@ -3,12 +3,12 @@
 bookmark=$(xclip -o)
 file="$HOME/.local/share/bookmarks"
 
-gettitle(){
-    title=$(dmenu -p "Bookmark title for $bookmark: " <&-)
+gettag(){
+    tag=$(dmenu -p "Bookmark Tag for $bookmark: " <&-)
 }
 
 if grep -q "$bookmark" "$file"; then
    notify-send "Bookmarkit" "Already exists"
    else
-       gettitle && echo "$bookmark : $title" >> "$file" && notify-send "Bookmark added" "$bookmark is now saved to the file"
+       gettag && echo "$bookmark :$tag": >> "$file" && notify-send "Bookmark added" "$bookmark is now saved to the file"
 fi
