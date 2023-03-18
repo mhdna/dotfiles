@@ -31,12 +31,13 @@ return packer.startup(function(use)
     use("saadparwaiz1/cmp_luasnip") -- snippet completions
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-nvim-lua")
-    use {
-        "lewis6991/gitsigns.nvim",
-        config = function()
-            require('gitsigns').setup()
-        end
-    }
+    -- use {
+    --     "lewis6991/gitsigns.nvim",
+    --     config = function()
+    --         require('gitsigns').setup()
+    --     end
+    -- }
+    use ("nvim-lualine/lualine.nvim")
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
     use("windwp/nvim-autopairs") -- similar to rainbow parameters
@@ -73,13 +74,16 @@ return packer.startup(function(use)
         requires = { { "nvim-lua/plenary.nvim" } }
     }
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
-    use({
-        "kylechui/nvim-surround",
-        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-        config = function()
-            require("nvim-surround").setup({})
-        end
-    })
+    -- use({
+    --     "kylechui/nvim-surround",
+    --     tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    --     config = function()
+    --         require("nvim-surround").setup({})
+    --     end
+    -- })
+    -- nvim align
+    use("junegunn/vim-easy-align")
+    use("NLKNguyen/papercolor-theme")
     -- Debug
     use("mfussenegger/nvim-dap")
     use("rcarriga/cmp-dap")

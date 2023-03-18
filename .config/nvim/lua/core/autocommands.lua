@@ -107,14 +107,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
     pattern = 'cpp',
     callback = function ()
-        vim.keymap.set("n", "<leader>c", ":w! | :split | term g++ % -o %< && ./%< <CR>i", bufopts)
-    end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'go',
-    callback = function ()
-        vim.keymap.set("n", "<leader>c", ":w! | :split | term go run % <CR>i", bufopts)
+        vim.keymap.set("n", "<leader>c", ":w | :split | term make build && ./output <CR>", bufopts)
     end,
 })
 

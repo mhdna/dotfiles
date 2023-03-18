@@ -38,10 +38,11 @@ lspconfig.ccls.setup {
     on_attach = on_attach,
     flags = lsp_flags,
 }
-lspconfig.tsserver.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
+
+-- lspconfig.tsserver.setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+-- }
 
 lspconfig.pylsp.setup {
     settings = {
@@ -68,4 +69,4 @@ lspconfig.lua_ls.setup {
 
 
 -- Disable inline error messages
-vim.diagnostic.config({ virtual_text = false })
+-- vim.diagnostic.config({ virtual_text = false })
