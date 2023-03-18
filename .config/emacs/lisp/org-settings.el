@@ -191,6 +191,12 @@ non-empty lines in the block (excluding the line with
 																									"books-read.org"
 																									;;                                         "papers-read.org"
 																									)))))
+(defun my/org-empahsize ()
+  (interactive)
+  (if (not (use-region-p))
+      (er/mark-word))
+  (org-emphasize))
+
 (add-to-list 'org-agenda-custom-commands
 						 '("w" "Writing prompts"
 							 ((tags "+writing"))
