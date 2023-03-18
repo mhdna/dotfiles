@@ -6,6 +6,8 @@ xss-lock -- physlock -s&
 redshift -l 31.77:35.23&
 remaps &
 emacs --daemon&
+nm-applet&
+alttab -w 1 -d 1 -bg "#333333"&
 
 autostart="clipmenud sxhkd mpd mpd_notify xbanish picom pipewire"
 

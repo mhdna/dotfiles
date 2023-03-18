@@ -21,12 +21,6 @@ require("awful.hotkeys_popup.keys")
 -- Widgets
 local batteryarc_widget = require("widgets.batteryarc.batteryarc")
 local net_speed_widget  = require("widgets.net-speed.net-speed")
-local net_widgets       = require("widgets.net_widgets")
-net_wireless            = net_widgets.wireless({ interface = "wlp2s0", indent = 5, timeout = 5 })
-net_wired = net_widgets.indicator({
-    interfaces  = {"enp2s0"},
-    timeout     = 5
-})
 local volume_widget     = require("widgets.volume-widget.volume")
 local spr               = wibox.widget.textbox('  ')
 
@@ -241,9 +235,6 @@ awful.screen.connect_for_each_screen(function(s)
             show_notification_mode = 'on_click'
         }),
             net_speed_widget(),
-            net_wireless,
-            spr,
-            net_wired,
             spr,
             wibox.widget.systray(),
             mytextclock,
@@ -777,4 +768,4 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
-awful.spawn.with_shell("~/.config/awesome/autorun.sh")
+-- awful.spawn.with_shell("~/.config/awesome/autorun.sh")
