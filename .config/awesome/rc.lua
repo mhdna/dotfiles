@@ -226,7 +226,7 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            spr,
+            net_speed_widget(),
             mykeyboardlayout,
             spr,
             volume_widget(),
@@ -234,9 +234,8 @@ awful.screen.connect_for_each_screen(function(s)
             batteryarc_widget({
             show_notification_mode = 'on_click'
         }),
-            net_speed_widget(),
-            spr,
             wibox.widget.systray(),
+            spr,
             mytextclock,
             s.mylayoutbox,
         },
@@ -413,7 +412,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "=", function() volume_widget:inc(5) end),
     awful.key({ modkey }, "-", function() volume_widget:dec(5) end),
     awful.key({ modkey, "Shift" }, "-", function() volume_widget:toggle() end),
-awful.key({ modkey, "Control" }, "\\", naughty.destroy_all_notifications)
+awful.key({ modkey, }, "\\", naughty.destroy_all_notifications)
 
     -- Prompt
     -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
@@ -475,7 +474,7 @@ clientkeys = gears.table.join(
     end,
         { description = "Floating Move Right", group = "client" }),
 
-awful.key({ modkey, "Mod1" }, "\\",
+awful.key({ modkey, "Shift" }, "\\",
 function ()
     naughty.toggle()
     naughty.notify({
