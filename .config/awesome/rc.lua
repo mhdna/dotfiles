@@ -474,23 +474,6 @@ clientkeys = gears.table.join(
     end,
         { description = "Floating Move Right", group = "client" }),
 
-awful.key({ modkey, "Shift" }, "\\",
-function ()
-    naughty.toggle()
-    naughty.notify({
-        preset = naughty.config.presets.normal,
-        title="notification toggled",
-        text=(function ()
-            if naughty.is_suspended() then
-                return "suspended"
-            else
-                return "resumed"
-            end
-        end)(),
-        timeout = 3,
-        screen = awful.screen.focused(),
-    })
-end),
     awful.key({ modkey,           "Shift" }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
