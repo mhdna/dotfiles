@@ -1,9 +1,5 @@
 #!/bin/sh
 
-if ! ping -q -c 1 1.1.1.1 >/dev/null; then
-    notify-send 'Trans: No connection' && exit 1
-fi
-
 tr(){
     if [ "$1" = "arabic" ]; then
         trans --target="$1" --speak
