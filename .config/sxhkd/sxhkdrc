@@ -38,11 +38,11 @@ super + v
 super + shift + v
     fol pulsemixer
 
-super + t; {super + t, c}
+super + t; {super + t, t}
     transs {p,c}
 
-super + t; {a, e, f}
-    fol {Transa transs a,Transe transs e,Transf transs f}
+super + t; {a, e, p}
+    fol {Transa transs a,Transe transs e,Transf transs p}
 
 super + t; {s,S}
     {fol sdcv,$TERMINAL -e sdcv $(xclip -o)}
