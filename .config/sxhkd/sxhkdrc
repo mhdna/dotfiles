@@ -38,7 +38,7 @@ super + v
 super + shift + v
     fol pulsemixer
 
-super + t; {p, c}
+super + t; {super + t, c}
     transs {p,c}
 
 super + t; {a, e, f}
