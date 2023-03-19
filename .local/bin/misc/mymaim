@@ -1,6 +1,6 @@
 #!/bin/sh
 
-output="$XDG_PICTURES_DIR/screenshots/-$(date '+%y%m%d-%H%M-%S').png"
+output="$XDG_PICTURES_DIR/screenshots/$(date '+%y-%m-%d_%H:%M:%S').png"
 xclip_cmd="xclip -sel clip -t image/png"
 
 # freeze() {
