@@ -16,7 +16,7 @@ local check_backspace = function()
 end
 
 -- Only Enable for certain filetypes
-cmp.setup.filetype({ 'c', 'cpp', 'java', 'python', 'javascript', 'go' }, {
+cmp.setup.filetype({ 'c', 'cpp', 'java', 'python', 'javascript', 'go','sql','mysql' }, {
     enabled = function()
         -- disable completion in comments
         local context = require 'cmp.config.context'

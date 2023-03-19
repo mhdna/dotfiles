@@ -57,7 +57,7 @@ lspconfig.pylsp.setup {
     }
 }
 
-require'lspconfig'.gopls.setup{}
+lspconfig.gopls.setup{}
 
 lspconfig.lua_ls.setup {
     on_attach = on_attach,
@@ -66,7 +66,6 @@ lspconfig.lua_ls.setup {
         globals = { 'vim' },
     },
 }
-
 
 -- Disable inline error messages
 -- vim.diagnostic.config({ virtual_text = false })
