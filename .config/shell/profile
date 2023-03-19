@@ -57,7 +57,7 @@ export NPM_PATH="$XDG_DATA_HOME/npm"
 export PATH="$PATH:$(find $HOME/.local/bin/ -type d -printf ":%p" ):$NPM_PATH/bin:$GOPATH/bin:$CARGO_HOME/bin:$JAVA_HOME/bin"
 
 # Start graphical server on user's current tty if not already running and put the outputs into ~/.local/share/xorg/
-# [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
+[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
 #
 
 [ ! -f $XDG_CONFIG_HOME/shell/shortcutrc ] && setsid shortcuts >/dev/null 2>&1
