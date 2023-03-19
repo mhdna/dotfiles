@@ -13,10 +13,10 @@ case "$1" in
     *)
     if [ -z "$2" ]; then
         # tui program without custom name set
-        xdo activate -dn "$1" || $TERMINAL -n "$1" -e "$1"
+        xdo activate -n "$1" || $TERMINAL -n "$1" -e "$1"
     else
         # tui program with custom name set
         rest=$(echo "$@" | cut -d ' ' -f2-)
-        xdo activate -dn "$1" || $TERMINAL -n "$1" -e $rest
+        xdo activate -n "$1" || $TERMINAL -n "$1" -e $rest
     fi;;
 esac
