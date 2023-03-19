@@ -11,7 +11,7 @@ super + shift + y
     fol g "jetbrains-idea-ce" idea
 
 super + y
-    fol mycli
+    fol mycli mycli -u root
 
 super + o; a
     xdo activate -n agenda || $TERMINAL -n agenda -g 40x20 -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
