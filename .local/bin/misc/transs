@@ -15,6 +15,6 @@ case "$1" in
     notify-send "$(trans --no-bidi -b --target="arabic" "$(xclip -sel c -o)")";;
     "a") tr "arabic";;
     "e") tr "english";;
-    "f") tr "persian";;
+    "p") tr "persian";;
     *) exit 1;;
 esac
