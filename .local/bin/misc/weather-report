@@ -3,7 +3,7 @@
 weatherreport="${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport"
 
 getforecast() {
-        curl -sf "wttr.in/$LOCATION" > "$weatherreport" && curl -sf "wttr.in/?format=%m" >> "$weatherreport" || notify-send "Weather report" "Something went wrong..."
+    curl -sf "wttr.in/$LOCATION" > "$weatherreport" && curl -sf "wttr.in/?format=%m" >> "$weatherreport" || (rm -f "$weatherreport"; notify-send "Weather report" "Something went wrong...")
 }
 
 [ "$1" = "get" ] && getforecast
