@@ -412,7 +412,24 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "=", function() volume_widget:inc(5) end),
     awful.key({ modkey }, "-", function() volume_widget:dec(5) end),
     awful.key({ modkey, "Shift" }, "-", function() volume_widget:toggle() end),
-awful.key({ modkey, }, "\\", naughty.destroy_all_notifications)
+awful.key({ modkey, "Control"}, "\\", naughty.destroy_all_notifications),
+awful.key({ modkey, "Mod1" }, "\\",
+function ()
+    naughty.toggle()
+    naughty.notify({
+        preset = naughty.config.presets.normal,
+        title="notification toggled",
+        text=(function ()
+            if naughty.is_suspended() then
+                return "suspended"
+            else
+                return "resumed"
+            end
+        end)(),
+        timeout = 3,
+        screen = awful.screen.focused(),
+    })
+end)
 
     -- Prompt
     -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
