@@ -406,12 +406,12 @@ globalkeys = gears.table.join(
     --           {description = "select previous", group = "layout"}),
 
 -- Volume keys
-    awful.key({}, "XF86AudioRaiseVolume", function() volume_widget:inc(5) end),
-    awful.key({}, "XF86AudioLowerVolume", function() volume_widget:dec(5) end),
-    awful.key({}, "XF86AudioMute", function() volume_widget:toggle() end),
-    awful.key({ modkey }, "=", function() volume_widget:inc(5) end),
-    awful.key({ modkey }, "-", function() volume_widget:dec(5) end),
-    awful.key({ modkey, "Shift" }, "-", function() volume_widget:toggle() end),
+    -- awful.key({}, "XF86AudioRaiseVolume", function() volume_widget:inc(5) end),
+    -- awful.key({}, "XF86AudioLowerVolume", function() volume_widget:dec(5) end),
+    -- awful.key({}, "XF86AudioMute", function() volume_widget:toggle() end),
+    -- awful.key({ modkey }, "=", function() volume_widget:inc(5) end),
+    -- awful.key({ modkey }, "-", function() volume_widget:dec(5) end),
+    -- awful.key({ modkey, "Shift" }, "-", function() volume_widget:toggle() end),
 awful.key({ modkey, "Control"}, "\\", naughty.destroy_all_notifications),
 awful.key({ modkey, "Mod1" }, "\\",
 function ()
