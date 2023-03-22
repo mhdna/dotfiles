@@ -9,4 +9,4 @@ setxkbmap -model pc105 -layout us,ara -option grp:win_space_toggle -option caps:
 killall xcape 2>/dev/null ; xcape -e 'Caps_Lock=Escape'
 
 echo "Remaps reconfigured"
-notify-send 'Remaps' 'Reconfigured'
+notify-send -u low 'Remaps' 'Reconfigured'
