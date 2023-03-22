@@ -2,7 +2,7 @@ super + Return
     $TERMINAL
 
 super + i
-    xdo activate -n tmux || $TERMINAL -g 85x36 -n tmux -e sh -c 'tmux a || tmux'
+    xdo activate -n Tmux || $TERMINAL -g 86x36 -n Tmux -e sh -c 'tmux a || tmux'
 
 super + shift + i
     xdo activate -dN Emacs || emacsclient -c
@@ -96,7 +96,7 @@ super + {_, shift+ }F3
     {fol torwrap, td-toggle}
 
 super + {_, shift+ }F4
-    {touchpad_toggle,remaps}
+    remaps; touchpad_toggle {off,on}
 
 super + {_, shift+ }{F10,F12}
     mpc {seek -1%, prev,  seek +1%, next}
