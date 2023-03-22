@@ -36,7 +36,7 @@ local function worker(user_args)
     local low_level_color = args.low_level_color or '#e53935'
     local medium_level_color = args.medium_level_color or '#c0ca33'
     local charging_color = args.charging_color or '#43a047'
-    local full_color = args.charging_color or '#535d6c'
+    local full_color = args.charging_color or '#43a047'
 
     local warning_msg_title = args.warning_msg_title or 'We have a problem'
     local warning_msg_text = args.warning_msg_text or 'Battery Low'
