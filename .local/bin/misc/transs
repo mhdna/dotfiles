@@ -9,9 +9,11 @@ tr(){
 }
 
 case "$1" in
-    "p")
+    # xclip's primary clipboard
+    "P")
     notify-send "$(trans --no-bidi -b --target="arabic" "$(xclip -o)")";;
-    "c")
+    # xclip's clipboard clipboard
+    "C")
     notify-send "$(trans --no-bidi -b --target="arabic" "$(xclip -sel c -o)")";;
     "a") tr "arabic";;
     "e") tr "english";;

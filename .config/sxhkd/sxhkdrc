@@ -2,25 +2,25 @@ super + Return
     $TERMINAL
 
 super + i
-    xdo activate -n Tmux || $TERMINAL -g 86x36 -n Tmux -e sh -c 'tmux a || tmux'
+    xdo activate -N Tmux || $TERMINAL -g 86x36 -c Tmux -e sh -c 'tmux a || tmux'
 
 super + shift + i
     xdo activate -dN Emacs || emacsclient -c
-
-super + shift + y
-    fol g "jetbrains-idea-ce" idea
 
 super + y
     fol mycli mycli -u root
 
 super + o; a
-    xdo activate -n agenda || $TERMINAL -n agenda -g 40x20 -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
+    xdo activate -N agenda || $TERMINAL -c agenda -g 40x20 -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
 
 super + o; l
     emacsclient -c -e '(leetcode)'
 
 super + o; d
     $TERMINAL  -e emacsclient -nw -e '(my/dashboard)' -e '(balance-windows)'
+
+super + o; t
+    fol top
 
 super +  w; {o,O,s,S}
     {dmenu-bookmarks,dmenu-snippets,bookmarkit,snipit}
@@ -39,7 +39,7 @@ super + shift + v
     fol pulsemixer
 
 super + t; {super + t, t}
-    transs {p,c}
+    transs {P,C}
 
 super + t; {a, e, p}
     fol {Transa transs a,Transe transs e,Transf transs p}
@@ -51,7 +51,7 @@ super + f
     fol lfub
 
 super + BackSpace
-    xdo activate -n pad || $TERMINAL -g 40x20 -n pad -e $EDITOR $HOME/.cache/pad.md
+    xdo activate -N pad || $TERMINAL -g 40x20 -c pad -e $EDITOR $HOME/.cache/pad.md
 
 super + e
     fol neomutt bicon -e neomutt
@@ -106,7 +106,7 @@ super + {_, shift+ }F11
 
 # less used keybinds
 super + o; {f,w,N,c,n,v}
-    {fol flash,weather-report, $TERMINAL -e nmtui,xdo activate -n bc || $TERMINAL -g 30x20 -n bc -e bc -lq,newword, mpv --ytdl-format=22 "$(xclip -sel c -o)" }
+    {fol flash,weather-report, $TERMINAL -e nmtui,xdo activate -N bc || $TERMINAL -g 30x20 -c bc -e bc -lq,newword, mpv --ytdl-format=22 "$(xclip -sel c -o)" }
 
 super + o; { m, u}
     {dmenumount, dmenuumount}
@@ -123,5 +123,11 @@ super + z
 super + shift + z
 	loginctl suspend
 
+super + Home
+    $TERMINAL -e soynet open
+
+super + End
+    soynet close
+
 super + shift + r
-	pkill -USR1 -x sxhkd&& notify-send 'Sxhkd' 'Reloaded'
+	pkill -USR1 -x sxhkd&& notify-send -u low 'Sxhkd' 'Reloaded'
