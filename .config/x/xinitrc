@@ -1,8 +1,9 @@
 #!/bin/sh
 # xrandr --output eDP-1  --mode "1024x768"&
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x/xresources & xrdbpid=$!
-xset s 600&
-xss-lock -- physlock -s&
+# xset s 600&
+# xss-lock -- physlock -s&
+xautolock -time 10 -locker  'physlock'&
 redshift -l 31.77:35.23&
 remaps &
 emacs --daemon&
@@ -18,4 +19,4 @@ done >/dev/null 2>&1
 # Ensure that xrdb has finished running before moving on to start the WM/DE.
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
 
-exec awesome
+exec awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
