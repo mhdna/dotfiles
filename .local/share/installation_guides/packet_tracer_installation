@@ -1,0 +1,4 @@
+1. download packettracer from https://www.netacad.com/
+2. git clone https://aur.archlinux.org/packettracer.git
+3. move the downloaded deb file into the cloned directory
+4. makepkg -sirc
