@@ -11,7 +11,7 @@ getmeaning(){
 
 remind(){
     word=$(grep "^- " "$dst" | shuf | head -n1)
-    notify-send "⚔️$word"
+    echo "$word"
 }
 
 if [ "$1" = "r" ]; then
