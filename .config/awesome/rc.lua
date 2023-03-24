@@ -19,10 +19,8 @@ local menubar = require("menubar")
 require("awful.hotkeys_popup.keys")
 
 -- Widgets
-local batteryarc_widget = require("widgets.batteryarc.batteryarc")
 local net_speed_widget  = require("widgets.net-speed.net-speed")
 local volume_widget     = require("widgets.volume-widget.volume")
-local spr               = wibox.widget.textbox('  ')
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -121,7 +119,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock('%a %b %d, %I:%M:%S %p ', 1) --('%a %b %d, %H:%M:%S ', refresh rate)
+mytextclock = wibox.widget.textclock('%a %b %d, %H:%M:%S ', 1) --('%a %b %d, %H:%M:%S ', refresh rate)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -171,7 +169,7 @@ local function set_wallpaper(s)
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
         end
-        gears.wallpaper.maximized(wallpaper, s, true)
+        gears.wallpaper.fit(wallpaper, s)
     end
 end
 
@@ -226,16 +224,11 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            spacing = 7,
             net_speed_widget(),
             mykeyboardlayout,
-            spr,
             volume_widget(),
-            spr,
-            batteryarc_widget({
-            show_notification_mode = 'on_click'
-        }),
             wibox.widget.systray(),
-            spr,
             mytextclock,
             s.mylayoutbox,
         },
@@ -412,23 +405,26 @@ globalkeys = gears.table.join(
     -- awful.key({ modkey }, "=", function() volume_widget:inc(5) end),
     -- awful.key({ modkey }, "-", function() volume_widget:dec(5) end),
     -- awful.key({ modkey, "Shift" }, "-", function() volume_widget:toggle() end),
-awful.key({ modkey, "Control"}, "\\", naughty.destroy_all_notifications),
+awful.key({ modkey,}, "\\", naughty.destroy_all_notifications),
 awful.key({ modkey, "Mod1" }, "\\",
 function ()
-    naughty.toggle()
     naughty.notify({
         preset = naughty.config.presets.normal,
         title="notification toggled",
         text=(function ()
+            -- since when it is toggled off it's not going to send the state
+            -- we return resumed after checking that it is suspeneded
+            -- and return suspended when the original state wasn't
             if naughty.is_suspended() then
-                return "suspended"
-            else
                 return "resumed"
+            else
+                return "suspended"
             end
         end)(),
         timeout = 3,
         screen = awful.screen.focused(),
     })
+    naughty.toggle()
 end)
 
     -- Prompt
@@ -497,6 +493,28 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
+        -- awful.key({ modkey, "Shift" }, "f",
+        -- function (c)
+        --     local previous_tag = client.focus.screen.tags[9]
+        --     local fullscreen_tag = client.focus.screen.tags[9]
+
+        --     if c.fullscreen
+        --         then
+        --             client.focus:move_to_tag(previous_tag)
+        --             previous_tag:view_only()
+        --     else
+        --     if client.focus then
+        --         if fullscreen_tag then
+        --             client.focus:move_to_tag(fullscreen_tag)
+        --             fullscreen_tag:view_only()
+        --         end
+        --     end
+        --     end
+
+        --     c.fullscreen = not c.fullscreen
+        --     c:raise()
+        -- end,
+        -- {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Shift" }, "space",  awful.client.floating.toggle                     ,
@@ -577,6 +595,7 @@ for i = 1, 9 do
                           local tag = client.focus.screen.tags[i]
                           if tag then
                               client.focus:move_to_tag(tag)
+                              tag:view_only()
                           end
                      end
                   end,
@@ -668,8 +687,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true },
-    except = {class= "jetbrains-idea-ce"}},
+      }, properties = { titlebars_enabled = false }},
 
     --  { rule = { },
     --     properties = { size_hints_honor = false },
@@ -689,6 +707,9 @@ awful.rules.rules = {
 
     -- { rule_any = { class = { "pm", "tm", "libreoffice", "Libreoffice", "LibreOffice" }, name = { "LibreOffice" } },
     --     properties = { tag = tags[1][5] } },
+
+    { rule_any = { class = { "Zathura", "Tmux"}},
+        properties = {maximized_vertical = true} },
 
     -- { rule_any = { class = { "Gimp", "Inkscape", "kdenlive" } },
     --     properties = { tag = tags[1][5] } },
