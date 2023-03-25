@@ -19,8 +19,15 @@ local menubar = require("menubar")
 require("awful.hotkeys_popup.keys")
 
 -- Widgets
-local net_speed_widget  = require("widgets.net-speed.net-speed")
-local volume_widget     = require("widgets.volume-widget.volume")
+local mynetspeed  = require("widgets.net-speed.net-speed")
+local myvolume     = require("widgets.volume-widget.volume")
+local mynet     = require("widgets.net_widgets")
+mywifi            = mynet.wireless({ interface = "wlp2s0", indent = 5, timeout = 5 })
+myeth = mynet.indicator({
+    interfaces  = {"eth0"},
+    timeout     = 5
+})
+local mybattery     = require("widgets.battery")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -49,12 +56,11 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
--- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = os.getenv("TERMINAL") or "xterm"
-editor = os.getenv("EDITOR") or "nano"
+terminal = os.getenv("TERMINAL") or "st"
+editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -67,6 +73,7 @@ home = os.getenv("HOME")
 
 -- notification settings
 naughty.config.defaults['icon_size'] = 100
+naughty.config.defaults['font'] = 'Sans 8'
 naughty.config.defaults.timeout = 20
 naughty.config.defaults.position = 'top_right'
 naughty.config.defaults.max_width = 400
@@ -120,6 +127,15 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock('%a %b %d, %H:%M:%S ', 1) --('%a %b %d, %H:%M:%S ', refresh rate)
+
+local function client_set_border(c)
+   -- Fix inconsistent border behaviour when maximizing/fullscreen clients
+   if c.fullscreen then
+      c.border_width = 0
+   elseif c.border_width == 0 and not c.no_border then
+      c.border_width = beautiful.border_width
+   end
+end
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -181,7 +197,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1","2","3","4","5","6","7","8","9"},
+    awful.tag({ "1","2"}, --"3","4","5","6","7","8","9"},
     s, {awful.layout.layouts[1]})
 
 
@@ -212,7 +228,6 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
 
-    -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
@@ -225,9 +240,12 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             spacing = 7,
-            net_speed_widget(),
+            mynetspeed(),
+            mybattery.text,
             mykeyboardlayout,
-            volume_widget(),
+            myvolume(),
+            mywifi,
+            myeth,
             wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
@@ -235,16 +253,6 @@ awful.screen.connect_for_each_screen(function(s)
     }
 end)
 -- }}}
-
--- {{{ Mouse bindings
--- root.buttons(gears.table.join(
---     awful.button({ }, 3, function () mymainmenu:toggle() end),
---     awful.button({ }, 4, awful.tag.viewnext),
---     awful.button({ }, 5, awful.tag.viewprev)
--- ))
--- }}}
-
-
 
 -- Tiling functions
 -- closures for client_status
@@ -363,15 +371,10 @@ globalkeys = gears.table.join(
               {description = "focus the previous screen", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
-    -- awful.key({ "Mod1",           }, "Tab",
-    --     function ()
-    --         awful.client.focus.history.previous()
-    --         if client.focus then
-    --             client.focus:raise()
-    --         end
-    --     end,
-    --     {description = "go back", group = "client"}),
-    -- Standard program
+
+    awful.key({ modkey, }, "g", function() awful.tag.viewprev(awful.screen.focused()) end),
+    awful.key({ modkey, }, ";", function() awful.tag.viewnext(awful.screen.focused()) end),
+
     -- awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
     --           {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
@@ -453,6 +456,7 @@ clientkeys = gears.table.join(
     awful.key({ modkey, "Mod1"}, "k", sideline_top),
     awful.key({ modkey, "Mod1"}, "j", sideline_bottom),
     -- Resize floating windows
+    --
     awful.key({ modkey, "Shift", "Control" }, "k", function(c)
         c:relative_move(0, 0, 0, -20)
     end,
@@ -488,11 +492,26 @@ clientkeys = gears.table.join(
         { description = "Floating Move Right", group = "client" }),
 
     awful.key({ modkey,           "Shift" }, "f",
-        function (c)
-            c.fullscreen = not c.fullscreen
+			     function (c)
+							c.fullscreen = not c.fullscreen
+							myscreen = awful.screen.focused()
+              myscreen.mywibox.visible = not myscreen.mywibox.visible
+            local cur_tag = client.focus and client.focus.first_tag or nil
+            for _, cls in ipairs(cur_tag:clients()) do
+                -- minimize all windows except the focused one
+                if c.window ~= cls.window then
+                    cls.hidden = not cls.hidden
+                end
+            end
             c:raise()
         end,
-        {description = "toggle fullscreen", group = "client"}),
+					 {description = "toggle fullscreen", group = "client"}),
+		    -- awful.key({ modkey,           "Shift" }, "f",
+        -- function (c)
+        --     c.fullscreen = not c.fullscreen
+        --     c:raise()
+        -- end,
+        -- {description = "toggle fullscreen", g
         -- awful.key({ modkey, "Shift" }, "f",
         -- function (c)
         --     local previous_tag = client.focus.screen.tags[9]
@@ -517,6 +536,13 @@ clientkeys = gears.table.join(
         -- {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
+    awful.key({ "Mod1"   }, "F4",      function (c) c:kill()                         end,
+              {description = "close", group = "client"}),
+
+    awful.key({ modkey , "Mod1"}, "c", function ()
+        awful.util.spawn(editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" )
+    end),
+
     awful.key({ modkey, "Shift" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
@@ -644,7 +670,8 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+                     size_hints_honor = true
      }
     },
 
@@ -686,8 +713,14 @@ awful.rules.rules = {
         properties = { floating = true, placement = awful.placement.bottom_right, ontop = true, sticky = false } },
 
     -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }},
+    { rule_any = {type = {"dialog" }
+      }, properties = { titlebars_enabled = true , placement = awful.placement.centered},
+     except_any = { role = { "notify_dialog" }}
+  },
+
+   { rule_any = { class = { "MPlayer", "mpv" } },
+     properties = { floating = true }
+   },
 
     --  { rule = { },
     --     properties = { size_hints_honor = false },
@@ -749,7 +782,7 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    awful.titlebar(c) : setup {
+    awful.titlebar(c, {size = 16}) : setup {
         { -- Left
             awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
@@ -786,6 +819,8 @@ awful.mouse.snap.edge_enabled = false
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("property::size", client_set_border)
+client.connect_signal("property::fullscreen", client_set_border)
 -- }}}
 
--- awful.spawn.with_shell("~/.config/awesome/autorun.sh")
+awful.spawn.with_shell("~/.config/awesome/autorun.sh")
