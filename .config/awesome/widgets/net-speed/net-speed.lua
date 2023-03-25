@@ -39,6 +39,22 @@ local function convert_to_h(bytes)
     end
     return math.floor(speed + 0.5) .. dim
 end
+-- if bytes < 125 then
+--     speed = bytes
+--     dim = 'b/s'
+-- elseif bytes < 125000 then
+--     speed = bytes/1024
+--     dim = 'kb/s'
+-- elseif bytes < 125000000 then
+--     speed = bytes/1048576
+--     dim = 'mb/s'
+-- elseif bytes < 125000000000 then
+--     speed = bytes/1073741824
+--     dim = 'gb/s'
+-- else
+--     speed = tonumber(bytes)
+--     dim = 'b/s'
+-- end
 
 local function split(string_to_split, separator)
     if separator == nil then separator = "%s" end
@@ -56,8 +72,9 @@ local function worker(user_args)
     local args = user_args or {}
 
     local interface = args.interface or '*'
-    local timeout = args.timeout or 1
-    local width = args.width or 55
+    -- update every 2 seconds
+    local timeout = args.timeout or 2
+    local width = args.width or 48
 
     net_speed_widget = wibox.widget {
         {
