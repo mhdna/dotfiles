@@ -718,10 +718,6 @@ awful.rules.rules = {
      except_any = { role = { "notify_dialog" }}
   },
 
-   { rule_any = { class = { "MPlayer", "mpv" } },
-     properties = { floating = true }
-   },
-
     --  { rule = { },
     --     properties = { size_hints_honor = false },
     -- except = {class= "mpv"}},
