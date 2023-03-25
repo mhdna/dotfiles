@@ -27,7 +27,7 @@ vim.o.hlsearch   = false -- Do not keep the previous search occurance highlighte
 -- vim.o.swapfile   = false
 
 vim.o.number = true
-vim.wo.relativenumber = true
+-- vim.wo.relativenumber = true
 vim.o.scrolloff = 8
 vim.opt.termguicolors = true -- Enable 24-bit RGB colors
 vim.opt.linebreak = false
@@ -43,6 +43,8 @@ vim.o.backup     = true
 vim.o.backupdir     = os.getenv("XDG_CACHE_HOME") .. "/nvim/backup/"
 vim.o.encoding = "utf-8"
 -- vim.o.guifont = "hack:h10" -- the font used in vim gui
+-- Show full path in status line
+vim.o.statusline="%F"
 
 -- vim.o.autochdir = true
 -- Tab command mode completion

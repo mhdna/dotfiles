@@ -1,4 +1,4 @@
-local bufopts = { noremap = true, silent = true, buffer = bufnr }
+local opts = { noremap = true, buffer = 0 }
 
 vim.cmd [[
 " Return to last edit position when opening files (You want this!)
@@ -20,10 +20,10 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 })
 
 -- disable automatic commenting new lines
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-    pattern = { "*" },
-    command = "set formatoptions-=cro",
-})
+-- vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+--     pattern = { "*" },
+--     command = "set formatoptions-=cro",
+-- })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     pattern = { "Xresources", "Xdefaults", "xresources", "xdefaults" },
@@ -97,6 +97,7 @@ vim.api.nvim_create_autocmd('FileType', {
     pattern = {'python', 'java', 'c', 'cpp', 'go'},
     callback = function ()
         vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = 0,
             callback = function()
                 vim.lsp.buf.format()
             end
@@ -107,7 +108,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
     pattern = 'cpp',
     callback = function ()
-        vim.keymap.set("n", "<leader>c", ":w | :split | term make build && ./output <CR>", bufopts)
+        vim.keymap.set("n", "<leader>c", ":w | :split | term make build && ./output <CR>", opts)
     end,
 })
 
