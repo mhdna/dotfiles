@@ -1,3 +1,4 @@
+newword r
 # Prompt
 autoload -U colors zsh/terminfo
 colors
@@ -54,7 +55,8 @@ bindkey \^U backward-kill-line
 # # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^[e' edit-command-line
-bindkey -s "^[a" 'bc -lq\n'
+bindkey -s "^[a" 'configa\n'
+bindkey -s "^[c" 'bc -lq\n'
 bindkey -s '^[p' 'edit-file\n'
 # bindkey -s '^[o' 'lfcd\n'
 bindkey -s '^[m' 'mpcsearch\n'
