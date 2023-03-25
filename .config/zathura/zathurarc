@@ -29,7 +29,7 @@ map <S-Space> navigate previous
 
 set font                        "Mono 10"
 
-# set recolor                     "true"
+set recolor                     "true"
 set recolor-keephue             true      # keep original colors when recoloring
 
 #set guioptions none
