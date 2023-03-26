@@ -41,10 +41,12 @@ yt () {
 }
 
 configa(){
+    while true; do
+
     get_unstaged_file(){
         # only show unstaged files
         # "^M" are added, "^MM" are added but have modifications to be added, while "^ M are not added"
-        unstaged_file="$HOME/$(config status --porcelain | grep -E "(^ M|^MM)" | awk '{print $2}' | fzf)"
+        unstaged_file="$HOME/$(config status --porcelain | grep -E "(^ M|^MM)" | awk '{print $2}' | fzf )"
     }
 
     get_unstaged_file || return 1
@@ -52,9 +54,22 @@ configa(){
     config diff "$unstaged_file" &&
     config add "$unstaged_file" &&
     config status &&
-    echo "Type our commit message, or press 'n' to leave?"
+    echo "
+
+Type your commit message
+
+Or Press 'q' to leave
+         'a' to add other files"
     read -r ans
-    [ "$ans" != "n" ] && config commit -m "$ans"
+
+    if [ $ans = "a" ]; then
+       continue
+    elif [ $ans = "q" ]; then
+        break
+    else
+       config commit -m "$ans" && break
+    fi
+    done
 }
 
 alias \
