@@ -41,19 +41,18 @@ yt () {
 }
 
 configa(){
-    get_untracked_file(){
-        untracked_file="$(config status --porcelain | awk '{print $2}' | fzf)"
+    get_unstaged_file(){
+        # only show unstaged files
+        # "^M" are added, "^MM" are added but have modifications to be added, while "^ M are not added"
+        unstaged_file="$HOME/$(config status --porcelain | grep -E "(^ M|^MM)" | awk '{print $2}' | fzf)"
     }
 
-    get_untracked_file || return 1
+    get_unstaged_file || return 1
 
-    # only diff files that are not already added
-    ! config diff --staged --name-only | grep -q "$untracked_file" &&
-    config diff "$HOME/$untracked_file"
-
-    config add "$HOME/$untracked_file" &&
+    config diff "$unstaged_file" &&
+    config add "$unstaged_file" &&
     config status &&
-    echo "Enter your commit message, or press 'n' to leave?"
+    echo "Type our commit message, or press 'n' to leave?"
     read -r ans
     [ "$ans" != "n" ] && config commit -m "$ans"
 }
