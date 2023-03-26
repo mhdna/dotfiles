@@ -4,11 +4,11 @@ case "$(readlink -f /sbin/init)" in
 	*) ctl='loginctl' ;;
 esac
 
-case "$(printf "lock\nleave\nhibernate\nreboot\npoweroff\nsleep\ndisplay off" | dmenu -i -p 'Action: ')" in
+case "$(printf "lock\nleave\nhibernate\nreboot\npoweroff\nsuspend\ndisplay off" | dmenu -i -p 'Action: ')" in
 	'lock') physlock -s ;;
 	"leave") pkill -15 -t tty"$XDG_VTNR" Xorg ;;
 	'hibernate') $ctl hibernate ;;
-	'sleep') $ctl suspend -i;;
+	'suspend') $ctl suspend -i;;
 	'reboot') $ctl reboot -i ;;
 	'poweroff') $ctl poweroff -i ;;
 	'display off') xset dpms force off ;;
