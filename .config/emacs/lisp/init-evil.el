@@ -1,78 +1,75 @@
-(defun evilkeys ()
-	(setq leader "SPC")
+(defun set-keys ()
+	;; (setq leader "SPC")
 	
-	(evil-define-key '(insert) global-map
-		"C-n"							 'next-line
-		"C-p"							 'previous-line
-		"C-e"							 'end-of-line
-		"C-a"							 'beginning-of-line
-		)
+	;; (evil-define-key '(insert) global-map
+		;; (kbd "C-n")							 'next-line
+		;; (kbd "C-p")							 'previous-line
+		;; (kbd "C-e")							 'end-of-line
+		;; (kbd "C-a")							 'beginning-of-line
+		;; (kbd "<down>")												 'evil-next-visual-line
+		;; (kbd "<up>")													 'evil-previous-visual-line
+		;; )
 
 	(evil-define-key '(normal visual) global-map
-		"<backspace>"			 'execute-extended-command
-		"C-]"							 'gtags-find-tag-from-here
-		"C-p"							 'duplicate-line-or-region
-		"g/"							 'occur-last-search
-		"[i"							 'show-first-occurrence
-		"z d"							 'dictionary-lookup-definition
+		(kbd "C-]")					 'gtags-find-tag-from-here
+		(kbd "C-p")					 'duplicate-line-or-region
+		(kbd "z d")					 'dictionary-lookup-definition
+
 		;; Leader keybinds
-		(kbd "SPC aa")		 'align-regexp
-		(kbd "SPC a=")		 'my-align-single-equals
-		(kbd "SPC B")			 'magit-blame-toggle
-		(kbd "SPC f")			 'helm-imenu
-		(kbd "SPC g")			 'magit-status
-		;; (kbd "SPC h")	 'fontify-and-browse    ;; HTML-ize the buffer and browse the result
-		(kbd "SPC l")			 'consult-flymake
-		(kbd "SPC L")			 'whitespace-mode       ;; Show invisible characters
-		;; (kbd "SPC r")	 'chrome-reload
-		(kbd "SPC E")			 'eval-expression
-		(kbd "SPC y")			 'consult-yank-pop
-		(kbd "SPC y")			 'consult-yank-pop
-		(kbd "SPC G")			 'consult-ripgrep
-		(kbd "SPC R")			 'find-file-root
-		(kbd "SPC d")			 'dired-jump
-		(kbd "SPC S")			 'delete-trailing-whitespace
-		(kbd "SPC s")			 'shell
-		(kbd "SPC u")			 'undo-tree-visualize
-		;; (kbd "SPC w")	 'save-buffer
-		(kbd "SPC M")			 'make-frame
-		;; (kbd "SPC W")	 'write-file
-		(kbd "SPC O")			 'browse-url-xdg-open
-		;; (kbd "SPC s")	 'my/split-ansi-term
-		(kbd "SPC F")			 'my/indent-buffer
-		(kbd "SPC f")			 'find-file
-		(kbd "SPC v")			 'find-alternate-file
-		(kbd "SPC b")			 'switch-to-buffer
-		(kbd "SPC r")			 'consult-recent-file
-		(kbd "SPC j")			 'bookmark-jump
-		(kbd "SPC J")			 'bookmark-set
-		(kbd "SPC k")			 'kill-current-buffer
-		(kbd "SPC K")			 'kill-buffer
-		(kbd "SPC P")			 'project-switch-project
-		(kbd "SPC p")			 'project-find-file
-		(kbd "SPC 0")			 'my/delete-window-and-rebalance
-		(kbd "SPC c")			 'org-capture
-		(kbd "SPC i")			 'consult-imenu
-		(kbd "SPC D")			 'my/diary-file-open
-		(kbd "SPC t")			 'org-capture-todo
-		(kbd "SPC T")			 'my/dashboard
-		(kbd "SPC H")			 'mark-whole-buffer
-		;; (kbd "SPC R")	 'load-file user-init-file
+		(kbd "SPC aa")			 'align-regexp
+		(kbd "SPC a=")			 'my-align-single-equals
+		(kbd "SPC B")				 'magit-blame-toggle
+		(kbd "SPC g")				 'magit-status
+		;; (kbd "SPC h")		 'fontify-and-browse    ;; HTML-ize the buffer and browse the result
+		(kbd "SPC l")				 'consult-flymake
+		(kbd "SPC L")				 'whitespace-mode       ;; Show invisible characters
+		(kbd "SPC E")				 'eval-expression
+		(kbd "SPC y")				 'consult-yank-pop
+		(kbd "SPC y")				 'consult-yank-pop
+		(kbd "SPC G")				 'consult-ripgrep
+		(kbd "SPC R")				 'find-file-root
+		(kbd "SPC d")				 'dired-jump
+		(kbd "SPC S")				 'delete-trailing-whitespace
+		(kbd "SPC s")				 'shell
+		(kbd "SPC u")				 'undo-tree-visualize
+		;; (kbd "SPC w")		 'save-buffer
+		(kbd "SPC M")				 'make-frame
+		;; (kbd "SPC W")		 'write-file
+		(kbd "SPC O")				 'browse-url-xdg-open
+		;; (kbd "SPC s")		 'my/split-ansi-term
+		(kbd "SPC F")				 'my/indent-buffer
+		(kbd "SPC f")				 'find-file
+		(kbd "SPC v")				 'find-alternate-file
+		(kbd "SPC b")				 'switch-to-buffer
+		(kbd "SPC r")				 'consult-recent-file
+		(kbd "SPC j")				 'bookmark-jump
+		(kbd "SPC J")				 'bookmark-set
+		(kbd "SPC k")				 'kill-current-buffer
+		(kbd "SPC K")				 'kill-buffer
+		(kbd "SPC P")				 'project-switch-project
+		(kbd "SPC p")				 'project-find-file
+		(kbd "SPC 0")				 'my/delete-window-and-rebalance
+		(kbd "SPC c")				 'org-capture
+		(kbd "SPC i")				 'consult-imenu
+		(kbd "SPC D")				 'my/diary-file-open
+		(kbd "SPC t")				 'org-capture-todo
+		(kbd "SPC T")				 'my/dashboard
+    (kbd "SPC H")				 'mark-whole-buffer
+		;; (kbd "SPC R")		 'load-file user-init-file
+)
+	
+	(evil-define-key '(normal visual) org-mode-map
+		(kbd "SPC /") 'org-sparse-tree
+		(kbd "SPC e") 'my/org-empahsize
+		(kbd "SPC A") 'my/mark-done-and-archive
+		(kbd "SPC i") 'counsel-org-goto
 		)
 
-	(evil-define-key (normal visual) org-mode-map
-		"SPC /" 'org-sparse-tree
-		"SPC e" 'my/org-empahsize
-		"SPC A" 'my/mark-done-and-archive
-		"<tab>" 'org-cycle
-		;; "SPC i" 'counsel-org-goto
-		)
+	(evil-define-key '(normal visual) web-mode-map
+		(kbd "SPC o") 'browse-url-of-buffer)
 
-	(evil-define-key (normal visual) web-mode-map
-		"SPC o" 'browse-url-of-buffer)
-
-	(evil-define-key (normal visual) emacs-lisp-mode-map
-		"SPC e" 'eval-last-sexp
+	(evil-define-key '(normal visual) emacs-lisp-mode-map
+		(kbd "SPC e") 'eval-last-sexp
 		)
 
 	(evil-define-key 'normal dired-mode-map
@@ -84,6 +81,13 @@
 	)
 
 ;; Global Bindings
+(define-key global-map (kbd "M-u")										 'universal-argument)
+(define-key global-map (kbd "M-S-u")									 'negative-argument)
+(define-key global-map (kbd "M-0")										 'my/delete-window-and-rebalance)
+(define-key global-map (kbd "M-1")										 'delete-other-windows)
+(define-key global-map (kbd "M-2")										 'my/split-window-below-and-switch)
+(define-key global-map (kbd "M-3")										 'my/split-window-right-and-switch)
+
 ;; quit everything with escape whenever possible.
 (defun minibuffer-keyboard-quit ()
 	"Abort recursive edit.
@@ -95,25 +99,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 		(when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
 		(abort-recursive-edit)))
 
-;; (define-key evil-normal-state-map [escape]					 'keyboard-escape-quit)
-(define-key evil-visual-state-map [escape]						 'keyboard-quit)
 (define-key minibuffer-local-map [escape]							 'minibuffer-keyboard-quit)
-;; (define-key ivy-minibuffer-map (kbd "<escape>")		 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-ns-map [escape]					 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-completion-map [escape]	 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-must-match-map [escape]	 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape]			 'minibuffer-keyboard-quit)
-(define-key global-map "C-S-<backspace>"							 'backward-kill-line)
-(define-key global-map  "C-d"													 'evil-scroll-down)
-(define-key global-map "C-u"													 'evil-scroll-up)
-(define-key global-map "<down>"												 'evil-next-visual-line)
-(define-key global-map "<up>"													 'evil-previous-visual-line)
-(define-key global-map (kbd "M-u")										 'universal-argument)
-(define-key global-map (kbd "M-S-u")									 'negative-argument)
-(define-key global-map (kbd "M-0")										 'my/delete-window-and-rebalance)
-(define-key global-map (kbd "M-1")										 'delete-other-windows)
-(define-key global-map (kbd "M-2")										 'my/split-window-below-and-switch)
-(define-key global-map (kbd "M-3")										 'my/split-window-right-and-switch)
 
 
 (defun config-evil ()
@@ -125,8 +115,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 	;; Use Emacs state in these additional modes.
 	(dolist (mode '(calendar-mode
 									;; ag-mode
-									;; custom-mode
-									;; custom-new-theme-mode
 									;; dired-mode
 									eshell-mode
 									flycheck-error-list-mode
@@ -155,23 +143,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 	(add-to-list 'evil-buffer-regexps '("\\*Flycheck"))
 	)
-
-;; (defmacro define-evil-or-global-key (key def &optional state)
-;;   "Define a key KEY with DEF in an Evil map, or in the global map.
-;; If the Evil map for STATE is defined (or `normal' if STATE is not
-;; provided) the key will be defined in that map.  Failing that, it will
-;; be defined globally.
-;; Note that STATE should be provided as an unquoted symbol.
-;; This macro provides a way to override Evil mappings in the appropriate
-;; Evil map in a manner that is compatible with environments where Evil
-;; is not used."
-;;   (let* ((evil-map-name (if state
-;;                             (concat "evil-" (symbol-name state) "-state-map")
-;;                           "evil-normal-state-map"))
-;;          (map (if (boundp (intern evil-map-name))
-;;                   (intern evil-map-name)
-;;                 global-map)))
-;;     `(define-key ,map ,key ,def)))
 
 (use-package evil
 	:ensure t
@@ -210,7 +181,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 	:config
 	(setq evil-collection-mode-list
 				'(
-					;; deadgrep
 					dired
 					ibuffer
 					magit
