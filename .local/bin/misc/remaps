@@ -7,6 +7,3 @@ setxkbmap -model pc105 -layout us,ara -option grp:win_space_toggle -option caps:
 
 # when it is pressed only once, treat it as escape.
 killall xcape 2>/dev/null ; xcape -e 'Caps_Lock=Escape'
-
-echo "Remaps reconfigured"
-notify-send -u low 'Remaps' 'Reconfigured'
