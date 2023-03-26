@@ -48,6 +48,8 @@ HISTFILESIZE=1000000
 HISTSIZE=1000000
 SAVEHIST=1000000
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/shell/history"
+# If a new command line being added to the history list duplicates an older one, the older command is removed from the list (even if it is not the previous event).
+setopt HIST_IGNORE_ALL_DUPS
 
 bindkey -e
 bindkey \^U backward-kill-line
@@ -58,19 +60,19 @@ bindkey '^[e' edit-command-line
 bindkey -s "^[a" 'configa\n'
 bindkey -s "^[c" 'bc -lq\n'
 bindkey -s '^[p' 'edit-file\n'
-# bindkey -s '^[o' 'lfcd\n'
+bindkey -s '^[o' 'lfcd\n'
 bindkey -s '^[m' 'mpcsearch\n'
 
-# lfcd () {
-#    tmp="$(mktemp)"
-#     trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
-#     lf -last-dir-path="$tmp" "$@"
-#     if [ -f "$tmp" ]; then
-#         dir="$(cat "$tmp")"
-#         rm -f "$tmp" >/dev/null
-#         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-#     fi
-# }
+lfcd () {
+   tmp="$(mktemp)"
+    trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp" >/dev/null
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
 
 edit-file () {
   file=$(fzf --height 15)
