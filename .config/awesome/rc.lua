@@ -18,11 +18,14 @@ local menubar = require("menubar")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+local cyclefocus  = require("libs/cyclefocus")
+cyclefocus.show_clients  = false
+cyclefocus.focus_clients   = false
 -- Widgets
 local mynetspeed  = require("widgets.net-speed.net-speed")
 local myvolume     = require("widgets.volume-widget.volume")
 local mynet     = require("widgets.net_widgets")
-mywifi            = mynet.wireless({ interface = "wlp2s0", indent = 5, timeout = 5 })
+mywifi            = mynet.wireless({ font = 'Sans bold 8', interface = "wlp2s0", indent = 5, timeout = 5 })
 myeth = mynet.indicator({
     interfaces  = {"eth0"},
     timeout     = 5
@@ -72,8 +75,8 @@ modkey = "Mod4"
 home = os.getenv("HOME")
 
 -- notification settings
-naughty.config.defaults['icon_size'] = 100
-naughty.config.defaults['font'] = 'Sans 8'
+naughty.config.defaults.icon_size = 100
+naughty.config.defaults.font = 'Sans 8'
 naughty.config.defaults.timeout = 20
 naughty.config.defaults.position = 'top_right'
 naughty.config.defaults.max_width = 400
@@ -128,15 +131,6 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock('%a %b %d, %H:%M:%S ', 1) --('%a %b %d, %H:%M:%S ', refresh rate)
 
-local function client_set_border(c)
-   -- Fix inconsistent border behaviour when maximizing/fullscreen clients
-   if c.fullscreen then
-      c.border_width = 0
-   elseif c.border_width == 0 and not c.no_border then
-      c.border_width = beautiful.border_width
-   end
-end
-
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -185,7 +179,7 @@ local function set_wallpaper(s)
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
         end
-        gears.wallpaper.fit(wallpaper, s)
+        gears.wallpaper.maximized(wallpaper, s, true)
     end
 end
 
@@ -344,6 +338,21 @@ globalkeys = gears.table.join(
     --           {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Tab", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
+   -- awful.key({ modkey,           }, "Tab",
+   --    function ()
+   --       awful.client.focus.history.previous()
+   --       if client.focus then
+   --          client.focus:raise()
+   --       end
+   --    end, {description = "go back", group = "client"}),
+   awful.key({ "Mod1",          }, "Tab",
+      function(c)
+         cyclefocus.cycle(1)
+      end, {description = "cycle focus next client", group = "client"}),
+   awful.key({ "Mod1", "Shift"  }, "Tab",
+      function(c)
+         cyclefocus.cycle(-1)
+      end, {description = "cycle focus previous client", group = "client"}),
 
     awful.key({ modkey,           }, "j",
         function ()
@@ -490,50 +499,12 @@ clientkeys = gears.table.join(
         c:relative_move(45, 0, 0, 0)
     end,
         { description = "Floating Move Right", group = "client" }),
-
-    awful.key({ modkey,           "Shift" }, "f",
-			     function (c)
-							c.fullscreen = not c.fullscreen
-							myscreen = awful.screen.focused()
-              myscreen.mywibox.visible = not myscreen.mywibox.visible
-            local cur_tag = client.focus and client.focus.first_tag or nil
-            for _, cls in ipairs(cur_tag:clients()) do
-                -- minimize all windows except the focused one
-                if c.window ~= cls.window then
-                    cls.hidden = not cls.hidden
-                end
-            end
+		    awful.key({ modkey,           "Shift" }, "f",
+        function (c)
+            c.fullscreen = not c.fullscreen
             c:raise()
         end,
 					 {description = "toggle fullscreen", group = "client"}),
-		    -- awful.key({ modkey,           "Shift" }, "f",
-        -- function (c)
-        --     c.fullscreen = not c.fullscreen
-        --     c:raise()
-        -- end,
-        -- {description = "toggle fullscreen", g
-        -- awful.key({ modkey, "Shift" }, "f",
-        -- function (c)
-        --     local previous_tag = client.focus.screen.tags[9]
-        --     local fullscreen_tag = client.focus.screen.tags[9]
-
-        --     if c.fullscreen
-        --         then
-        --             client.focus:move_to_tag(previous_tag)
-        --             previous_tag:view_only()
-        --     else
-        --     if client.focus then
-        --         if fullscreen_tag then
-        --             client.focus:move_to_tag(fullscreen_tag)
-        --             fullscreen_tag:view_only()
-        --         end
-        --     end
-        --     end
-
-        --     c.fullscreen = not c.fullscreen
-        --     c:raise()
-        -- end,
-        -- {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
     awful.key({ "Mod1"   }, "F4",      function (c) c:kill()                         end,
@@ -809,14 +780,16 @@ end)
 --     c:emit_signal("request::activate", "mouse_enter", {raise = false})
 -- end)
 
-
- -- disable edges snapping
+ -- Disable edges snapping
 awful.mouse.snap.edge_enabled = false
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
-client.connect_signal("property::size", client_set_border)
-client.connect_signal("property::fullscreen", client_set_border)
--- }}}
+-- Fix inconsistent border behaviour when maximizing/fullscreen clients
+client.connect_signal("request::geometry", function(c)
+    if not c.maximized and (not client.focus or not client.focus.fullscreen) then
+        c.border_width = beautiful.border_width
+    end
+ end)
 
 awful.spawn.with_shell("~/.config/awesome/autorun.sh")

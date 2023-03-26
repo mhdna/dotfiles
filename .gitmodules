@@ -13,3 +13,7 @@
 [submodule ".config/mpv/submodules/mpv-gallery-view"]
 	path = .config/mpv/submodules/mpv-gallery-view
 	url = https://github.com/occivink/mpv-gallery-view.git
+[submodule "awesome-cyclefocus"]
+	path = .config/awesome/libs/cyclefocus
+	url = https://github.com/blueyed/awesome-cyclefocus
+	branch = master
