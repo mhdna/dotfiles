@@ -2,14 +2,11 @@
 # xrandr --output eDP-1  --mode "1024x768"&
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x/xresources & xrdbpid=$!
 # xset s 600&
-# xss-lock -- physlock -s&
+# xss-lock -- physlock&
 xautolock -time 10 -locker  'physlock'&
-redshift -l 31.77:35.23&
+redshift -O 4000&
 remaps &
 emacs --daemon&
-nm-applet&
-cbatticon&
-alttab -w 1 -bg "#333333"&
 
 autostart="clipmenud sxhkd mpd mpd_notify xbanish picom pipewire"
 
