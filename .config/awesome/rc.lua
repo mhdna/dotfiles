@@ -345,14 +345,6 @@ globalkeys = gears.table.join(
    --          client.focus:raise()
    --       end
    --    end, {description = "go back", group = "client"}),
-   awful.key({ "Mod1",          }, "Tab",
-      function(c)
-         cyclefocus.cycle(1)
-      end, {description = "cycle focus next client", group = "client"}),
-   awful.key({ "Mod1", "Shift"  }, "Tab",
-      function(c)
-         cyclefocus.cycle(-1)
-      end, {description = "cycle focus previous client", group = "client"}),
 
     awful.key({ modkey,           }, "j",
         function ()
@@ -459,6 +451,15 @@ end)
 )
 
 clientkeys = gears.table.join(
+    -- cyclefocus same screen/tag
+    cyclefocus.key({ "Mod1", }, "Tab", {
+        cycle_filters = { cyclefocus.filters.same_screen, cyclefocus.filters.common_tag },
+    keys = {'Tab', 'ISO_Left_Tab'}  -- default, could be left out
+}),
+    cyclefocus.key({ "Mod1", "Shift", }, "Tab", {
+        cycle_filters = { cyclefocus.filters.same_screen, cyclefocus.filters.common_tag },
+    keys = {'Tab', 'ISO_Left_Tab'}  -- default, could be left out
+}),
     -- Tiling keys
     awful.key({ modkey, "Mod1"}, "h", sideline_left),
     awful.key({ modkey, "Mod1"}, "l", sideline_right),
