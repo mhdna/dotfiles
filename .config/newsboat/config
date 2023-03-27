@@ -1,7 +1,9 @@
-#show-read-feeds no
 reload-threads 50 # Parallel reloading
 auto-reload no
-max-items 20
+max-items 10
+# automatically populate queries at startup, rather than showing 0/0 and populating on reload
+prepopulate-query-feeds yes
+feed-sort-order firsttag
 
 external-url-viewer "urlview"
 
@@ -33,6 +35,9 @@ macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser 
 # macro C set browser "youtube-viewer --comments=%u --comments-order=relevance" ; open-in-browser ; set browser linkhandler
 macro p set browser "peertubetorrent %u 480" ; open-in-browser ; set browser linkhandler
 macro P set browser "peertubetorrent %u 1080" ; open-in-browser ; set browser linkhandler
+
+highlight feedlist "---" black black
+highlight feedlist "^.*\\(0/0\\)" black black
 
 # bookmark-autopilot yes # do not use interactive mode when bookmarking
 bookmark-cmd "~/.config/newsboat/bookmark.sh"
