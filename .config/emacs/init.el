@@ -109,7 +109,7 @@
 (use-package gruvbox-theme
 	:ensure t
 	:config 
-	(load-theme 'gruvbox-dark-medium t))
+	(load-theme 'gruvbox-dark-hard t))
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
