@@ -53,7 +53,7 @@
 		(kbd "SPC i")				 'consult-imenu
 		(kbd "SPC D")				 'my/diary-file-open
 		(kbd "SPC t")				 'org-capture-todo
-		(kbd "SPC T")				 'my/dashboard
+		(kbd "SPC T")				 'my/agenda
     (kbd "SPC H")				 'mark-whole-buffer
 		;; (kbd "SPC R")		 'load-file user-init-file
 )
