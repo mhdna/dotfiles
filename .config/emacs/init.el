@@ -22,7 +22,7 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'my-functions)
 (require 'org-settings)
-;; (require 'init-evil)
+(require 'init-evil)
 ;; (require 'lsp-stuff)
 ;; (require 'eglot-stuff)
 
@@ -88,17 +88,15 @@
 				 ("C-z"     . nil)
 				 ("C-x C-z"     . nil)
 				 ("C-x C-u" . undo-redo)
-				 ;; ("C-x k" . kill-current-buffer)
-				 ;; ("C-c R" . revert-buffer)
+				 ("C-x k" . kill-current-buffer)
 				 ("C-?"     . undo-redo)
 				 ("C-/"     . undo-only)
 				 ("<f5>" . recompile)
 				 ;; ("C-c s" . flyspell-mode)
-				 ;; ("M-o"   . other-window)
+				 ("M-o"   . other-window)
 				 ;; ("C-x s"   . shell)
 				 ;; ("C-;" . toggle-input-method)
 				 ))
-
 ;; Look and feel
 ;; (setq inhibit-x-resources 1)
 ;; (set-foreground-color "white")
@@ -106,13 +104,19 @@
 ;; (set-cursor-color "white")
 ;; Set up the visible bell
 ;; (setq visible-bell 1)
+;; (global-display-line-numbers-mode 1)
+(global-visual-line-mode 1)
+(use-package gruvbox-theme
+	:ensure t
+	:config 
+	(load-theme 'gruvbox-dark-medium t))
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 ;; startup messages
 (setq inhibit-startup-message t)
 ;; vim-like scrolling
-;; (setq scroll-conservatively 100)
+(setq scroll-conservatively 100)
 ;; (setq ring-bell-function 'ignore)
 
 (blink-cursor-mode -1)
@@ -131,24 +135,24 @@
 ;; bidi settings
 ;; (setq-default bidi-display-reordering nil)
 ;; (defun bidi-reordering-toggle ()
-;;	"Toggle bidirectional display reordering."
-;;	(interactive)
-;;	(setq bidi-display-reordering (not bidi-display-reordering))
-;;	(message "bidi reordering is %s" bidi-display-reordering))
+;; 	"Toggle bidirectional display reordering."
+;; 	(interactive)
+;; 	(setq bidi-display-reordering (not bidi-display-reordering))
+;; 	(message "bidi reordering is %s" bidi-display-reordering))
 ;; (defun bidi-display-reordering-on ()
-;;	"Sets bidi-display-reordering-on"
-;;	(setq-local bidi-display-reordering t))
+;; 	"Sets bidi-display-reordering-on"
+;; 	(setq-local bidi-display-reordering t))
 ;; (add-hook 'text-mode-hook 'bidi-display-reordering-on)
-;; (defun bidi-direction-toggle ()
-;;	"Will switch the explicit direction of text for current
-;;  buffer. This will set BIDI-DISPLAY-REORDERING to T"
-;;	(interactive "")
-;;	(setq bidi-display-reordering t)
-;;	(if (equal bidi-paragraph-direction 'right-to-left)
-;;			(setq bidi-paragraph-direction 'left-to-right)
-;;		(setq bidi-paragraph-direction 'right-to-left)
-;;		)
-;;	(message "%s" bidi-paragraph-direction))
+(defun bidi-direction-toggle ()
+	"Will switch the explicit direction of text for current
+ buffer. This will set BIDI-DISPLAY-REORDERING to T"
+	(interactive "")
+	(setq bidi-display-reordering t)
+	(if (equal bidi-paragraph-direction 'right-to-left)
+			(setq bidi-paragraph-direction 'left-to-right)
+		(setq bidi-paragraph-direction 'right-to-left)
+		)
+	(message "%s" bidi-paragraph-direction))
 
 (use-package rainbow-mode
 	:ensure t
@@ -263,7 +267,7 @@
 	(leetcode-solution-mode-hook .
 															 (lambda() (flycheck-mode -1)))
 	:config
-	(setq leetcode-prefer-language "cpp")
+	(setq leetcode-prefer-language "java")
 	(setq leetcode-prefer-sql "mysql")
 	(setq leetcode-save-solutions t)
 	(setq leetcode-directory "~/code/exercise/leetcode"))
@@ -272,18 +276,23 @@
 	:hook
 	(prog-mode))
 
-;; (use-package undo-tree
-;;	:ensure t
-;;	:config
-;;	;; autosave the undo-tree history
-;;	(setq undo-tree-history-directory-alist
-;;				`((".*" . ,temporary-file-directory)))
-;;	(setq undo-tree-auto-save-history t)
-;;	(global-undo-tree-mode +1)
+(use-package undo-tree
+	:ensure t
+	:config
+	;; autosave the undo-tree history
+	(setq undo-tree-history-directory-alist
+				`((".*" . ,temporary-file-directory)))
+	(setq undo-tree-auto-save-history t)
+	(global-undo-tree-mode +1)
 
-;;	(when (package-installed-p 'evil)
-;;		(evil-set-undo-system 'undo-tree))
-;;	)
+	(when (package-installed-p 'evil)
+		(evil-set-undo-system 'undo-tree))
+	)
+
+;; (use-package which-key
+;; 	:ensure t
+;; 	:config
+;; 	(which-key-mode 1))
 
 ;; Latex
 ;; (use-package auctex

@@ -38,6 +38,7 @@ return packer.startup(function(use)
     --     end
     -- }
     -- use ("nvim-lualine/lualine.nvim")
+    use("ellisonleao/gruvbox.nvim")
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
     use("windwp/nvim-autopairs") -- similar to rainbow parameters
@@ -83,7 +84,6 @@ return packer.startup(function(use)
     -- })
     -- nvim align
     use("junegunn/vim-easy-align")
-    use("NLKNguyen/papercolor-theme")
     -- Debug
     use("mfussenegger/nvim-dap")
     use("rcarriga/cmp-dap")
