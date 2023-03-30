@@ -709,7 +709,7 @@ awful.rules.rules = {
     -- { rule_any = { class = { "pm", "tm", "libreoffice", "Libreoffice", "LibreOffice" }, name = { "LibreOffice" } },
     --     properties = { tag = tags[1][5] } },
 
-    { rule_any = { class = { "Zathura", "Tmux"}},
+    { rule_any = { class = { "Zathura" }},
         properties = {maximized_vertical = true} },
 
     -- { rule_any = { class = { "Gimp", "Inkscape", "kdenlive" } },
