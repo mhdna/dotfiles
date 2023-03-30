@@ -199,4 +199,8 @@ Version 2019-11-09"
       ;; allow some user customization
       (run-hooks 'find-file-root-hook))))
 
+(defun my/set-arabic-font()
+	(interactive)
+	(set-fontset-font t 'arabic "DejaVu Sans Mono"))
+
 (provide 'my-functions)
