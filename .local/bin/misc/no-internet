@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# run certain apps blocking them from accessing the internet
+# https://serverfault.com/questions/550276/how-to-block-internet-access-to-certain-programs-on-linux
+
+configure(){
+    sudo sh -c '
+    groupadd no-internet
+    usermod -a -G no-internet $USER
+    iptables -I OUTPUT 1 -m owner --gid-owner no-internet -j DROP # drop network activity for group no-internet
+    '
+}
+
+case "$1" in
+    "configure") configure;;
+    *) sg no-internet "$@";;
+esac
