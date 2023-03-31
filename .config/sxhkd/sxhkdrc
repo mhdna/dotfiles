@@ -2,7 +2,7 @@ super + Return
     $TERMINAL
 
 super + i
-    xdo activate -N Tmux || $TERMINAL -g 86x36 -c Tmux -e sh -c 'tmux a || tmux'
+    xdo activate -N Tmux || $TERMINAL -g 120x40 -c Tmux -e sh -c 'tmux a || tmux'
 
 super + shift + i
     xdo activate -dN Emacs || emacsclient -c
@@ -16,11 +16,8 @@ super + o; a
 super + o; l
     emacsclient -c -e '(leetcode)'
 
-super + o; d
-    $TERMINAL  -e emacsclient -nw -e '(my/dashboard)' -e '(balance-windows)'
-
-super + o; t
-    fol top
+super + o; h
+    fol htop
 
 super +  w; {o,O,s,S}
     {dmenu-bookmarks,dmenu-snippets,bookmarkit,snipit}
@@ -51,7 +48,7 @@ super + f
     fol lfub
 
 super + BackSpace
-    xdo activate -N pad || $TERMINAL -g 40x20 -c pad -e $EDITOR $HOME/.cache/pad.md
+    emacsclient -c -e '(my/set-arabic-font)'-e '(my/agenda)'
 
 super + e
     fol neomutt bicon -e neomutt
@@ -65,7 +62,7 @@ super + shift + n
 {_,shift+} Print; {a, s, w}
     mymaim { ,c}{a,s,w}
 
-Print; f
+Print; S
     flameshot gui
 
 Print; r

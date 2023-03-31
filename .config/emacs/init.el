@@ -106,6 +106,7 @@
 ;; (setq visible-bell 1)
 ;; (global-display-line-numbers-mode 1)
 (global-visual-line-mode 1)
+(global-hl-line-mode 1)
 (use-package gruvbox-theme
 	:ensure t
 	:config 

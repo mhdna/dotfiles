@@ -16,7 +16,7 @@ local check_backspace = function()
 end
 
 -- Only Enable for certain filetypes
-cmp.setup.filetype({ 'c', 'cpp', 'java', 'python', 'javascript', 'go','sql','mysql' }, {
+cmp.setup.filetype({ 'c', 'cpp', 'java', 'python', 'javascript', 'go', 'sql', 'mysql' }, {
     enabled = function()
         -- disable completion in comments
         local context = require 'cmp.config.context'
@@ -30,7 +30,7 @@ cmp.setup.filetype({ 'c', 'cpp', 'java', 'python', 'javascript', 'go','sql','mys
     end,
 })
 
-cmp.setup.filetype({ 'markdown'}, {
+cmp.setup.filetype({ 'markdown' }, {
     enabled = true,
     completion = {
         autocomplete = false,
@@ -45,23 +45,23 @@ cmp.setup {
     -- },
     snippet = {
         expand = function(args)
-            luasnip.lsp_expand(args.body) -- For `luasnip` users.
+            luasnip.lsp_expand(args.body)     -- For `luasnip` users.
         end,
     },
     mapping = {
         ["<C-p>"] = cmp.mapping.select_prev_item(),
         ["<C-n>"] = cmp.mapping.select_next_item(),
-        ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs( -1), { "i", "c" }),
+        ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
         ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
         -- ["<Tab>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-        ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+        ["<C-y>"] = cmp.config.disable,     -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
         ["<C-e>"] = cmp.mapping {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         },
         -- Accept currently selected item. If none selected, `select` first item.
         -- Set `select` to `false` to only confirm explicitly selected items.
-        ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),     -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -82,8 +82,8 @@ cmp.setup {
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-            elseif luasnip.jumpable( -1) then
-                luasnip.jump( -1)
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
             else
                 fallback()
             end
@@ -93,16 +93,10 @@ cmp.setup {
         }),
     },
     formatting = {
-        fields = { "abbr", "menu" },
         format = function(entry, vim_item)
-            vim_item.menu = ({
-                    luasnip = "[Snippet]",
-                    nvim_lsp = "[LSP]",
-                    buffer = "[Buffer]",
-                    path = "[Path]",
-                })[entry.source.name]
+            vim_item.abbr = string.sub(vim_item.abbr, 1, 30)
             return vim_item
-        end,
+        end
     },
     sources = {
         { name = 'luasnip' },

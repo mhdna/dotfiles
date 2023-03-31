@@ -4,9 +4,10 @@ vim.o.colorcolumn = 80 -- don't exceed 80 columns, maybe you're in the 3rd 4th i
 vim.opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
 -- vim.opt.laststatus = 2
 vim.opt.pumheight= 15
+vim.opt.pumwidth= 15
 -- vim.opt.foldmethod = 'marker' -- Enable folding (default 'foldmarker')
 -- always use a block shaped cursor
-vim.o.guicursor = true
+-- vim.o.guicursor = true
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true -- Autoindent new lines
 vim.opt.hidden = true -- Enable background buffers
@@ -55,7 +56,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 -- Highlight current line
--- vim.o.cursorline = true
+vim.o.cursorline = true
 -- set formatoptions-=o
 -- set updatetime=50
 -- set inccommand=nosplit
