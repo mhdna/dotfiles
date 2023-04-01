@@ -108,6 +108,9 @@ super + o; {f,w,N,c,n,v}
 super + o; { m, u}
     {dmenumount, dmenuumount}
 
+super + shift + {Right,Left}
+    dpselector {1,2}
+
 super + ctrl + x
     xkill
 
