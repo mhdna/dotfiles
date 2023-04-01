@@ -171,7 +171,7 @@ cmd Link ${{
 cmd open ${{
     case $(mimetype -b $f) in
         text/html) setsid -f $BROWSER $fx >/dev/null 2>&1;;
-        text/org) setsid -f $TERMINAL -e emacsclient -nw $f >/dev/null 2>&1 ;;
+        text/org) setsid -f emacsclient -c $f >/dev/null 2>&1 ;;
         text/*|application/x-shellscript|application/json|inode/x-empty|application/x-subrip) setsid -f  $TERMINAL -e $EDITOR $f >/dev/null 2>&1 ;;
         image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
         image/svg+xml) display -- $fx ;;
@@ -305,7 +305,7 @@ map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//'
 map <c-f> :fzf_jump
 map <c-space> :toggle; up
 
-map "E" &$TERMINAL -e emacsclient -nw "$f"
+map "E" &$emacsclient -c "$f"
 
 map o &mimeopen "$f"
 map O $clear; mimeopen --ask $fx
