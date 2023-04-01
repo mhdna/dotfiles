@@ -25,6 +25,8 @@ user_pref("privacy.sanitize.sanitizeOnShutdown", false);
 // maximum window size
 user_pref("privacy.window.maxInnerWidth", 1000);
 user_pref("privacy.window.maxInnerHeight", 1000);
+// disable website is now full screen warning
+user_pref("full-screen-api.warning.timeout", 0);
 
 // /* Zoom compatibility settings */
 // user_pref("media.peerconnection.enabled", true); // 2001
