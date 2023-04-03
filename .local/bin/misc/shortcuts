@@ -1,7 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 bmdirs="$XDG_CONFIG_HOME/shell/bm-dirs"
 bmfiles="$XDG_CONFIG_HOME/shell/bm-files"
+alldirs="$XDG_CONFIG_HOME/shell/all-dirs"
 
 # Output locations. Unactivated progs should go to /dev/null.
 shell_shortcuts="$XDG_CONFIG_HOME/shell/shortcutrc"
@@ -15,10 +16,30 @@ printf "# vim: filetype=sh\\nalias " > "$shell_shortcuts"
 eval "echo \"$(cat "$bmdirs")\"" | \
 awk "!/^\s*#/ && !/^\s*\$/ {gsub(\"\\\s*#.*$\",\"\");
 	printf(\"%s=\42cd %s && ls -a\42 \\\\\n\",\$1,\$2)   >> \"$shell_shortcuts\" ;
-	printf(\"map C%s cd \42%s\42 \n\",\$1,\$2)           >> \"$lf_shortcuts\"}"
+	printf(\"map g%s cd \42%s\42 \n\",\$1,\$2)           >> \"$lf_shortcuts\"}"
 
 # Format the `files` file in the correct syntax and sent it to both configs.
 eval "echo \"$(cat "$bmfiles")\"" | \
 awk "!/^\s*#/ && !/^\s*\$/ {gsub(\"\\\s*#.*$\",\"\");
 	printf(\"%s=\42\$EDITOR %s\42 \\\\\n\",\$1,\$2)  >> \"$shell_shortcuts\" ;
 	printf(\"map E%s \$\$EDITOR \42%s\42 \n\",\$1,\$2)   >> \"$lf_shortcuts\" }"
+
+# Add all bookmarks to all-dirs
+# ignore comments, blank lines, and whitespaces
+eval "echo \"$(cat "$bmdirs")\"" | \
+sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' -e '/^!.*/d' > "$alldirs"&&
+
+# search deaply in bookmarks that start with !s and add them to alldirs
+readarray -t dirs < <(eval "echo \"$(grep -E '^!.*' "$bmdirs" | sed -e 's/\s*#.*//')\"")
+for dir in "${dirs[@]}"; do
+    # ignore hidden dirs
+    if echo "$dir" | grep -q "^!!!"; then
+        depth="3"
+    elif echo "$dir" | grep -q "^!!"; then
+        depth="2"
+    else
+        depth="1"
+    fi
+
+    find $(echo $dir | cut -d ' ' -f 2) -maxdepth "$depth" \( ! -regex '.*/\..*' \)  -type d  >> "$alldirs"
+done

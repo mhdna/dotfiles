@@ -239,11 +239,11 @@ cmd moveto ${{
 clear; tput cup $(($(tput lines)/3)); tput bold
 set -f
 clear; echo "Move to where?"
-dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+dest="$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)" &&
         for x in $fx; do
-            eval mv -iv \'$x\' \"$dest\"
-                done &&
-                notify-send -t 2000 "🚚 File(s) moved." "File(s) moved to $dest."
+            mv -iv "$x" "$dest"
+        done &&
+        notify-send -t 2000 "🚚 File(s) moved." "File(s) moved to $dest."
 }}
 
 # move to current subdirectories
@@ -253,20 +253,20 @@ set -f
 clear; echo "Move to where?"
 dest="$(find . -maxdepth 2 -type d | fzf)" &&
         for x in $fx; do
-            eval mv -iv \'$x\' \"$dest\"
-                done &&
-                notify-send -t 2000 "🚚 File(s) moved." "File(s) moved to $dest."
+            mv -iv "$x" "$dest"
+        done &&
+        notify-send -t 2000 "🚚 File(s) moved." "File(s) moved to $dest."
 }}
 
 cmd copyto ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
         set -f
         clear; echo "Copy to where?"
-        dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+        dest="$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)" &&
         for x in $fx; do
-            eval cp -ivr \'$x\' \"$dest\"
-                done &&
-                notify-send -t 2000 "📋 File(s) copied." "File(s) copies to $dest."
+            cp -ivr "$x" "$dest"
+        done &&
+        notify-send -t 2000 "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
 cmd Search :{{
@@ -280,7 +280,6 @@ cmd Search-back :{{
 }}
 
 # KeyBindings
-map g top
 map DD delete
 map DS shred
 map Y copyto
@@ -301,7 +300,7 @@ map U !du -sh
 map u :clear; unselect
 
 map <c-g> push :glob-select<space>*.
-map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
+map J $lf -remote "send $id cd $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)"
 map <c-f> :fzf_jump
 map <c-space> :toggle; up
 
