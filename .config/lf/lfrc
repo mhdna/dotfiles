@@ -269,6 +269,11 @@ cmd copyto ${{
         notify-send -t 2000 "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
+cmd jumpTo ${{
+    dir="$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)" &&
+    lf -remote "send $id cd $dir"
+}}
+
 cmd Search :{{
         :search
         push **<c-b>
@@ -300,7 +305,7 @@ map U !du -sh
 map u :clear; unselect
 
 map <c-g> push :glob-select<space>*.
-map J $lf -remote "send $id cd $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)"
+map J jumpTo
 map <c-f> :fzf_jump
 map <c-space> :toggle; up
 
