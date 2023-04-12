@@ -74,7 +74,7 @@ Or Press 'q' to leave
 
 alias \
     g='git' \
-    d="dragon-drop" \
+    dr="dragon-drop" \
     p="pacman" \
     P="sudo pacman" \
     ll="ls -l --color=auto" \

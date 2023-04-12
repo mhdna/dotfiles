@@ -1,6 +1,6 @@
 Emacs.alpha: 100
-Emacs*geometry: 75x34
 *.font: monospace:pixelsize=15
+*.alpha: 0.9
 
-*.background: #1d2021
-*.foreground: #ebdbb2
+*.foreground: #ffffff
+*.background: #000000

@@ -1,5 +1,6 @@
 # XDG user dirs
 /.config/nvim/undodir
+/.config/nvim/lua/shortcuts.lua
 /.config/nvim/plugin
 /.config/qutebrowser/bookmarks
 /.config/qutebrowser/quickmarks

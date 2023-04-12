@@ -9,6 +9,7 @@
 --]]
 
 local wibox = require("wibox")
+local gears = require("gears")
 local helpers = {}
 
 function helpers:set_draw_method(imagebox, scale)
@@ -48,7 +49,7 @@ function helpers:run(command)
 end
 
 function helpers:delay(func, time)
-   local timer = timer({timeout = time or 0})
+   local timer = gears.timer({timeout = time or 0})
 
    timer:connect_signal("timeout", function()
                            func()
@@ -66,7 +67,7 @@ function helpers:listen(widget, interval)
    end
 
    -- Timer
-   local timer = timer({timeout = interval or 30})
+   local timer = gears.timer({timeout = interval or 30})
    widget._timer = timer
 
    timer:connect_signal("timeout", function()

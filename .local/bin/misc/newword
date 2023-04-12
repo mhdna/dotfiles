@@ -10,7 +10,7 @@ getmeaning(){
 }
 
 remind(){
-    word=$(grep "^- *[a-z]" "$NOTES_DIR/language.org" | shuf | head -n1)
+    word=$(grep "^- *[a-z]" "$NOTES_DIR/language.org" | shuf | head -n1 | tr -d '-')
     echo "$word"
 }
 

@@ -1,33 +1,25 @@
-newword r
 # Prompt
 autoload -U colors zsh/terminfo
 colors
 
-setprompt() {
-  setopt prompt_subst
-
-  if [[ -n "$SSH_CLIENT"  ||  -n "$SSH2_CLIENT" ]]; then
-    p_host='%F{yellow}%M%f'
+# Find and set branch name var if in git repository.
+function git_branch_name()
+{
+  branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
+  if [[ $branch == "" ]];
+  then
+    :
   else
-    p_host='%F{green}%M%f'
+    echo '- ('$branch')'
   fi
-
-  PS1=${(j::Q)${(Z:Cn:):-$'
-    %F{cyan}[%f
-    %(!.%F{red}%n%f.%F{green}%n%f)
-    %F{cyan}@%f
-    ${p_host}
-    %F{cyan}][%f
-    %F{blue}%~%f
-    %F{cyan}]%f
-    %(!.%F{red}%#%f.%F{green}%#%f)
-    " "
-  '}}
-
-  PS2=$'%_>'
-  RPROMPT=$'${vcs_info_msg_0_}'
 }
-setprompt
+
+# Enable substitution in the prompt.
+setopt prompt_subst
+
+# Config for prompt. PS1 synonym.
+prompt='%2/ $(git_branch_name) > '
+
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
@@ -66,7 +58,7 @@ bindkey -s '^[m' 'mpcsearch\n'
 lfcd () {
    tmp="$(mktemp)"
     trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
-    lf -last-dir-path="$tmp" "$@"
+    lfub -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
         rm -f "$tmp" >/dev/null
@@ -78,3 +70,7 @@ edit-file () {
   file=$(fzf --height 15)
   [ -f "$file" ] && $EDITOR "$file"
 }
+
+# enable plugins
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

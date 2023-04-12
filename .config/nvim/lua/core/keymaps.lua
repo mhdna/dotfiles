@@ -6,10 +6,12 @@ func! ToggleArabic()
 if &rl
     set norl
     set keymap=
+    set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 else
     set rl
     set keymap=arabic
     set arabicshape
+    set guicursor=
     " set nospell
 end
 endfunc
@@ -18,9 +20,11 @@ func! TogglePersian()
 if &rl
     set norl
     set keymap=
+    set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 else
     set rl
     set keymap=persian
+    set guicursor=
     set nospell
 end
 endfunc ]])
@@ -61,33 +65,42 @@ vim.keymap.set('n', 'yp', '<cmd>let @+ = expand("%")<cr>', opts)
 vim.keymap.set('n', 'yP', '<cmd>let @+ = expand("%:p")<cr>', opts)
 -- kill buffer
 vim.keymap.set ('n', '<leader>k', '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>', opts)
+-- open a new term split
+-- TODO: focus term or open
+vim.keymap.set('n', '<leader>t', ':split | term<CR>5<c-w>-i', opts)
+-- exit terminal mode with escape
+vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', opts)
 -- move around splits
 vim.keymap.set('', '<C-h>', '<C-w>h', opts)
+vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h:<Esc>', opts)
 vim.keymap.set('', '<C-j>', '<C-w>j', opts)
+vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j:<Esc>', opts)
 vim.keymap.set('', '<C-k>', '<C-w>k', opts)
+vim.keymap.set('t', '<C-k>', '<C-\\><C-N>|<C-w>k:<Esc>', opts)
 vim.keymap.set('', '<C-l>', '<C-w>l', opts)
+vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l:<Esc>', opts)
 -- Emacs-like bindings for managing splits
-vim.keymap.set('', '<A-0>', '<cmd>close<Cr>', opts)
-vim.keymap.set('', '<A-1>', '<C-w>o', opts)
-vim.keymap.set('', '<A-O>', '<C-w>R', opts)
-vim.keymap.set('', '<A-=>', '<C-w>=', opts)
-vim.keymap.set('', '<A-2>', '<cmd>split<CR>', opts)
-vim.keymap.set('', '<A-3>', '<cmd>vsplit<CR>', opts)
+-- vim.keymap.set('', '<A-0>', '<cmd>close<Cr>', opts)
+-- vim.keymap.set('', '<A-1>', '<C-w>o', opts)
+-- vim.keymap.set('', '<A-O>', '<C-w>R', opts)
+-- vim.keymap.set('', '<A-=>', '<C-w>=', opts)
+-- vim.keymap.set('', '<A-2>', '<cmd>split<CR>', opts)
+-- vim.keymap.set('', '<A-3>', '<cmd>vsplit<CR>', opts)
 -- managing tabs
-vim.keymap.set('', '<A-4>', '<C-w>T', opts)
-vim.keymap.set('', '<A-t>', '<cmd>tabnew<CR>', opts)
-vim.keymap.set('t', '<A-t>', '<cmd>tabnew<CR>', opts)
-vim.keymap.set('', '<A-C-t>', '<cmd>tabclose<CR>', opts)
-vim.keymap.set('t', '<A-C-t>', '<cmd>tabclose<CR>', opts)
-vim.keymap.set('', '<A-l>', '<cmd>tabnext<CR>', opts)
-vim.keymap.set('t', '<A-l>', '<cmd>tabnext<CR>', opts)
-vim.keymap.set('', '<A-h>', '<cmd>tabprevious<CR>', opts)
-vim.keymap.set('t', '<A-h>', '<cmd>tabprevious<CR>', opts)
+-- vim.keymap.set('', '<A-4>', '<C-w>T', opts)
+-- vim.keymap.set('', '<A-t>', '<cmd>tabnew<CR>', opts)
+-- vim.keymap.set('t', '<A-t>', '<cmd>tabnew<CR>', opts)
+-- vim.keymap.set('', '<A-C-t>', '<cmd>tabclose<CR>', opts)
+-- vim.keymap.set('t', '<A-C-t>', '<cmd>tabclose<CR>', opts)
+-- vim.keymap.set('', '<A-l>', '<cmd>tabnext<CR>', opts)
+-- vim.keymap.set('t', '<A-l>', '<cmd>tabnext<CR>', opts)
+-- vim.keymap.set('', '<A-h>', '<cmd>tabprevious<CR>', opts)
+-- vim.keymap.set('t', '<A-h>', '<cmd>tabprevious<CR>', opts)
 -- Substitute
 vim.keymap.set('n', '<C-s>', ':%s//g<Left><Left>', {noremap = true, buffer = bufnr})
 vim.keymap.set('v', '<C-s>', ':s//g<Left><Left>', {noremap = true, buffer = bufnr})
 -- delete empty lines
-vim.keymap.set('v', '<leader>D', ':g/^$/d<CR>:nohl<CR>', opts)
+-- vim.keymap.set('v', '<leader>D', ':g/^$/d<CR>:nohl<CR>', opts)
 -- diagnostics
 vim.keymap.set('n', '<A-p>', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', '<A-n>', vim.diagnostic.goto_next, opts)

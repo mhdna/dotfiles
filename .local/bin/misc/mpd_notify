@@ -4,6 +4,5 @@
 while true
 do
     mpc idle player > /dev/null 2>&1
-    music_info=$(mpc status)
-    notify-send -u low -t 3000 "$music_info"
+    notify-send -u low -t 3000 -i ~/.local/share/icons/vinyl.svg "MPD: $(mpc status '%state%')" "$(mpc --format '%file% \n%artist% - %album%' current)"
 done

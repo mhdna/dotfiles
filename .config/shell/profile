@@ -5,7 +5,7 @@ export EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="firefox"
 export VIDEO="mpv"
-export IMAGE="nsxiv"
+export IMAGE="sxiv"
 
 export MEDIA="/media"
 export XDG_DOWNLOAD_DIR="$MEDIA"
@@ -53,6 +53,7 @@ export JAVA_HOME=/usr/lib/jvm/default
 export GOPATH="$XDG_DATA_HOME/go"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export NPM_PATH="$XDG_DATA_HOME/npm"
+export FZF_DEFAULT_OPTS='--reverse'
 
 export PATH="$PATH:$(find $HOME/.local/bin/ -type d -printf ":%p" ):$NPM_PATH/bin:$GOPATH/bin:$CARGO_HOME/bin:$JAVA_HOME/bin"
 

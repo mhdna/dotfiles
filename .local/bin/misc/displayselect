@@ -57,10 +57,22 @@ onescreen() { # If only one output available or chosen.
 	}
 
 postrun() { # Stuff to run to clean up.
-	# setbg		# Fix background if screen size/arangement has changed.
+	setwall		# Fix background if screen size/arangement has changed.
 	# remaps		# Re-remap keys if keyboard added (for laptop bases)
 	{ killall dunst ; setsid -f dunst ;} >/dev/null 2>&1 # Restart dunst to ensure proper location on screen
 	}
+
+# custom monitors of mine settings
+mine1(){
+     xrandr --output eDP-1 --mode 1366x768 && xrandr --output DP-1 --off
+}
+
+mine2(){
+        xrandr --newmode "1384x1024_60.00" 117.75 1384 1472 1616 1848 1024 1027 1037 1063 -hsync +vsync
+        xrandr --addmode DP-1 "1384x1024_60.00"
+        xrandr --output DP-1 --mode "1384x1024_60.00"
+        xrandr --output eDP-1 --off
+}
 
 # Get all possible displays
 allposs=$(xrandr -q | grep "connected")
@@ -73,10 +85,12 @@ screens=$(echo "$allposs" | awk '/ connected/ {print $1}')
 	{ onescreen "$screens"; postrun; notify-send "💻 Only one screen detected." "Using it in its optimal settings...";  exit ;}
 
 # Get user choice including multi-monitor and manual selection:
-chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | dmenu -i -p "Select display arangement:") &&
+chosen=$(printf "%s\\nmulti-monitor\\nmanual selection\\nmine1\\nmine2" "$screens" | dmenu -i -p "Select display arangement:") &&
 case "$chosen" in
 	"manual selection") arandr ; exit ;;
 	"multi-monitor") multimon ;;
+	"mine1") mine1 ;;
+	"mine2") mine2 ;;
 	*) onescreen "$chosen" ;;
 esac
 

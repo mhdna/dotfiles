@@ -89,21 +89,22 @@ vim.api.nvim_create_autocmd('FileType', {
     pattern = 'qf' ,
     callback = function()
        vim.bo.buflisted= true
+       vim.keymap.set("n", "q", ":q!<CR>", opts)
    end,
 })
 
 -- autoformat
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = {'python', 'java', 'c', 'cpp', 'go'},
-    callback = function ()
-        vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = 0,
-            callback = function()
-                vim.lsp.buf.format()
-            end
-        })
-    end,
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+--     pattern = {'python', 'java', 'c', 'cpp', 'go'},
+--     callback = function ()
+--         vim.api.nvim_create_autocmd('BufWritePre', {
+--             buffer = 0,
+--             callback = function()
+--                 vim.lsp.buf.format()
+--             end
+--         })
+--     end,
+-- })
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = 'cpp',

@@ -62,6 +62,7 @@
 		(kbd "SPC /") 'org-sparse-tree
 		(kbd "SPC e") 'my/org-empahsize
 		(kbd "SPC A") 'my/mark-done-and-archive
+		(kbd "SPC i")				 'my/org-goto
 		)
 
 	(evil-define-key '(normal visual) web-mode-map

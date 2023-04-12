@@ -4,9 +4,9 @@ local on_attach = function(_, bufnr)
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    local opts = { noremap = true, buffer = 0 }
+    local opts = { noremap = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
@@ -57,7 +57,10 @@ lspconfig.pylsp.setup {
     }
 }
 
-lspconfig.gopls.setup{}
+lspconfig.gopls.setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
 
 lspconfig.lua_ls.setup {
     on_attach = on_attach,

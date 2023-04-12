@@ -9,6 +9,7 @@
           '(flex))) ;; Configure flex
   :hook(
         (lsp-mode . lsp-enable-which-key-integration)
+        (go-mode . #'lsp-defferred)
         ;; (c++-mode . #'lsp-defferred)
         ;; (javascript-mode . #'lsp-defferred))
         ;; (lsp-completion-mode . my/lsp-mode-setup-completion) ;; corfu
@@ -36,6 +37,11 @@
   :bind(:map lsp-mode-map
              ("C-c d" . lsp-describe-thing-at-point)
              ("C-c a" . lsp-execute-code-action))
+	;; go stuff
+	;; (lsp-register-custom-settings
+	;;    '(("gopls.completeUnimported" t t)
+	;;      ("gopls.usePlaceholders" t t)
+	;;      ("gopls.staticcheck" t t)))
   )
 
 ;; java lsp

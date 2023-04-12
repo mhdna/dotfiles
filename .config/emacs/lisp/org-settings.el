@@ -180,8 +180,16 @@ non-empty lines in the block (excluding the line with
 	(beginning-of-buffer)
 	(org-agenda nil "p")
 	(pop-to-buffer "index.org") ;; focus on org index file
+	(beginning-of-buffer)
 	(enlarge-window 15)
+	;; (org-link-open-from-string "[[*Today]]")
+	;; (goto-char (org-find-exact-headline-in-buffer "Today"))
 	)
+(defun my/org-goto()
+	(interactive)
+	(let ((org-goto-interface 'outline-path-completion)) (org-goto))
+)
+			 
 (defadvice org-agenda-set-mode-name (after truncate-org-agenda-mode-name activate)
 	(setq mode-name '("Org-agenda")))
 (add-to-list 'org-agenda-custom-commands
@@ -291,6 +299,11 @@ non-empty lines in the block (excluding the line with
                (file+headline org-index-file "Questions")
                "** %^{Question}"))
 (add-to-list 'org-capture-templates
+						 '("D" "Download"
+               plain
+               (file+headline org-index-file "To Download")
+               "** %^{Titel or Link}"))
+(add-to-list 'org-capture-templates
 						 '("b" "Book to read"
                plain
                (file+headline org-index-file "Books")
@@ -364,6 +377,11 @@ non-empty lines in the block (excluding the line with
   (insert (concat "** " (format-time-string "%Y.%m.%d %H:%M %P ") "\n"))
   (evil-insert-state)
   (flycheck-mode -1))
+
+(defun my/english-reading-notes-open ()
+  (interactive)
+  (find-file (org-file-path "/language.org"))
+  (end-of-buffer))
 
 (defun org-capture-todo ()
   (interactive)

@@ -25,12 +25,11 @@ cyclefocus.focus_clients   = false
 local mynetspeed  = require("widgets.net-speed.net-speed")
 local myvolume     = require("widgets.volume-widget.volume")
 local mynet     = require("widgets.net_widgets")
-mywifi            = mynet.wireless({ font = 'Sans bold 8', interface = "wlp2s0", indent = 5, timeout = 5 })
+mywifi            = mynet.wireless({ font = 'Sans bold 8', interface = "wlan0", indent = 5, timeout = 5 })
 myeth = mynet.indicator({
     interfaces  = {"eth0"},
     timeout     = 5
 })
-local mybattery     = require("widgets.battery")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -235,7 +234,6 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             spacing = 7,
             mynetspeed(),
-            mybattery.text,
             mykeyboardlayout,
             myvolume(),
             mywifi,
@@ -336,15 +334,15 @@ globalkeys = gears.table.join(
     --           {description = "view previous", group = "tag"}),
     -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
     --           {description = "view next", group = "tag"}),
-    awful.key({ modkey,           }, "Tab", awful.tag.history.restore,
+    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
-   -- awful.key({ modkey,           }, "Tab",
-   --    function ()
-   --       awful.client.focus.history.previous()
-   --       if client.focus then
-   --          client.focus:raise()
-   --       end
-   --    end, {description = "go back", group = "client"}),
+   awful.key({ modkey,           }, "Tab",
+      function ()
+         awful.client.focus.history.previous()
+         if client.focus then
+            client.focus:raise()
+         end
+      end, {description = "go back", group = "client"}),
 
     awful.key({ modkey,           }, "j",
         function ()
@@ -793,35 +791,4 @@ client.connect_signal("request::geometry", function(c)
     end
  end)
 
- -- battery warning
--- created by bpdp
-
-local function trim(s)
-  return s:find'^%s*$' and '' or s:match'^%s*(.*%S)'
-end
-
-local function bat_notification()
-
-  local f_capacity = assert(io.open("/sys/class/power_supply/BAT0/capacity", "r"))
-  local f_status = assert(io.open("/sys/class/power_supply/BAT0/status", "r"))
-
-  local bat_capacity = tonumber(f_capacity:read("*all"))
-  local bat_status = trim(f_status:read("*all"))
-
-  if (bat_capacity <= 10 and bat_status == "Discharging") then
-    naughty.notify({ title      = "Battery Warning"
-      , text       = "Battery low! " .. bat_capacity .."%" .. " left!"
-      , fg="#ffffff"
-      , bg="#ff0000"
-      , timeout    = 15
-    })
-  end
-end
-
-battimer = timer({timeout = 120})
-battimer:connect_signal("timeout", bat_notification)
-battimer:start()
-
--- end here for battery warning
-
-awful.spawn.with_shell("~/.config/awesome/autorun.sh")
+-- awful.spawn.with_shell("~/.config/awesome/autorun.sh")

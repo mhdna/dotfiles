@@ -5,7 +5,7 @@ require('telescope').load_extension('fzf')
 
 require('telescope').setup {
     defaults = {
-        border = false,
+    --     border = false,
         -- preview = false;
         layout_strategy = 'bottom_pane',
         layout_config = {

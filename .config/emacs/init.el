@@ -99,18 +99,18 @@
 				 ))
 ;; Look and feel
 ;; (setq inhibit-x-resources 1)
-;; (set-foreground-color "white")
-;; (set-background-color "black")
-;; (set-cursor-color "white")
+;; (set-foreground-color "black")
+;; (set-background-color "white")
+;; (set-cursor-color "black")
 ;; Set up the visible bell
 ;; (setq visible-bell 1)
 ;; (global-display-line-numbers-mode 1)
 (global-visual-line-mode 1)
-(global-hl-line-mode 1)
-(use-package gruvbox-theme
-	:ensure t
-	:config 
-	(load-theme 'gruvbox-dark-hard t))
+;; (global-hl-line-mode 1)
+;; (use-package gruvbox-theme
+;; 	:ensure t
+;; 	:config 
+;; 	(load-theme 'gruvbox-dark-hard t))
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)

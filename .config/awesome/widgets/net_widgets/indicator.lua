@@ -18,7 +18,7 @@ local function worker(args)
   -- Settings
   local interfaces = args.interfaces
   local ignore_interfaces = args.ignore_interfaces or {}
-  local ICON_DIR = awful.util.getdir("config").."/"..module_path.."/net_widgets/icons/"
+  local ICON_DIR = awful.util.getdir("config").."/"..module_path.."/widgets/net_widgets/icons/"
   local timeout = args.timeout or 10
   local font = args.font or beautiful.font
   local onclick = args.onclick

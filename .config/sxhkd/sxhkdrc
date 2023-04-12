@@ -2,16 +2,17 @@ super + Return
     $TERMINAL
 
 super + i
-    xdo activate -N Tmux || $TERMINAL -g 120x40 -c Tmux -e sh -c 'tmux a || tmux'
+    xdo activate -N Tmux || $TERMINAL -c Tmux -e sh -c 'tmux a || tmux'
 
 super + shift + i
-    xdo activate -dN Emacs || emacsclient -c
+    xdo activate -dN Emacs || emacsclient -c -e '(my/set-arabic-font)'
 
 super + y
     fol mycli mycli -u root
 
-super + o; a
-    xdo activate -N agenda || $TERMINAL -c agenda -g 40x20 -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
+super + g
+    sxiv -N pdfgallery -t ~/.cache/pdfgallery/*.jpg
+
 
 super + o; l
     emacsclient -c -e '(leetcode)'
@@ -19,15 +20,14 @@ super + o; l
 super + o; h
     fol htop
 
-super +  w; {o,O,s,S}
+super +  b; {o,O,s,S}
     {dmenu-bookmarks,dmenu-snippets,bookmarkit,snipit}
 
-super + shift + w
+super + shift + b
     fol g $BROWSER
 
 super + {_,shift+} {d,p}
-    {dmenu_run, dmenuunicode -i, passmenu, displayselect}
-
+    {dmenu_run, dmenuunicode, passmenu, displayselect}
 
 super + v
     clipmenu -i
@@ -45,10 +45,14 @@ super + t; {s,S}
     {fol sdcv,$TERMINAL -e sdcv $(xclip -o)}
 
 super + f
-    fol lfub
+    xdo activate -dN lfub || $TERMINAL -c lfub -e lfub
 
-super + BackSpace
-    emacsclient -c -e '(my/set-arabic-font)'-e '(my/agenda)'
+super + a
+    xdo activate -N agenda || $TERMINAL -c todo -e emacsclient -nw -e '(my/set-arabic-font)' -e '(my/agenda)'
+#super + o; a
+    #xdo activate -N agenda || $TERMINAL -c agenda -g 40x20 -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
+super + shift + a
+    $TERMINAL -e anki
 
 super + e
     fol neomutt bicon -e neomutt
@@ -56,8 +60,8 @@ super + e
 super + n
     fol newsboat bicon -e newsboat
 
-super + shift + n
-    fol ncmpcpp
+#super + shift + n
+#    fol ncmpcpp bicon -e ncmpcpp
 
 {_,shift+} Print; {a, s, w}
     mymaim { ,c}{a,s,w}
@@ -66,7 +70,7 @@ Print; S
     flameshot gui
 
 Print; r
-    kill -15 "$(cat /tmp/recordingpid)" && rm -f /tmp/recordingpid || dmenurecord -i
+    kill -15 "$(cat /tmp/recordingpid)" && rm -f /tmp/recordingpid || dmenurecord
 
 XF86Audio{LowerVolume,RaiseVolume}
     wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}
@@ -84,7 +88,7 @@ super + {_,shift+ }{comma,period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
 
 super + {_, shift+ }F1
-    {kdeconnect-indicator ; kdeconnect-cli --refresh, pkill kdeconnect}
+    {kdeconnect-indicator ; kdeconnect-cli --refresh, killall kdeconnect-indicator; sleep 1&& killall kdeconnectd }
 
 super + {_, shift+ }F2
     redshift {-O 5000,-x}
@@ -95,6 +99,9 @@ super + {_, shift+ }F3
 super + {_, shift+ }F4
     remaps; touchpad_toggle {off,on}
 
+super + alt + F4
+    setxkbmap -model pc105 -layout us -option '' && notify-send "Setxkbmap" "Has been reset"
+
 super + {_, shift+ }{F10,F12}
     mpc {seek -1%, prev,  seek +1%, next}
 
@@ -102,11 +109,20 @@ super + {_, shift+ }F11
     {mpc toggle, pauseallmpv}
 
 # less used keybinds
-super + o; {f,w,N,c,n,v}
-    {fol flash,weather-report, $TERMINAL -e nmtui,xdo activate -N bc || $TERMINAL -g 30x20 -c bc -e bc -lq,newword, mpv --ytdl-format=22 "$(xclip -sel c -o)" }
+super + o; {f,w,W,N,c,n,v}
+    {forecast,$TERMINAL -e nmtui,$TERMINAL -g 80x35 -e sh -c 'vnstat| less',xdo activate -N bc || $TERMINAL -g 30x20 -c bc -e bc -lq,newword, mpv --ytdl-format=22 "$(xclip -sel c -o)" }
 
-super + o; { m, u}
+super + o; e
+    emacsclient -c -e '(my/set-arabic-font)' -e '(my/english-reading-notes-open)'& file=$(find $(echo /media/documents/now/Oxford-Bookworm-Library) -type f -name '*pdf' | sort | dmenu -i -l 10) && zathura "$file"& $TERMINAL -e lf "$(dirname $file)"
+
+super + {_,shift+} m
     {dmenumount, dmenuumount}
+
+super + {_,shift+,alt} BackSpace
+    dunstctl {close-all,history-pop,set-paused toggle && notify-send "Dunst" "Is-paused: $(dunstctl is-paused)" }
+
+super + shift + Up
+    xwallpaper --clear; picom
 
 super + shift + {Right,Left}
     dpselector {1,2}
@@ -129,5 +145,7 @@ super + Home
 super + End
     soynet close
 
+# For some reason sxhkd hangs when opening vim and then pressing super+shift+r
+# So keep it shift + r instead of ctrl+r
 super + shift + r
-	pkill -USR1 -x sxhkd&& notify-send -u low 'Sxhkd' 'Reloaded'
+	pkill -USR1 -x sxhkd; openbox --reconfigure&& notify-send -u low 'WM settings' 'Reloaded'

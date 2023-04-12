@@ -37,7 +37,8 @@ return packer.startup(function(use)
     --         require('gitsigns').setup()
     --     end
     -- }
-    -- use ("nvim-lualine/lualine.nvim")
+    use ("nvim-lualine/lualine.nvim")
+    use("tomasr/molokai")
     use("ellisonleao/gruvbox.nvim")
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins

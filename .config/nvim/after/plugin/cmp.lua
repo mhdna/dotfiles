@@ -15,6 +15,26 @@ local check_backspace = function()
     return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
+-- fix luasnip (https://github.com/L3MON4D3/LuaSnip/issues/258#issuecomment-1011938524)
+function leave_snippet()
+    if
+        ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
+        and require('luasnip').session.current_nodes[vim.api.nvim_get_current_buf()]
+        and not require('luasnip').session.jump_active
+    then
+        require('luasnip').unlink_current()
+    end
+end
+
+-- tex settings
+vim.api.nvim_create_autocmd("ModeChanged", {
+    pattern =  "*" ,
+    callback = function ()
+        leave_snippet()
+    end,
+})
+
+
 -- Only Enable for certain filetypes
 cmp.setup.filetype({ 'c', 'cpp', 'java', 'python', 'javascript', 'go', 'sql', 'mysql' }, {
     enabled = function()
@@ -63,12 +83,12 @@ cmp.setup {
         -- Set `select` to `false` to only confirm explicitly selected items.
         ['<CR>'] = cmp.mapping.confirm({ select = false }),     -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expandable() then
+            if luasnip.expandable() then
                 luasnip.expand()
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
+            elseif cmp.visible() then
+                cmp.select_next_item()
             elseif check_backspace() then
                 cmp.mapping.complete()
                 fallback()
