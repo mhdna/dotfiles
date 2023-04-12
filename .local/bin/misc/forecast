@@ -1,0 +1,14 @@
+#!/bin/sh
+
+forecastreport="${XDG_CACHE_HOME:-$HOME/.cache}/forecastreport"
+
+getforecast() {
+    curl -sf "wttr.in/$LOCATION" > "$forecastreport" && curl -sf "wttr.in/?format=%m" >> "$forecastreport" || (rm -f "$forecastreport"; notify-send "🌦️Forecast" "Something went wrong...")
+}
+
+[ "$1" = "get" ] && getforecast
+
+[ -s "$forecastreport" ] && [ "$(stat -c %y "$forecastreport" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] ||
+	getforecast
+
+$TERMINAL -e less "$forecastreport"

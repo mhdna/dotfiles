@@ -1,0 +1,35 @@
+#!/bin/bash
+
+cache="${XDG_CACHE_HOME:-$HOME/.cache}/pdfgallery"
+# thumbs=()
+
+# generate (){
+for path in "$@"; do
+    # set cache file
+    # save thumb name as the full path
+    file=$(basename "$path")
+    echo $file
+    cf="$cache/${file%.*}"
+    if [ ! -f "$cf.jpg" ]; then
+        pdftoppm -jpeg -f 1 -singlefile "$file" "$cf"
+        exiftool -q -overwrite_original -author="$(readlink -f "$path")" "$cf.jpg" # we use exiftool to set author metadata as our the directory of the file
+    fi
+    # thumbs+=("$cf.jpg")
+done
+# }
+
+# galleryopen(){
+#    $IMAGE "${thumbs[@]}"
+# }
+
+
+# while getopts "g:o" opt; do
+#     case "$opt" in
+#         o) galleryopen;;
+#         g)
+#             rest=$(sed '1,/-g/d')
+#             echo $rest;;
+#             # generate "$rest";;
+#         \?) exit 1;;
+#     esac
+# done
