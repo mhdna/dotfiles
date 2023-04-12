@@ -47,7 +47,7 @@ vim.o.encoding = "utf-8"
 -- Show full path in status line
 -- vim.o.statusline="%F"
 
--- vim.o.autochdir = true
+vim.o.autochdir = true
 -- Tab command mode completion
 -- vim.o.wildmode = longest,list,full
 
