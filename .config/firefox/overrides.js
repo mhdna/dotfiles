@@ -24,9 +24,11 @@ user_pref("dom.push.enabled", false);
 user_pref("privacy.sanitize.sanitizeOnShutdown", false);
 // maximum window size
 user_pref("privacy.window.maxInnerWidth", 1000);
-user_pref("privacy.window.maxInnerHeight", 1000);
+user_pref("privacy.window.maxInnerHeight", 700);
 // disable website is now full screen warning
 user_pref("full-screen-api.warning.timeout", 0);
+// no smooth scrolling
+user_pref("general.smoothScroll", false);
 
 // /* Zoom compatibility settings */
 // user_pref("media.peerconnection.enabled", true); // 2001
