@@ -1,5 +1,5 @@
 reload-threads 50 # Parallel reloading
-auto-reload no
+auto-reload yes
 max-items 10
 # automatically populate queries at startup, rather than showing 0/0 and populating on reload
 prepopulate-query-feeds yes
