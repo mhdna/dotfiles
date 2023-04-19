@@ -276,7 +276,7 @@ non-empty lines in the block (excluding the line with
              '("t" "Task"
                entry
                (file+headline org-index-file "Index")
-               "* TODO %?\n"))
+               "* TODO [#%^{Priority (A-B-C)}] %?\n"))
 (add-to-list 'org-capture-templates
              '("Q" "Quote"
                entry
@@ -423,6 +423,27 @@ non-empty lines in the block (excluding the line with
 (setq org-export-with-smart-quotes t)
 (setq org-html-postamble nil)
 
+;; org notifications
+(use-package org-alert
+  :ensure t
+	:config
+	(setq alert-default-style 'libnotify)
+	(setq org-alert-interval 300
+				org-alert-notify-cutoff 10
+				org-alert-notification-title "Upcoming Event"
+				org-alert-notify-after-event-cutoff 10)
+	(org-alert-enable))
+
+;; (use-package org-wild-notifier
+;; 	:ensure t
+;;   :after org
+;;   :config
+;;   ;; Make sure we receive notifications for non-TODO events
+;;   ;; like those synced from Google Calendar
+;;   (setq org-wild-notifier-keyword-whitelist nil)
+;;   (setq org-wild-notifier-notification-title "Agenda Reminder")
+;;   (setq org-wild-notifier-alert-time '(1 10 30))
+;;   (org-wild-notifier-mode))
 
 ;; publishing
 
