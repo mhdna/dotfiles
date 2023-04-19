@@ -1,4 +1,5 @@
 Emacs.alpha: 100
+Emacs*geometry: 75x30
 *.font: monospace:pixelsize=15
 *.alpha: 0.9
 
