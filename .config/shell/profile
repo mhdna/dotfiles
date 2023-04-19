@@ -5,7 +5,7 @@ export EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="firefox"
 export VIDEO="mpv"
-export IMAGE="sxiv"
+export IMAGE="nsxiv"
 
 export MEDIA="/media"
 export XDG_DOWNLOAD_DIR="$MEDIA"
