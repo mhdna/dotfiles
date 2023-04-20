@@ -1,6 +1,7 @@
 (defun set-keys ()
-	;; (setq leader "SPC")
-	
+	;; (evil-set-leader nil (kbd "SPC"))  ;; set leader key for all modes
+
+
 	;; (evil-define-key '(insert) global-map
 		;; (kbd "C-n")							 'next-line
 		;; (kbd "C-p")							 'previous-line
@@ -9,8 +10,23 @@
 		;; (kbd "<down>")												 'evil-next-visual-line
 		;; (kbd "<up>")													 'evil-previous-visual-line
 		;; )
+	;; https://github.com/emacs-evil/evil-collection#key-translation
+		(defvar my-intercept-mode-map (make-sparse-keymap)
+		"High precedence keymap.")
 
-	(evil-define-key '(normal visual) global-map
+		(define-minor-mode my-intercept-mode
+		"Global minor mode for higher precedence evil keybindings."
+		:global t)
+
+		(my-intercept-mode)
+
+		(dolist (state '(normal visual insert))
+		(evil-make-intercept-map
+		;; NOTE: This requires an evil version from 2018-03-20 or later
+		(evil-get-auxiliary-keymap my-intercept-mode-map state t t)
+		state))
+
+	(evil-define-key '(normal visual) my-intercept-mode-map
 		(kbd "C-]")					 'gtags-find-tag-from-here
 		(kbd "C-p")					 'duplicate-line-or-region
 		(kbd "z d")					 'dictionary-lookup-definition
@@ -22,7 +38,6 @@
 		(kbd "SPC g")				 'magit-status
 		;; (kbd "SPC h")		 'fontify-and-browse    ;; HTML-ize the buffer and browse the result
 		(kbd "SPC l")				 'consult-flymake
-		(kbd "SPC L")				 'whitespace-mode       ;; Show invisible characters
 		(kbd "SPC E")				 'eval-expression
 		(kbd "SPC y")				 'consult-yank-pop
 		(kbd "SPC y")				 'consult-yank-pop
@@ -50,14 +65,15 @@
 		(kbd "SPC p")				 'project-find-file
 		(kbd "SPC 0")				 'my/delete-window-and-rebalance
 		(kbd "SPC c")				 'org-capture
+		(kbd "SPC C")				 'calc
 		(kbd "SPC i")				 'consult-imenu
 		(kbd "SPC D")				 'my/diary-file-open
 		(kbd "SPC t")				 'org-capture-todo
 		(kbd "SPC T")				 'my/agenda
-    (kbd "SPC H")				 'mark-whole-buffer
+		(kbd "SPC H")				 'mark-whole-buffer
 		;; (kbd "SPC R")		 'load-file user-init-file
 )
-	
+
 	(evil-define-key '(normal visual) org-mode-map
 		(kbd "SPC /") 'org-sparse-tree
 		(kbd "SPC e") 'my/org-empahsize
@@ -71,9 +87,6 @@
 	(evil-define-key '(normal visual) emacs-lisp-mode-map
 		(kbd "SPC e") 'eval-last-sexp
 		)
-
-	(evil-define-key 'normal dired-mode-map
-		(kbd "C-e") 'dired-toggle-read-only)
 
 	(evil-define-key 'normal flycheck-mode-map
 		(kbd "M-n") 'flycheck-next-error
@@ -113,7 +126,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 	"Configure evil mode."
 	;; Use Emacs state in these additional modes.
-	(dolist (mode '(calendar-mode
+	(dolist (mode '(
+									;; calendar-mode
 									;; ag-mode
 									;; dired-mode
 									eshell-mode
@@ -126,7 +140,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 									;; octopress-mode
 									;; octopress-server-mode
 									;; octopress-process-mode
-									org-capture-mode
+									;; org-capture-mode
 									;; sunshine-mode
 									term-mode
 									;; deadgrep-mode
@@ -181,12 +195,13 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 	:config
 	(setq evil-collection-mode-list
 				'(
+					calendar
+					calc
 					dired
+					info
+					help
 					ibuffer
 					magit
-					;; elfeed
-					;; mu4e
-					;; which-key
 					))
 	(evil-collection-init))
 
@@ -203,5 +218,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; corfu exit with evil-escape
 ;; (advice-add 'evil-escape-func :after 'corfu-quit)
 ;; (setq tab-always-indent 'complete)
+
+;; set default undo-tree system if installed
+(when (package-installed-p 'undo-tree)
+		(evil-set-undo-system 'undo-tree))
+;; (evil-set-undo-system undo-redo)
 
 (provide 'init-evil)
