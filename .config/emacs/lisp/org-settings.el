@@ -317,7 +317,7 @@ non-empty lines in the block (excluding the line with
              '("M" "Movie"
                plain
                (file "movies.org")
-               "* %^{Title} -- %t\n** Review\n%?"))
+               "* %^{Title} -- %t\n** Review\n%?\n** Quotes\n"))
 (add-to-list 'org-capture-templates
              '("d" "Advice"
                plain
