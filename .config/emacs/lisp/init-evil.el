@@ -100,6 +100,7 @@
 (define-key global-map (kbd "M-1")										 'delete-other-windows)
 (define-key global-map (kbd "M-2")										 'my/split-window-below-and-switch)
 (define-key global-map (kbd "M-3")										 'my/split-window-right-and-switch)
+(global-set-key (kbd "C-w") 'backward-kill-word)
 
 ;; quit everything with escape whenever possible.
 (defun minibuffer-keyboard-quit ()
