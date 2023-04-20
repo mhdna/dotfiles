@@ -3,10 +3,10 @@
 dst="$NOTES_DIR/language.org"
 
 getwords(){
-    word=$(dmenu -p "Enter Word: " <&-)
+    word="$(dmenu -p "Enter Word: " <&-)"
 }
 getmeaning(){
-    mean=$(dmenu -p "Enter Meaning: " <&-)
+    mean="$(dmenu -p "Enter Meaning: " <&-)"
 }
 
 remind(){
