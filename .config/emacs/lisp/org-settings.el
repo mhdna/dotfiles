@@ -188,8 +188,8 @@ non-empty lines in the block (excluding the line with
 (defun my/org-goto()
 	(interactive)
 	(let ((org-goto-interface 'outline-path-completion)) (org-goto))
-)
-			 
+	)
+
 (defadvice org-agenda-set-mode-name (after truncate-org-agenda-mode-name activate)
 	(setq mode-name '("Org-agenda")))
 (add-to-list 'org-agenda-custom-commands
@@ -204,10 +204,10 @@ non-empty lines in the block (excluding the line with
 																									;;                                         "papers-read.org"
 																									)))))
 (defun my/org-empahsize ()
-  (interactive)
-  (if (not (use-region-p))
-      (er/mark-word))
-  (org-emphasize))
+	(interactive)
+	(if (not (use-region-p))
+			(execute-kbd-macro (kbd "vaW")))
+	(org-emphasize))
 
 (add-to-list 'org-agenda-custom-commands
 						 '("w" "Writing prompts"
@@ -248,40 +248,40 @@ non-empty lines in the block (excluding the line with
 ;;                (file+headline "kookaburra-ingest.org" "Queue")
 ;;                "* TODO %?\n"))
 (add-to-list 'org-capture-templates
-             '("m" "Media queue"
-               item
-               (file+headline "media.org" "Index")
-               "- [ ] %?\n"))
+						 '("m" "Media queue"
+							 item
+							 (file+headline "media.org" "Index")
+							 "- [ ] %?\n"))
 (add-to-list 'org-capture-templates
-             '("n" "News item"
-               entry
-               (file "news.org")
-               "* %?\n%t\n"))
+						 '("n" "News item"
+							 entry
+							 (file "news.org")
+							 "* %?\n%t\n"))
 ;; (add-to-list 'org-capture-templates
 ;;              '("p" "Finished paper"
 ;;                entry
 ;;                (file+headline "papers-read.org" "Papers")
 ;;                "* %^{Title} -- %^{Author}\n%t\n"))
 (add-to-list 'org-capture-templates
-             '("w" "Writing prompt"
-               entry
-               (file "journal.org")
-               "* %?\n   %t\n"))
+						 '("w" "Writing prompt"
+							 entry
+							 (file "journal.org")
+							 "* %?\n   %t\n"))
 (add-to-list 'org-capture-templates
-             '("s" "Subscribe to an RSS feed"
-               plain
-               (file "rss-feeds.org")
-               "*** [[%^{Feed URL}][%^{Feed add}]]"))
+						 '("s" "Subscribe to an RSS feed"
+							 plain
+							 (file "rss-feeds.org")
+							 "*** [[%^{Feed URL}][%^{Feed add}]]"))
 (add-to-list 'org-capture-templates
-             '("t" "Task"
-               entry
-               (file+headline org-index-file "Index")
-               "* TODO [#%^{Priority (A-B-C)}] %?\n"))
+						 '("t" "Task"
+							 entry
+							 (file+headline org-index-file "Index")
+							 "* TODO [#%^{Priority (A-B-C)}] %?\n"))
 (add-to-list 'org-capture-templates
-             '("Q" "Quote"
-               entry
-               (file "quotes.org")
-               "* %?\n"))
+						 '("Q" "Quote"
+							 entry
+							 (file "quotes.org")
+							 "* %?\n"))
 ;; (add-to-list 'org-capture-templates
 ;;              '("w" "Work task"
 ;;                entry
@@ -290,102 +290,102 @@ non-empty lines in the block (excluding the line with
 ;; Languages templates
 (add-to-list 'org-capture-templates
 						 '("r" "Readlater"
-               plain
-               (file+headline org-index-file "ReadLater")
-               "** %^{Title or link to readlater}"))
+							 plain
+							 (file+headline org-index-file "ReadLater")
+							 "** %^{Title or link to readlater}"))
 (add-to-list 'org-capture-templates
 						 '("q" "Question"
-               plain
-               (file+headline org-index-file "Questions")
-               "** %^{Question}"))
+							 plain
+							 (file+headline org-index-file "Questions")
+							 "** %^{Question}"))
 (add-to-list 'org-capture-templates
 						 '("D" "Download"
-               plain
-               (file+headline org-index-file "To Download")
-               "** %^{Titel or Link}"))
+							 plain
+							 (file+headline org-index-file "To Download")
+							 "** %^{Titel or Link}"))
 (add-to-list 'org-capture-templates
 						 '("b" "Book to read"
-               plain
-               (file+headline org-index-file "Books")
-               "** %^{Book Title}"))
+							 plain
+							 (file+headline org-index-file "Books")
+							 "** %^{Book Title}"))
 (add-to-list 'org-capture-templates
-             '("B" "Red Book"
-               entry
-               (file+headline "red_books.org" "Red Books")
-               "* %^{Title} -- %^{Author}\n%t\n** Review\n%^{Review}\n** Summary\n%^{Summary}"))
+						 '("B" "Red Book"
+							 entry
+							 (file+headline "red_books.org" "Red Books")
+							 "* %^{Title} -- %^{Author}\n%t\n** Review\n%^{Review}\n** Summary\n%^{Summary}"))
 (add-to-list 'org-capture-templates
-             '("M" "Movie"
-               plain
-               (file "movies.org")
-               "* %^{Title} -- %t\n** Review\n%?\n** Quotes\n"))
+						 '("M" "Movie"
+							 plain
+							 (file "movies.org")
+							 "* %^{Title} -- %t\n** Review\n%?\n** Quotes\n"))
 (add-to-list 'org-capture-templates
-             '("d" "Advice"
-               plain
-               (file "advice.org")
-               "* %?"))
+						 '("d" "Advice"
+							 plain
+							 (file "advice.org")
+							 "* %?"))
 (add-to-list 'org-capture-templates
-             '("e" "English word"
-               plain
-               (file+headline "language.org" "English Words")
-               "- %^{Word}: %^{Meaning}"))
+						 '("e" "English word"
+							 plain
+							 (file+headline "language.org" "English Words")
+							 "- %^{Word}: %^{Meaning}"))
 (add-to-list 'org-capture-templates
-             '("E" "English phrase"
-               plain
-               (file+headline "language.org" "English Phrases")
-               "- %^{Phrase}: %^{Meaning}"))
+						 '("E" "English phrase"
+							 plain
+							 (file+headline "language.org" "English Phrases")
+							 "- %^{Phrase}: %^{Meaning}"))
 (add-to-list 'org-capture-templates
-             '("I" "Idiom"
-               plain
-               (file+headline "language.org" "Idioms")
-               "- %^{Idiom}: %^{Meaning}"))
+						 '("I" "Idiom"
+							 plain
+							 (file+headline "language.org" "Idioms")
+							 "- %^{Idiom}: %^{Meaning}"))
 (add-to-list 'org-capture-templates
-             '("f" "Farsi word"
-               plain
-               (file+headline "language.org" "Farsi Words")
-               "- %^{Word}: %^{Meaning}"))
+						 '("f" "Farsi word"
+							 plain
+							 (file+headline "language.org" "Farsi Words")
+							 "- %^{Word}: %^{Meaning}"))
 (add-to-list 'org-capture-templates
-             '("F" "Farsi phrase"
-               plain
-               (file+headline "language.org" "Farsi Phrases")
-               "- %^{Phrase}: %^{Meaning}"))
+						 '("F" "Farsi phrase"
+							 plain
+							 (file+headline "language.org" "Farsi Phrases")
+							 "- %^{Phrase}: %^{Meaning}"))
 (add-to-list 'org-capture-templates
-             '("a" "Arabic word"
-               item
-               (file+headline "language.org" "Arabic Words")
-               "- %^{Word}"))
+						 '("a" "Arabic word"
+							 item
+							 (file+headline "language.org" "Arabic Words")
+							 "- %^{Word}"))
 (add-to-list 'org-capture-templates
-             '("A" "Arabic phrase"
-               plain
-               (file+headline "language.org" "Arabic Phrases")
-               "- %^{Phrase}"))
+						 '("A" "Arabic phrase"
+							 plain
+							 (file+headline "language.org" "Arabic Phrases")
+							 "- %^{Phrase}"))
 
 (setq org-refile-use-outline-path t)
 (setq org-outline-path-complete-in-steps nil)
 (defun my/index-file-open ()
-  "Open the master org TODO list."
-  (interactive)
-  (find-file org-index-file)
-  (flycheck-mode -1)
-  (end-of-buffer))
+	"Open the master org TODO list."
+	(interactive)
+	(find-file org-index-file)
+	(flycheck-mode -1)
+	(end-of-buffer))
 
 (setq my/diary-file (org-file-path "/diary/days.org"))
 (defun my/diary-file-open()
-  (interactive)
-  ;; (setq filename (concat "diary/" (format-time-string "%Y-%m-%d-%H-%M) " ".org"))
-  (find-file my/diary-file)
-  (end-of-buffer)
-  (insert (concat "** " (format-time-string "%Y.%m.%d %H:%M %P ") "\n"))
-  (evil-insert-state)
-  (flycheck-mode -1))
+	(interactive)
+	;; (setq filename (concat "diary/" (format-time-string "%Y-%m-%d-%H-%M) " ".org"))
+	(find-file my/diary-file)
+	(end-of-buffer)
+	(insert (concat "** " (format-time-string "%Y.%m.%d %H:%M %P ") "\n"))
+	(evil-insert-state)
+	(flycheck-mode -1))
 
 (defun my/english-reading-notes-open ()
-  (interactive)
-  (find-file (org-file-path "/language.org"))
-  (end-of-buffer))
+	(interactive)
+	(find-file (org-file-path "/language.org"))
+	(end-of-buffer))
 
 (defun org-capture-todo ()
-  (interactive)
-  (org-capture :keys "t"))
+	(interactive)
+	(org-capture :keys "t"))
 ;; (defun my/open-work-file ()
 ;;   "Open the work TODO list."
 ;;   (interactive)
@@ -394,30 +394,30 @@ non-empty lines in the block (excluding the line with
 ;;   (end-of-buffer))
 
 (defun my/org-insert-link-dwim ()
-  "Like `org-insert-link' but with personal dwim preferences."
-  (interactive)
-  (let* ((point-in-link (org-in-regexp org-link-any-re 1))
-         (clipboard-url (when (string-match-p "^http" (current-kill 0))
-                          (current-kill 0)))
-         (region-content (when (region-active-p)
-                           (buffer-substring-no-properties (region-beginning)
-                                                           (region-end)))))
-    (cond ((and region-content clipboard-url (not point-in-link))
-           (delete-region (region-beginning) (region-end))
-           (insert (org-make-link-string clipboard-url region-content))
-           (message clipboard-url))
-          ((and clipboard-url (not point-in-link))
-           (insert (org-make-link-string
-                    clipboard-url
-                    (read-string "title: "
-                                 (with-current-buffer (url-retrieve-synchronously clipboard-url)
-                                   (dom-text (car
-                                              (dom-by-tag (libxml-parse-html-region
-                                                           (point-min)
-                                                           (point-max))
-                                                          'title))))))))
-          (t
-           (call-interactively 'org-insert-link)))))
+	"Like `org-insert-link' but with personal dwim preferences."
+	(interactive)
+	(let* ((point-in-link (org-in-regexp org-link-any-re 1))
+				 (clipboard-url (when (string-match-p "^http" (current-kill 0))
+													(current-kill 0)))
+				 (region-content (when (region-active-p)
+													 (buffer-substring-no-properties (region-beginning)
+																													 (region-end)))))
+		(cond ((and region-content clipboard-url (not point-in-link))
+					 (delete-region (region-beginning) (region-end))
+					 (insert (org-make-link-string clipboard-url region-content))
+					 (message clipboard-url))
+					((and clipboard-url (not point-in-link))
+					 (insert (org-make-link-string
+										clipboard-url
+										(read-string "title: "
+																 (with-current-buffer (url-retrieve-synchronously clipboard-url)
+																	 (dom-text (car
+																							(dom-by-tag (libxml-parse-html-region
+																													 (point-min)
+																													 (point-max))
+																													'title))))))))
+					(t
+					 (call-interactively 'org-insert-link)))))
 
 (setq org-confirm-babel-evaluate nil)
 (setq org-export-with-smart-quotes t)
@@ -425,7 +425,7 @@ non-empty lines in the block (excluding the line with
 
 ;; org notifications
 (use-package org-alert
-  :ensure t
+	:ensure t
 	:config
 	(setq alert-default-style 'libnotify)
 	(setq org-alert-interval 300
@@ -435,7 +435,7 @@ non-empty lines in the block (excluding the line with
 	(org-alert-enable))
 
 ;; (use-package org-wild-notifier
-;; 	:ensure t
+;;	:ensure t
 ;;   :after org
 ;;   :config
 ;;   ;; Make sure we receive notifications for non-TODO events
@@ -456,26 +456,26 @@ non-empty lines in the block (excluding the line with
 ;;          :recursive t
 ;;          :publishing-directory "~/mhdna.io/html/"
 ;;          :publishing-function org-html-publish-to-html
-;; 				 )
+;;				 )
 ;;         ("static"
 ;;          :base-directory "~/mhdna.io/org/"
 ;;          :base-extension "css\\|txt\\|jpg\\|gif\\|png"
 ;;          :recursive t
 ;;          :publishing-directory  "~/mhdna.io/html/"
 ;;          :publishing-function org-publish-attachment
-;;  				 ;; Exporting template
-;; 				 :html-doctype "html5"
-;; 				 :html-html5-fancy t
-;; 																				; Disable some Org's HTML defaults
-;; 				 :html-head-include-scripts nil
-;; 				 :html-head-include-default-style nil
-;; 				 :html-head "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>"
-;; 				 :html-preamble "<nav>
+;;					 ;; Exporting template
+;;				 :html-doctype "html5"
+;;				 :html-html5-fancy t
+;;																				; Disable some Org's HTML defaults
+;;				 :html-head-include-scripts nil
+;;				 :html-head-include-default-style nil
+;;				 :html-head "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>"
+;;				 :html-preamble "<nav>
 ;;   <a href=\"/\">&lt; Home</a>
 ;; </nav>
 ;; <div id=\"updated\">Updated: %C</div>"
-				 
-;; 				 :html-postamble "<hr/>
+
+;;				 :html-postamble "<hr/>
 ;; <footer>
 ;;   <div class=\"copyright-container\">
 ;;     <div class=\"copyright\">
@@ -497,10 +497,10 @@ non-empty lines in the block (excluding the line with
 ;;     Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
 ;;   </div>
 ;; </footer>"
-;; 				 :auto-sitemap t
-;; 				 :sitemap-filename "sitemap.org"
+;;				 :auto-sitemap t
+;;				 :sitemap-filename "sitemap.org"
 
-;; 				 )
+;;				 )
 
 ;;         ("mhdna.io" :components ("pages" "static"))))
 
