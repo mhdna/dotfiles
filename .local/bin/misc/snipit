@@ -4,7 +4,7 @@ snippet=$(xclip -o)
 file="$HOME/.local/share/snippets"
 
 gettitle(){
-    title=$(dmenu -p "Snippet title for $snippet: " <&-)
+    title=$(dmenu -p "Snippet title (split with a : ) for $snippet: " <&-)
 }
 
 if grep -q "$snippet" "$file"; then

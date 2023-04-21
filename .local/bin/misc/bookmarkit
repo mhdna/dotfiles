@@ -4,7 +4,7 @@ bookmark=$(xclip -o)
 file="$HOME/.local/share/bookmarks"
 
 gettag(){
-    tag=$(dmenu -p "Bookmark Tag for $bookmark: " <&-)
+    tag=$(dmenu -p "Bookmark Tag (split with a : ) for $bookmark: " <&-)
 }
 
 if grep -q "$bookmark" "$file"; then
