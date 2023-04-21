@@ -27,51 +27,50 @@
 		state))
 
 	(evil-define-key '(normal visual) my-intercept-mode-map
-		(kbd "C-]")					 'gtags-find-tag-from-here
-		(kbd "C-p")					 'duplicate-line-or-region
-		(kbd "z d")					 'dictionary-lookup-definition
+		(kbd "C-]")				 'gtags-find-tag-from-here
+		(kbd "C-p")				 'duplicate-line-or-region
+		(kbd "z d")				 'dictionary-lookup-definition
 
-		;; Leader keybinds
-		(kbd "SPC aa")			 'align-regexp
-		(kbd "SPC a=")			 'my-align-single-equals
-		(kbd "SPC B")				 'magit-blame-toggle
-		(kbd "SPC g")				 'magit-status
-		;; (kbd "SPC h")		 'fontify-and-browse    ;; HTML-ize the buffer and browse the result
-		(kbd "SPC l")				 'consult-flymake
-		(kbd "SPC E")				 'eval-expression
-		(kbd "SPC y")				 'consult-yank-pop
-		(kbd "SPC y")				 'consult-yank-pop
-		(kbd "SPC G")				 'consult-ripgrep
-		(kbd "SPC R")				 'find-file-root
-		(kbd "SPC d")				 'dired-jump
-		(kbd "SPC S")				 'delete-trailing-whitespace
-		(kbd "SPC s")				 'shell
-		(kbd "SPC u")				 'undo-tree-visualize
-		;; (kbd "SPC w")		 'save-buffer
-		(kbd "SPC M")				 'make-frame
-		;; (kbd "SPC W")		 'write-file
-		(kbd "SPC O")				 'browse-url-xdg-open
-		;; (kbd "SPC s")		 'my/split-ansi-term
-		(kbd "SPC F")				 'my/indent-buffer
-		(kbd "SPC f")				 'find-file
-		(kbd "SPC v")				 'find-alternate-file
-		(kbd "SPC b")				 'switch-to-buffer
-		(kbd "SPC r")				 'consult-recent-file
-		(kbd "SPC j")				 'bookmark-jump
-		(kbd "SPC J")				 'bookmark-set
-		(kbd "SPC k")				 'kill-current-buffer
-		(kbd "SPC K")				 'kill-buffer
-		(kbd "SPC P")				 'project-switch-project
-		(kbd "SPC p")				 'project-find-file
-		(kbd "SPC 0")				 'my/delete-window-and-rebalance
-		(kbd "SPC c")				 'org-capture
-		(kbd "SPC C")				 'calc
-		(kbd "SPC i")				 'consult-imenu
-		(kbd "SPC D")				 'my/diary-file-open
-		(kbd "SPC t")				 'org-capture-todo
-		(kbd "SPC T")				 'my/agenda
-		(kbd "SPC H")				 'mark-whole-buffer
-		;; (kbd "SPC R")		 'load-file user-init-file
+		;; Leader keybindings
+		(kbd "SPC al")		 'align-regexp
+		(kbd "SPC a=")		 'my-align-single-equals
+		(kbd "SPC B")			 'magit-blame-toggle
+		(kbd "SPC g")			 'magit-status
+		(kbd "SPC l")			 'consult-flymake
+		(kbd "SPC E")			 'eval-expression
+		(kbd "SPC y")			 'consult-yank-pop
+		(kbd "SPC y")			 'consult-yank-pop
+		(kbd "SPC G")			 'consult-ripgrep
+		(kbd "SPC R")			 'find-file-root
+		(kbd "SPC d")			 'dired-jump
+		(kbd "SPC S")			 'delete-trailing-whitespace
+		(kbd "SPC s")			 'shell
+		(kbd "SPC u")			 'undo-tree-visualize
+		(kbd "SPC w")			 'save-buffer
+		(kbd "SPC M")			 'make-frame
+		(kbd "SPC W")			 'write-file
+		(kbd "SPC O")			 'browse-url-xdg-open
+		(kbd "SPC s")			 'my/split-term
+		(kbd "SPC F")			 'my/indent-buffer
+		(kbd "SPC f")			 'find-file
+		(kbd "SPC v")			 'find-alternate-file
+		(kbd "SPC b")			 'switch-to-buffer
+		(kbd "SPC r")			 'consult-recent-file
+		(kbd "SPC j")			 'bookmark-jump
+		(kbd "SPC J")			 'bookmark-set
+		(kbd "SPC k")			 'kill-current-buffer
+		(kbd "SPC K")			 'kill-buffer
+		(kbd "SPC P")			 'project-switch-project
+		(kbd "SPC p")			 'project-find-file
+		(kbd "SPC 0")			 'my/delete-window-and-rebalance
+		(kbd "SPC c")			 'org-capture
+		(kbd "SPC C")			 'calc
+		(kbd "SPC i")			 'consult-imenu
+		(kbd "SPC D")			 'my/diary-file-open
+		(kbd "SPC t")			 'org-capture-todo
+		(kbd "SPC aa")			 'my/agenda
+		(kbd "SPC H")			 'mark-whole-buffer
+		;; (kbd "SPC R")	 'load-file user-init-file
 )
 
 	(evil-define-key '(normal visual) org-mode-map
