@@ -18,6 +18,7 @@
 !/.config/shell/ttymaps.kmap
 /.config/emacs/*
 !/.config/emacs/init.el
+!/.config/emacs/lisp/
 !/.config/emacs/lisp/*
 !/.config/emacs/snippets/*
 !/.config/x11/*
