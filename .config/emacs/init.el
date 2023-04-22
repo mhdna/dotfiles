@@ -17,18 +17,20 @@
 	(package-refresh-contents)
 	(package-install 'use-package))
 
-;; (setq treesit-extra-load-path (concat (file-name-as-directory EMACS_DIR) "tree-sitter-module/dist/"))
+;; config changes made through the customize UI will be stored here
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+(setq byte-compile-warnings '(cl-functions))
+
 ;; load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'my-functions)
+(require 'init-tex)
+(require 'init-dev)
 (require 'org-settings)
 (require 'init-evil)
 ;; (require 'lsp-stuff)
 ;; (require 'eglot-stuff)
-
-(setq byte-compile-warnings '(cl-functions))
-;; config changes made through the customize UI will be stored here
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 ;; Don't clutter my folders
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs"))
@@ -57,7 +59,6 @@
 (setq large-file-warning-threshold 100000000)
 ;; Always load newest byte code
 (setq load-prefer-newer t)
-(save-place-mode 1)
 (setq-default diff-update-on-the-fly nil)
 ;; recentf
 (recentf-mode 1)
@@ -65,10 +66,39 @@
 ;; bookmarks default file
 (setq bookmark-default-file (concat (file-name-as-directory EMACS_DIR) "/bookmarks"))
 (tooltip-mode -1)
-(defvar my-term-shell "/bin/bash")
-(defadvice ansi-term (before force-bash)
-	(interactive (list my-term-shell)))
-(ad-activate 'ansi-term)
+
+;; (defvar my-term-shell "/bin/zsh")
+;; (defadvice ansi-term (before force-zsh)
+;;	(interactive (list my-term-shell)))
+;; (ad-activate 'ansi-term)
+;; (use-package vterm
+;;   :ensure t
+;;   :commands vterm
+;;   :config
+;;   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
+;;   ;;(setq vterm-shell "zsh")
+;;   (setq vterm-max-scrollback 10000))
+;; Configure eshell
+;; https://github.com/daviwil/emacs-from-scratch/blob/f4918aadf6970b098999d28bdbc212942aa62b80/show-notes/Emacs-09.org#eshell
+(defun my/configure-eshell ()
+	;; Save command history when commands are entered
+	(add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
+
+	;; Truncate buffer for performance
+	(add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
+
+	;; Bind some useful keys for evil-mode
+	(evil-define-key '(normal insert visual) eshell-mode-map (kbd "C-r") 'counsel-esh-history)
+	(evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'eshell-bol)
+	(evil-normalize-keymaps)
+
+	(setq eshell-history-size         10000
+				eshell-buffer-maximum-lines 10000
+				eshell-hist-ignoredups t
+				eshell-scroll-to-bottom-on-input t))
+
+(use-package eshell
+	:hook (eshell-first-time-mode . my/configure-eshell))
 ;; Automatically save bookmarks upon any modification to them
 (setq bookmark-save-flag 1)
 
@@ -105,12 +135,7 @@
 ;; Set up the visible bell
 ;; (setq visible-bell 1)
 ;; (global-display-line-numbers-mode 1)
-(global-visual-line-mode 1)
 ;; (global-hl-line-mode 1)
-;; (use-package gruvbox-theme
-;; 	:ensure t
-;; 	:config 
-;; 	(load-theme 'gruvbox-dark-hard t))
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -136,13 +161,13 @@
 ;; bidi settings
 ;; (setq-default bidi-display-reordering nil)
 ;; (defun bidi-reordering-toggle ()
-;; 	"Toggle bidirectional display reordering."
-;; 	(interactive)
-;; 	(setq bidi-display-reordering (not bidi-display-reordering))
-;; 	(message "bidi reordering is %s" bidi-display-reordering))
+;;	"Toggle bidirectional display reordering."
+;;	(interactive)
+;;	(setq bidi-display-reordering (not bidi-display-reordering))
+;;	(message "bidi reordering is %s" bidi-display-reordering))
 ;; (defun bidi-display-reordering-on ()
-;; 	"Sets bidi-display-reordering-on"
-;; 	(setq-local bidi-display-reordering t))
+;;	"Sets bidi-display-reordering-on"
+;;	(setq-local bidi-display-reordering t))
 ;; (add-hook 'text-mode-hook 'bidi-display-reordering-on)
 (defun bidi-direction-toggle ()
 	"Will switch the explicit direction of text for current
@@ -158,7 +183,8 @@
 (use-package rainbow-mode
 	:ensure t
 	:hook
-	(prog-mode))
+	(prog-mode)
+	(org-mode))
 
 (use-package yasnippet
 	:ensure t
@@ -234,21 +260,6 @@
 (use-package magit
 	:ensure t)
 
-(use-package web-mode
-	:ensure t
-	:config
-	(setq web-mode-markup-indent-offset 2
-				web-mode-css-indent-offset 2
-				web-mode-code-indent-offset 2
-				web-mode-indent-style 2)
-	(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-	(add-to-list 'auto-mode-alist '("\\.htm\\'" . web-mode)))
-
-(use-package emmet-mode
-	:ensure t
-	:config
-	(add-hook 'web-mode-hook 'emmet-mode))
-
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
 	:init
@@ -256,6 +267,8 @@
 
 (use-package saveplace
 	:ensure t
+	:init
+	(save-place-mode 1)
 	:config
 	(setq save-place-file (expand-file-name "saveplace" user-emacs-directory))
 	;; activate it for all buffers
@@ -284,24 +297,17 @@
 	(setq undo-tree-history-directory-alist
 				`((".*" . ,temporary-file-directory)))
 	(setq undo-tree-auto-save-history t)
-	(global-undo-tree-mode +1)
+	(global-undo-tree-mode +1))
 
-	(when (package-installed-p 'evil)
-		(evil-set-undo-system 'undo-tree))
-	)
+(use-package whitespace
+	:ensure nil
+	:hook (before-save . whitespace-cleanup))
 
 ;; (use-package which-key
-;; 	:ensure t
-;; 	:config
-;; 	(which-key-mode 1))
+;;	:ensure t
+;;	:config
+;;	(which-key-mode 1))
 
-;; Latex
-;; (use-package auctex
-;;   :ensure t
-;;   :defer t
-;;   :hook (LaTeX-mode . (lambda ()
-;;                         (push (list 'output-pdf "Zathura")
-;;                               TeX-view-program-selection))))
 
 ;; System notifications
 ;; (setq compilation-finish-functions
