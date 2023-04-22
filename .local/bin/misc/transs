@@ -4,7 +4,7 @@ tr(){
     if [ "$1" = "arabic" ]; then
         trans --target="$1" --speak
     else
-        trans --target="$1"
+        trans ar:"$1"
     fi
 }
 
