@@ -18,7 +18,7 @@ function git_branch_name()
 setopt prompt_subst
 
 # Config for prompt. PS1 synonym.
-prompt='%F{cyan}%2/ $(git_branch_name) > '
+prompt='%F{green}%2/ $(git_branch_name) > '
 
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
@@ -53,7 +53,13 @@ bindkey -s "^[a" 'configa\n'
 bindkey -s "^[c" 'bc -lq\n'
 bindkey -s '^[p' 'edit-file\n'
 bindkey -s '^[o' 'lfcd\n'
+bindkey -s '^[j' 'bdjump\n'
 bindkey -s '^[m' 'mpcsearch\n'
+
+bdjump(){
+    cd $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf --height 15)
+}
+
 
 lfcd () {
    tmp="$(mktemp)"
