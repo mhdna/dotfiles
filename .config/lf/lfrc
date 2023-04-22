@@ -239,7 +239,7 @@ cmd moveto ${{
 clear; tput cup $(($(tput lines)/3)); tput bold
 set -f
 clear; echo "Move to where?"
-dest="$(bmdirs-eval ; cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)" &&
+dest="$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)" &&
         for x in $fx; do
             mv -iv "$x" "$dest"
         done &&
@@ -262,7 +262,7 @@ cmd copyto ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
         set -f
         clear; echo "Copy to where?"
-        dest="$(bmdirs-eval ; cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)" &&
+        dest="$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)" &&
         for x in $fx; do
             cp -ivr "$x" "$dest"
         done &&
@@ -270,7 +270,7 @@ cmd copyto ${{
 }}
 
 cmd jumpTo ${{
-    dir="$(bmdirs-eval ; cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)" &&
+    dir="$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)" &&
     lf -remote "send $id cd $dir"
 }}
 
