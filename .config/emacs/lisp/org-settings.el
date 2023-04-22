@@ -281,7 +281,7 @@ non-empty lines in the block (excluding the line with
 						 '("Q" "Quote"
 							 entry
 							 (file "quotes.org")
-							 "* %?\n"))
+							 "- %?\n"))
 ;; (add-to-list 'org-capture-templates
 ;;              '("w" "Work task"
 ;;                entry
