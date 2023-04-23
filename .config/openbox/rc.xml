@@ -42,9 +42,9 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Onyx</name>
+    <name>Natura</name>
     <!-- shown buttons in the titlebar -->
-    <titleLayout>CIMDSL</titleLayout>
+    <titleLayout>CMIL</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
       N: window icon
@@ -68,7 +68,7 @@
     </font>
     <font place="InactiveWindow">
       <name>sans</name>
-      <size>8</size>
+      <size>9</size>
       <!-- font size in points -->
       <weight>bold</weight>
       <!-- 'bold' or 'normal' -->
@@ -79,7 +79,7 @@
       <name>Sans</name>
       <size>8</size>
       <!-- font size in points -->
-      <weight>Bold</weight>
+      <weight>normal</weight>
       <!-- 'bold' or 'normal' -->
       <slant>Normal</slant>
       <!-- 'italic' or 'normal' -->
@@ -88,7 +88,7 @@
       <name>Sans</name>
       <size>8</size>
       <!-- font size in points -->
-      <weight>Bold</weight>
+      <weight>normal</weight>
       <!-- 'bold' or 'normal' -->
       <slant>Normal</slant>
       <!-- 'italic' or 'normal' -->
@@ -220,16 +220,16 @@
         <to>last</to>
       </action>
     </keybind>
-    <!-- <keybind key="W-semicolon"> -->
-    <!--   <action name="GoToDesktop"> -->
-    <!--     <to>next</to> -->
-    <!--   </action> -->
-    <!-- </keybind> -->
-    <!-- <keybind key="W-g"> -->
-    <!--   <action name="GoToDesktop"> -->
-    <!--     <to>previous</to> -->
-    <!--   </action> -->
-    <!-- </keybind> -->
+    <keybind key="W-semicolon">
+      <action name="GoToDesktop">
+        <to>next</to>
+      </action>
+    </keybind>
+    <keybind key="W-g">
+      <action name="GoToDesktop">
+        <to>previous</to>
+      </action>
+    </keybind>
     <keybind key="W-1">
       <action name="GoToDesktop">
         <to>1</to>
@@ -277,9 +277,9 @@
     <keybind key="W-C-d">
       <action name="ToggleShowDesktop"/>
     </keybind>
-    <keybind key="W-r">
-      <action name="Resize"/>
-    </keybind>
+    <!-- <keybind key="W-r"> -->
+    <!--   <action name="Resize"/> -->
+    <!-- </keybind> -->
     <!-- moving -->
     <keybind key="W-C-h">
       <action name="MoveRelative">
@@ -378,15 +378,15 @@
     <keybind key="W-S-f">
       <action name="ToggleFullscreen"/>
     </keybind>
-    <keybind key="W-S-s">
-      <action name="Iconify"/>
-    </keybind>
     <!-- toggle sticky aka onmipresent -->
-    <keybind key="W-s">
-        <action name="ToggleOmnipresent"/>
+    <keybind key="W-S-s">
+      <action name="ToggleOmnipresent"/>
     </keybind>
-    <keybind key="W-w">
+    <keybind key="W-m">
       <action name="ToggleMaximize"/>
+    </keybind>
+    <keybind key="W-S-m">
+      <action name="Iconify"/>
     </keybind>
     <!-- jump to urgent window -->
     <keybind key="W-u">
@@ -399,7 +399,7 @@
           <action name="Focus"/>
         </then>
       </action>
-  </keybind>
+    </keybind>
     <!-- <keybind key="W-S-m"> -->
     <!--   <action name="Move"/> -->
     <!-- </keybind> -->
@@ -444,7 +444,7 @@
         <direction>down</direction>
       </action>
     </keybind>
-  <!-- Center the Current Window -->
+    <!-- Center the Current Window -->
     <keybind key="W-A-c">
       <action name="MoveResizeTo">
         <x>center</x>
@@ -609,7 +609,7 @@
     <!-- Set this to TRUE to move the mouse pointer across the desktop when
        switching due to hitting the edge of the screen -->
     <context name="Frame">
-        <!-- frame mouse keybinds -->
+      <!-- frame mouse keybinds -->
       <mousebind button="W-Left" action="Press">
         <action name="Focus"/>
         <action name="Raise"/>
@@ -627,7 +627,7 @@
         <action name="ToggleAlwaysOnTop"/>
       </mousebind>
       <mousebind button="W-Up" action="Press">
-          <action name="Iconify"/>
+        <action name="Iconify"/>
       </mousebind>
       <mousebind button="W-Right" action="Drag">
         <action name="Resize"/>
@@ -697,17 +697,18 @@
       <!--   </action> -->
       <!-- </mousebind> -->
     </context>
+    <!-- titlebar keybinds -->
     <context name="Titlebar Top Right Bottom Left TLCorner TRCorner BRCorner BLCorner">
       <mousebind button="Left" action="Press">
         <action name="Focus"/>
         <action name="Raise"/>
         <action name="Unshade"/>
       </mousebind>
-      <mousebind button="Middle" action="Press">
-        <action name="Lower"/>
-        <action name="FocusToBottom"/>
-        <action name="Unfocus"/>
-      </mousebind>
+      <!-- <mousebind button="Middle" action="Press"> -->
+      <!--   <action name="Lower"/> -->
+      <!--   <action name="FocusToBottom"/> -->
+      <!--   <action name="Unfocus"/> -->
+      <!-- </mousebind> -->
       <mousebind button="Right" action="Press">
         <action name="Focus"/>
         <action name="Raise"/>
@@ -862,26 +863,26 @@
       </mousebind>
     </context>
     <context name="Desktop">
-    <!--   <mousebind button="Up" action="Click"> -->
-    <!--     <action name="GoToDesktop"> -->
-    <!--       <to>previous</to> -->
-    <!--     </action> -->
-    <!--   </mousebind> -->
-    <!--   <mousebind button="Down" action="Click"> -->
-    <!--     <action name="GoToDesktop"> -->
-    <!--       <to>next</to> -->
-    <!--     </action> -->
-    <!--   </mousebind> -->
-      <mousebind button="Up" action="Click">
-        <action name="GoToDesktop">
-          <to>next</to>
-        </action>
-      </mousebind>
-      <mousebind button="Down" action="Click">
-        <action name="GoToDesktop">
-          <to>previous</to>
-        </action>
-      </mousebind>
+      <!--   <mousebind button="Up" action="Click"> -->
+      <!--     <action name="GoToDesktop"> -->
+      <!--       <to>previous</to> -->
+      <!--     </action> -->
+      <!--   </mousebind> -->
+      <!--   <mousebind button="Down" action="Click"> -->
+      <!--     <action name="GoToDesktop"> -->
+      <!--       <to>next</to> -->
+      <!--     </action> -->
+      <!--   </mousebind> -->
+      <!-- <mousebind button="Up" action="Click"> -->
+      <!--   <action name="GoToDesktop"> -->
+      <!--     <to>next</to> -->
+      <!--   </action> -->
+      <!-- </mousebind> -->
+      <!-- <mousebind button="Down" action="Click"> -->
+      <!--   <action name="GoToDesktop"> -->
+      <!--     <to>previous</to> -->
+      <!--   </action> -->
+      <!-- </mousebind> -->
       <!-- focus desktop -->
       <!-- <mousebind button="Left" action="Press"> -->
       <!--   <action name="Focus"/> -->
@@ -959,23 +960,15 @@
       <decor>yes</decor> -->
     <!--   </application> -->
     <application class="Tmux*">
-      <desktop>3</desktop>
-      <maximized>true</maximized>
-    <!--   <position force="yes"> -->
-    <!--   <x>center</x> -->
-    <!--   <y>center</y> -->
-    <!-- </position> -->
-    <!-- <size> -->
-    <!-- <width>98%</width> -->
-    <!-- <height>95%</height> -->
-    <!-- </size> -->
-    </application>
-    <application class="newsboat*">
-      <maximized>true</maximized>
-    </application>
-    <application class="ncmpcpp*">
       <desktop>2</desktop>
       <maximized>true</maximized>
+    </application>
+    <application class="newsboat*">
+      <!-- <maximized>true</maximized> -->
+      <position force="yes">
+        <x>center</x>
+        <y>center</y>
+      </position>
     </application>
     <application name="pdfgallery*">
       <maximized>true</maximized>
