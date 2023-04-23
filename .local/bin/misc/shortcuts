@@ -34,6 +34,7 @@ sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' -e '/^!.*/d' > "$alldirs"&&
 
 # search deaply in bookmarks that start with !s and add them to alldirs
 readarray -t dirs < <(eval "echo \"$(grep -E '^!.*' "$bmdirs" | sed -e 's/\s*#.*//')\"")
+
 for dir in "${dirs[@]}"; do
     # ignore hidden dirs
     if echo "$dir" | grep -q "^!!!"; then
@@ -46,3 +47,7 @@ for dir in "${dirs[@]}"; do
 
     find $(echo $dir | cut -d ' ' -f 2) -maxdepth "$depth" \( ! -regex '.*/\..*' \)  -type d  >> "$alldirs"
 done
+
+
+# remove duplicates
+sort -u -o "$alldirs" "$alldirs"
