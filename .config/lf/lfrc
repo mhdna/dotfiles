@@ -275,13 +275,19 @@ cmd jumpTo ${{
 }}
 
 cmd Search :{{
-        :search
-        push **<c-b>
+    search
+    push **<c-b>
 }}
 
 cmd Search-back :{{
-        :search-back
-        push **<c-b>
+    search-back
+    push **<c-b>
+}}
+
+cmd Refresh :{{
+    &shortcuts
+    source ~/.config/lf/shortcutrc
+    echo refreshing
 }}
 
 # KeyBindings
@@ -304,12 +310,12 @@ map X chmod
 map U !du -sh
 map u :clear; unselect
 
+map <a-r> Refresh
+
 map <c-g> push :glob-select<space>*.
 map J jumpTo
 map <c-f> :fzf_jump
 map <c-space> :toggle; up
-
-#map "E" &$emacsclient -c "$f"
 
 map o &mimeopen "$f"
 map O &$TERMINAL -e mimeopen --ask $fx
