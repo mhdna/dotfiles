@@ -6,14 +6,14 @@ function run {
      $@&
    fi
 }
-dpselector 2&
-setwall&
+# dpselector 2&
+# setwall&
+mailsync&
 tint2&
 sleep 2s &&
 $TERMINAL -c Tmux -e sh -c 'tmux a || tmux'&
-emacs&
+emacsclient -c 'emacs'&
 fol ncmpcpp&
 fol lfub&
-fol sudo sudo su&
+# fol sudo sudo su&
 $BROWSER&
-

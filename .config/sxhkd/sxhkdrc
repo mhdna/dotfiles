@@ -1,5 +1,6 @@
 super + Return
     $TERMINAL
+    #xdo activate -dn Term || tabbed -n Term -r 2 $TERMINAL -w ''
 
 super + i
     xdo activate -N Tmux || $TERMINAL -c Tmux -e sh -c 'tmux a || tmux'
@@ -10,8 +11,8 @@ super + shift + i
 super + y
     fol mycli mycli -u root
 
-super + g
-    sxiv -N pdfgallery -t ~/.cache/pdfgallery/*.jpg
+super + r
+    $BROWSER ${XDG_DOCUMENTS_DIR}/readlater
 
 
 super + o; l
@@ -20,14 +21,17 @@ super + o; l
 super + o; h
     fol htop
 
-super +  b; {o,O,s,S}
-    {dmenu-bookmarks,dmenu-snippets,bookmarkit,snipit}
+super + o; {m,u}
+    {dmenumount, dmenuumount}
 
-super + shift + b
+super + shift + w
     fol g $BROWSER
 
+super +  w; {o,O,s,S}
+    {dmenu-bookmarks,dmenu-snippets,bookmarkit,snipit}
+
 super + {_,shift+} {d,p}
-    {dmenu_run, dmenuunicode, passmenu, displayselect}
+    {dmenu_run , dmenuunicode, passmenu, displayselect}
 
 super + v
     clipmenu -i
@@ -58,10 +62,11 @@ super + e
     fol neomutt bicon -e neomutt
 
 super + n
-    fol newsboat bicon -e newsboat
+    xdo activate -N newsboat || $TERMINAL -g 80x30 -c newsboat -f Dejavu\ Sans\ Mono:pixelsize=18 -e bicon -e newsboat
 
-#super + shift + n
-#    fol ncmpcpp bicon -e ncmpcpp
+
+super + shift + n
+    fol ncmpcpp bicon -e ncmpcpp
 
 {_,shift+} Print; {a, s, w}
     mymaim { ,c}{a,s,w}
@@ -105,18 +110,21 @@ super + alt + F4
 super + {_, shift+ }{F10,F12}
     mpc {seek -1%, prev,  seek +1%, next}
 
+super + F9
+    mpc repeat&& mpc single && notify-send -u low -t 3000 "MPD" "$(mpc status 'Single Repeat: %repeat%')"
+
 super + {_, shift+ }F11
     {mpc toggle, pauseallmpv}
 
 # less used keybinds
-super + o; {f,w,W,N,c,n,v}
-    {forecast,$TERMINAL -e nmtui,$TERMINAL -g 80x35 -e sh -c 'vnstat| less',xdo activate -N bc || $TERMINAL -g 30x20 -c bc -e bc -lq,newword, mpv --ytdl-format=22 "$(xclip -sel c -o)" }
+super + o; {f,w,W,c,n,v}
+    {forecast,$TERMINAL -e nmtui,$TERMINAL -g 80x35 -e sh -c 'vnstat| less',xdo activate -N bc || $TERMINAL -g 30x20 -c bc -e bc -lq,newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)" }
 
 super + o; e
     emacsclient -c -e '(my/set-arabic-font)' -e '(my/english-reading-notes-open)'& file=$(find $(echo /media/documents/now/Oxford-Bookworm-Library) -type f -name '*pdf' | sort | dmenu -i -l 10) && zathura "$file"& $TERMINAL -e lf "$(dirname $file)"
 
-super + {_,shift+} m
-    {dmenumount, dmenuumount}
+super + o; g
+    sxiv -N pdfgallery -t ~/.cache/pdfgallery/*.jpg
 
 super + {_,shift+,alt} BackSpace
     dunstctl {close-all,history-pop,set-paused toggle && notify-send "Dunst" "Is-paused: $(dunstctl is-paused)" }
@@ -148,4 +156,4 @@ super + End
 # For some reason sxhkd hangs when opening vim and then pressing super+shift+r
 # So keep it shift + r instead of ctrl+r
 super + shift + r
-	pkill -USR1 -x sxhkd; openbox --reconfigure&& notify-send -u low 'WM settings' 'Reloaded'
+	pkill -USR1 -x sxhkd; i3-msg reload

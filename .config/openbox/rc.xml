@@ -974,7 +974,10 @@
       <maximized>true</maximized>
     </application>
     <application class="Zathura*">
-      <maximized>true</maximized>
+    <size>
+      <height>900</height>
+      <width>900</width>
+    </size>
     </application>
     <application class="Dragon-drop*">
       <position force="yes">
