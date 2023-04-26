@@ -26,6 +26,9 @@
 		(evil-get-auxiliary-keymap my-intercept-mode-map state t t)
 		state))
 
+(evil-define-key '(normal visual) lisp-mode-map
+	(kbd "SPC E")			 'eval-expression
+	)
 	(evil-define-key '(normal visual) my-intercept-mode-map
 		(kbd "C-]")				 'gtags-find-tag-from-here
 		(kbd "C-p")				 'duplicate-line-or-region
@@ -37,16 +40,15 @@
 		(kbd "SPC B")			 'magit-blame-toggle
 		(kbd "SPC g")			 'magit-status
 		(kbd "SPC l")			 'consult-flymake
-		(kbd "SPC E")			 'eval-expression
 		(kbd "SPC y")			 'consult-yank-pop
 		(kbd "SPC y")			 'consult-yank-pop
 		(kbd "SPC G")			 'consult-ripgrep
 		(kbd "SPC R")			 'find-file-root
 		(kbd "SPC d")			 'dired-jump
 		(kbd "SPC S")			 'delete-trailing-whitespace
-		(kbd "SPC s")			 'shell
+		(kbd "SPC t")			 'shell
 		(kbd "SPC u")			 'undo-tree-visualize
-		(kbd "SPC w")			 'save-buffer
+		;; (kbd "SPC w")			 'save-buffer
 		(kbd "SPC M")			 'make-frame
 		(kbd "SPC W")			 'write-file
 		(kbd "SPC O")			 'browse-url-xdg-open
@@ -78,6 +80,7 @@
 		(kbd "SPC e") 'my/org-empahsize
 		(kbd "SPC A") 'my/mark-done-and-archive
 		(kbd "SPC i")				 'my/org-goto
+		(kbd "SPC E")				 'org-export-dispatch
 		)
 
 	(evil-define-key '(normal visual) web-mode-map
