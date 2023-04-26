@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# For more information: https://mpd.readthedocs.io/en/latest/protocol.html#status_commands
-while true
-do
-    mpc idle player > /dev/null 2>&1
-    notify-send -u low -t 3000 "MPD: $(mpc status '%state%')" "$(mpc --format '%file% \n%artist% - %album%' current)"
-done
