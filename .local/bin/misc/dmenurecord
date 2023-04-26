@@ -18,7 +18,7 @@ updateicon() { \
 
 killrecording() {
 	recpid="$(cat /tmp/recordingpid)"
-	kill -15 "$recpid"
+	kill -15 "$recpid" || exit 1
 	rm -f /tmp/recordingpid
 	updateicon ""
 	pkill -RTMIN+9 "${STATUSBAR:-i3blocks}"
