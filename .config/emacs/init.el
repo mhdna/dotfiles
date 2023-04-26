@@ -132,6 +132,10 @@
 ;; (set-foreground-color "black")
 ;; (set-background-color "white")
 ;; (set-cursor-color "black")
+(use-package gruvbox-theme
+	:ensure t
+	:config
+	(load-theme 'gruvbox-dark-hard t))
 ;; Set up the visible bell
 ;; (setq visible-bell 1)
 ;; (global-display-line-numbers-mode 1)
@@ -144,8 +148,6 @@
 ;; vim-like scrolling
 (setq scroll-conservatively 100)
 ;; (setq ring-bell-function 'ignore)
-
-(blink-cursor-mode -1)
 
 (setq dictionary-server "dict.org")
 
