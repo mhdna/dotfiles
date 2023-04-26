@@ -11,11 +11,18 @@
 
 getdim() { xrandr | sed -n "s/\s*\([0-9]\+x[0-9]\+\).*\*.*/\1/p" ;}
 
+updateicon() { \
+	echo "$1" > /tmp/recordingicon
+	pkill -RTMIN+9 "${STATUSBAR:-i3blocks}"
+	}
+
 killrecording() {
 	recpid="$(cat /tmp/recordingpid)"
 	kill -15 "$recpid"
 	rm -f /tmp/recordingpid
-}
+	updateicon ""
+	pkill -RTMIN+9 "${STATUSBAR:-i3blocks}"
+	}
 
 screencast() { \
 	ffmpeg -y \
@@ -30,6 +37,7 @@ screencast() { \
 	-crf 0 -preset ultrafast -c:a aac \
 	"$HOME/screencast-$(date '+%y%m%d-%H%M-%S').mp4" &
 	echo $! > /tmp/recordingpid
+	updateicon "Rec: Vid/Aud"
        	}
 
 video() { ffmpeg \
@@ -40,6 +48,7 @@ video() { ffmpeg \
  	-c:v libx264 -qp 0 -r 30 \
 	"$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
+	updateicon "Rec: Vid"
 	}
 
 webcamhidef() { ffmpeg \
@@ -48,6 +57,7 @@ webcamhidef() { ffmpeg \
 	-video_size 1920x1080 \
 	"$HOME/webcam-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
+    updateicon "Rec: Cam(HD)"
 	}
 
 webcam() { ffmpeg \
@@ -56,6 +66,7 @@ webcam() { ffmpeg \
 	-video_size 640x480 \
 	"$HOME/webcam-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
+	updateicon "Rec: Cam"
 	}
 
 
@@ -65,6 +76,7 @@ audio() { \
 	-c:a flac \
 	"$HOME/audio-$(date '+%y%m%d-%H%M-%S').flac" &
 	echo $! > /tmp/recordingpid
+	updateicon "Rec: Aud"
 	}
 
 askrecording() { \
@@ -98,6 +110,7 @@ videoselected()
 	-c:v libx264 -qp 0 -r 30 \
 	"$HOME/box-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
+	updateicon "Rec: Vid"
 }
 
 case "$1" in

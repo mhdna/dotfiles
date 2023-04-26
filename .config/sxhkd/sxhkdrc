@@ -11,8 +11,8 @@ super + shift + i
 super + y
     fol mycli mycli -u root
 
-super + r
-    $BROWSER ${XDG_DOCUMENTS_DIR}/readlater
+#super + r
+#    $BROWSER ${XDG_DOCUMENTS_DIR}/readlater
 
 
 super + o; l
@@ -39,30 +39,30 @@ super + v
 super + shift + v
     fol pulsemixer
 
-super + t; {super + t, t}
+super + BackSpace; {super + BackSpace, t}
     transs {P,C}
 
-super + t; {a, e, p}
+super + BackSpace; {a, e, p}
     fol {Transa transs a,Transe transs e,Transf transs p}
 
-super + t; {s,S}
+super + BackSpace; {s,S}
     {fol sdcv,$TERMINAL -e sdcv $(xclip -o)}
-
-super + f
-    xdo activate -dN lfub || $TERMINAL -c lfub -e lfub
 
 super + a
     xdo activate -N agenda || $TERMINAL -c todo -e emacsclient -nw -e '(my/set-arabic-font)' -e '(my/agenda)'
 #super + o; a
-    #xdo activate -N agenda || $TERMINAL -c agenda -g 40x20 -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
+    #xdo activate -N agenda || $TERMINAL -c agenda -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
 super + shift + a
     $TERMINAL -e anki
 
 super + e
+    xdo activate -dN lfub || $TERMINAL -c lfub -e lfub
+
+super + shift + e
     fol neomutt bicon -e neomutt
 
 super + n
-    xdo activate -N newsboat || $TERMINAL -g 80x30 -c newsboat -f Dejavu\ Sans\ Mono:pixelsize=18 -e bicon -e newsboat
+    xdo activate -N newsboat || $TERMINAL -c newsboat -e bicon -e newsboat
 
 
 super + shift + n
@@ -75,16 +75,16 @@ Print; S
     flameshot gui
 
 Print; r
-    kill -15 "$(cat /tmp/recordingpid)" && rm -f /tmp/recordingpid || dmenurecord
+    dmenurecord kill || dmenurecord
 
 XF86Audio{LowerVolume,RaiseVolume}
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}; pkill -RTMIN+10 i3blocks
 
 {XF86AudioMute, super+shift+minus}
-    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; pkill -RTMIN+10 i3blocks
 
 super + { minus, equal}
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+}
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+}; pkill -RTMIN+10 i3blocks
 
 {_,super+ } XF86MonBrightness{Down,Up}
 	brightnessctl set {10%-, 1%, +10%, 100%}
@@ -118,22 +118,22 @@ super + {_, shift+ }F11
 
 # less used keybinds
 super + o; {f,w,W,c,n,v}
-    {forecast,$TERMINAL -e nmtui,$TERMINAL -g 80x35 -e sh -c 'vnstat| less',xdo activate -N bc || $TERMINAL -g 30x20 -c bc -e bc -lq,newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)" }
+    {forecast,$TERMINAL -e nmtui,$TERMINAL -e sh -c 'vnstat| less',xdo activate -N bc || $TERMINAL -c bc -e bc -lq,newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)" }
 
 super + o; e
     emacsclient -c -e '(my/set-arabic-font)' -e '(my/english-reading-notes-open)'& file=$(find $(echo /media/documents/now/Oxford-Bookworm-Library) -type f -name '*pdf' | sort | dmenu -i -l 10) && zathura "$file"& $TERMINAL -e lf "$(dirname $file)"
 
 super + o; g
-    sxiv -N pdfgallery -t ~/.cache/pdfgallery/*.jpg
+    nsxiv -N pdfgallery -t ~/.cache/pdfgallery/*.jpg
 
-super + {_,shift+,alt} BackSpace
+super + {_,shift+,alt} backslash
     dunstctl {close-all,history-pop,set-paused toggle && notify-send "Dunst" "Is-paused: $(dunstctl is-paused)" }
 
-super + shift + Up
-    xwallpaper --clear; picom
+#super + shift + Up
+#    xwallpaper --clear; picom
 
-super + shift + {Right,Left}
-    dpselector {1,2}
+#super + shift + {Right,Left}
+    #dpselector {1,2}
 
 super + ctrl + x
     xkill
@@ -147,13 +147,7 @@ super + z
 super + shift + z
 	loginctl suspend
 
-super + Home
-    $TERMINAL -e soynet open
-
-super + End
-    soynet close
-
 # For some reason sxhkd hangs when opening vim and then pressing super+shift+r
 # So keep it shift + r instead of ctrl+r
 super + shift + r
-	pkill -USR1 -x sxhkd; i3-msg reload
+	pkill -USR1 -x sxhkd; i3-msg reload && notify-send -u low "WM" "Reloaded Settings"

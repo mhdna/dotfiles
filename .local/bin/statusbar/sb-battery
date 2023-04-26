@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Loop through all attached batteries and format the info
+for battery in /sys/class/power_supply/BAT?*; do
+	# If non-first battery, print a space separator.
+	[ -n "${capacity+x}" ] && printf " "
+	# Sets up the status and capacity
+	status="$(cat "$battery/status") "
+	capacity="$(cat "$battery/capacity" 2>&1)"
+    counter="/tmp/battery-counter"
+	# Will make a warn variable if discharging and low
+    if [ "$status" = "Discharging " ] && [ "$capacity" -le 10 ]; then
+        warn="WARNING "
+        i=$(cat $counter)
+        echo $(( i + 1 )) > $counter
+        # i depends on how often you update the status bar
+        [ -f $counter ] && [ "$i" -eq 20 ] && notify-send -u critical -t 5000 '⚠️ Battery level' "Critical: $capacity%" && echo '0' > $counter
+    fi
+	# Prints the info
+	printf "%s%s%d%%" "$status" "$warn" "$capacity"; unset warn
+done && printf "\\n"

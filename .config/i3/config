@@ -1,0 +1,364 @@
+# hide_edge_borders vertical
+
+# for_window [class="^.*"] border pixel 2
+##for_window [instance="^((?!dropdown_).)*"] border none
+# gaps inner 5
+# gaps outer 5
+# #---Dropdown Windows---# #
+# General dropdown window traits. The order can matter.
+
+set $browser firefox
+set $browser_class firefox
+
+set $mod Mod4
+# set $term xterm
+#i3-sensible-terminal
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango: Mono 9
+
+# Before i3 v4.8, we used to recommend this one as the default:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, its unicode glyph coverage is limited, the old
+# X core fonts rendering does not support right-to-left and this being a bitmap
+# font, it doesn’t scale on retina/hidpi displays.
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+# disble mouse hover - sloppy
+focus_follows_mouse no
+
+# mouse stuff
+# bindsym --whole-window $mod+button2 killmouse bindings i3wm
+bindsym button3 floating toggle
+# bindsym --whole-window $mod+button3 floating toggle
+
+
+# start a terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec $term
+# bindsym $mod+Return exec --no-startup-id $term
+
+# kill focused window
+# bindsym $mod+q kill;focus left bindsym Mod1+F4 kill;focus left bindsym
+bindsym $mod+Shift+c kill; focus left
+bindsym $mod+Tab		workspace back_and_forth
+
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+# bindsym $mod+plus scratchpad show
+# bindsym $mod+minus move scratchpad
+bindsym $mod+b  bar mode toggle
+#bindsym $mod+Shift+Up fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+t layout tabbed
+bindsym $mod+Shift+t layout toggle split
+bindsym $mod+s split toggle
+bindsym $mod+Shift+s layout stacking
+# split in horizontal orientation
+# bindsym $mod+z split h
+# split in vertical orientation
+# bindsym $mod+x split v
+
+# toggle tiling / floating
+bindsym $mod+Control+Return floating toggle
+bindsym $mod+Shift+Return sticky toggle
+bindsym $mod+mod1+Return floating toggle; sticky toggle; exec --no-startup-id hover left
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+# bindsym $mod+a focus parent
+
+# focus the child container
+# bindsym $mod+Shift+a focus child
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+# bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1; workspace 1
+bindsym $mod+Shift+2 move container to workspace 2; workspace 2
+bindsym $mod+Shift+3 move container to workspace 3; workspace 3
+bindsym $mod+Shift+4 move container to workspace 4; workspace 4
+bindsym $mod+Shift+5 move container to workspace 5; workspace 5
+bindsym $mod+Shift+6 move container to workspace 6; workspace 6
+bindsym $mod+Shift+7 move container to workspace 7; workspace 7
+bindsym $mod+Shift+8 move container to workspace 8; workspace 8
+bindsym $mod+Shift+9 move container to workspace 9; workspace 9
+# bindsym $mod+Shift+0 move container to workspace 10; workspace 10
+
+# reload the configuration file
+bindsym $mod+Control+Shift+r restart
+# bindsym $mod+Control+r reload
+# exit i3 (logs you out of your X session)
+# bindsym $mod+Control+q exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+# These bindings trigger as soon as you enter the resize mode
+
+    bindsym h resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym j resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+# same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+# back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+bindsym $mod+r mode "resize"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+# font pango: mono, FontAwesome 8
+# position top
+    status_command i3blocks
+# tray_output none
+# mode hide
+# colors {
+# background #2F2F2F
+# statusline #eeeeee
+# separator  #666666
+
+# colorclass           border  backgr. text
+# focused_workspace     #a9a9a9 #5f676a #eeeeee
+# active_workspace      #a9a9a9 #5f676a #eeeeee
+# inactive_workspace    #a9a9a9 #222222 #a9a9a9
+# urgent_workspace      #a9a9a9 #900000 #FFFFFF
+# }
+}
+
+# Window color settings
+# class                 border  backgr. text    indicator
+client.focused          #4c7899   #285577  #e5e5e5 #900000
+# client.focused          #5f676a  #5f676a  #e5e5e5 #d42121
+# client.unfocused        #222222 #222222 #aaaaaa #222222
+# client.focused_inactive #222222 #222222 #a9a9a9 #222222
+# client.placeholder      #222222 #222222 #aaaaaa #222222
+# client.urgent           #d42121 #d42121 #f7f7f7 #d42121
+client.background       #242424
+
+# colors {
+#     # separator #666666
+#     # background #222222
+#     # statusline #dddddd
+#     focused_workspace #4c7899  #80755a  #000000
+#     # active_workspace #333333 #333333 #ffffff
+#     # inactive_workspace #333333 #333333 #888888
+#     # urgent_workspace #2f343a #900000 #ffffff
+# }
+# }
+#         # class                 border  backgr. text    indicator child_border
+# client.focused            #836953 #836953  #000000 #900000   #836953
+# # client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+# # client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+# # client.urgent           #2f343a #900000 #ffffff #900000   #900000
+# # client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+# #
+# # client.background       #ffffff
+# Other colors. That brown and yellow
+# background #a0a0a0
+# statusline #000000
+# separator  #666666
+# class                 border  backgr. text    indicator
+# client.focused        	#655016 #BA9428 #000000 #2E9EF4 #285577
+# client.unfocused        #291818 #4D2D2D #AFAFAF #292D2E #222222
+
+
+
+#workspaces
+bindsym $mod+semicolon workspace next
+bindsym $mod+g workspace prev
+# bindsym $mod+XF86AudioPrev           workspace prev
+# bindsym $mod+XF86AudioNext        workspace next
+##bindsym $mod+Shift+XF86Back
+
+## Hotkeys
+## Pulse Audio controls
+##;  exec --no-startup-id  pkill -RTMIN+10 i3blocks
+##; exec --no-startup-id  kill -44 $(pidof i3blocks)
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+#bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ 100%
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+#bindsym $mod+plus exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+#bindsym $mod+Shift+plus exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ 100%
+#bindsym $mod+minus exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+#bindsym $mod+Shift+minus exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+#
+## bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost -i 5
+## bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost -d 5
+## bindsym XF86AudioMute exec --no-startup-id pamixer -t
+## bindsym $mod+plus exec --no-startup-id pamixer --allow-boost -i 5
+## bindsym $mod+minus exec --no-startup-id pamixer --allow-boost -d 5
+## bindsym $mod+Shift+minus exec --no-startup-id pamixer -t
+## bindsym XF86Favorites exec --no-startup-id /usr/local/bin/paswitcher
+#
+## Backlight
+## bindsym $mod+XF86MonBrightnessDown	exec --no-startup-id xbacklight -set 1
+## bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 10
+## bindsym Shift+XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 2
+## bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 10
+## bindsym Shift+XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 2
+#bindsym $mod+XF86MonBrightnessDown	exec --no-startup-id light -S 1
+#bindsym $mod+Shift+comma	exec --no-startup-id light -S 1
+#bindsym XF86MonBrightnessDown	exec --no-startup-id light -U 10
+#bindsym $mod+comma	exec --no-startup-id light -U 5
+#bindsym Shift+XF86MonBrightnessDown	exec --no-startup-id light -U 2
+#bindsym XF86MonBrightnessUp	exec --no-startup-id light -A 10
+#bindsym $mod+period	exec --no-startup-id light -A 5
+#bindsym Shift+XF86MonBrightnessUp	exec --no-startup-id light -A 2
+#bindsym $mod+XF86MonBrightnessUp	exec --no-startup-id light -S 100
+#bindsym $mod+Shift+period	exec --no-startup-id light -S 100
+#
+#
+## i3-dmenu-desktop only displays applications, a wrapper for dmenu
+##i3-dmenu-desktop
+#bindsym $mod+d exec --no-startup-id dmenu_run
+#bindsym $mod+Mod1+d exec --no-startup-id dmenuhandlerXclip
+#bindsym $mod+Mod1+t exec --no-startup-id torwrap
+#bindsym $mod+Mod1+Shift+t exec --no-startup-id td-toggle
+#bindsym $mod+grave exec --no-startup-id rofi -show emoji -modi emoji -no-show-match -no-sort
+#bindsym $mod+v exec --no-startup-id clipmenu -i
+#bindsym $mod+Mod1+c exec --no-startup-id $term -e python -q
+#bindsym $mod+Shift+v exec --no-startup-id $term -e pulsemixer
+#
+#bindsym $mod+Shift+r exec --no-startup-id killall newsboat & $term -e bicon -e newsboat
+#bindsym $mod+Shift+w exec --no-startup-id $term -e nmtui
+#bindsym $mod+Insert exec --no-startup-id transXclip
+#bindsym $mod+e exec --no-startup-id $term -e lfub
+## bindsym $mod+i exec --no-startup-id $term -e tmux a || tmux
+#bindsym $mod+a exec --no-startup-id anki
+#bindsym $mod+Shift+e exec --no-startup-id $term -e bicon -e neomutt
+##&& pkill -RTMIN+12 i3blocks
+#bindsym $mod+m exec --no-startup-id $term -e bicon -e ncmpcpp
+#bindsym $mod+Mod1+m exec --no-startup-id dmenumount
+#bindsym $mod+Shift+Mod1+m exec --no-startup-id dmenuumount
+## bindsym $mod+p exec --no-startup-id dmenupass
+#bindsym $mod+Mod1+p exec --no-startup-id displayselect
+#bindsym $mod+w exec --no-startup-id $browser
+#bindsym $mod+n exec --no-startup-id $term -e nvim ~/stuff/wiki
+#bindsym $mod+Shift+n exec --no-startup-id $term -e nvim ~/stuff/wiki/todo.txt
+#bindsym $mod+Shift+d exec --no-startup-id $term -e nvim ~/stuff/wiki/diary/
+#bindsym $mod+Mod1+Insert exec --no-startup-id transXcclip
+#bindsym $mod+Shift+Insert exec --no-startup-id $term -e transs
+#bindsym $mod+BackSpace exec --no-startup-id dunstctl close-all
+#bindsym $mod+Shift+BackSpace exec --no-startup-id dunstctl history-pop
+#bindsym $mod+Control+BackSpace exec --no-startup-id dunstctl set-paused toggle && notify-send toggled
+#
+#bindsym $mod+F1 exec --no-startup-id "kdeconnect-indicator & kdeconnect-cli --refresh"
+#bindsym $mod+Shift+F1 exec --no-startup-id kill $(pgrep kdeconnectd & pgrep kdeconnect)
+#bindsym $mod+F2 exec --no-startup-id redshift -O5000
+#bindsym $mod+Shift+F2 exec --no-startup-id redshift -x
+#bindsym $mod+F9 exec --no-startup-id remaps
+## bindsym $mod+Shift+F9 exec --no-startup-id persianRemap && notify-send 'persian'
+#bindsym $mod+F10 exec --no-startup-id "mpc seek -1%"
+##&& pkill -RTMIN+10 i3blocks
+#bindsym $mod+Shift+F10 exec --no-startup-id mpc prev
+#bindsym $mod+Shift+F11 exec --no-startup-id pauseallmpv
+#bindsym $mod+F11 exec --no-startup-id "mpc toggle"
+#bindsym $mod+F12 exec --no-startup-id "mpc seek +1%"
+#bindsym $mod+Shift+F12 exec --no-startup-id mpc next
+#
+#bindsym Print exec --no-startup-id maimSel
+#bindsym $mod+Print exec --no-startup-id dmenurecord
+#bindsym $mod+Shift+Print exec --no-startup-id dmenurecord kill
+#bindsym Control+Shift+Print exec --no-startup-id maimXclip
+#bindsym Shift+Print exec --no-startup-id maimFul
+#
+#bindsym $mod+Mod1+l exec --no-startup-id xtrlock
+#bindsym $mod+Scroll_Lock exec "pkill screenkey || screenkey"
+
+# no borders, borders sie
+# new_window none
+# new_window 1pixel
+# Thanks Childz
+# bars
+#for_window [class="^.*"] border pixel 2
+
+# class                 border  backgr. text    indicator child_border
+# for_window [class="^.*"] client.focused          #77dd77 #285577 #ffffff #2e9ef4   #285577
+
+
+#Work Space Bindings
+bindsym $mod+Prior              workspace prev
+bindsym $mod+Next               workspace next
+
+# Rules
+for_window [class="$browser_class"] move workspace 2
+for_window [class="TelegramDesktop"] move workspace 3
+for_window [class="Soffice"] move workspace 5
+for_window [class="GIMP Startup"] move workspace 5
+for_window [class="Gimp"] move workspace 5
+for_window [class="Blender"] move workspace 5
+for_window [class="jetbrains-idea-ce"] move workspace 6
+for_window [class="Eclipse"] move workspace 6
+# for_window [class="LibreOffice"] move workspace 6
+# for_window [title="LibreOffice"] move workspace 6
+for_window [class="java-util-concurrent-ForkJoinWorkerThread"] move workspace 6
+# for_window [class="Nsxiv"] floating enable
+# for_window [class="Arandr"] floating enable
+# for_window [title="Arandr"] floating enable
+for_window [class="xev"] floating enable
+#;workspace 9 # so it go you
+for_window [class="Dragon"] sticky enable
+# for_window [class="feh"] fullscreen enable
+for_window [class="mpvfloat"] floating enable; sticky enable; border pixel 0
+no_focus [class="mpvfloat"]
+
+for_window [class="dropdown_*"] floating enable
+for_window [class="dropdown_*"] move scratchpad
+for_window [class="dropdown_*"] sticky enable
+for_window [class="dropdown_*"] scratchpad show
+
+# Startup Programs - Autostart
+exec --no-startup-id alttab -w 1 -bg "#1d1d1d"

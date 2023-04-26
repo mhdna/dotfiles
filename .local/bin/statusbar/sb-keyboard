@@ -1,0 +1,19 @@
+#!/bin/sh
+
+daemon(){
+    xkbmon -u |
+    while read -r line; do
+        pkill -RTMIN+17 dwmblocks
+    done
+}
+
+show(){
+    xkbmon -u -o
+}
+
+
+case "$1" in
+    "-d") daemon;;
+    "-s") show;;
+    "*") exit 1;;
+esac

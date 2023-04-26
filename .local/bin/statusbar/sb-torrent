@@ -1,0 +1,11 @@
+#!/bin/sh
+
+transmission-remote -l | grep % |
+    sed " # The letters are for sorting and will not appear.
+    s/.*Stopped.*/A S:/;
+    s/.*Seeding.*/Z ss:/;
+    s/.*100%.*/N D:/;
+    s/.*Idle.*/B I:/;
+    s/.*Uploading.*/L uu/;
+    s/.*%.*/M dd/" |
+        sort -h | uniq -c | awk '{print $3 $1}' | paste -sd ' ' -

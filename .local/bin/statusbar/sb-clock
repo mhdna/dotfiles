@@ -1,0 +1,5 @@
+#!/bin/sh
+
+clock=$(date '+%I')
+
+date "+%a %Y-%m-%d %I:%M %p"
