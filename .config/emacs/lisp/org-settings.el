@@ -4,6 +4,8 @@
 (setq org-pretty-entities nil)
 (setq-default tab-width 2)
 (setq org-export-coding-system 'utf-8)
+;; set default unprioritized tasks to #C instead of #B
+(setq org-default-priority ?C)
 ;; (add-hook 'org-mode-hook 'org-indent-mode)
 (setq org-adapt-indentation nil)
 (setq coding-system-for-read 'utf-8 ) ; use utf-8 by default
@@ -176,12 +178,12 @@ non-empty lines in the block (excluding the line with
 	(interactive)
 	(call-process-shell-command "daily-checklist")
 	(delete-other-windows)
-	(find-file org-index-file)
-	(beginning-of-buffer)
-	(org-agenda nil "p")
-	(pop-to-buffer "index.org") ;; focus on org index file
-	(beginning-of-buffer)
-	(enlarge-window 15)
+	;; (find-file org-index-file)
+	;; (beginning-of-buffer)
+	(org-agenda nil "t")
+	;; (pop-to-buffer "index.org") ;; focus on org index file
+	;; (beginning-of-buffer)
+	;; (enlarge-window 15)
 	;; (org-link-open-from-string "[[*Today]]")
 	;; (goto-char (org-find-exact-headline-in-buffer "Today"))
 	)
@@ -302,7 +304,7 @@ non-empty lines in the block (excluding the line with
 						 '("D" "Download"
 							 plain
 							 (file+headline org-index-file "To Download")
-							 "** %^{Titel or Link}"))
+							 "- %^{Titel or Link}"))
 (add-to-list 'org-capture-templates
 						 '("b" "Book to read"
 							 plain
@@ -434,6 +436,12 @@ non-empty lines in the block (excluding the line with
 				org-alert-notify-after-event-cutoff 10)
 	(org-alert-enable))
 
+
+;; org reveal for presentations
+(use-package ox-reveal
+	:ensure t
+	:config
+	(setq org-reveal-root "file:///home/mahdi/.config/emacs/reveal.js"))
 ;; (use-package org-wild-notifier
 ;;	:ensure t
 ;;   :after org
