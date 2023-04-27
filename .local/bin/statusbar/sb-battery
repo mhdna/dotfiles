@@ -7,8 +7,8 @@ for battery in /sys/class/power_supply/BAT?*; do
 	# Sets up the status and capacity
 	status="$(cat "$battery/status") "
 	capacity="$(cat "$battery/capacity" 2>&1)"
-    counter="/tmp/battery-counter"
 	# Will make a warn variable if discharging and low
+    counter="/tmp/battery-counter"
     if [ "$status" = "Discharging " ] && [ "$capacity" -le 10 ]; then
         warn="WARNING "
         i=$(cat $counter)
@@ -16,6 +16,13 @@ for battery in /sys/class/power_supply/BAT?*; do
         # i depends on how often you update the status bar
         [ -f $counter ] && [ "$i" -eq 20 ] && notify-send -u critical -t 5000 '⚠️ Battery level' "Critical: $capacity%" && echo '0' > $counter
     fi
+
+    if [ $status = "Charging" ] || [ $status = "Full" ] ; then
+        color="#00ff00"
+    else
+        color="#ff0000"
+    fi
+
 	# Prints the info
-	printf "%s%s%d%%" "$status" "$warn" "$capacity"; unset warn
+	printf "<span color=\"$color\">%s%s%d%%</span>" "$status" "$warn" "$capacity"; unset warn
 done && printf "\\n"

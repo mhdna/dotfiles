@@ -2,43 +2,19 @@ command=~/.local/bin/statusbar/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
-[record]
-command=cat /tmp/recordingicon
-interval=once
-signal=9
-color=#ffff00
-
-[xkbmon]
+[keyboard layout]
 command=xkbmon -u
 interval=persist
 
-[sb-mailbox]
-interval=once
-signal=12
-color=#ffff00
-
-[sb-music]
-label=
-interval=once
-signal=11
+[sb-forecast]
+interval=720
 
 [sb-nettraf]
 interval=2
 
-[news]
-command=cat /tmp/newsupdate
-interval=once
-signal=6
-color=#ffff00
-
 [sb-torrent]
 interval=20
 signal=7
-
-[sb-mailbox]
-interval=once
-signal=12
-color=#ffff00
 
 [sb-memory]
 interval=5
@@ -50,13 +26,33 @@ interval=5
 interval=once
 signal=10
 
+[record]
+command=cat /tmp/recordingicon
+interval=once
+signal=9
+color=#ffff00
+
+[news]
+command=cat /tmp/newsupdate
+interval=once
+signal=6
+color=#ffff00
+
+[sb-mailbox]
+interval=once
+signal=12
+color=#ffff00
+
+[sb-music]
+interval=once
+signal=11
+
+
 [sb-battery]
 interval=5
-color=#ff0000
 
 [sb-internet]
 interval=5
-color=#00ff00
 
 [sb-clock]
 interval=1
