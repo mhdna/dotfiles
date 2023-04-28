@@ -1,9 +1,11 @@
 #!/bin/sh
 
+pidof -x sb-mpdup >/dev/null 2>&1 || sb-mpdup >/dev/null 2>&1 &
+
 status=$(mpc status %state%)
 if [ $status = "playing" ]; then
     color="#00ff00"
 else
     color="#ff0000"
 fi
-echo "<span color=\"$color\">MPD-$status</span>"
+echo "<span color=\"$color\">M: $status</span>"
