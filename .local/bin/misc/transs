@@ -1,8 +1,8 @@
 #!/bin/sh
 
 tr(){
-    if [ "$1" = "arabic" ]; then
-        trans --target="$1" --speak
+    if [ "$1" = "ar" ]; then
+        trans --target="arabic" --speak
     else
         trans ar:"$1"
     fi
@@ -15,8 +15,8 @@ case "$1" in
     # xclip's clipboard clipboard
     "C")
     notify-send "$(trans --no-bidi -b --target="arabic" "$(xclip -sel c -o)")";;
-    "a") tr "arabic";;
-    "e") tr "english";;
-    "p") tr "persian";;
+    "a") tr "ar";;
+    "e") tr "en";;
+    "p") tr "pe";;
     *) exit 1;;
 esac
