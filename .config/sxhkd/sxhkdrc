@@ -1,6 +1,6 @@
 super + Return
     $TERMINAL
-    #xdo activate -dn Term || tabbed -n Term -r 2 $TERMINAL -w ''
+# xdo activate -dn Term || tabbed -n Term -r 2 $TERMINAL -w ''
 
 super + i
     xdo activate -N Tmux || $TERMINAL -c Tmux -e sh -c 'tmux a || tmux'
@@ -150,4 +150,4 @@ super + shift + z
 # For some reason sxhkd hangs when opening vim and then pressing super+shift+r
 # So keep it shift + r instead of ctrl+r
 super + shift + r
-	pkill -USR1 -x sxhkd; i3-msg reload && notify-send -u low "WM" "Reloaded Settings"
+	pkill -USR1 -x sxhkd; i3-msg reload
