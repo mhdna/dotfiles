@@ -3,12 +3,10 @@
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x/xresources & xrdbpid=$!
 xautolock -time 10 -locker 'physlock'&
 redshift -l 31.77:35.23&
-remaps &
 emacs --daemon&
 eval $TRANSMISSION_DAEMON&
-mailsync&
 
-autostart="clipmenud sxhkd mpd xbanish picom dunst pipewire"
+autostart="clipmenud sxhkd mpd xbanish picom dunst remapd"
 
 for program in $autostart; do
 	pidof -s "$program" || "$program" &
