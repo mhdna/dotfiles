@@ -2,4 +2,4 @@
 
 clock=$(date '+%I')
 
-date "+%a %Y-%m-%d %I:%M %p"
+date "+%a %Y-%m-%d %H:%M:%S"
