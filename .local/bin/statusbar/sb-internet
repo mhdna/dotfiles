@@ -26,4 +26,4 @@ else
     ethcolor="#ff0000"
 fi
 
-printf "<span color=\"$wcolor\">%s</span><span color=\"$ethcolor\">%s</span>%s\n" "W-$wifiicon$ssid" "E-$ethstatus" "$(sed "s/.*/🔒/" /sys/class/net/tun*/operstate 2>/dev/null)"
+printf "<span color=\"$wcolor\">%s</span><span color=\"$ethcolor\">%s</span>%s\n" "W: $wifiicon$ssid" "E: $ethstatus" "$(sed "s/.*/🔒/" /sys/class/net/tun*/operstate 2>/dev/null)"

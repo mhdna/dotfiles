@@ -22,5 +22,5 @@ else
     vol="$(split "$vol" ".")"
     vol="${vol##0}"
 
-    echo "VOL-$vol%"
+    echo "V: $vol%"
 fi
