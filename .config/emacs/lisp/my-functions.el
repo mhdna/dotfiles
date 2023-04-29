@@ -145,9 +145,9 @@ Version 2019-11-09"
 	;; Since we killed it, don't let caller do that.
 	nil)
 
-(defun my/config-reload ()
-(interactive)
-(eval-buffer (expand-file-name "~/.emacs.d/init.el")))
+;; (defun my/config-reload ()
+;; (interactive)
+;; (eval-buffer (expand-file-name "~/.emacs.d/init.el")))
 
 (defun my/split-term()
 	(interactive)
