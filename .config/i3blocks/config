@@ -14,39 +14,36 @@ interval=2
 
 [sb-torrent]
 interval=20
-signal=7
 
 [sb-memory]
-interval=5
+interval=10
 
 #[sb-cpu]
 #interval=5
 
 [sb-volume]
 interval=once
-signal=10
+signal=1
 
 [record]
 command=cat /tmp/recordingicon
 interval=once
-signal=9
+signal=4
 color=#ffff00
 
 [news]
 command=cat /tmp/newsupdate
 interval=once
-signal=6
+signal=3
 color=#ffff00
 
 [sb-mailbox]
 interval=once
-signal=12
+signal=2
 color=#ffff00
 
 [sb-music]
-interval=once
-signal=11
-
+interval=persist
 
 [sb-battery]
 interval=5
