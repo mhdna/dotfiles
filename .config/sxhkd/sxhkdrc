@@ -39,8 +39,11 @@ super + v
 super + shift + v
     fol pulsemixer
 
-super + BackSpace; {super + BackSpace, t}
-    transs {P,C}
+super + BackSpace; super + BackSpace
+    transs P
+
+super + shift+ BackSpace; super +shift+ BackSpace
+    transs C
 
 super + BackSpace; {a, e, p}
     fol {Transa transs a,Transe transs e,Transf transs p}
@@ -77,14 +80,11 @@ Print; S
 Print; r
     dmenurecord kill || dmenurecord
 
-XF86Audio{LowerVolume,RaiseVolume}
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}; pkill -RTMIN+10 i3blocks
+XF86Audio{Mute,LowerVolume,RaiseVolume}
+    volume {-m,-d 5,-i 5}
 
-{XF86AudioMute, super+shift+minus}
-    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; pkill -RTMIN+10 i3blocks
-
-super + { minus, equal}
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%-, 5%+}; pkill -RTMIN+10 i3blocks
+super + {shift+minus,minus,equal}
+    volume {-m,-d 5,-i 5}
 
 {_,super+ } XF86MonBrightness{Down,Up}
 	brightnessctl set {10%-, 1%, +10%, 100%}
