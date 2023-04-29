@@ -21,7 +21,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', '<leader>ld', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, opts)
+    vim.keymap.set('n', '<leader>lf', ":lua vim.lsp.buf.format()<CR>:w<CR>", opts) -- autosave on format
 end
 
 -- add completion capability
@@ -32,9 +32,10 @@ local lspconfig = require('lspconfig')
 lspconfig.ccls.setup {
     init_options = {
         cache = {
-        directory = vim.env.XDG_CACHE_HOME .. "/ccls/",
-        -- or vim.fs.normalize "~/.cache/ccls" -- if on nvim 0.8 or higher
-    } },
+            directory = vim.env.XDG_CACHE_HOME .. "/ccls/",
+            -- or vim.fs.normalize "~/.cache/ccls" -- if on nvim 0.8 or higher
+        }
+    },
     on_attach = on_attach,
     flags = lsp_flags,
 }
@@ -59,7 +60,7 @@ lspconfig.pylsp.setup {
     }
 }
 
-lspconfig.gopls.setup{
+lspconfig.gopls.setup {
     on_attach = on_attach,
     flags = lsp_flags,
 }
