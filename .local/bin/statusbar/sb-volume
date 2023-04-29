@@ -1,12 +1,5 @@
 #!/bin/sh
 
-
-# [ $(pamixer --get-mute) = true ] && echo "Muted" && exit
-
-# vol="$(pamixer --get-volume)"
-
-# echo "VOL-$vol%"
-
 vol="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
 
 if [ "$vol" != "${vol%\[MUTED\]}" ]; then
