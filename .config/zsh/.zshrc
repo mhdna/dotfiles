@@ -18,7 +18,7 @@ function git_branch_name()
 setopt prompt_subst
 
 # Config for prompt. PS1 synonym.
-prompt='%F{green}%2/ $(git_branch_name) > '
+PROMPT='%B%F{39}%n%f%F{39} (at) %F{39}%m%f %B%F{167}%B%~$(git_branch_name) %# %b%f '
 
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
@@ -76,7 +76,3 @@ edit-file () {
   file=$(fzf --height 15)
   [ -f "$file" ] && $EDITOR "$file"
 }
-
-# enable plugins
-source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

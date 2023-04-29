@@ -11,8 +11,8 @@ super + shift + i
 super + y
     fol mycli mycli -u root
 
-#super + r
-#    $BROWSER ${XDG_DOCUMENTS_DIR}/readlater
+super + o; r
+    $BROWSER ${XDG_DOCUMENTS_DIR}/readlater
 
 
 super + o; l
@@ -128,9 +128,6 @@ super + o; g
 
 super + {_,shift+,alt} backslash
     dunstctl {close-all,history-pop,set-paused toggle && notify-send "Dunst" "Is-paused: $(dunstctl is-paused)" }
-
-#super + shift + Up
-#    xwallpaper --clear; picom
 
 #super + shift + {Right,Left}
     #dpselector {1,2}
