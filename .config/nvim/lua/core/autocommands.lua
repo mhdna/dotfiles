@@ -72,7 +72,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.cmd [[
  	autocmd BufWritePre * let currPos = getpos(".")
 	autocmd BufWritePre * %s/\s\+$//e
-	" autocmd BufWritePre * %s/\n\+\%$//e
+	autocmd BufWritePre * %s/\n\+\%$//e
 	autocmd BufWritePre *.[ch] %s/\%$/\r/e
   	autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
 ]]
@@ -93,7 +93,7 @@ vim.api.nvim_create_autocmd('FileType', {
    end,
 })
 
--- autoformat
+-- -- autoformat
 -- vim.api.nvim_create_autocmd('FileType', {
 --     pattern = {'python', 'java', 'c', 'cpp', 'go'},
 --     callback = function ()
@@ -112,4 +112,3 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.keymap.set("n", "<leader>c", ":w | :split | term make build && ./output <CR>", opts)
     end,
 })
-
