@@ -14,7 +14,7 @@ for battery in /sys/class/power_supply/BAT?*; do
         i=$(cat $counter)
         echo $(( i + 1 )) > $counter
         # i depends on how often you update the status bar
-        [ -f $counter ] && [ "$i" -eq 20 ] && notify-send -u critical -t 5000 '⚠️ Battery level' "Critical: $capacity%" && echo '0' > $counter
+        [ -f $counter ] && [ "$i" -eq 20 ] && notify-send -u critical -t 5000 "Warning" "Low Battery Level: $capacity%" && echo '0' > $counter
     fi
 
     if [ $status = "Charging" ] || [ $status = "Full" ] ; then
