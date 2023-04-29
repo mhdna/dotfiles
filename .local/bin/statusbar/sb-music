@@ -1,11 +1,18 @@
 #!/bin/sh
 
-pidof -x sb-mpdup >/dev/null 2>&1 || sb-mpdup >/dev/null 2>&1 &
+print(){
+    status=$(mpc status %state%)
+    if [ $status = "playing" ]; then
+        color="#00ff00"
+    else
+        color="#ff0000"
+    fi
+    echo "<span color=\"$color\">M: $status</span>"
+}
 
-status=$(mpc status %state%)
-if [ $status = "playing" ]; then
-    color="#00ff00"
-else
-    color="#ff0000"
-fi
-echo "<span color=\"$color\">M: $status</span>"
+# print at startup instead of wating for mpc idle to update
+print
+
+while : ; do
+	mpc idle >/dev/null && print || break
+done
