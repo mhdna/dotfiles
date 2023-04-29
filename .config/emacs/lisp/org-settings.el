@@ -187,6 +187,11 @@ non-empty lines in the block (excluding the line with
 	;; (org-link-open-from-string "[[*Today]]")
 	;; (goto-char (org-find-exact-headline-in-buffer "Today"))
 	)
+
+(defun my/notes-open()
+	(interactive)
+	(find-file org-directory))
+
 (defun my/org-goto()
 	(interactive)
 	(let ((org-goto-interface 'outline-path-completion)) (org-goto))

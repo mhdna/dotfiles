@@ -48,7 +48,6 @@
 		(kbd "SPC S")			 'delete-trailing-whitespace
 		(kbd "SPC t")			 'shell
 		(kbd "SPC u")			 'undo-tree-visualize
-		;; (kbd "SPC w")			 'save-buffer
 		(kbd "SPC M")			 'make-frame
 		(kbd "SPC W")			 'write-file
 		(kbd "SPC O")			 'browse-url-xdg-open
@@ -70,7 +69,8 @@
 		(kbd "SPC i")			 'consult-imenu
 		(kbd "SPC D")			 'my/diary-file-open
 		(kbd "SPC t")			 'org-capture-todo
-		(kbd "SPC aa")			 'my/agenda
+		(kbd "SPC aa")		 'my/agenda
+		(kbd "SPC n")			 'my/notes-open
 		(kbd "SPC H")			 'mark-whole-buffer
 		;; (kbd "SPC R")	 'load-file user-init-file
 )
