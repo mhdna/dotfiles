@@ -36,17 +36,6 @@ showweather() {
 	printf "P:%s L:%s° H:%s°\n" "$(getprecipchance)" $(getdailyhighlow)
 }
 
-case $BLOCK_BUTTON in
-	# 1) setsid -f "$TERMINAL" -e less -Srf "$weatherreport" ;;
-	2) getforecast && showweather ;;
-	3) notify-send "Weather module" "\- Left click for full forecast.
-- Middle click to update forecast.
-P: Percipitation chance (rain/snow)
-L: Daily low
-H: Daily high" ;;
-	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
-esac
-
 checkforecast || getforecast
 
 showweather
