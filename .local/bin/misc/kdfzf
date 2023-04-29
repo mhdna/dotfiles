@@ -1,7 +1,9 @@
 #!/bin/sh
 
+# Description:
 # Send files to a connected kdeconnect device
 
+! pidof kdeconnectd  && setsid -f /usr/lib/kdeconnectd >/dev/null 2>&1
 
 kdeconnect-cli --refresh
 
@@ -11,5 +13,3 @@ chosen="$(kdeconnect-cli -a | fzf)"
 id="$(echo "$chosen" | awk '{print $3}')"
 
 kdeconnect-cli --device  "$id" --share "$@" || notify-send '📱 Kdeconnect' 'Sending has failed'
-
-
