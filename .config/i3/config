@@ -214,7 +214,6 @@ client.background       #242424
 # client.unfocused        #291818 #4D2D2D #AFAFAF #292D2E #222222
 
 
-
 #workspaces
 bindsym $mod+semicolon workspace next
 bindsym $mod+g workspace prev
@@ -240,14 +239,14 @@ bindsym $mod+Next               workspace next
 # Rules
 for_window [class="$browser_class"] move workspace 2
 for_window [class="TelegramDesktop"] move workspace 3
-for_window [class="Soffice"] move workspace 5
 for_window [class="GIMP Startup"] move workspace 5
 for_window [class="Gimp"] move workspace 5
 for_window [class="Blender"] move workspace 5
 for_window [class="jetbrains-idea-ce"] move workspace 6
 for_window [class="Eclipse"] move workspace 6
-# for_window [class="LibreOffice"] move workspace 6
-# for_window [title="LibreOffice"] move workspace 6
+for_window [class="LibreOffice"] move workspace 6
+for_window [title="LibreOffice"] move workspace 6
+for_window [class="Soffice"] move workspace 6
 for_window [class="java-util-concurrent-ForkJoinWorkerThread"] move workspace 6
 # for_window [class="Nsxiv"] floating enable
 # for_window [class="Arandr"] floating enable
@@ -258,11 +257,6 @@ for_window [class="Dragon"] sticky enable
 # for_window [class="feh"] fullscreen enable
 for_window [class="mpvfloat"] floating enable; sticky enable; border pixel 0
 no_focus [class="mpvfloat"]
-
-for_window [class="dropdown_*"] floating enable
-for_window [class="dropdown_*"] move scratchpad
-for_window [class="dropdown_*"] sticky enable
-for_window [class="dropdown_*"] scratchpad show
 
 # Startup Programs - Autostart
 exec --no-startup-id alttab -w 1 -bg "#1d1d1d"
