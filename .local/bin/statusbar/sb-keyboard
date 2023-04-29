@@ -1,5 +1,7 @@
 #!/bin/sh
 
+pidof -x sb-keyboard >/dev/null 2>&1 || sb-keyboard -d >/dev/null 2>&1&
+
 daemon(){
     xkbmon -u |
     while read -r line; do
