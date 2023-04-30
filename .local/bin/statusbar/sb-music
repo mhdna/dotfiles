@@ -13,6 +13,6 @@ print(){
 }
 
 case $BLOCK_BUTTON in
-	1) mpc toggle;;
+	3) mpc toggle;;
     *) print ;;
 esac
