@@ -59,6 +59,7 @@ export FZF_DEFAULT_OPTS='--reverse'
 export PATH="$PATH:$(find $HOME/.local/bin/ -type d -printf ":%p" ):$NPM_PATH/bin:$GOPATH/bin:$CARGO_HOME/bin:$JAVA_HOME/bin"
 
 pipewire >/dev/null 2>&1&
+! pidof mpd && mpd >/dev/null 2>&1&
 
 # Start graphical server on user's current tty if not already running and put the outputs into ~/.local/share/xorg/
 [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
