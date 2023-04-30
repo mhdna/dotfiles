@@ -43,7 +43,8 @@ signal=2
 color=#ffff00
 
 [sb-music]
-interval=persist
+interval=once
+signal=5
 
 [sb-battery]
 interval=5
