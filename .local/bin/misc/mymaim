@@ -41,7 +41,7 @@ copy () {
 
 maimsel="maim -u -s"
 maimwin="maim -q -u -d 0.2 -i $(xdotool getactivewindow)"
-maimful="maim -q -d 0.2"
+maimful="maim -q -u -d 0.2"
 
 case "$1" in
     "s") $maimsel "${output}" pic-selected- && copy && success;;
@@ -54,5 +54,3 @@ case "$1" in
     # "cF") freeze c;;
     *) exit 1;;
 esac
-
-
