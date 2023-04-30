@@ -71,8 +71,8 @@ super + n
 super + shift + n
     fol ncmpcpp bicon -e ncmpcpp
 
-{_,shift+} Print; {a, s, w}
-    mymaim { ,c}{a,s,w}
+{_,shift+} Print; {f, s, w}
+    mymaim { ,c}{f,s,w}
 
 Print; S
     flameshot gui
@@ -81,10 +81,10 @@ Print; r
     dmenurecord kill || dmenurecord
 
 XF86Audio{Mute,LowerVolume,RaiseVolume}
-    volume {-m,-d 5,-i 5}
+    volume {-t,-d 5,-i 5}
 
 super + {shift+minus,minus,equal}
-    volume {-m,-d 5,-i 5}
+    volume {-t,-d 5,-i 5}
 
 {_,super+ } XF86MonBrightness{Down,Up}
 	brightnessctl set {10%-, 1%, +10%, 100%}
