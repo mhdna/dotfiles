@@ -37,12 +37,11 @@ return packer.startup(function(use)
     --         require('gitsigns').setup()
     --     end
     -- }
-    use ("nvim-lualine/lualine.nvim")
-    use("tomasr/molokai")
+    -- use ("nvim-lualine/lualine.nvim")
     use("ellisonleao/gruvbox.nvim")
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
-    use("windwp/nvim-autopairs") -- similar to rainbow parameters
+    -- use("windwp/nvim-autopairs") -- similar to rainbow parameters
     -- LSP
     use("neovim/nvim-lspconfig")
     use("mfussenegger/nvim-jdtls")
@@ -76,13 +75,13 @@ return packer.startup(function(use)
         requires = { { "nvim-lua/plenary.nvim" } }
     }
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
-    -- use({
-    --     "kylechui/nvim-surround",
-    --     tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-    --     config = function()
-    --         require("nvim-surround").setup({})
-    --     end
-    -- })
+    use({
+        "kylechui/nvim-surround",
+        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup({})
+        end
+    })
     -- nvim align
     use("junegunn/vim-easy-align")
     -- Debug
