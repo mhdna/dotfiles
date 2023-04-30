@@ -29,7 +29,10 @@ user_pref("privacy.window.maxInnerHeight", 700);
 user_pref("full-screen-api.warning.timeout", 0);
 // no smooth scrolling
 user_pref("general.smoothScroll", false);
-
+// This could otherwise cause some issues on bank logins and other annoying sites:
+user_pref("network.http.referer.XOriginPolicy", 0);
+// Fix the issue where right mouse button instantly clicks
+user_pref("ui.context_menus.after_mouseup", true);
 // /* Zoom compatibility settings */
 // user_pref("media.peerconnection.enabled", true); // 2001
 // user_pref("media.peerconnection.ice.no_host", false); // 2001 [may or may not be required]
