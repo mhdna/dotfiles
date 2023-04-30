@@ -9,9 +9,17 @@ configure(){
     usermod -a -G no-internet $USER
     iptables -I OUTPUT 1 -m owner --gid-owner no-internet -j DROP # drop network activity for group no-internet
     '
+    sudo iptables-save | sudo tee /etc/iptables/iptables.rules
+}
+
+help(){
+    echo "Usage:
+          -c configure
+          *  run software with no-internet"
 }
 
 case "$1" in
-    "configure") configure;;
+    "-c") configure;;
+    "-h") help;;
     *) sg no-internet "$@";;
 esac
