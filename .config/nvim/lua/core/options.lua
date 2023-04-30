@@ -7,7 +7,7 @@ vim.opt.pumheight= 15
 vim.opt.pumwidth= 15
 -- vim.opt.foldmethod = 'marker' -- Enable folding (default 'foldmarker')
 -- always use a block shaped cursor
--- vim.o.guicursor = true
+vim.o.guicursor = true
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true -- Autoindent new lines
 vim.opt.hidden = true -- Enable background buffers
@@ -30,7 +30,7 @@ vim.o.hlsearch   = false -- Do not keep the previous search occurance highlighte
 vim.o.number = true
 vim.wo.relativenumber = true
 vim.o.scrolloff = 8
-vim.opt.termguicolors = true -- Enable 24-bit RGB colors
+-- vim.opt.termguicolors = true -- Enable 24-bit RGB colors
 vim.opt.linebreak = false
 vim.bo.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -47,7 +47,7 @@ vim.o.encoding = "utf-8"
 -- Show full path in status line
 -- vim.o.statusline="%F"
 
-vim.o.autochdir = true
+-- vim.o.autochdir = true
 -- Tab command mode completion
 -- vim.o.wildmode = longest,list,full
 
