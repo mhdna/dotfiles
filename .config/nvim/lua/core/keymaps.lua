@@ -6,12 +6,12 @@ func! ToggleArabic()
 if &rl
     set norl
     set keymap=
-    set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
+    " set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 else
     set rl
     set keymap=arabic
     set arabicshape
-    set guicursor=
+    " set guicursor=
     " set nospell
 end
 endfunc
@@ -56,6 +56,7 @@ vim.keymap.set('n', '<Down>', '<c-w>-', opts)
 vim.keymap.set('n', '<Left>', '<c-w><', opts)
 vim.keymap.set('n', '<Right>', '<c-w>>', opts)
 
+-- vim.keymap.set('n', '<leader>w', ':w<CR>', opts)
 vim.keymap.set('n', '<leader>c', ':w! | !compiler "<c-r>%"<CR>', opts)
 vim.keymap.set('n', '<leader>o', ':!opout <c-r>%<CR><CR>', opts)
 
@@ -64,21 +65,21 @@ vim.keymap.set('n', '<leader>e', ':Explore<CR>', opts)
 vim.keymap.set('n', 'yp', '<cmd>let @+ = expand("%")<cr>', opts)
 vim.keymap.set('n', 'yP', '<cmd>let @+ = expand("%:p")<cr>', opts)
 -- kill buffer
-vim.keymap.set ('n', '<leader>k', '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>', opts)
+-- vim.keymap.set ('n', '<leader>k', '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>', opts)
 -- open a new term split
 -- TODO: focus term or open
-vim.keymap.set('n', '<leader>t', ':split | term<CR>5<c-w>-i', opts)
+-- vim.keymap.set('n', '<leader>t', ':split | term<CR>5<c-w>-i', opts)
 -- exit terminal mode with escape
 vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', opts)
 -- move around splits
-vim.keymap.set('', '<C-h>', '<C-w>h', opts)
-vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h:<Esc>', opts)
-vim.keymap.set('', '<C-j>', '<C-w>j', opts)
-vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j:<Esc>', opts)
-vim.keymap.set('', '<C-k>', '<C-w>k', opts)
-vim.keymap.set('t', '<C-k>', '<C-\\><C-N>|<C-w>k:<Esc>', opts)
-vim.keymap.set('', '<C-l>', '<C-w>l', opts)
-vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l:<Esc>', opts)
+-- vim.keymap.set('', '<C-h>', '<C-w>h', opts)
+-- vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h:<Esc>', opts)
+-- vim.keymap.set('', '<C-j>', '<C-w>j', opts)
+-- vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j:<Esc>', opts)
+-- vim.keymap.set('', '<C-k>', '<C-w>k', opts)
+-- vim.keymap.set('t', '<C-k>', '<C-\\><C-N>|<C-w>k:<Esc>', opts)
+-- vim.keymap.set('', '<C-l>', '<C-w>l', opts)
+-- vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l:<Esc>', opts)
 -- Emacs-like bindings for managing splits
 -- vim.keymap.set('', '<A-0>', '<cmd>close<Cr>', opts)
 -- vim.keymap.set('', '<A-1>', '<C-w>o', opts)
@@ -109,3 +110,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
 vim.keymap.set('n', '<leader>x', "<cmd>w<CR><cmd>so %<CR>", {noremap = true, buffer = bufnr})
 vim.keymap.set('n', '<leader>X', "<cmd>!chmod +x %<CR>", {noremap = true, buffer = bufnr})
+
+-- little fix for luasnip exiting insert mode when pressing backspace
+-- https://github.com/L3MON4D3/LuaSnip/issues/622
+vim.keymap.set('s','<BS>', '<C-O>s')
