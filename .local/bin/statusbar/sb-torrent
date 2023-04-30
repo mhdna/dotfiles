@@ -1,4 +1,8 @@
 #!/bin/sh
+#
+case $BLOCK_BUTTON in
+	3) setsid -f "$TERMINAL" -e torwrap ;;
+esac
 
 transmission-remote -l | grep % |
     sed " # The letters are for sorting and will not appear.

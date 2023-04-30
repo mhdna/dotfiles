@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+case $BLOCK_BUTTON in
+	3) setsid -f "$TERMINAL" -e nmtui ;;
+esac
+
 ssid=$(if=wlan0
 		while IFS=$': \t' read -r label value
 		do
