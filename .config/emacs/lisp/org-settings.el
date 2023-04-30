@@ -286,7 +286,7 @@ non-empty lines in the block (excluding the line with
 							 "* TODO [#%^{Priority (A-B-C)}] %?\n"))
 (add-to-list 'org-capture-templates
 						 '("Q" "Quote"
-							 entry
+							 plain
 							 (file "quotes.org")
 							 "- %?\n"))
 ;; (add-to-list 'org-capture-templates
