@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 
 
 -- Only Enable for certain filetypes
-cmp.setup.filetype({ 'c', 'cpp', 'java', 'python', 'javascript', 'go', 'sql', 'mysql' }, {
+cmp.setup.filetype({ 'c', 'cpp', 'java', 'python', 'javascript', 'go', 'sql', 'mysql', 'html', 'css' }, {
     enabled = function()
         -- disable completion in comments
         local context = require 'cmp.config.context'
