@@ -1,0 +1,16 @@
+[global]
+    font = Mono 9
+    monitor = 0
+    follow = keyboard
+    padding = 2
+    horizontal_padding = 2
+    enable_recursive_icon_lookup = true
+
+[urgency_low]
+    timeout = 10
+
+[urgency_normal]
+    timeout = 10
+
+[urgency_critical]
+    timeout = 15
