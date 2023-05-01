@@ -33,11 +33,11 @@ duck () {
 }
 
 yta () {
-    yt-dlp --remux-video ogg -f bestaudio/best --write-thumbnail --external-downloader aria2c -P $(find $XDG_MUSIC_DIR -maxdepth 2 -type d | fzf) $@
+    yt-dlp --remux-video ogg -f bestaudio/best --write-thumbnail --external-downloader aria2c -P $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -i "music" | fzf) $@
 }
 
 yt () {
-    yt-dlp -f 22 --external-downloader aria2c --write-thumbnail --add-metadata -ic -P $(find $XDG_VIDEOS_DIR -maxdepth 2 -type d | fzf) $@
+    yt-dlp -f 22 --external-downloader aria2c --write-thumbnail --add-metadata -ic -P $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -i "vid" | fzf) $@
 }
 
 configa(){
