@@ -3,7 +3,7 @@
 # Description:
 # Send files to a connected kdeconnect device
 
-! pidof kdeconnectd  && setsid -f /usr/lib/kdeconnectd >/dev/null 2>&1
+! pidof kdeconnectd  && setsid -f /usr/lib/kdeconnectd >/dev/null 2>&1 && sleep 2
 
 kdeconnect-cli --refresh
 
