@@ -30,7 +30,11 @@ return packer.startup(function(use)
     use("hrsh7th/cmp-path") -- path completions
     use("saadparwaiz1/cmp_luasnip") -- snippet completions
     use("hrsh7th/cmp-nvim-lsp")
-    use("hrsh7th/cmp-nvim-lua")
+    use{ "norcalli/nvim-colorizer.lua",
+        config = function()
+            require 'colorizer'.setup ()
+        end
+    }
     -- use {
     --     "lewis6991/gitsigns.nvim",
     --     config = function()
