@@ -1,5 +1,11 @@
 #!/bin/sh
 
+case $BLOCK_BUTTON in
+	2) brightnessctl set 1% >/dev/null 2>&1 ;;
+	4) brightnessctl set 5%+ >/dev/null 2>&1 ;;
+	5) brightnessctl set 5%- >/dev/null 2>&1 ;;
+esac
+
 # Loop through all attached batteries and format the info
 for battery in /sys/class/power_supply/BAT?*; do
 	# If non-first battery, print a space separator.
