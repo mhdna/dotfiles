@@ -9,6 +9,9 @@ super + shift + i
     xdo activate -dN Emacs || emacsclient -c -e '(my/set-arabic-font)'
 
 super + y
+    fol g idea
+
+super + shift + y
     fol mycli mycli -u root
 
 super + o; r
@@ -39,16 +42,13 @@ super + v
 super + shift + v
     fol pulsemixer
 
-super + BackSpace; super + BackSpace
-    transs P
+super + backslash; {_,super+} backslash
+    transs {C,P}
 
-super + shift+ BackSpace; super +shift+ BackSpace
-    transs C
-
-super + BackSpace; {a, e, p}
+super + backslash; {a, e, p}
     fol {Transa transs a,Transe transs e,Transf transs p}
 
-super + BackSpace; {s,S}
+super + backslash; {s,S}
     {fol sdcv,$TERMINAL -e sdcv $(xclip -o)}
 
 super + a
@@ -93,7 +93,7 @@ super + {_,shift+ }{comma,period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
 
 super + {_, shift+ }F1
-    {kdeconnect-indicator ; kdeconnect-cli --refresh, killall kdeconnect-indicator; sleep 1&& killall kdeconnectd }
+    {kdeconnect-indicator;! pidof kdeconnectd  && /usr/lib/kdeconnectd; kdeconnect-cli --refresh, killall kdeconnect-indicator; sleep 1&& killall kdeconnectd }
 
 super + {_, shift+ }F2
     redshift {-O 5000,-x}
@@ -126,11 +126,14 @@ super + o; e
 super + o; g
     nsxiv -N pdfgallery -t ~/.cache/pdfgallery/*.jpg
 
-super + {_,shift+,alt} backslash
+super + {_,shift+,alt} BackSpace
     dunstctl {close-all,history-pop,set-paused toggle && notify-send "Dunst" "Is-paused: $(dunstctl is-paused)" }
 
 #super + shift + {Right,Left}
     #dpselector {1,2}
+
+super + o; C
+    colorpicker
 
 super + ctrl + x
     xkill
@@ -146,5 +149,5 @@ super + shift + z
 
 # For some reason sxhkd hangs when opening vim and then pressing super+shift+r
 # So keep it shift + r instead of ctrl+r
-super + shift + r
-	pkill -USR1 -x sxhkd; i3-msg reload
+# super + ctrl + r
+# 	pkill -USR1 -x sxhkd; i3-msg reload

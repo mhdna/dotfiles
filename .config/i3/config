@@ -37,7 +37,7 @@ bindsym button3 floating toggle
 
 
 # start a terminal
-#bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec i3-sensible-terminal
 #bindsym $mod+Return exec $term
 # bindsym $mod+Return exec --no-startup-id $term
 
@@ -129,6 +129,7 @@ bindsym $mod+Shift+9 move container to workspace 9; workspace 9
 
 # reload the configuration file
 bindsym $mod+Control+Shift+r restart
+bindsym $mod+Control+r reload; exec mysxhkd
 # bindsym $mod+Control+r reload
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Control+q exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
@@ -238,15 +239,15 @@ bindsym $mod+Next               workspace next
 
 # Rules
 for_window [class="$browser_class"] move workspace 2
-for_window [class="TelegramDesktop"] move workspace 3
-for_window [class="GIMP Startup"] move workspace 5
-for_window [class="Gimp"] move workspace 5
-for_window [class="Blender"] move workspace 5
-for_window [class="jetbrains-idea-ce"] move workspace 6
-for_window [class="Eclipse"] move workspace 6
+# for_window [class="TelegramDesktop"] move workspace 3
+# for_window [class="Blender"] move workspace 5
+# for_window [class="Eclipse"] move workspace 6
 for_window [class="libreoffice"] move workspace 6
 for_window [class="Soffice"] move workspace 6
-for_window [class="java-util-concurrent-ForkJoinWorkerThread"] move workspace 6
+for_window [class="GIMP Startup"] move workspace 6
+for_window [class="Gimp"] move workspace 6
+# for_window [class="jetbrains-idea-ce"] move workspace 5
+# for_window [class="java-util-concurrent-ForkJoinWorkerThread"] move workspace 5
 # for_window [class="Nsxiv"] floating enable
 # for_window [class="Arandr"] floating enable
 # for_window [title="Arandr"] floating enable
