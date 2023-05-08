@@ -19,7 +19,7 @@ map p print
 map g goto top
 
 # unmap q
-# set scroll-step 70
+set scroll-step 100
 
 map b toggle_statusbar
 map <C-n> navigate next

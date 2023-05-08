@@ -8,4 +8,4 @@ done
 
 # OR
 
-find . -type f -iname "*.webm" -exec bash -c 'FILE="$1"; ffmpeg -i "${FILE}" -vn -y "${FILE%.webm}.ogg";' _ '{}' \;
+# find . -type f -iname "*.webm" -exec bash -c 'FILE="$1"; ffmpeg -i "${FILE}" -vn -y "${FILE%.webm}.ogg";' _ '{}' \;
