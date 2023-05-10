@@ -33,11 +33,11 @@ duck () {
 }
 
 yta () {
-    yt-dlp --remux-video ogg -f bestaudio/best --write-thumbnail --external-downloader aria2c -P $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -i "music" | fzf) $@
+    yt-dlp --remux-video ogg -f bestaudio/best --write-thumbnail  --convert-thumbnails jpg --external-downloader aria2c -P $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -i "music" | fzf) $@
 }
 
 yt () {
-    yt-dlp -f 22 --external-downloader aria2c --write-thumbnail --add-metadata -ic -P $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -i "vid" | fzf) $@
+    yt-dlp -f 22 --external-downloader aria2c --write-thumbnail  --convert-thumbnails jpg --add-metadata -ic -P $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -i "vid" | fzf) $@
 }
 
 configa(){
@@ -98,3 +98,4 @@ alias \
     ka="killall" \
     trem="transmission-remote" \
     z="zathura" \
+    c="countdown" \

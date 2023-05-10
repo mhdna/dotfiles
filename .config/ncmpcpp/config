@@ -15,3 +15,4 @@ use_console_editor = yes
 screen_switcher_mode = browser, playlist
 search_engine_default_search_mode = 2
 browser_sort_mode = mtime
+execute_on_song_change = mpd-notify
