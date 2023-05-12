@@ -12,7 +12,7 @@ set incsearch on
 set sortby ctime
 set info size
 set mouse on
-set autoquit on
+set autoquit true
 
 cmd mkfile $$EDITOR -p "$(echo $* | tr ' ' '\ ')"
 
