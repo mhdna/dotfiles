@@ -81,6 +81,9 @@
 		(kbd "SPC A") 'my/mark-done-and-archive
 		(kbd "SPC i")				 'my/org-goto
 		(kbd "SPC E")				 'org-export-dispatch
+		(kbd "SPC xi")				 'org-clock-in
+		(kbd "SPC xo")				 'org-clock-out
+		(kbd "SPC xx")				 'org-clock-display
 		)
 
 	(evil-define-key '(normal visual) web-mode-map
