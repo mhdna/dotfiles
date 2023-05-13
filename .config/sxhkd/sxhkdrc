@@ -14,7 +14,7 @@ super + y
 super + shift + y
     fol mycli mycli -u root
 
-super + o; r
+super + shift + r
     $BROWSER ${XDG_DOCUMENTS_DIR}/readlater
 
 
@@ -52,7 +52,7 @@ super + backslash; {s,S}
     {fol sdcv,$TERMINAL -e sdcv $(xclip -o)}
 
 super + a
-    xdo activate -N agenda || $TERMINAL -c todo -e emacsclient -nw -e '(my/set-arabic-font)' -e '(my/agenda)'
+    i3-msg "[class="todo"] scratchpad show" || $TERMINAL -c todo -e emacsclient -nw -e '(my/set-arabic-font)' -e '(my/agenda)'
 #super + o; a
     #xdo activate -N agenda || $TERMINAL -c agenda -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
 super + shift + a

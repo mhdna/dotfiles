@@ -256,6 +256,7 @@ for_window [class="xev"] floating enable
 for_window [class="Dragon"] sticky enable
 # for_window [class="feh"] fullscreen enable
 for_window [class="mpvfloat"] floating enable; sticky enable; border pixel 0
+for_window [class="todo"] move scratchpad; scratchpad show
 no_focus [class="mpvfloat"]
 
 # Startup Programs - Autostart
