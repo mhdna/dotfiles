@@ -6,12 +6,12 @@ set icons
 set period 1
 set cleaner '~/.config/lf/cleaner'
 set previewer '~/.config/lf/scope'
-set reverse on
-set globsearch on
-set incsearch on
+set reverse true
+set globsearch true
+set incsearch true
 set sortby ctime
 set info size
-set mouse on
+set mouse true
 set autoquit true
 
 cmd mkfile $$EDITOR -p "$(echo $* | tr ' ' '\ ')"
