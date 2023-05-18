@@ -29,7 +29,7 @@
 (require 'init-dev)
 (require 'org-settings)
 (require 'init-evil)
-;; (require 'lsp-stuff)
+(require 'lsp-stuff)
 ;; (require 'eglot-stuff)
 
 ;; Don't clutter my folders
@@ -132,13 +132,16 @@
 ;; (set-foreground-color "black")
 ;; (set-background-color "white")
 ;; (set-cursor-color "black")
-(use-package gruvbox-theme
-	:ensure t
-	:config
-	(load-theme 'gruvbox-dark-hard t))
+;; disable blinking cursor
+(blink-cursor-mode -1)
+;; (use-package gruvbox-theme
+;;	:ensure t
+;;	:config
+;;	(load-theme 'gruvbox-dark-hard t))
 ;; Set up the visible bell
 ;; (setq visible-bell 1)
 ;; (global-display-line-numbers-mode 1)
+(global-visual-line-mode 1)
 ;; (global-hl-line-mode 1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -152,9 +155,9 @@
 (setq dictionary-server "dict.org")
 
 ;; Font settings
-(set-face-attribute 'default nil :font "monospace" :height 115)
+(set-face-attribute 'default nil :font "monospace" :height 120)
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Sans" :height 115 :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "Sans" :height 120 :weight 'regular)
 (set-fontset-font t 'arabic "DejaVu Sans Mono")
 (set-fontset-font t nil "monospace" nil 'append)
 (setq my/font-change-increment 1.1)
@@ -305,6 +308,22 @@
 	:ensure nil
 	:hook (before-save . whitespace-cleanup))
 
+(use-package minions
+	:ensure t
+:demand t
+
+:custom
+(minions-mode-line-delimiters (cons "" ""))
+
+:config
+(defun +set-minions-mode-line-lighter ()
+		(setq minions-mode-line-lighter
+				(if (display-graphic-p) "" )))
+
+		(add-hook 'server-after-make-frame-hook '+set-minions-mode-line-lighter)
+
+		(minions-mode 1))
+
 ;; (use-package which-key
 ;;	:ensure t
 ;;	:config
@@ -323,13 +342,13 @@
 ;;								"Compilation finished in Emacs"
 ;;								status))
 
-;; ;; Javascript
-;; (use-package js2-mode
-;;   :ensure t)
-;; ;; set as the default mode for javascript
-;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-;; (use-package js2-refactor
-;;   :ensure t)
+;; Javascript
+(use-package js2-mode
+	:ensure t)
+;; set as the default mode for javascript
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(use-package js2-refactor
+	:ensure t)
 
 ;; (setq-default indent-tabs-mode nil)
 
