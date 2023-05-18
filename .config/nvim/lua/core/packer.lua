@@ -25,16 +25,30 @@ end
 return packer.startup(function(use)
     -- improve startup times
     use("lewis6991/impatient.nvim")
-    use("hrsh7th/nvim-cmp") -- The completion plugin
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v2.x',
+        requires = {
+            -- LSP Support
+            {'neovim/nvim-lspconfig'},             -- Required
+            {                                      -- Optional
+            'williamboman/mason.nvim',
+            run = function()
+                pcall(vim.cmd, 'MasonUpdate')
+            end,
+        },
+        {'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+    -- Autocompletion
+    {'hrsh7th/nvim-cmp'},     -- Required
+    {'hrsh7th/cmp-nvim-lsp'}, -- Required
+    {'L3MON4D3/LuaSnip'},     -- Required
+  }
+}
     use("hrsh7th/cmp-buffer") -- buffer completions
     use("hrsh7th/cmp-path") -- path completions
-    use("saadparwaiz1/cmp_luasnip") -- snippet completions
-    use("hrsh7th/cmp-nvim-lsp")
-    use{ "norcalli/nvim-colorizer.lua",
-        config = function()
-            require 'colorizer'.setup ()
-        end
-    }
+    use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
+    -- use("saadparwaiz1/cmp_luasnip") -- snippet completions
     -- use {
     --     "lewis6991/gitsigns.nvim",
     --     config = function()
@@ -45,9 +59,8 @@ return packer.startup(function(use)
     use("ellisonleao/gruvbox.nvim")
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
-    -- use("windwp/nvim-autopairs") -- similar to rainbow parameters
+    use("windwp/nvim-autopairs") -- similar to rainbow parameters
     -- LSP
-    use("neovim/nvim-lspconfig")
     use("mfussenegger/nvim-jdtls")
     use {
         'nvim-treesitter/nvim-treesitter',
@@ -55,19 +68,12 @@ return packer.startup(function(use)
     }
     use("JoosepAlviste/nvim-ts-context-commentstring")
     use("romgrk/nvim-treesitter-context")
-    use("L3MON4D3/LuaSnip")
-    use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
     use {
         "numToStr/Comment.nvim",
         config = function()
             require("Comment").setup(
                 { ignore = "^$" }
             )
-        end
-    }
-    use { "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup()
         end
     }
     use("mbbill/undotree")
