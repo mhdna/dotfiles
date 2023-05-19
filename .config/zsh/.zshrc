@@ -52,7 +52,6 @@ bindkey \^U backward-kill-line
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^[e' edit-command-line
 bindkey -s "^[a" 'configa\n'
-bindkey -s "^[c" 'bc -lq\n'
 bindkey -s '^[p' 'edit-file\n'
 bindkey -s '^[o' 'lfcd\n'
 bindkey -s '^[j' 'bdjump\n'
