@@ -279,10 +279,10 @@ cmd Search-back :{{
     push **<c-b>
 }}
 
-cmd Refresh :{{
-    &shortcuts
-    source ~/.config/lf/shortcutrc
-    echo refreshing
+cmd Refresh &{{
+    shortcuts &&
+    lf -remote "send $id source ~/.config/lf/shortcutrc" &&
+    lf -remote "send $id echo Refreshed"
 }}
 
 # KeyBindings
@@ -362,7 +362,7 @@ map ss %stripspace "$f"
 #dragon
 map d
 map dd cut
-map dr %dragon-drop --and-exit -a $fx
+map dr &dragon-drop --and-exit -a $fx
 map dm %mvdragon
 map dc %cpdragon
 map dl %dlfile
