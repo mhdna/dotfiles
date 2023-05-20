@@ -226,7 +226,7 @@ non-empty lines in the block (excluding the line with
 			(execute-kbd-macro (kbd "vaW")))
 	(org-emphasize))
 
-(defvar org-capture-templates '())
+;; (defvar org-capture-templates '())
 (setq org-capture-templates
 			(quote (("s" "Schedule"
 							 plain
@@ -317,7 +317,7 @@ non-empty lines in the block (excluding the line with
 							("M" "Movie"
 							 plain
 							 (file "movies.org")
-							 "* %^{Title} -- %t\n** Review\n%?\n** Quotes\n")
+							 "* %^{Title} -- %t\n** Review\nStars: %^{Stars (out of 10)}/10\nDegeneracy: %^{Degeneracy (out of 10)}/10\n%?\n** Quotes\n")
 							("d" "Advice"
 							 plain
 							 (file "advice.org")
@@ -325,23 +325,23 @@ non-empty lines in the block (excluding the line with
 							("e" "English word"
 							 plain
 							 (file+headline "language.org" "English Words")
-							 "- %^{Word}: %^{Meaning}")
+							 "- %^{Word}\n\t: %^{Meaning}")
 							("E" "English phrase"
 							 plain
 							 (file+headline "language.org" "English Phrases")
-							 "- %^{Phrase}: %^{Meaning}")
+							 "- %^{Phrase}\n\t: %^{Meaning}")
 							("I" "Idiom"
 							 plain
 							 (file+headline "language.org" "Idioms")
-							 "- %^{Idiom}: %^{Meaning}")
+							 "- %^{Idiom}\n\t: %^{Meaning}")
 							("f" "Farsi word"
 							 plain
 							 (file+headline "language.org" "Farsi Words")
-							 "- %^{Word}: %^{Meaning}")
+							 "- %^{Word}\n\t: %^{Meaning}")
 							("F" "Farsi phrase"
 							 plain
 							 (file+headline "language.org" "Farsi Phrases")
-							 "- %^{Phrase}: %^{Meaning}")
+							 "- %^{Phrase}\n\t: %^{Meaning}")
 							("a" "Arabic word"
 							 item
 							 (file+headline "language.org" "Arabic Words")
