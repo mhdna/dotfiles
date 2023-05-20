@@ -8,8 +8,8 @@ configure(){
     groupadd no-internet
     usermod -a -G no-internet $USER
     iptables -I OUTPUT 1 -m owner --gid-owner no-internet -j DROP # drop network activity for group no-internet
+    iptables-save >> /etc/iptables/iptables.rules
     '
-    sudo iptables-save | sudo tee /etc/iptables/iptables.rules
 }
 
 help(){
