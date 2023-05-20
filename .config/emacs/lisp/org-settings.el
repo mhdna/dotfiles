@@ -174,6 +174,16 @@ non-empty lines in the block (excluding the line with
 				(delete-region (point) (1+ (point-at-eol))))))
 	(setq buffer-read-only t))
 (add-hook 'org-agenda-finalize-hook #'my/org-agenda-delete-empty-blocks)
+
+;; Remove empty LOGBOOK drawers on clock out
+(defun my/remove-empty-drawer-on-clock-out ()
+	(interactive)
+	(save-excursion
+		(beginning-of-line 0)
+		(org-remove-empty-drawer-at "LOGBOOK" (point))))
+
+(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+
 (defun my/agenda ()
 	(interactive)
 	(call-process-shell-command "daily-checklist")
@@ -216,19 +226,36 @@ non-empty lines in the block (excluding the line with
 			(execute-kbd-macro (kbd "vaW")))
 	(org-emphasize))
 
-(add-to-list 'org-agenda-custom-commands
-						 '("w" "Writing prompts"
+(defvar org-capture-templates '())
+(setq org-capture-templates
+			(quote (("s" "Schedule"
+							 plain
+							 (file+headline org-index-file "Index")
+							 "** %?\n   SCHEDULED: %t\n")
+							("t" "todo"
+									entry
+									(file+headline org-index-file "Index")
+									"* TODO [#%^{Priority (A-B-C)}] %?\n")
+							;; http://doc.norang.ca/org-mode.html#CaptureTemplates
+							("T" "todo+refile" entry (file+headline org-index-file "Index")
+							 "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+							("m" "Media queue"
+							 item
+							 (file+headline "media.org" "Index")
+							 "- [ ] %?\n")
+							("n" "News item"
+							 entry
+							 (file "news.org")
+							 "* %?\n%t\n")
+							("w" "Writing prompts"
 							 ((tags "+writing"))
 							 ((org-agenda-overriding-header "Writing prompts")
-								(org-agenda-sorting-strategy '((agenda ts-down))))))
-(defvar org-capture-templates '())
-(add-to-list 'org-capture-templates
-						 '("p" "Project idea"
+								(org-agenda-sorting-strategy '((agenda ts-down)))))
+							("p" "Project idea"
 							 entry
 							 (file "project-idea.org")
-							 "* %?\n"))
-(add-to-list 'org-capture-templates
-						 '("c" "Contact"
+							 "* %?\n")
+							("c" "Contact"
 							 entry
 							 (file "~/documents/contacts.org")
 							 "* %(org-contacts-template-name)
@@ -237,143 +264,99 @@ non-empty lines in the block (excluding the line with
 :PHONE: %^{555-555-5555}
 :EMAIL: %^{email}
 :NOTE: %^{note}
-:END:"))
-;; (add-to-list 'org-capture-templates
-;;              '("d" "Delivery"
-;;                entry
-;;                (file+headline "deliveries.org" "Deliveries")
-;;                "** %?\n   SCHEDULED: %t\n"))
-;; (add-to-list 'org-capture-templates
-;;              '("e" "Email"
-;;                entry
-;;                (file+headline org-index-file "Index")
-;;                "* TODO %?\n%a\n"))
-
-;; (add-to-list 'org-capture-templates
-;;              '("k" "Kookaburra ingest"
-;;                entry
-;;                (file+headline "kookaburra-ingest.org" "Queue")
-;;                "* TODO %?\n"))
-(add-to-list 'org-capture-templates
-						 '("m" "Media queue"
-							 item
-							 (file+headline "media.org" "Index")
-							 "- [ ] %?\n"))
-(add-to-list 'org-capture-templates
-						 '("n" "News item"
-							 entry
-							 (file "news.org")
-							 "* %?\n%t\n"))
-;; (add-to-list 'org-capture-templates
-;;              '("p" "Finished paper"
-;;                entry
-;;                (file+headline "papers-read.org" "Papers")
-;;                "* %^{Title} -- %^{Author}\n%t\n"))
-(add-to-list 'org-capture-templates
-						 '("w" "Writing prompt"
+:END:")
+							("w" "Writing prompt"
 							 entry
 							 (file "journal.org")
-							 "* %?\n   %t\n"))
-(add-to-list 'org-capture-templates
-						 '("s" "Subscribe to an RSS feed"
-							 plain
-							 (file "rss-feeds.org")
-							 "*** [[%^{Feed URL}][%^{Feed add}]]"))
-(add-to-list 'org-capture-templates
-						 '("t" "Task"
-							 entry
-							 (file+headline org-index-file "Index")
-							 "* TODO [#%^{Priority (A-B-C)}] %?\n"))
-(add-to-list 'org-capture-templates
-						 '("Q" "Quote"
+							 "* %?\n   %t\n")
+							("Q" "Quote"
 							 plain
 							 (file "quotes.org")
-							 "- %?\n"))
-;; (add-to-list 'org-capture-templates
-;;              '("w" "Work task"
-;;                entry
-;;                (file+headline "work.org" "Tasks")
-;;                "* TODO %?\n"))
-;; Languages templates
-(add-to-list 'org-capture-templates
-						 '("r" "Readlater"
+							 "- %?\n")
+							;;              ("d" "Delivery"
+							;;                entry
+							;;                (file+headline "deliveries.org" "Deliveries")
+							;;                "** %?\n   SCHEDULED: %t\n")
+							;;              ("e" "Email"
+							;;                entry
+							;;                (file+headline org-index-file "Index")
+							;;                "* TODO %?\n%a\n")
+							;;              ("k" "Kookaburra ingest"
+							;;                entry
+							;;                (file+headline "kookaburra-ingest.org" "Queue")
+							;;                "* TODO %?\n")
+							;;              ("p" "Finished paper"
+							;;                entry
+							;;                (file+headline "papers-read.org" "Papers")
+							;;                "* %^{Title} -- %^{Author}\n%t\n")
+							;;              ("w" "Work task"
+							;;                entry
+							;;                (file+headline "work.org" "Tasks")
+							;;                "* TODO %?\n")
+							;; Languages templates
+							("r" "Readlater"
 							 plain
 							 (file+headline org-index-file "ReadLater")
-							 "** %^{Title or link to readlater}"))
-(add-to-list 'org-capture-templates
-						 '("q" "Question"
+							 "** %^{Title or link to readlater}")
+							("q" "Question"
 							 plain
 							 (file+headline org-index-file "Questions")
-							 "** %^{Question}"))
-(add-to-list 'org-capture-templates
-						 '("D" "Download"
+							 "** %^{Question}")
+							("D" "Download"
 							 plain
 							 (file+headline org-index-file "To Download")
-							 "- %^{Titel or Link}"))
-(add-to-list 'org-capture-templates
-						 '("b" "Book to read"
+							 "- %^{Titel or Link}")
+							("b" "Book to read"
 							 plain
 							 (file+headline org-index-file "Books")
-							 "** %^{Book Title}"))
-(add-to-list 'org-capture-templates
-						 '("B" "Red Book"
+							 "** %^{Book Title}")
+							("B" "Red Book"
 							 entry
 							 (file+headline "red_books.org" "Red Books")
-							 "* %^{Title} -- %^{Author}\n%t\n** Review\n%^{Review}\n** Summary\n%^{Summary}"))
-(add-to-list 'org-capture-templates
-						 '("M" "Movie"
+							 "* %^{Title} -- %^{Author}\n%t\n** Review\n%^{Review}\n** Summary\n%^{Summary}")
+							("M" "Movie"
 							 plain
 							 (file "movies.org")
-							 "* %^{Title} -- %t\n** Review\n%?\n** Quotes\n"))
-(add-to-list 'org-capture-templates
-						 '("d" "Advice"
+							 "* %^{Title} -- %t\n** Review\n%?\n** Quotes\n")
+							("d" "Advice"
 							 plain
 							 (file "advice.org")
-							 "* %?"))
-(add-to-list 'org-capture-templates
-						 '("e" "English word"
+							 "* %?")
+							("e" "English word"
 							 plain
 							 (file+headline "language.org" "English Words")
-							 "- %^{Word}: %^{Meaning}"))
-(add-to-list 'org-capture-templates
-						 '("E" "English phrase"
+							 "- %^{Word}: %^{Meaning}")
+							("E" "English phrase"
 							 plain
 							 (file+headline "language.org" "English Phrases")
-							 "- %^{Phrase}: %^{Meaning}"))
-(add-to-list 'org-capture-templates
-						 '("I" "Idiom"
+							 "- %^{Phrase}: %^{Meaning}")
+							("I" "Idiom"
 							 plain
 							 (file+headline "language.org" "Idioms")
-							 "- %^{Idiom}: %^{Meaning}"))
-(add-to-list 'org-capture-templates
-						 '("f" "Farsi word"
+							 "- %^{Idiom}: %^{Meaning}")
+							("f" "Farsi word"
 							 plain
 							 (file+headline "language.org" "Farsi Words")
-							 "- %^{Word}: %^{Meaning}"))
-(add-to-list 'org-capture-templates
-						 '("F" "Farsi phrase"
+							 "- %^{Word}: %^{Meaning}")
+							("F" "Farsi phrase"
 							 plain
 							 (file+headline "language.org" "Farsi Phrases")
-							 "- %^{Phrase}: %^{Meaning}"))
-(add-to-list 'org-capture-templates
-						 '("a" "Arabic word"
+							 "- %^{Phrase}: %^{Meaning}")
+							("a" "Arabic word"
 							 item
 							 (file+headline "language.org" "Arabic Words")
-							 "- %^{Word}"))
-(add-to-list 'org-capture-templates
-						 '("A" "Arabic phrase"
+							 "- %^{Word}")
+							("A" "Arabic phrase"
 							 plain
 							 (file+headline "language.org" "Arabic Phrases")
-							 "- %^{Phrase}"))
-
+							 "- %^{Phrase}"))))
 (setq org-refile-use-outline-path t)
 (setq org-outline-path-complete-in-steps nil)
 (defun my/index-file-open ()
 	"Open the master org TODO list."
 	(interactive)
 	(find-file org-index-file)
-	(flycheck-mode -1)
-	(end-of-buffer))
+	(flycheck-mode -1))
 
 (setq my/diary-file (org-file-path "/diary/days.org"))
 (defun my/diary-file-open()
