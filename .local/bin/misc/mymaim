@@ -1,31 +1,67 @@
 #!/bin/sh
 
-output="$XDG_PICTURES_DIR/screenshots/$(date '+%y-%m-%d_%H:%M:%S').png"
-xclip_cmd="xclip -sel clip -t image/png"
+tmpdir="/tmp/mymaim_tmp"
+mkdir -p "$tmpdir"
 
-success () {
-    notify-send -t 1000 "Printed Successfully"
-}
-
-copy () {
-    echo "$output" | tr -d '\n' | xclip -sel c -i
-}
+output="$tmpdir/$(date '+%y-%m-%d_%H:%M:%S').png"
 
 maimsel="maim -u -s"
 maimwin="maim -q -u -d 0.2 -i $(xdotool getactivewindow)"
 maimful="maim -q -u -d 0.2"
 
-case "$1" in
-    "s") $maimsel "${output}" pic-selected- && copy && success;;
-    "w")  $maimwin "${output}" pic-window- && copy && success;;
-    "f")  $maimful "${output}" pic-full- && copy && success;;
-    # "F") freeze && success;;
-    "cs") $maimsel | ${xclip_cmd} ;;
-    "cw") $maimwin| ${xclip_cmd} ;;
-    "cf") $maimful | ${xclip_cmd} ;;
-    # "cF") freeze c;;
-    *) exit 1;;
-esac
+copy() {
+    xclip -sel clip -t image/png
+}
+
+copy_name () {
+    echo "$output" | tr -d '\n' | xclip -sel c -i
+}
+
+copy_success () {
+    notify-send -t 1000 "Screenshot has been copied successfully"
+}
+
+
+move(){
+    newpath="$(find "$XDG_PICTURES_DIR"/screenshots -maxdepth 1 -type d | dmenu -i -l 5)"
+    mv "$output" "$newpath"
+}
+
+
+usage () {
+    echo "Usage:
+    -t save to /tmp/screenshots instead of $XDG_PICTURES_DIR/screenshots folder
+    -s selected area
+    -w window
+    -f fullscreen
+    -c [s, w, f] capture as previous but copy to clipboard instead of saving"
+}
+
+while getopts 'cswf' opt; do
+    case "$opt" in
+    "c") toclipboard=true;;
+    "s") if [ "$toclipboard" = true ]; then
+            $maimsel | copy && copy_success
+        else
+            $maimsel "${output}" pic-selected- && move && copy_name
+        fi ;;
+    "w") if [ "$toclipboard" = true ]; then
+        $maimwin| copy && copy_success
+        else
+            $maimwin "${output}" pic-window- && move && copy_name
+        fi;;
+    "f") if [ "$toclipboard" = true ]; then
+            $maimful | copy && copy_success
+        else
+            $maimful "${output}" pic-full- && move && copy_name
+        fi;;
+    # "F")
+        # if [ "$toclipboard" = true ]; then
+        # freeze c;;
+        # freeze && success;;
+    *) usage; exit 1 ;;
+    esac
+done
 
 # freeze() {
 #     # take screenshot without cursor and pipe to nsxiv, get its pid

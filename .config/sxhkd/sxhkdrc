@@ -17,9 +17,8 @@ super + shift + y
 super + shift + r
     $BROWSER ${XDG_DOCUMENTS_DIR}/readlater
 
-
-super + o; l
-    emacsclient -c -e '(leetcode)'
+# super + o; l
+#     emacsclient -c -e '(leetcode)'
 
 super + o; h
     fol htop
@@ -42,17 +41,17 @@ super + v
 super + shift + v
     fol pulsemixer
 
-super + backslash; {_,super+} backslash
+super + t; {_,super+} t
     transs {C,P}
 
-super + backslash; {a, e, p}
+super + t; {a, e, p}
     fol {Transa transs a,Transe transs e,Transf transs p}
 
-super + backslash; {s,S}
+super + t; {s,S}
     {fol sdcv,$TERMINAL -e sdcv $(xclip -o)}
 
-super + a
-    i3-msg "[class="todo"] scratchpad show" || $TERMINAL -c todo -e emacsclient -nw -e '(my/set-arabic-font)' -e '(my/agenda)'
+# super + a
+#     i3-msg "[class="todo"] scratchpad show" || $TERMINAL -c todo -e emacsclient -nw -e '(my/set-arabic-font)' -e '(my/index-file-open)'
 #super + o; a
     #xdo activate -N agenda || $TERMINAL -c agenda -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
 super + shift + a
@@ -72,7 +71,7 @@ super + shift + n
     fol ncmpcpp bicon -e ncmpcpp
 
 {_,shift+} Print; {f, s, w}
-    mymaim { ,c}{f,s,w}
+    mymaim { ,-c} {-f,-s,-w}
 
 Print; S
     flameshot gui
@@ -117,8 +116,8 @@ super + {_, shift+ }F11
     {mpc toggle, pauseallmpv}
 
 # less used keybinds
-super + o; {f,w,W,c,n,v}
-    {forecast,$TERMINAL -e nmtui,$TERMINAL -e sh -c 'vnstat| less',xdo activate -N bc || $TERMINAL -c bc -e bc -lq,newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)" }
+super + o; {f,w,W,c,n,v,r}
+    {forecast,$TERMINAL -e nmtui,$TERMINAL -e sh -c 'vnstat| less',xdo activate -N bc || $TERMINAL -c bc -e bc -lq,newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)", $BROWSER "https://roadmap.sh/cyber-security" }
 
 super + o; e
     emacsclient -c -e '(my/set-arabic-font)' -e '(my/english-reading-notes-open)'& file=$(find $(echo /media/documents/now/Oxford-Bookworm-Library) -type f -name '*pdf' | sort | dmenu -i -l 10) && zathura "$file"& $TERMINAL -e lf "$(dirname $file)"
@@ -149,5 +148,5 @@ super + shift + z
 
 # For some reason sxhkd hangs when opening vim and then pressing super+shift+r
 # So keep it shift + r instead of ctrl+r
-# super + ctrl + r
-# 	pkill -USR1 -x sxhkd; i3-msg reload
+super + ctrl + r
+	pkill -USR1 -x sxhkd; openbox --reconfigure
