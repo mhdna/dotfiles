@@ -16,17 +16,13 @@ case "$1" in
         fi
         done;;
     "c")
-        dirs=$(sed "s/#.*$//;/^\s*$/d" "$XDG_CONFIG_HOME/shell/bm-dirs" | awk '{print $2}')
-        [ -z "$destdir" ] && destdir="$(eval "echo \"$dirs\"" |  dmenu -l 20 -i -p "Copy file(s) to where?")" || destdir="NULL"
-        [ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
+        destdir="$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | dmenu -l 20 -i -p "Copy file(s) to where?")"
         while read -r file
         do
         cp "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file copied to $destdir." &
     done ;;
     "m")
-        dirs=$(sed "s/#.*$//;/^\s*$/d" "$XDG_CONFIG_HOME/shell/bm-dirs" | awk '{print $2}')
-        [ -z "$destdir" ] && destdir="$(eval "echo \"$dirs\"" |  dmenu -l 20 -i -p "Copy file(s) to where?")" || destdir="NULL"
-        [ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
+        destdir="$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | dmenu -l 20 -i -p "Copy file(s) to where?")"
         while read -r file
         do
         mv "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "🚚 $file moved to $destdir." &
@@ -46,7 +42,7 @@ case "$1" in
         do
 		convert -flop "$file" "$file"
         done;;
-        "y") xclip -in -filter | tr '\n' ' ' | xclip -in -selection clipboard ;;
+    "y") xclip -in -filter | tr '\n' ' ' | xclip -in -selection clipboard ;;
 	"Y")
         while read -r file
         do
