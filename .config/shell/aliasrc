@@ -33,11 +33,11 @@ duck () {
 }
 
 yta () {
-    yt-dlp --remux-video ogg -f bestaudio/best --write-thumbnail  --convert-thumbnails jpg --external-downloader aria2c -P $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -i "music" | fzf) $@
+    yt-dlp --remux-video ogg -f bestaudio/best --write-thumbnail  --convert-thumbnails jpg --external-downloader aria2c -P $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -Ei "(/tmp/|music)" | fzf) $@
 }
 
 yt () {
-    yt-dlp -f 22 --external-downloader aria2c --write-thumbnail  --convert-thumbnails jpg --add-metadata -ic -P $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -i "vid" | fzf) $@
+    yt-dlp -f 22 --external-downloader aria2c --write-thumbnail  --convert-thumbnails jpg --add-metadata -ic -P $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -Ei "(/tmp/|vid)" | fzf) $@
 }
 
 configa(){
@@ -78,6 +78,7 @@ alias \
     p="pacman" \
     P="sudo pacman" \
     ll="ls -l --color=auto" \
+    lsd="find . -maxdepth 1 -type d" \
     emacsc="emacsclient  -c -a 'emacs'" \
     Tmux="tmux a || tmux" \
     abook="abook -C $XDG_CONFIG_HOME/abook/abookrc --datafile $XDG_CONFIG_HOME/abook/addressbook" \
