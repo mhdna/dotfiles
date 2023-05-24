@@ -17,7 +17,7 @@ printf "# vim: filetype=sh\\nalias " > "$shell_shortcuts"
 eval "echo \"$(cat "$bmdirs")\"" | \
 awk "!/^\s*#/ && !/^\s*\$/ && !/^!.*/ {gsub(\"\\\s*#.*$\",\"\");
 	printf(\"C%s=\42cd %s && ls -a\42 \\\\\n\",\$1,\$2)   >> \"$shell_shortcuts\" ;
-	printf(\"map g%s cd \42%s\42 \n\",\$1,\$2)           >> \"$lf_shortcuts\";
+	printf(\"map c%s cd \42%s\42 \n\",\$1,\$2)           >> \"$lf_shortcuts\";
     printf(\"vim.keymap.set('c',';%s', '%s')\n\",\$1,\$2)                    >> \"$vim_shortcuts\" }"
 
 # Format the `files` file in the correct syntax and sent it to both configs.
@@ -49,5 +49,5 @@ for dir in "${dirs[@]}"; do
 done
 
 
-# remove duplicates
+# poor Gnu doesn't know how to remove duplicates without sorting
 sort -u -o "$alldirs" "$alldirs"
