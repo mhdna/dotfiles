@@ -4,8 +4,7 @@
     follow = keyboard
     padding = 2
     horizontal_padding = 2
-    min_icon_size = 70
-    max_icon_size = 100
+    max_icon_size = 80
     enable_recursive_icon_lookup = true
 
 [urgency_low]
