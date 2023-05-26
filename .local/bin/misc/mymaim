@@ -1,6 +1,8 @@
 #!/bin/sh
 
-tmpdir="/tmp/mymaim_tmp"
+permanentdir="$XDG_PICTURES_DIR/screenshots"
+tmpdir="/tmp/screenshots"
+
 mkdir -p "$tmpdir"
 
 output="$tmpdir/$(date '+%y-%m-%d_%H:%M:%S').png"
@@ -9,28 +11,28 @@ maimsel="maim -u -s"
 maimwin="maim -q -u -d 0.2 -i $(xdotool getactivewindow)"
 maimful="maim -q -u -d 0.2"
 
-copy() {
+copy () {
     xclip -sel clip -t image/png
 }
 
-copy_name () {
+copy_path () {
     echo "$output" | tr -d '\n' | xclip -sel c -i
 }
 
-copy_success () {
+copied () {
     notify-send -t 1000 "Screenshot has been copied successfully"
 }
 
 
-move(){
-    newpath="$(find "$XDG_PICTURES_DIR"/screenshots -maxdepth 1 -type d | dmenu -i -l 5)"
+move () {
+    newpath="$(find -maxdepth 1 -type d | dmenu -i -l 5 -p "Quit if you want to keep the screenshot in $tmpdir:")"
     mv "$output" "$newpath"
 }
 
 
 usage () {
     echo "Usage:
-    -t save to /tmp/screenshots instead of $XDG_PICTURES_DIR/screenshots folder
+    -t save to $tmpdir instead of $permanentdir folder
     -s selected area
     -w window
     -f fullscreen
@@ -39,23 +41,23 @@ usage () {
 
 while getopts 'cswf' opt; do
     case "$opt" in
-    "c") toclipboard=true;;
-    "s") if [ "$toclipboard" = true ]; then
-            $maimsel | copy && copy_success
+    c) toclipboard=true;;
+    s) if [ "$toclipboard" = true ]; then
+            $maimsel | copy && copied
         else
-            $maimsel "${output}" pic-selected- && move && copy_name
+            $maimsel "${output}" pic-selected- && move ; copy_path
         fi ;;
-    "w") if [ "$toclipboard" = true ]; then
-        $maimwin| copy && copy_success
+    w) if [ "$toclipboard" = true ]; then
+        $maimwin| copy && copied
         else
-            $maimwin "${output}" pic-window- && move && copy_name
+            $maimwin "${output}" pic-window- && move ; copy_path
         fi;;
-    "f") if [ "$toclipboard" = true ]; then
-            $maimful | copy && copy_success
+    f) if [ "$toclipboard" = true ]; then
+            $maimful | copy && copied
         else
-            $maimful "${output}" pic-full- && move && copy_name
+            $maimful "${output}" pic-full- && move ; copy_path
         fi;;
-    # "F")
+    # F)
         # if [ "$toclipboard" = true ]; then
         # freeze c;;
         # freeze && success;;
