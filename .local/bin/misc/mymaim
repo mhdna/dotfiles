@@ -25,7 +25,7 @@ copied () {
 
 
 move () {
-    newpath="$(find -maxdepth 1 -type d | dmenu -i -l 5 -p "Quit if you want to keep the screenshot in $tmpdir:")"
+    newpath="$(find "$permanentdir" -maxdepth 1 -type d | dmenu -i -l 5 -p "Quit if you want to keep the screenshot in $tmpdir:")"
     mv "$output" "$newpath"
 }
 
@@ -61,7 +61,8 @@ while getopts 'cswf' opt; do
         # if [ "$toclipboard" = true ]; then
         # freeze c;;
         # freeze && success;;
-    *) usage; exit 1 ;;
+    h) usage ;;
+    \?) usage; exit 1 ;;
     esac
 done
 
