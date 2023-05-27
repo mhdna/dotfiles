@@ -1,18 +1,17 @@
 super + Return
     $TERMINAL
-# xdo activate -dn Term || tabbed -n Term -r 2 $TERMINAL -w ''
 
 super + i
-    xdo activate -N Tmux || $TERMINAL -c Tmux -e sh -c 'tmux a || tmux'
+    fol -t -e Tmux
 
 super + shift + i
-    xdo activate -dN Emacs || emacsclient -c -e '(my/set-arabic-font)'
+    fol -d -N Emacs -e "emacsclient -c -e '(my/set-arabic-font)'"
 
 super + y
-    fol g idea
+    fol -e idea
 
 super + shift + y
-    fol mycli mycli -u root
+    fol -t -e "mycli -u root"
 
 super + shift + r
     $BROWSER ${XDG_DOCUMENTS_DIR}/readlater
@@ -21,13 +20,13 @@ super + shift + r
 #     emacsclient -c -e '(leetcode)'
 
 super + o; h
-    fol htop
+    fol -t -e htop
 
 super + o; {m,u}
     {dmenumount, dmenuumount}
 
 super + shift + w
-    fol g $BROWSER
+    fol -e $BROWSER
 
 super +  w; {o,O,s,S}
     {dmenu-bookmarks,dmenu-snippets,bookmarkit,snipit}
@@ -39,36 +38,36 @@ super + v
     clipmenu -i
 
 super + shift + v
-    fol pulsemixer
+    fol -t -e pulsemixer
 
 super + t; {_,super+} t
     transs {C,P}
 
 super + t; {a, e, p}
-    fol {Transa transs a,Transe transs e,Transf transs p}
+    fol -t -e "{transs ar,transs en,transs pr}"
 
 super + t; {s,S}
-    {fol sdcv,$TERMINAL -e sdcv $(xclip -o)}
+    {fol -t -e sdcv,$TERMINAL -e sdcv $(xclip -o)}
 
 # super + a
 #     i3-msg "[class="todo"] scratchpad show" || $TERMINAL -c todo -e emacsclient -nw -e '(my/set-arabic-font)' -e '(my/index-file-open)'
-#super + o; a
-    #xdo activate -N agenda || $TERMINAL -c agenda -e emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'
-super + shift + a
-    $TERMINAL -e anki
+super + o; a
+    fol -t -N agenda -e "emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'"
+super + a
+    fol -t -e anki
 
 super + e
-    xdo activate -dN lfub || $TERMINAL -c lfub -e lfub
+    fol -t -d -e lfub
 
 super + shift + e
-    fol neomutt bicon -e neomutt
+    fol -t -e bicon -e neomutt
 
 super + n
-    xdo activate -N newsboat || $TERMINAL -c newsboat -e bicon -e newsboat
+    fol -t -e bicon -e newsboat
 
 
 super + shift + n
-    fol ncmpcpp bicon -e ncmpcpp
+    fol -t -e bicon -e ncmpcpp
 
 {_,shift+} Print; {f, s, w}
     mymaim { ,-c} {-f,-s,-w}
@@ -98,7 +97,7 @@ super + {_, shift+ }F2
     redshift {-O 5000,-x}
 
 super + {_, shift+ }F3
-    {fol torwrap, td-toggle}
+    {fol -t -e torwrap, td-toggle}
 
 super + {_, shift+ }F4
     remaps; touchpad_toggle {off,on}
@@ -116,8 +115,8 @@ super + {_, shift+ }F11
     {mpc toggle, pauseallmpv}
 
 # less used keybinds
-super + o; {f,w,W,c,n,v,r}
-    {forecast,$TERMINAL -e nmtui,$TERMINAL -e sh -c 'vnstat| less',xdo activate -N bc || $TERMINAL -c bc -e bc -lq,newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)", $BROWSER "https://roadmap.sh/cyber-security" }
+super + o; {w,i,I,c,n,v,r}
+    {forecast,$TERMINAL -e nmtui,$TERMINAL -e sh -c 'vnstat| less',fol -t -N bc -e "bc -lq",newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)", $BROWSER "https://roadmap.sh/cyber-security" }
 
 super + o; e
     emacsclient -c -e '(my/set-arabic-font)' -e '(my/english-reading-notes-open)'& file=$(find $(echo /media/documents/now/Oxford-Bookworm-Library) -type f -name '*pdf' | sort | dmenu -i -l 10) && zathura "$file"& $TERMINAL -e lf "$(dirname $file)"

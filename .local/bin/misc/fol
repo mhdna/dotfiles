@@ -1,22 +1,53 @@
 #!/bin/sh
 
+# Focus or Launch
 
-case "$1" in
-    "g")
-    # gui without custom class set
-    if [ -z "$3" ]; then
-        xdo activate -N "$2" || $2
-    # gui with custom class set
+xopts=""
+topts=""
+tsetclass="--class"
+
+activate () {
+# use the program's name as the class name for xdo and/or terminal if no custom name/class were set
+if [ "$cclass" != true ] && [ "$cname" != true ]; then
+    if [ "$term" != true ]; then
+        xopts="${xopts} -N $prg"
     else
-        xdo activate -N "$2" || $3
-    fi;;
-    *)
-    if [ -z "$2" ]; then
-        # tui program without custom name set
-        xdo activate -N "$1" || $TERMINAL -c "$1" -e "$1"
-    else
-        # tui program with custom name set
-        rest=$(echo "$@" | cut -d ' ' -f2-)
-        xdo activate -N "$1" || $TERMINAL -c "$1" -e $rest
-    fi;;
-esac
+        # set class as the last word in -e prg (i.e. the prg name)
+
+        xopts="${xopts} -N ${prg##* }"
+        topts="$tsetclass ${prg##* }"
+    fi
+fi
+
+if [ "$term" = true ]; then
+    # shellcheck disable=SC2086
+    xdo activate $xopts || $TERMINAL $topts $prg
+else
+    # shellcheck disable=SC2086
+    xdo activate $xopts || $prg
+fi
+}
+
+usage () {
+    echo "Usage:
+    -t Open as a tui window (make sure to put it before all)
+    -d Same desktop
+    -n Custom name to focus on
+    -N Custom class to focus and launch when running as tui
+    -h Show this help prompt"
+}
+
+while getopts 'tdn:N:e:h' opt; do
+    case "$opt" in
+        t) term=true ;;
+        d) xopts="${xopts} -d" ;;
+        n) xopts="${xopts} -n $OPTARG"; cname=true ;;
+        N) [ "$term" = true ] && topts="${topts} $tsetclass $OPTARG"
+            xopts="${xopts} -N $OPTARG"; cclass=true ;;
+        e) [ "$term" = true ]&& prg="${prg} -e $OPTARG" || prg="$OPTARG";;
+        h) usage ;;
+        \?) usage; exit 1 ;;
+    esac
+done
+
+activate
