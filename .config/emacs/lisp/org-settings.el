@@ -272,7 +272,7 @@ non-empty lines in the block (excluding the line with
 							("Q" "Quote"
 							 plain
 							 (file "quotes.org")
-							 "- %?\n")
+							 "** %?\t:%^{Tag(s)}:\n")
 							;;              ("d" "Delivery"
 							;;                entry
 							;;                (file+headline "deliveries.org" "Deliveries")
@@ -317,7 +317,7 @@ non-empty lines in the block (excluding the line with
 							("M" "Movie"
 							 plain
 							 (file "movies.org")
-							 "* %^{Title} -- %t   :%^{Tag}:\n** Stars: %^{Stars (out of 10)}/10\n** Degeneracy: %^{Degeneracy (out of 10)}/10\n** Review\n%?\n** Quotes\n")
+							 "* %^{Title} -- %t   :%^{Tag(s)}:\n** Stars: %^{Stars (out of 10)}/10\n** Degeneracy: %^{Degeneracy (out of 10)}/10\n** Review\n%?\n** Quotes\n")
 							("d" "Advice"
 							 plain
 							 (file "advice.org")
