@@ -29,7 +29,7 @@
 (require 'init-dev)
 (require 'org-settings)
 (require 'init-evil)
-(require 'lsp-stuff)
+;; (require 'lsp-stuff)
 ;; (require 'eglot-stuff)
 
 ;; Don't clutter my folders
@@ -140,7 +140,7 @@
 ;;	(load-theme 'gruvbox-dark-hard t))
 ;; Set up the visible bell
 ;; (setq visible-bell 1)
-;; (global-display-line-numbers-mode 1)
+(global-display-line-numbers-mode 1)
 (global-visual-line-mode 1)
 ;; (global-hl-line-mode 1)
 (tool-bar-mode -1)
@@ -155,12 +155,30 @@
 (setq dictionary-server "dict.org")
 
 ;; Font settings
-(set-face-attribute 'default nil :font "monospace" :height 120)
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Sans" :height 120 :weight 'regular)
-(set-fontset-font t 'arabic "DejaVu Sans Mono")
-(set-fontset-font t nil "monospace" nil 'append)
 (setq my/font-change-increment 1.1)
+
+(defun my/setup-font-faces ()
+	"Setup all gui font faces."
+	(when (display-graphic-p)
+		;; set default font
+		(set-face-attribute 'default nil :font (font-spec :family "monospace" :size 15 :weight 'regular))
+		;; Arabic font
+		(set-fontset-font t 'arabic "DejaVu Sans Mono")
+		;; Set the fixed pitch face
+		(set-face-attribute 'fixed-pitch nil :font (font-spec :family "monospace" :size 15 :weight 'regular))
+		;; Set the variable pitch face which is the same for mac and linux
+		(set-face-attribute 'variable-pitch nil :font (font-spec :family "Sans" :size 14 :weight 'regular))
+		;; (set-frame-parameter (selected-frame) 'alpha '(100 100))
+		;; (add-to-list 'default-frame-alist '(alpha 100 100))
+		;; set current frame width and height characters
+		;; (set-frame-width (frame-focus) 75)
+		;; (set-frame-height (frame-focus) 30)
+		)
+	)
+;; run this hook after we have initialized the first time
+(add-hook 'after-init-hook 'my/setup-font-faces)
+;; re-run this hook if we create a new frame from daemonized Emacs
+(add-hook 'server-after-make-frame-hook 'my/setup-font-faces)
 
 
 ;; bidi settings

@@ -5,7 +5,7 @@ super + i
     fol -t -e Tmux
 
 super + shift + i
-    fol -d -N Emacs -e "emacsclient -c -e '(my/set-arabic-font)'"
+    fol -d -N Emacs -e "emacsclient -c"
 
 super + y
     fol -e idea
@@ -50,7 +50,7 @@ super + t; {s,S}
     {fol -t -e sdcv,$TERMINAL -e sdcv $(xclip -o)}
 
 # super + a
-#     i3-msg "[class="todo"] scratchpad show" || $TERMINAL -c todo -e emacsclient -nw -e '(my/set-arabic-font)' -e '(my/index-file-open)'
+#     i3-msg "[class="todo"] scratchpad show" || $TERMINAL -c todo -e emacsclient -nw -e '(my/index-file-open)'
 super + o; a
     fol -t -N agenda -e "emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'"
 super + a
@@ -119,7 +119,7 @@ super + o; {w,i,I,c,n,v,r}
     {forecast,$TERMINAL -e nmtui,$TERMINAL -e sh -c 'vnstat| less',fol -t -N bc -e "bc -lq",newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)", $BROWSER "https://roadmap.sh/cyber-security" }
 
 super + o; e
-    emacsclient -c -e '(my/set-arabic-font)' -e '(my/english-reading-notes-open)'& file=$(find $(echo /media/documents/now/Oxford-Bookworm-Library) -type f -name '*pdf' | sort | dmenu -i -l 10) && zathura "$file"& $TERMINAL -e lf "$(dirname $file)"
+    emacsclient -c -e '(my/english-reading-notes-open)'& file=$(find $(echo /media/documents/now/Oxford-Bookworm-Library) -type f -name '*pdf' | sort | dmenu -i -l 10) && zathura "$file"& $TERMINAL -e lf "$(dirname $file)"
 
 super + o; g
     nsxiv -N pdfgallery -t ~/.cache/pdfgallery/*.jpg
