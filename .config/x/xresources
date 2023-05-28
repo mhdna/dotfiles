@@ -1,6 +1,5 @@
-Emacs.alpha: 100
+Emacs*geometry: 75x30
 *.font: monospace:pixelsize=15
-*.alpha: 1
 
-*.foreground: #ebdbb2
-*.background: #1d1d1d
+*.background: #000000
+*.foreground: #ffffff
