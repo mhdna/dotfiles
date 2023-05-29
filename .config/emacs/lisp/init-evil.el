@@ -33,6 +33,9 @@
 		(kbd "C-]")				 'gtags-find-tag-from-here
 		(kbd "C-p")				 'duplicate-line-or-region
 		(kbd "z d")				 'dictionary-lookup-definition
+		;; fix gj, gk when using evil-org-mode
+		(kbd "gj")				 'evil-next-visual-line
+		(kbd "gk")				 'evil-previous-visual-line
 
 		;; Leader keybindings
 		(kbd "SPC al")		 'align-regexp
