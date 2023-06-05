@@ -357,7 +357,7 @@ map <c-f> :fzf_jump
 map <c-space> :toggle; up
 
 map o &mimeopen "$f"
-map O &$TERMINAL -e mimeopen --ask $fx
+map O &dmenumimeopen "$f"
 map <c-o> $clear; mimeopen --ask-default "$f"
 
 map K $kdfzf $fx
