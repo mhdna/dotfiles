@@ -1,3 +1,4 @@
+user_pref("browser.uidensity", 1);
 // disable Firefox sync
 user_pref("identity.fxaccounts.enabled", false);
 // disable fullscreen autohide
@@ -33,6 +34,8 @@ user_pref("general.smoothScroll", false);
 user_pref("network.http.referer.XOriginPolicy", 0);
 // Fix the issue where right mouse button instantly clicks
 user_pref("ui.context_menus.after_mouseup", true);
+// Disable letterboxing
+// user_pref("privacy.resistFingerprinting.letterboxing", false);
 // /* Zoom compatibility settings */
 // user_pref("media.peerconnection.enabled", true); // 2001
 // user_pref("media.peerconnection.ice.no_host", false); // 2001 [may or may not be required]
