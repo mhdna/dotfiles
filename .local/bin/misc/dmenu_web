@@ -1,0 +1,17 @@
+#!/bin/sh
+
+engines="$HOME/.local/share/search_engines"
+# get the name of the search engine
+search_engine="$(cat "$engines" | cut -d ';' -f 1 | dmenu -i -p 'Search in:')"
+[ -z "$search_engine" ] && exit
+
+web_search="$(dmenu -p 'Web Search:'  < /dev/null)"
+[ -z "$web_search" ] && exit
+
+# get the url of the search engine
+search_engine="$(grep "$search_engine" "$engines" | head -n 1| cut -d ';' -f 2)"
+
+web_search_url="$(echo "$search_engine" | awk -v web_search="$web_search" '{print $1 web_search $2}')"
+
+
+$BROWSER "$web_search_url" &

@@ -1,88 +1,100 @@
 super + Return
+	 fol -e Tmux
+
+super + shift + Return
+    fol -d -g -N Emacs -e "emacsclient -c"
+
+super + alt + Return
+	 $TERMINAL
+
+super + alt + Return
     $TERMINAL
 
-super + i
-    fol -t -e Tmux
-
-super + shift + i
-    fol -d -N Emacs -e "emacsclient -c"
-
 super + y
-    fol -e idea
+    fol -g -N jetbrains-idea-ce -e idea
 
 super + shift + y
-    fol -t -e "mycli -u root"
+	fol -e "mycli -u root"
 
-super + shift + r
-    $BROWSER ${XDG_DOCUMENTS_DIR}/readlater
-
-# super + o; l
-#     emacsclient -c -e '(leetcode)'
+super + r
+	$BROWSER $HOME/personal/readlater
 
 super + o; h
-    fol -t -e htop
+	fol -e htop
 
 super + o; {m,u}
-    {dmenumount, dmenuumount}
+	{dmenumount, dmenuumount}
+
+super + w
+	fol -g -e $BROWSER
 
 super + shift + w
-    fol -e $BROWSER
+	fol -N Chromium -g -e chromium
 
-super +  w; {o,O,s,S}
-    {dmenu-bookmarks,dmenu-snippets,bookmarkit,snipit}
+super + {_,shift+} b
+	{dmenu-bookmarks,bookmarkit}
 
-super + {_,shift+} {d,p}
-    {dmenu_run , dmenuunicode, passmenu, displayselect}
+super + {_,shift+} s
+    {dmenu-snippets,snipit}
+
+super + q
+	dmenu_web
+
+super + shift + p
+    displayselect
+
+#super + shift + p
+#    passmenu
+
+
+super + {_,shift+} d
+	{dmenu_run , dmenuunicode}
 
 super + v
-    clipmenu -i
+	clipmenu -i
 
 super + shift + v
-    fol -t -e pulsemixer
+	fol -e pulsemixer
 
 super + t; {_,super+} t
-    transs {C,P}
+	transs {C,P}
 
 super + t; {a, e, p}
-    fol -t -e "{transs ar,transs en,transs pr}"
+	fol -e "{transs ar,transs en,transs pr}"
 
 super + t; {s,S}
-    {fol -t -e sdcv,$TERMINAL -e sdcv $(xclip -o)}
+	{fol -e sdcv,$TERMINAL -e sdcv $(xclip -o)}
 
-# super + a
-#     i3-msg "[class="todo"] scratchpad show" || $TERMINAL -c todo -e emacsclient -nw -e '(my/index-file-open)'
-super + o; a
-    fol -t -N agenda -e "emacsclient -nw -e '(org-agenda-list)' -e '(delete-other-windows)'"
 super + a
-    fol -t -e anki
+    fol -g -N Anki -e anki
 
 super + e
-    fol -t -d -e lfub
+	fol -e lfub
 
 super + shift + e
-    fol -t -e bicon -e neomutt
+	fol -e bicon -e neomutt
 
 super + n
-    fol -t -e bicon -e newsboat
+	fol -e bicon -e newsboat
 
 
 super + shift + n
-    fol -t -e bicon -e ncmpcpp
+	fol -e bicon -e ncmpcpp
 
 {_,shift+} Print; {f, s, w}
-    mymaim { ,-c} {-f,-s,-w}
+	mymaim { ,-c} {-f,-s,-w}
 
 Print; S
-    flameshot gui
+	flameshot gui
 
 Print; r
-    dmenurecord kill || dmenurecord
+	dmenurecord kill || dmenurecord
 
 XF86Audio{Mute,LowerVolume,RaiseVolume}
-    volume {-t,-d 5,-i 5}
+	volume {-t,-d 5,-i 5}
 
 super + {shift+minus,minus,equal}
-    volume {-t,-d 5,-i 5}
+	volume {-t,-d 5,-i 5}
 
 {_,super+ } XF86MonBrightness{Down,Up}
 	brightnessctl set {10%-, 1%, +10%, 100%}
@@ -90,62 +102,71 @@ super + {shift+minus,minus,equal}
 super + {_,shift+ }{comma,period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
 
-super + {_, shift+ }F1
-    {kdeconnect-indicator;! pidof kdeconnectd  && /usr/lib/kdeconnectd; kdeconnect-cli --refresh, killall kdeconnect-indicator; sleep 1&& killall kdeconnectd }
+super + o; {_, shift+ } k
+	{kdeconnect-indicator;! pidof kdeconnectd  && /usr/lib/kdeconnectd; kdeconnect-cli --refresh, killall kdeconnect-indicator; sleep 1&& killall kdeconnectd }
 
-super + {_, shift+ }F2
-    redshift {-O 5000,-x}
+super + o; {_, shift+ } r
+	redshift {-O 5000,-x}
 
-super + {_, shift+ }F3
-    {fol -t -e torwrap, td-toggle}
+super + o; {_, shift+ } t
+	{fol -e torwrap, td-toggle}
 
-super + {_, shift+ }F4
-    remaps; touchpad_toggle {off,on}
+super + {_, shift+ }Insert
+	remaps; touchpad_toggle {off,on}
 
-super + alt + F4
-    setxkbmap -model pc105 -layout us -option '' && notify-send "Setxkbmap" "Has been reset"
+super + alt + Insert
+	setxkbmap -model pc105 -layout us -option '' && notify-send -t 1000 "Setxkbmap" "Has been reset"
 
-super + {_, shift+ }{F10,F12}
-    mpc {seek -1%, prev,  seek +1%, next}
+super + {_, shift+ }{bracketleft,bracketright}
+	mpc {seek -1%, prev,  seek +1%, next}
 
-super + F9
-    mpc repeat&& mpc single && notify-send -u low -t 3000 "MPD" "$(mpc status 'Single Repeat: %repeat%')"
+super + backslash
+	mpc repeat&& mpc single && notify-send -u low -t 1000 "MPD" "$(mpc status 'Single Repeat: %repeat%')"
 
-super + {_, shift+ }F11
-    {mpc toggle, pauseallmpv}
+super + {_, shift+ } p
+	{mpc toggle, pauseallmpv}
+
+super + i
+	fol -e nmtui
+
+super + shift + i
+	sudo nmcli wifi rescan
 
 # less used keybinds
-super + o; {w,i,I,c,n,v,r}
-    {forecast,$TERMINAL -e nmtui,$TERMINAL -e sh -c 'vnstat| less',fol -t -N bc -e "bc -lq",newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)", $BROWSER "https://roadmap.sh/cyber-security" }
+super + o; {w,i,c,n,v,r}
+	{forecast,$TERMINAL -e sh -c 'vnstat| less',fol -N bc -e "bc -lq",newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)", $BROWSER "https://roadmap.sh/cyber-security" }
 
 super + o; e
-    emacsclient -c -e '(my/english-reading-notes-open)'& file=$(find $(echo /media/documents/now/Oxford-Bookworm-Library) -type f -name '*pdf' | sort | dmenu -i -l 10) && zathura "$file"& $TERMINAL -e lf "$(dirname $file)"
+	myenglish
 
-super + o; g
-    nsxiv -N pdfgallery -t ~/.cache/pdfgallery/*.jpg
+super + g
+	nsxiv -N pdfgallery -t ~/.cache/pdfgallery/*.jpg
 
 super + {_,shift+,alt} BackSpace
-    dunstctl {close-all,history-pop,set-paused toggle && notify-send "Dunst" "Is-paused: $(dunstctl is-paused)" }
+	dunstctl {close-all,history-pop,set-paused toggle && notify-send "Dunst" "Is-paused: $(dunstctl is-paused)" }
 
 #super + shift + {Right,Left}
-    #dpselector {1,2}
+	#dpselector {1,2}
 
 super + o; C
-    colorpicker
+	colorpicker
 
 super + ctrl + x
-    xkill
+	xkill
 
 super + shift + q
 	sysact
 
 super + z
-    physlock -s
+	physlock -s
 
 super + shift + z
 	loginctl suspend
 
+super + Tab
+    fol -a
+
 # For some reason sxhkd hangs when opening vim and then pressing super+shift+r
-# So keep it shift + r instead of ctrl+r
-super + ctrl + r
+# So keep it s-S-r instead of s-C-r
+super + shift + r
 	pkill -USR1 -x sxhkd; openbox --reconfigure
