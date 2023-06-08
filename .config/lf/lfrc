@@ -149,6 +149,8 @@ cmd bulkrename ${{
 		lf -remote "send $id unselect"
 }}
 
+cmd setbg "$1"
+
 # compress current file or selected files with tar and gunzip
 cmd tar ${{
 		set -f
@@ -374,6 +376,8 @@ map i rename # before extention
 map B bulkrename
 map L :link
 map V invert-below
+
+map b $setbg $f
 
 # Mouse
 map <m-1>
