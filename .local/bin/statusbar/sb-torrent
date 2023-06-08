@@ -10,6 +10,6 @@ transmission-remote -l | grep % |
     s/.*Seeding.*/Z ss:/;
     s/.*100%.*/N D:/;
     s/.*Idle.*/B I:/;
-    s/.*Uploading.*/L uu/;
-    s/.*%.*/M dd/" |
+    s/.*Uploading.*/L uu:/;
+    s/.*%.*/M dd:/" |
         sort -h | uniq -c | awk '{print $3 $1}' | paste -sd ' ' -

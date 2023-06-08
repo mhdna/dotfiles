@@ -1,6 +1,8 @@
 #!/bin/sh
 
-pidof -x sb-mpdup >/dev/null 2>&1 || setsid -f sb-mpdup >/dev/null 2>&1 &
+# This loop will update the mpd statusbar module whenever a command changes the
+# music player's status. mpd must be running on X's start for this to work.
+# With tint2 this script does continuously relaunch the daemon. Which is good
 
 print(){
     status=$(mpc status %state%)
@@ -9,10 +11,9 @@ print(){
     else
         color="#ff0000"
     fi
-    echo "<span color=\"$color\">M: $status</span>"
+    echo "<span color=\"$color\">MPD</span>"
 }
-
-case $BLOCK_BUTTON in
-	3) mpc toggle >/dev/null 2>&1 ;;
-    *) print ;;
-esac
+print
+while : ; do
+	mpc idle >/dev/null && print
+done

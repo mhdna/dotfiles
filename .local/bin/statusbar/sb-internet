@@ -4,22 +4,11 @@ case $BLOCK_BUTTON in
 	3) setsid -f "$TERMINAL" -e nmtui ;;
 esac
 
-ssid=$(if=wlan0
-		while IFS=$': \t' read -r label value
-		do
-			case $label in SSID) SSID=$value
-				;;
-			signal) SIGNAL=$value
-				;;
-		esac
-	done < <(iw "$if" link)
-    test "$SIGNAL" && echo -e "at ($SSID) ")
-
 if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null ; then
     wifiicon="$(awk '/^\s*w/ { print int($3 * 100 / 70) "% " }' /proc/net/wireless)"
     wcolor="#00ff00"
 elif grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null ; then
-    grep -xq '0x1003' /sys/class/net/w*/flags && wifiicon="NoConnection " || wifiicon="down "
+    grep -xq '0x1003' /sys/class/net/w*/flags && wifiicon="NC " || wifiicon="down "
     wcolor="#ff0000"
 fi
 
@@ -30,4 +19,4 @@ else
     ethcolor="#ff0000"
 fi
 
-printf "<span color=\"$wcolor\">%s</span><span color=\"$ethcolor\">%s</span>%s\n" "W: $wifiicon$ssid" "E: $ethstatus" "$(sed "s/.*/🔒/" /sys/class/net/tun*/operstate 2>/dev/null)"
+printf "<span color=\"$wcolor\">%s</span><span color=\"$ethcolor\">%s</span>%s\n" "W: $wifiicon" "E" "$(sed "s/.*/🔒/" /sys/class/net/tun*/operstate 2>/dev/null)"
