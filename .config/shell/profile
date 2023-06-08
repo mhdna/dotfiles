@@ -46,7 +46,7 @@ export SUDO_ASKPASS="$HOME/.local/bin/misc/dmenupass"
 export MOZ_USE_XINPUT2="1"		# Mozilla smooth scrolling/touchpads.
 export AWT_TOOLKIT="MToolkit wmname LG3D"	#May have to install wmname
 export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm/bspwm
-# export QT_STYLE_OVERRIDE=adwaita-dark
+export QT_STYLE_OVERRIDE=adwaita-dark
 export TRANSMISSION_DAEMON="transmission-daemon -w $XDG_DOWNLOAD_DIR/transmission --logfile $XDG_CACHE_HOME/transmission/log"
 
 export JAVA_HOME=/usr/lib/jvm/default
@@ -57,9 +57,6 @@ export NPM_PATH="$XDG_DATA_HOME/npm"
 export FZF_DEFAULT_OPTS='--reverse'
 
 export PATH="$PATH:$(find $HOME/.local/bin/ -type d -printf ":%p" ):$NPM_PATH/bin:$GOPATH/bin:$CARGO_HOME/bin:$JAVA_HOME/bin"
-
-pipewire >/dev/null 2>&1&
-! pidof mpd && mpd >/dev/null 2>&1&
 
 # Start graphical server on user's current tty if not already running and put the outputs into ~/.local/share/xorg/
 [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
