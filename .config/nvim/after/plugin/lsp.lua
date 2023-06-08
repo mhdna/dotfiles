@@ -91,10 +91,7 @@ lspconfig.ccls.setup {
 --     },
 -- }
 
--- Disable inline error messages
--- vim.diagnostic.config({ virtual_text = false })
-
 lsp.setup()
 vim.diagnostic.config({
-    virtual_text = true
+    virtual_text = true -- i.e. inline reporting thing
 })

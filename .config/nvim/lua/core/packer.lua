@@ -48,6 +48,8 @@ return packer.startup(function(use)
     use("hrsh7th/cmp-buffer") -- buffer completions
     use("hrsh7th/cmp-path") -- path completions
     use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
+    use("nvim-treesitter/playground")
+    -- use("Tsuzat/NeoSolarized.nvim")
     -- use("saadparwaiz1/cmp_luasnip") -- snippet completions
     -- use {
     --     "lewis6991/gitsigns.nvim",
@@ -55,11 +57,10 @@ return packer.startup(function(use)
     --         require('gitsigns').setup()
     --     end
     -- }
-    -- use ("nvim-lualine/lualine.nvim")
-    use("ellisonleao/gruvbox.nvim")
+    use ("nvim-lualine/lualine.nvim")
     use("wbthomason/packer.nvim") -- Have packer manage itself
     use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
-    use("windwp/nvim-autopairs") -- similar to rainbow parameters
+    -- use("windwp/nvim-autopairs") -- similar to rainbow parameters
     -- LSP
     use("mfussenegger/nvim-jdtls")
     use {
@@ -85,15 +86,13 @@ return packer.startup(function(use)
         requires = { { "nvim-lua/plenary.nvim" } }
     }
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
-    use({
-        "kylechui/nvim-surround",
-        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-        config = function()
-            require("nvim-surround").setup({})
-        end
-    })
-    -- nvim align
-    use("junegunn/vim-easy-align")
+    -- use({
+    --     "kylechui/nvim-surround",
+    --     tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    --     config = function()
+    --         require("nvim-surround").setup({})
+    --     end
+    -- })
     -- Debug
     use("mfussenegger/nvim-dap")
     use("rcarriga/cmp-dap")

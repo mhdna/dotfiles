@@ -1,13 +1,13 @@
-vim.opt.signcolumn = "yes" --for linting, diagnostics, left column
-vim.opt.mouse = 'nv'
+--vim.opt.signcolumn = "yes" --for linting, diagnostics, left column
+vim.opt.mouse = 'a'
 vim.o.colorcolumn = 80 -- don't exceed 80 columns, maybe you're in the 3rd 4th indent so rethink
 vim.opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
--- vim.opt.laststatus = 2
+-- vim.opt.laststatus = 0
+-- vim.opt.showtabline = 2
 vim.opt.pumheight= 15
 vim.opt.pumwidth= 15
 -- vim.opt.foldmethod = 'marker' -- Enable folding (default 'foldmarker')
 -- always use a block shaped cursor
-vim.o.guicursor = true
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true -- Autoindent new lines
 vim.opt.hidden = true -- Enable background buffers
@@ -24,13 +24,14 @@ vim.o.incsearch  = true -- highlight incrementaly rather than the whole word wor
 vim.o.ignorecase  = true -- only ignore case if write uppercase letter
 vim.o.smartcase  = true -- only ignore case if write uppercase letter
 -- vim.o.showmode = false
-vim.o.hlsearch   = false -- Do not keep the previous search occurance highlighted
--- vim.o.swapfile   = false
+-- vim.o.hlsearch   = false -- Do not keep the previous search occurance highlighted
+vim.o.swapfile   = false
 
 vim.o.number = true
 vim.wo.relativenumber = true
 vim.o.scrolloff = 8
--- vim.opt.termguicolors = true -- Enable 24-bit RGB colors
+vim.opt.termguicolors = true -- Enable 24-bit RGB colors
+-- vim.o.guicursor = true
 vim.opt.linebreak = false
 vim.bo.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -43,7 +44,6 @@ vim.o.undodir = os.getenv("XDG_CACHE_HOME") .. "/nvim/undodir/"
 vim.o.backup     = true
 vim.o.backupdir     = os.getenv("XDG_CACHE_HOME") .. "/nvim/backup/"
 vim.o.encoding = "utf-8"
--- vim.o.guifont = "hack:h10" -- the font used in vim gui
 -- Show full path in status line
 -- vim.o.statusline="%F"
 
@@ -55,8 +55,8 @@ vim.o.encoding = "utf-8"
 vim.o.splitbelow = true
 vim.o.splitright = true
 
--- Highlight current line
--- vim.o.cursorline = true
+vim.o.cursorline = true -- Highlight current line
+vim.o.cursorcolumn = true -- Highlight current column
 -- set formatoptions-=o
 -- set updatetime=50
 -- set inccommand=nosplit
@@ -78,31 +78,25 @@ vim.g.netrw_winsize = 25
 vim.opt.shortmess:append "sI"
 -- Disable builtins plugins
 local disabled_built_ins = {
-    -- "netrw",
-    -- "netrwPlugin",
-    -- "netrwSettings",
-    -- "netrwFileHandlers",
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-    "spellfile_plugin",
-    "matchit"
+		-- "netrw",
+		-- "netrwPlugin",
+		-- "netrwSettings",
+		-- "netrwFileHandlers",
+		"gzip",
+		"zip",
+		"zipPlugin",
+		"tar",
+		"tarPlugin",
+		"getscript",
+		"getscriptPlugin",
+		"vimball",
+		"vimballPlugin",
+		"2html_plugin",
+		"logipat",
+		"rrhelper",
+		"spellfile_plugin",
+		"matchit"
 }
 for _, plugin in pairs(disabled_built_ins) do
-    vim.g["loaded_" .. plugin] = 1
+		vim.g["loaded_" .. plugin] = 1
 end
--- disable all languages but lua and vimscript for editing
--- vim.g.loaded_perl_provider = 0
--- vim.g.loaded_ruby_provider = 0
--- vim.g.loaded_node_provider = 0
--- vim.g.loaded_python_provider = 0
--- vim.g.loaded_python3_provider = 0
