@@ -3,6 +3,8 @@
 (setq EMACS_DIR "~/.config/emacs/")
 (setq user-init-file "~/.config/emacs/init.el")
 
+
+
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -17,6 +19,13 @@
 	(package-refresh-contents)
 	(package-install 'use-package))
 
+(setq use-package-always-ensure t)
+
+;; Install and load `quelpa-use-package'.
+(setq quelpa-update-melpa-p nil)
+(package-install 'quelpa-use-package)
+(require 'quelpa-use-package)
+
 ;; config changes made through the customize UI will be stored here
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
@@ -26,11 +35,11 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'my-functions)
 (require 'init-tex)
-(require 'init-dev)
-(require 'org-settings)
+;; (require 'init-dev)
+(require 'init-org)
 (require 'init-evil)
-;; (require 'lsp-stuff)
-;; (require 'eglot-stuff)
+;; (require 'init-lsp)
+;; (require 'init-eglot)
 
 ;; Don't clutter my folders
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs"))
@@ -44,9 +53,35 @@
 ;; Some global settings
 (defalias 'yes-or-no-p 'y-or-n-p)
 ;; confirm quiting or not
-;; (setq confirm-kill-emacs 'yes-or-no-p)
+(setq confirm-kill-emacs 'yes-or-no-p)
 ;; (setq confirm-kill-processes nil)
 
+;; save a list of open files in user-emacs-dir/.emacs.desktop
+;; (setq desktop-path (list user-emacs-directory)
+;;			desktop-auto-save-timeout 600)
+;; ;; disable frame sizing so it doesn't conflict with auto maximization
+;; (setq desktop-restore-frames nil)
+;; (desktop-save-mode 1)
+
+(setq use-dialog-box nil) ;; Don't show gui dialog boxs, use minibuffer instead
+;; (add-hook 'window-setup-hook 'toggle-frame-maximized t) ;; maximize on startup
+;; (setq split-width-threshold 0) ;; default splits to vertical
+(setq inhibit-x-resources 1)
+(blink-cursor-mode -1) ;; disable blinking cursor
+;; Set up the visible bell
+;; (setq visible-bell 1)
+;; (global-display-line-numbers-mode 1)
+;; (global-visual-line-mode 1)
+;; (global-hl-line-mode 1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+;; startup messages
+(setq inhibit-startup-message t)
+;; vim-like scrolling
+(setq scroll-conservatively 100)
+(setq scroll-margin 8) ;; scroll offset
+;; (setq ring-bell-function 'ignore)
 ;; enable image mode by default
 (setq image-mode 1)
 (setq default-input-method "arabic")
@@ -62,6 +97,7 @@
 (setq-default diff-update-on-the-fly nil)
 ;; recentf
 (recentf-mode 1)
+(setq recentf-max-saved-items 100) ;; more recentf amount
 (run-at-time nil (* 5 60) 'recentf-save-list)
 ;; bookmarks default file
 (setq bookmark-default-file (concat (file-name-as-directory EMACS_DIR) "/bookmarks"))
@@ -72,7 +108,6 @@
 ;;	(interactive (list my-term-shell)))
 ;; (ad-activate 'ansi-term)
 ;; (use-package vterm
-;;   :ensure t
 ;;   :commands vterm
 ;;   :config
 ;;   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
@@ -127,41 +162,29 @@
 				 ;; ("C-x s"   . shell)
 				 ;; ("C-;" . toggle-input-method)
 				 ))
-;; Look and feel
-;; (setq inhibit-x-resources 1)
-;; (set-foreground-color "black")
-;; (set-background-color "white")
-;; (set-cursor-color "black")
-;; disable blinking cursor
-(blink-cursor-mode -1)
-;; (use-package gruvbox-theme
-;;	:ensure t
-;;	:config
-;;	(load-theme 'gruvbox-dark-hard t))
-;; Set up the visible bell
-;; (setq visible-bell 1)
-(global-display-line-numbers-mode 1)
-(global-visual-line-mode 1)
-;; (global-hl-line-mode 1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-;; startup messages
-(setq inhibit-startup-message t)
-;; vim-like scrolling
-(setq scroll-conservatively 100)
-;; (setq ring-bell-function 'ignore)
 
 (setq dictionary-server "dict.org")
 
 ;; Font settings
-(setq my/font-change-increment 1.1)
+;; (setq my/font-change-increment 1.1)
+;; (set-face-attribute 'default nil :font (font-spec :family "monospace" :height 110 :weight 'regular))
+;; ;; Makes commented text and keywords italics. This is working in emacsclient but not emacs. Your font must have an italic face available.
+;; (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+;; (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
+;; ;; adjust line spacing
+;; ;; (setq-default line-spacing 0.12)
+;; ;; Arabic font
+;; (set-fontset-font t 'arabic "DejaVu Sans Mono")
+;; ;; Set the fixed pitch face
+;; (set-face-attribute 'fixed-pitch nil :font (font-spec :family "monospace" :size 15 :weight 'regular))
+;; ;; Set the variable pitch face which is the same for mac and linux
+;; (set-face-attribute 'variable-pitch nil :font (font-spec :family "Sans" :size 14 :weight 'regular))
 
 (defun my/setup-font-faces ()
 	"Setup all gui font faces."
 	(when (display-graphic-p)
 		;; set default font
-		(set-face-attribute 'default nil :font (font-spec :family "monospace" :size 15 :weight 'regular))
+		(set-face-attribute 'default nil :font (font-spec :family "monospace" :size 14 :weight 'regular))
 		;; Arabic font
 		(set-fontset-font t 'arabic "DejaVu Sans Mono")
 		;; Set the fixed pitch face
@@ -203,33 +226,23 @@
 		)
 	(message "%s" bidi-paragraph-direction))
 
-(use-package rainbow-mode
-	:ensure t
-	:hook
-	(prog-mode)
-	(org-mode))
-
-(use-package yasnippet
-	:ensure t
-	:config
-	(setq yas-indent-line 'auto) ;; do not always indent
-	(yas-global-mode 1)
-	(use-package yasnippet-snippets
-		:ensure t))
+;; (use-package yasnippet
+;;	:config
+;;	(setq yas-indent-line 'auto) ;; do not always indent
+;;	(use-package yasnippet-snippets)
+;;	:init
+;;	(yas-global-mode 1))
 
 
-(use-package popup-kill-ring
-	:ensure t
-	:bind ("M-y" . popup-kill-ring))
+;; (use-package popup-kill-ring
+;;	:bind ("M-y" . popup-kill-ring))
 
 ;; Enable vertico
 (use-package vertico
-	:ensure t
 	:init
 	(vertico-mode)
 	:config
 	(use-package orderless
-		:ensure t
 		:init
 		;; Configure a custom style dispatcher (see the Consult wiki)
 		;; (setq orderless-style-dispatchers '(+orderless-dispatch)
@@ -257,31 +270,29 @@
 				'(read-only t cursor-intangible t face minibuffer-prompt))
 	(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
 
-;; (use-package consult
-;;	:ensure t
-;;	:bind (
-;;				 :map minibuffer-local-map
-;;				 ("M-r" . consult-history))
-;;	:custom
-;;	(completion-in-region-function #'consult-completion-in-region)
-;;	:config
-;;	(add-hook 'completion-setup-hook #'hl-line-mode))
+(use-package consult
+	:bind (
+				 :map minibuffer-local-map
+				 ("M-r" . consult-history))
+	:custom
+	(completion-in-region-function #'consult-completion-in-region)
+	:config
+	(add-hook 'completion-setup-hook #'hl-line-mode))
 
 ;; hippie expand
-(setq hippie-expand-try-functions-list '(try-expand-dabbrev
-																				 try-expand-dabbrev-all-buffers
-																				 try-expand-dabbrev-from-kill
-																				 try-complete-file-name-partially
-																				 try-complete-file-name
-																				 try-expand-all-abbrevs
-																				 try-expand-list
-																				 try-expand-line
-																				 try-complete-lisp-symbol-partially
-																				 try-complete-lisp-symbol))
-(global-set-key (kbd "M-/")  #'hippie-expand)
+;; (setq hippie-expand-try-functions-list '(try-expand-dabbrev
+;;																				 try-expand-dabbrev-all-buffers
+;;																				 try-expand-dabbrev-from-kill
+;;																				 try-complete-file-name-partially
+;;																				 try-complete-file-name
+;;																				 try-expand-all-abbrevs
+;;																				 try-expand-list
+;;																				 try-expand-line
+;;																				 try-complete-lisp-symbol-partially
+;;																				 try-complete-lisp-symbol))
+;; (global-set-key (kbd "M-/")  #'hippie-expand)
 
-(use-package magit
-	:ensure t)
+(use-package magit)
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
@@ -289,7 +300,6 @@
 	(savehist-mode))
 
 (use-package saveplace
-	:ensure t
 	:init
 	(save-place-mode 1)
 	:config
@@ -298,52 +308,44 @@
 	(setq-default save-place t))
 
 ;; leetcode
-(use-package leetcode
-	:ensure t
-	:hook
-	(leetcode-solution-mode-hook .
-															 (lambda() (flycheck-mode -1)))
-	:config
-	(setq leetcode-prefer-language "java")
-	(setq leetcode-prefer-sql "mysql")
-	(setq leetcode-save-solutions t)
-	(setq leetcode-directory "~/code/exercise/leetcode"))
+;; (use-package leetcode
+;;	:hook
+;;	(leetcode-solution-mode-hook .
+;;															 (lambda() (flycheck-mode -1)))
+;;	:config
+;;	(setq leetcode-prefer-language "java")
+;;	(setq leetcode-prefer-sql "mysql")
+;;	(setq leetcode-save-solutions t)
+;;	(setq leetcode-directory "~/code/exercise/leetcode"))
 
-(use-package flymake
-	:hook
-	(prog-mode))
-
-(use-package undo-tree
-	:ensure t
-	:config
-	;; autosave the undo-tree history
-	(setq undo-tree-history-directory-alist
-				`((".*" . ,temporary-file-directory)))
-	(setq undo-tree-auto-save-history t)
-	(global-undo-tree-mode +1))
+;; (use-package undo-tree
+;;	:config
+;;	;; autosave the undo-tree history
+;;	(setq undo-tree-history-directory-alist
+;;				`((".*" . ,temporary-file-directory)))
+;;	(setq undo-tree-auto-save-history t)
+;;	(global-undo-tree-mode +1))
 
 (use-package whitespace
 	:ensure nil
 	:hook (before-save . whitespace-cleanup))
 
-(use-package minions
-	:ensure t
-:demand t
+;; (use-package minions
+;;	:demand t
 
-:custom
-(minions-mode-line-delimiters (cons "" ""))
+;;	:custom
+;;	(minions-mode-line-delimiters (cons "" ""))
 
-:config
-(defun +set-minions-mode-line-lighter ()
-		(setq minions-mode-line-lighter
-				(if (display-graphic-p) "" )))
+;;	:config
+;;	(defun +set-minions-mode-line-lighter ()
+;;		(setq minions-mode-line-lighter
+;;					(if (display-graphic-p) "" )))
 
-		(add-hook 'server-after-make-frame-hook '+set-minions-mode-line-lighter)
+;;	(add-hook 'server-after-make-frame-hook '+set-minions-mode-line-lighter)
 
-		(minions-mode 1))
+;;	(minions-mode 1))
 
 ;; (use-package which-key
-;;	:ensure t
 ;;	:config
 ;;	(which-key-mode 1))
 
@@ -360,13 +362,18 @@
 ;;								"Compilation finished in Emacs"
 ;;								status))
 
-;; Javascript
-(use-package js2-mode
-	:ensure t)
-;; set as the default mode for javascript
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(use-package js2-refactor
-	:ensure t)
+
+(use-package rainbow-mode
+	:config
+	;; Rainbow mode doesn't work globaly by default, so I'll define my own global mode
+	(define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
+		(lambda () (rainbow-mode 1)))
+	(my-global-rainbow-mode 1))
+
+
+;; (use-package avy
+;;	:bind*
+;;	("M-s" . evil-avy-goto-char))
 
 ;; (setq-default indent-tabs-mode nil)
 
@@ -375,7 +382,6 @@
 
 
 ;; (use-package exwm
-;;   :ensure t
 ;;	:config
 ;;   (require 'exwm-config)
 ;;   (exwm-config-default)
@@ -444,3 +450,24 @@
 ;;                           (exwm-workspace-switch-create ,i))))
 ;;                     (number-sequence 0 9))))
 ;;   (exwm-enable)))
+
+
+;;; EXTRA UI
+;; (use-package hl-todo :hook prog-mode)
+
+;; (use-package winum
+;;	:config
+;;	(global-set-key (kbd "M-0") 'treemacs-select-window)
+;;	(global-set-key (kbd "M-1") 'winum-select-window-1)
+;;	(global-set-key (kbd "M-2") 'winum-select-window-2)
+;;	(global-set-key (kbd "M-3") 'winum-select-window-3)
+;;	(global-set-key (kbd "M-4") 'winum-select-window-4)
+;;	(global-set-key (kbd "M-5") 'winum-select-window-5)
+;;	(global-set-key (kbd "M-6") 'winum-select-window-6)
+;;	(global-set-key (kbd "M-7") 'winum-select-window-7)
+;;	(global-set-key (kbd "M-8") 'winum-select-window-8)
+;;	(winum-mode))
+
+;; (use-package powerline
+;;	:config
+;;	(powerline-default-theme))

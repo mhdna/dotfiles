@@ -75,4 +75,4 @@
 ;;        (javascript-mode . eglot)
 ;;        ))
 
-(provide 'eglot-stuff)
+(provide 'init-eglot)

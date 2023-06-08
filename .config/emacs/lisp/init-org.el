@@ -233,12 +233,16 @@ non-empty lines in the block (excluding the line with
 							 (file+headline org-index-file "Index")
 							 "** %?\n   SCHEDULED: %t\n")
 							("t" "todo"
-									entry
-									(file+headline org-index-file "Index")
-									"* TODO [#%^{Priority (A-B-C)}] %?\n")
+							 entry
+							 (file+headline org-index-file "Index")
+							 "* TODO [#%^{Priority}] %?\n")
+							("T" "todo code (File)"
+							 entry
+							 (file+headline org-index-file "Code")
+							 "* TODO %?\n%i%a\n")
 							;; http://doc.norang.ca/org-mode.html#CaptureTemplates
-							("T" "todo+refile" entry (file+headline org-index-file "Index")
-							 "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+							;; ("T" "todo+refile" entry (file+headline org-index-file "Index")
+							;;  "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
 							("m" "Media queue"
 							 item
 							 (file+headline "media.org" "Index")
@@ -272,7 +276,7 @@ non-empty lines in the block (excluding the line with
 							("Q" "Quote"
 							 plain
 							 (file "quotes.org")
-							 "** %?\t:%^g:\n")
+							 "* %? (%^{Quotee})\t%^g\n")
 							;;              ("d" "Delivery"
 							;;                entry
 							;;                (file+headline "deliveries.org" "Deliveries")
@@ -365,13 +369,18 @@ non-empty lines in the block (excluding the line with
 	(find-file my/diary-file)
 	(end-of-buffer)
 	(insert (concat "** " (format-time-string "%Y.%m.%d %H:%M %P ") "\n"))
+	(org-set-tags-command)
+	;; (let ((tag (read-string "Enter tag: ")))
+	;; (insert (concat "** " (format-time-string "%Y.%m.%d %H:%M %P ") "\t:" tag ":" "\n")))
 	(evil-insert-state)
 	(flycheck-mode -1))
 
 (defun my/english-reading-notes-open ()
 	(interactive)
 	(find-file (org-file-path "/language.org"))
-	(end-of-buffer))
+	(goto-char (org-find-exact-headline-in-buffer "English Reading Notes"))
+	(org-shifttab)
+	(org-cycle))
 
 (defun org-capture-todo ()
 	(interactive)
@@ -415,7 +424,6 @@ non-empty lines in the block (excluding the line with
 
 ;; org notifications
 (use-package org-alert
-	:ensure t
 	:config
 	(setq alert-default-style 'libnotify)
 	(setq org-alert-interval 300
@@ -426,17 +434,18 @@ non-empty lines in the block (excluding the line with
 
 
 ;; org reveal for presentations
-(use-package ox-reveal
-	:ensure t
-	:config
-	(setq org-reveal-root "file:///home/mahdi/.config/emacs/reveal.js"))
+;; (use-package ox-reveal
+;;	:config
+;;	(setq org-reveal-root "file:///home/mahdi/.config/emacs/reveal.js"))
 
 ;; anki-editor
-(use-package anki-editor
-	:ensure t)
+(use-package anki-editor)
+
+(use-package org-bullets
+	:hook (org-mode . (lambda () (org-bullets-mode 1))))
+
 
 ;; (use-package org-wild-notifier
-;;	:ensure t
 ;;   :after org
 ;;   :config
 ;;   ;; Make sure we receive notifications for non-TODO events
@@ -516,4 +525,4 @@ non-empty lines in the block (excluding the line with
 (global-set-key (kbd "C-c D") 'my/diary-file-open)
 ;; (global-set-key (kbd "C-c w") 'my/open-work-file)
 
-(provide 'org-settings)
+(provide 'init-org)

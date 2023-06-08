@@ -201,6 +201,98 @@ Version 2019-11-09"
 			(run-hooks 'find-file-root-hook))))
 
 (defun my/which (filename)
+	"Open a file with the given filename."
+	(interactive "sEnter executable name: ")
 	(find-file (executable-find filename)))
+
+(defun kill-start-of-line ()
+	"kill from point to start of line"
+	(interactive)
+	(kill-line 0))
+
+(defvar my/recently-closed-buffers nil "alist of recently closed buffers. Each element is (buffer name, file path). The max number to track is controlled by the variable `my/recently-closed-buffers-max'.")
+
+(defvar my/recently-closed-buffers-max 40 "The maximum length for `my/recently-closed-buffers'.")
+(defun my/user-buffer-p ()
+	"Return t if current buffer is a user buffer, else nil.
+Typically, if buffer name starts with *, it is not considered a user buffer.
+This function is used by buffer switching command and close buffer command, so that next buffer shown is a user buffer.
+You can override this function to get your idea of “user buffer”.
+Version: 2016-06-18 2022-05-19"
+	(interactive)
+	(cond
+	 ((string-equal "*" (substring (buffer-name) 0 1)) nil)
+	 ((string-equal major-mode "dired-mode") nil)
+	 ((string-equal major-mode "eww-mode") nil)
+	 ((string-equal major-mode "help-mode") nil)
+	 (t t)))
+
+(defun my/close-current-buffer ()
+	"Close the current buffer.
+
+Similar to `kill-buffer', with the following addition:
+
+• Prompt user to save if the buffer has been modified even if the buffer is not associated with a file.
+• If the buffer is editing a source file in an `org-mode' file, prompt the user to save before closing.
+• If the buffer is a file, add the path to the list `my/recently-closed-buffers'.
+
+URL `http://xahlee.info/emacs/emacs/elisp_close_buffer_open_last_closed.html'
+Version: 2016-06-19 2021-07-01 2022-03-22 2022-05-13"
+	(interactive)
+	(let (($isOrgMode (string-match "^*Org Src" (buffer-name))))
+		(if (active-minibuffer-window) ; if the buffer is minibuffer
+				;; (string-equal major-mode "minibuffer-inactive-mode")
+				(minibuffer-keyboard-quit)
+			(progn
+				;; Offer to save buffers that are non-empty and modified, even for non-file visiting buffer. (Because `kill-buffer' does not offer to save buffers that are not associated with files.)
+				(when (and (buffer-modified-p)
+									 (my/user-buffer-p)
+									 (not (string-equal major-mode "dired-mode"))
+									 (if (equal (buffer-file-name) nil)
+											 (if (string-equal "" (save-restriction (widen) (buffer-string))) nil t)
+										 t))
+					(if (y-or-n-p (format "Buffer %s modified; Do you want to save? " (buffer-name)))
+							(save-buffer)
+						(set-buffer-modified-p nil)))
+				(when (and (buffer-modified-p)
+									 $isOrgMode)
+					(if (y-or-n-p (format "Buffer %s modified; Do you want to save? " (buffer-name)))
+							(org-edit-src-save)
+						(set-buffer-modified-p nil)))
+				;; save to a list of closed buffer
+				(when (buffer-file-name)
+					(setq my/recently-closed-buffers
+								(cons (cons (buffer-name) (buffer-file-name)) my/recently-closed-buffers))
+					(when (> (length my/recently-closed-buffers) my/recently-closed-buffers-max)
+						(setq my/recently-closed-buffers (butlast my/recently-closed-buffers 1))))
+				(kill-buffer (current-buffer))))))
+(defun my/open-last-closed ()
+	"Open the last closed file.
+URL `http://xahlee.info/emacs/emacs/elisp_close_buffer_open_last_closed.html'
+Version: 2016-06-19"
+	(interactive)
+	(if (> (length my/recently-closed-buffers) 0)
+			(find-file (cdr (pop my/recently-closed-buffers)))
+		(progn (message "No recently close buffer in this session."))))
+
+(defun my/open-recently-closed ()
+	"Open recently closed file.
+Prompt for a choice.
+
+URL `http://xahlee.info/emacs/emacs/elisp_close_buffer_open_last_closed.html'
+Version: 2016-06-19 2021-10-27 2022-04-07"
+	(interactive)
+	(find-file (completing-read "Open:" (mapcar (lambda (f) (cdr f)) my/recently-closed-buffers))))
+
+(defun my/list-recently-closed ()
+	"List recently closed file.
+
+URL `http://xahlee.info/emacs/emacs/elisp_close_buffer_open_last_closed.html'
+Version: 2016-06-19"
+	(interactive)
+	(let (($buf (generate-new-buffer "*recently closed*")))
+		(switch-to-buffer $buf)
+		(mapc (lambda ($f) (insert (cdr $f) "\n"))
+					my/recently-closed-buffers)))
 
 (provide 'my-functions)
