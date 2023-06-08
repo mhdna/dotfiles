@@ -1,28 +1,19 @@
 # Prompt
-autoload -U colors zsh/terminfo
-colors
+# Add these lines to your .zshrc file
 
-# Find and set branch name var if in git repository.
-function git_branch_name()
-{
-  branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
-  if [[ $branch == "" ]];
-  then
-    :
-  else
-    echo '- ('$branch')'
-  fi
-}
+# Prompt color settings
+autoload -U colors && colors
+# Reset color at the end of each command
+PROMPT='[%m %1~] %{$reset_color%}$ '
+
 
 # Enable substitution in the prompt.
 setopt prompt_subst
 
-# Config for prompt. PS1 synonym.
-PROMPT='%B%F{39}%n%f%F{39} (at) %F{39}%m%f %B%F{167}%B%~$(git_branch_name) %# %b%f '
-
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
+
 
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
