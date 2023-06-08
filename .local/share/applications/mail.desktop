@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Mail
-Exec=/usr/local/bin/st -e bicon ; neomutt %u
+Exec=/usr/local/bin/st -e bicon -e neomutt %u
