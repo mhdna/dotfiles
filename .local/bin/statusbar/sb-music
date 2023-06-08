@@ -6,12 +6,7 @@
 
 print(){
     status=$(mpc status %state%)
-    if [ $status = "playing" ]; then
-        color="#00ff00"
-    else
-        color="#ff0000"
-    fi
-    echo "<span color=\"$color\">MPD</span>"
+    echo "M: $status"
 }
 print
 while : ; do
