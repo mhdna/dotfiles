@@ -2,4 +2,4 @@
 
 ! pidof transmission-daemon >/dev/null && $TRANSMISSION_DAEMON && notify-send "Starting torrent daemon..."
 
-stig
+tremc

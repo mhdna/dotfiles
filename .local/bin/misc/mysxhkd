@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if ! pgrep -x sxhkd; then
-    sxhkd
-else
-    pkill -USR1 -x sxhkd
-fi

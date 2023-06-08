@@ -6,13 +6,13 @@ ID=$(xinput list | grep -Eio '(touchpad|glidepoint)\s*id=[0-9]{1,2}' | grep -Eo 
 case "$1" in
     "on")
         xinput enable "$ID"
-        echo "Touchpad enabled."
-        notify-send -u low 'Touchpad' 'Touchpad Enabled'
+        # echo "Touchpad enabled."
+        # notify-send -u low 'Touchpad' 'Touchpad Enabled'
         ;;
     "off")
         xinput disable "$ID"
-        echo "Touchpad disabled."
-        notify-send -u low 'Touchpad' 'Touchpad Disabled'
+        # echo "Touchpad disabled."
+        # notify-send -u low 'Touchpad' 'Touchpad Disabled'
         ;;
     *)
     exit 1

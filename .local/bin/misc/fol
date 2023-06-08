@@ -4,47 +4,46 @@
 
 xopts=""
 topts=""
-tsetclass="--class"
+tsetclass="-c"
 
 activate () {
-# use the program's name as the class name for xdo and/or terminal if no custom name/class were set
-if [ "$cclass" != true ] && [ "$cname" != true ]; then
-    if [ "$term" != true ]; then
-        xopts="${xopts} -N $prg"
-    else
-        # set class as the last word in -e prg (i.e. the prg name)
-
-        xopts="${xopts} -N ${prg##* }"
-        topts="$tsetclass ${prg##* }"
+    # use the program's name as the class name for xdo and/or terminal if no custom name/class were set
+    if [ "$cclass" != true ] && [ "$cname" != true ]; then
+        if [ "$gui" = true ]; then
+            xopts="${xopts} -N $prg"
+        else
+            # set class as the last word in -e prg (i.e. the prg name)
+            xopts="${xopts} -N ${prg##* }"
+            topts="$tsetclass ${prg##* }"
+        fi
     fi
-fi
 
-if [ "$term" = true ]; then
-    # shellcheck disable=SC2086
-    xdo activate $xopts || $TERMINAL $topts $prg
-else
-    # shellcheck disable=SC2086
-    xdo activate $xopts || $prg
-fi
+    if [ "$gui" = true ]; then
+        # shellcheck disable=SC2086
+        xdo activate $xopts || $prg
+    else
+        # shellcheck disable=SC2086
+        xdo activate $xopts || $TERMINAL $topts $prg
+    fi
 }
 
 usage () {
     echo "Usage:
-    -t Open as a tui window (make sure to put it before all)
-    -d Same desktop
-    -n Custom name to focus on
-    -N Custom class to focus and launch when running as tui
-    -h Show this help prompt"
+    -g open as a gui
+    -d same desktop
+    -n custom name to focus on
+    -N custom class to focus and launch when running as tui
+    -h show this help prompt"
 }
 
-while getopts 'tdn:N:e:h' opt; do
+while getopts 'gdn:N:e:h' opt; do
     case "$opt" in
-        t) term=true ;;
+        g) gui=true ;;
         d) xopts="${xopts} -d" ;;
         n) xopts="${xopts} -n $OPTARG"; cname=true ;;
-        N) [ "$term" = true ] && topts="${topts} $tsetclass $OPTARG"
+        N) [ "$gui" != true ] && topts="${topts} $tsetclass $OPTARG"
             xopts="${xopts} -N $OPTARG"; cclass=true ;;
-        e) [ "$term" = true ]&& prg="${prg} -e $OPTARG" || prg="$OPTARG";;
+        e) [ "$gui" = true ] && prg="$OPTARG" || prg="${prg} -e $OPTARG";;
         h) usage ;;
         \?) usage; exit 1 ;;
     esac

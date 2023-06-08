@@ -16,17 +16,18 @@ ext="${file##*.}"
 
 cd "$dir" || exit 1
 
-# textype() { \
-# 	textarget="$(getcomproot "$file" || echo "$file")"
-# 	echo "$textarget"
-#  	command="pdflatex"
-# ( head -n5 "$textarget" | grep -qi 'xelatex' ) && command="xelatex"
-# 	$command --output-directory="${textarget%/*}" "${textarget%.*}"
-# 		grep -qi addbibresource "$textarget" &&
-# 		biber --input-directory "${textarget%/*}" "${textarget%.*}" &&
-# 		$command --output-directory="${textarget%/*}" "${textarget%.*}" &&
-# 		$command --output-directory="${textarget%/*}" "${textarget%.*}"
-#
+textype() { \
+	textarget="$(getcomproot "$file" || echo "$file")"
+	echo "$textarget"
+	command="pdflatex"
+	( head -n5 "$textarget" | grep -qi 'xelatex' ) && command="xelatex"
+	$command --output-directory="${textarget%/*}" "${textarget%.*}"
+		grep -qi addbibresource "$textarget" &&
+		biber --input-directory "${textarget%/*}" "${textarget%.*}" &&
+		$command --output-directory="${textarget%/*}" "${textarget%.*}" &&
+		$command --output-directory="${textarget%/*}" "${textarget%.*}"
+}
+
 case "$ext" in
 	# Try to keep these cases in alphabetical order.
 	[0-9]) preconv "$file" | refer -PS -e | groff -mandoc -T pdf > "$base".pdf ;;
@@ -54,7 +55,7 @@ case "$ext" in
 	sass) sassc -a "$file" "$base".css ;;
 	scad) openscad -o "$base".stl "$file" ;;
 	sent) setsid -f sent "$file" 2>/dev/null ;;
-	tex) xelatex "$file" ;;
+	tex) textype "$file" ;;
 	reveal) Rscript -e "rmarkdown::render('$file')" ;;
 	*) sed -n '/^#!/s/^#!//p; q' "$file" | xargs -r -I % "$file" ;;
 esac

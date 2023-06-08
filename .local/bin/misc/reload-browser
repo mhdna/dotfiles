@@ -14,7 +14,7 @@ usage() {
 		;;
 	*)
 		# xdotool uses regular expressions
-		echo "Usage: $(basename $0) Brave [Firefox librewolf Surf Chromium Chrome...]"
+		echo "Usage: $(basename $0) Firefox [Brave librewolf Surf Chromium Chrome...]"
 		;;
 	esac
 	exit 1

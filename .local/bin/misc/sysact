@@ -14,3 +14,4 @@ case "$(printf "lock\nleave\nhibernate\nreboot\npoweroff\nsuspend\ndisplay off" 
 	'display off') xset dpms force off ;;
 	*) exit 1 ;;
 esac
+echo 'awesome.restart()' | awesome-client
