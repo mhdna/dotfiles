@@ -4,9 +4,9 @@ user_pref("identity.fxaccounts.enabled", false);
 // disable fullscreen autohide
 user_pref("browser.fullscreen.autohide", false);
 // do not show bookmarks in toolbar
-user_pref("browser.toolbars.bookmarks.visibility", "never")
+user_pref("browser.toolbars.bookmarks.visibility", "never");
 // disable firefox-view
-user_pref("browser.tabs.firefox-view", false)
+user_pref("browser.tabs.firefox-view", false);
 user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
 user_pref("extensions.pocket.enabled", false);
 user_pref("keyword.enabled", true);
@@ -40,7 +40,7 @@ user_pref("ui.context_menus.after_mouseup", true);
 // user_pref("media.peerconnection.enabled", true); // 2001
 // user_pref("media.peerconnection.ice.no_host", false); // 2001 [may or may not be required]
 // /* needed for screensharing */
-// // user_pref("dom.webaudi")
+// // user_pref("dom.webaudi");
 // // user_pref("media.getusermedia.screensharing.enabled", true);
 // user_pref("webgl.disabled", false);// NEEDED FOR ZOOM
 // /* 2012: limit WebGL ***/
