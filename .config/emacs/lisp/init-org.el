@@ -204,8 +204,7 @@ non-empty lines in the block (excluding the line with
 
 (defun my/org-goto()
 	(interactive)
-	(let ((org-goto-interface 'outline-path-completion)) (org-goto))
-	)
+	(let ((org-goto-interface 'outline-path-completion)) (org-goto)))
 
 (defadvice org-agenda-set-mode-name (after truncate-org-agenda-mode-name activate)
 	(setq mode-name '("Org-agenda")))
@@ -235,7 +234,7 @@ non-empty lines in the block (excluding the line with
 							("t" "todo"
 							 entry
 							 (file+headline org-index-file "Index")
-							 "* TODO [#%^{Priority}] %?\n")
+							 "* TODO [#%^{Priority}] %?\t%^g\n")
 							("T" "todo code (File)"
 							 entry
 							 (file+headline org-index-file "Code")
@@ -251,52 +250,37 @@ non-empty lines in the block (excluding the line with
 							 entry
 							 (file "news.org")
 							 "* %?\n%t\n")
-							("w" "Writing prompts"
-							 ((tags "+writing"))
-							 ((org-agenda-overriding-header "Writing prompts")
-								(org-agenda-sorting-strategy '((agenda ts-down)))))
 							("p" "Project idea"
 							 entry
 							 (file "project-idea.org")
-							 "* %?\n")
-							("c" "Contact"
-							 entry
-							 (file "~/documents/contacts.org")
-							 "* %(org-contacts-template-name)
-:PROPERTIES:
-:ADDRESS: %^{123 Fake St., City, ST 12345}
-:PHONE: %^{555-555-5555}
-:EMAIL: %^{email}
-:NOTE: %^{note}
-:END:")
-							("w" "Writing prompt"
-							 entry
-							 (file "journal.org")
-							 "* %?\n   %t\n")
+							 "* %?\t%^g\n")
+;;							("c" "Contact"
+;;							 entry
+;;							 (file "~/documents/contacts.org")
+;;							 "* %(org-contacts-template-name)
+;; :PROPERTIES:
+;; :ADDRESS: %^{123 Fake St., City, ST 12345}
+;; :PHONE: %^{555-555-5555}
+;; :EMAIL: %^{email}
+;; :NOTE: %^{note}
+;; :END:")
+							;; ("j" "Journal prompt"
+							;;  entry
+							;;  (file "journal.org")
+							;;  "* %?\t%^g\n   %t\n")
+							("S" "Shopping item"
+							 plain
+							 (file+headline org-index-file "Shopping List")
+							 "** %? \t%^g\n")
 							("Q" "Quote"
 							 plain
 							 (file "quotes.org")
 							 "* %? (%^{Quotee})\t%^g\n")
-							;;              ("d" "Delivery"
-							;;                entry
-							;;                (file+headline "deliveries.org" "Deliveries")
-							;;                "** %?\n   SCHEDULED: %t\n")
-							;;              ("e" "Email"
-							;;                entry
-							;;                (file+headline org-index-file "Index")
-							;;                "* TODO %?\n%a\n")
-							;;              ("k" "Kookaburra ingest"
-							;;                entry
-							;;                (file+headline "kookaburra-ingest.org" "Queue")
-							;;                "* TODO %?\n")
-							;;              ("p" "Finished paper"
-							;;                entry
-							;;                (file+headline "papers-read.org" "Papers")
-							;;                "* %^{Title} -- %^{Author}\n%t\n")
-							;;              ("w" "Work task"
-							;;                entry
-							;;                (file+headline "work.org" "Tasks")
-							;;                "* TODO %?\n")
+							;; ("Q" "Quote"
+							("Q" "Quote"
+							 plain
+							 (file "quotes.org")
+							 "* %? (%^{Quotee})\t%^g\n")
 							;; Languages templates
 							("r" "Readlater"
 							 plain
@@ -305,7 +289,10 @@ non-empty lines in the block (excluding the line with
 							("q" "Question"
 							 plain
 							 (file+headline org-index-file "Questions")
-							 "** %^{Question}")
+							 "** %^{Question} \t%^g")
+							("d" "Advice"
+							 plain
+							 (file "advice.org")
 							("D" "Download"
 							 plain
 							 (file+headline org-index-file "To Download")
@@ -313,49 +300,48 @@ non-empty lines in the block (excluding the line with
 							("b" "Book to read"
 							 plain
 							 (file+headline org-index-file "Books")
-							 "** %^{Book Title}")
+							 "** %^{Book Title}\t%^g")
 							("B" "Red Book"
 							 entry
 							 (file+headline "red_books.org" "Red Books")
-							 "* %^{Title} -- %^{Author}\n%t\n** Review\n%^{Review}\n** Summary\n%^{Summary}")
+							 "* %^{Title} -- %^{Author}\n%t\n** Review\n%^{Review}\n** Summary\n%^{Summary}\t%^g")
 							("M" "Movie"
 							 plain
 							 (file "movies.org")
 							 "* %^{Title} -- %t   :%^g:\n** Stars: %^{Stars (out of 10)}/10\n** Degeneracy: %^{Degeneracy (out of 10)}/10\n** Review\n%?\n** Quotes\n")
-							("d" "Advice"
-							 plain
-							 (file "advice.org")
 							 "* %?")
-							("e" "English word"
+							("e" "English Words"
 							 plain
 							 (file+headline "language.org" "English Words")
-							 "- %^{Word}\n\t: %^{Meaning}")
-							("E" "English phrase"
+							 "*** %^{Word}\t%^g\n\t: %^{Meaning}")
+							("E" "English Phrases"
 							 plain
 							 (file+headline "language.org" "English Phrases")
-							 "- %^{Phrase}\n\t: %^{Meaning}")
-							("I" "Idiom"
-							 plain
-							 (file+headline "language.org" "Idioms")
-							 "- %^{Idiom}\n\t: %^{Meaning}")
-							("f" "Farsi word"
+							 "*** %^{Phrase}\t%^g\t: %^{Meaning}")
+							("f" "Farsi Words"
 							 plain
 							 (file+headline "language.org" "Farsi Words")
-							 "- %^{Word}\n\t: %^{Meaning}")
-							("F" "Farsi phrase"
+							 "- %^{Word}\n\t%^g\t: %^{Meaning}")
+							("F" "Farsi Phrases"
 							 plain
 							 (file+headline "language.org" "Farsi Phrases")
-							 "- %^{Phrase}\n\t: %^{Meaning}")
-							("a" "Arabic word"
+							 "*** %^{Phrase}\t%^g\n\t: %^{Meaning}")
+							("a" "Arabic Words"
 							 item
 							 (file+headline "language.org" "Arabic Words")
-							 "- %^{Word}")
-							("A" "Arabic phrase"
+							 "*** %^{Word}\t%^g")
+							("A" "Arabic Phrases"
 							 plain
 							 (file+headline "language.org" "Arabic Phrases")
-							 "- %^{Phrase}"))))
+							 "*** %^{Phrase}\t%^g")
+							("c" "Color"
+							 plain
+							 (file+headline "language.org" "Colors")
+							 "** %^{Color and explanation -if any-} %^{Hex Code}")
+							)))
 (setq org-refile-use-outline-path t)
 (setq org-outline-path-complete-in-steps nil)
+
 (defun my/index-file-open ()
 	"Open the master org TODO list."
 	(interactive)
@@ -368,10 +354,21 @@ non-empty lines in the block (excluding the line with
 	;; (setq filename (concat "diary/" (format-time-string "%Y-%m-%d-%H-%M) " ".org"))
 	(find-file my/diary-file)
 	(end-of-buffer)
-	(insert (concat "** " (format-time-string "%Y.%m.%d %H:%M %P ") "\n"))
+	;; (insert (concat "** " (format-time-string "%Y.%m.%d %H:%M %P ") "\n"))
+	(let ((title (read-string "Enter Title: ")))
+	(insert (concat "** " title (format-time-string " %Y.%m.%d %H:%M %P ") "\n")))
 	(org-set-tags-command)
-	;; (let ((tag (read-string "Enter tag: ")))
-	;; (insert (concat "** " (format-time-string "%Y.%m.%d %H:%M %P ") "\t:" tag ":" "\n")))
+	(evil-insert-state)
+	(flycheck-mode -1))
+
+(setq my/journal-file (org-file-path "/journal.org"))
+(defun my/journal-file-open()
+	(interactive)
+	(find-file my/journal-file)
+	(end-of-buffer)
+	(let ((title (read-string "Enter Title: ")))
+	(insert (concat "** " title (format-time-string "\n<%Y-%m-%d %a>") "\n")))
+	(org-set-tags-command)
 	(evil-insert-state)
 	(flycheck-mode -1))
 

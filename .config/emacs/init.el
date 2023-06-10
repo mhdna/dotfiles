@@ -3,8 +3,6 @@
 (setq EMACS_DIR "~/.config/emacs/")
 (setq user-init-file "~/.config/emacs/init.el")
 
-
-
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -18,7 +16,6 @@
 (when (not (package-installed-p 'use-package))
 	(package-refresh-contents)
 	(package-install 'use-package))
-
 (setq use-package-always-ensure t)
 
 ;; Install and load `quelpa-use-package'.
@@ -318,13 +315,13 @@
 ;;	(setq leetcode-save-solutions t)
 ;;	(setq leetcode-directory "~/code/exercise/leetcode"))
 
-;; (use-package undo-tree
-;;	:config
-;;	;; autosave the undo-tree history
-;;	(setq undo-tree-history-directory-alist
-;;				`((".*" . ,temporary-file-directory)))
-;;	(setq undo-tree-auto-save-history t)
-;;	(global-undo-tree-mode +1))
+(use-package undo-tree
+	:config
+	;; autosave the undo-tree history
+	(setq undo-tree-history-directory-alist
+				`((".*" . ,temporary-file-directory)))
+	(setq undo-tree-auto-save-history t)
+	(global-undo-tree-mode +1))
 
 (use-package whitespace
 	:ensure nil

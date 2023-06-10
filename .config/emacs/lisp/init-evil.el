@@ -44,7 +44,7 @@
 		(kbd "SPC y")											 'consult-yank-pop
 		(kbd "SPC G")											 'consult-ripgrep
 		(kbd "SPC R")											 'find-file-root
-		(kbd "SPC d")											 'dired-jump
+		;; (kbd "SPC d")											 'dired-jump
 		(kbd "SPC S")											 'delete-trailing-whitespace
 		(kbd "SPC u")											 'undo-tree-visualize
 		(kbd "SPC M")											 'make-frame
@@ -66,7 +66,8 @@
 		(kbd "SPC c")											 'org-capture
 		(kbd "SPC C")											 'calc
 		(kbd "SPC i")											 'consult-imenu
-		(kbd "SPC D")											 'my/diary-file-open
+		(kbd "SPC dd")											 'my/diary-file-open
+		(kbd "SPC dj")											 'my/journal-file-open
 		(kbd "SPC t")											 'org-capture-todo
 		(kbd "SPC n")											 'my/notes-open
 		;; (kbd "SPC R")									 'load-file user-init-file
@@ -172,7 +173,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 	(setq evil-want-keybinding nil)
 	;; no vim insert bindings
 	(setq evil-disable-insert-state-bindings t)
-	(setq evil-undo-system 'undo-redo)
+	;; (setq evil-undo-system 'undo-redo)
 	(setq evil-split-window-below t)
 	(setq evil-split-window-right t)
 	:config
@@ -181,9 +182,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 	(evil-mode 1)
 	:config
 	;; (evil-set-leader 'normal " ")
-	(evil-make-overriding-map corfu-map)
-	(advice-add 'corfu--setup :after 'evil-normalize-keymaps)
-	(advice-add 'corfu--teardown :after 'evil-normalize-keymaps)
+	(when (package-installed-p 'corfu)
+		(evil-make-overriding-map corfu-map)
+		(advice-add 'corfu--setup :after 'evil-normalize-keymaps)
+		(advice-add 'corfu--teardown :after 'evil-normalize-keymaps))
 	:bind
 	(:map evil-normal-state-map
 							;; vim vinigar style
@@ -237,8 +239,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq tab-always-indent 'complete)
 
 ;; set default undo-tree system if installed
-;; (when (package-installed-p 'undo-tree)
-;;	(evil-set-undo-system 'undo-tree))
-;; (evil-set-undo-system undo-redo)
+(when (package-installed-p 'undo-tree)
+	(evil-set-undo-system 'undo-tree))
 
 (provide 'init-evil)
