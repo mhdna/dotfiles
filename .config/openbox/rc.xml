@@ -45,7 +45,6 @@
     <name>Onyx</name>
     <!-- shown buttons in the titlebar -->
     <titleLayout>L</titleLayout>
-    <!-- #CMIL -->
     <!--
 			available characters are NDSLIMC, each can occur at most once.
 			N: window icon
@@ -175,24 +174,9 @@
     <moveButton>Middle</moveButton>
     <!-- 'Left', 'Middle', 'Right' -->
   </dock>
-  <keyboard><!-- <chainQuitKey>C-g</chainQuitKey> --><keybind key="W-Left"><action name="Unmaximize"/><action name="MoveResizeTo"><x>0</x><y>0</y><width>50%</width><height>100%</height></action></keybind>
-      <keybind key="W-Right"><action name="Unmaximize"/><action name="MoveResizeTo"><x>-0</x><y>0</y><width>50%</width><height>100%</height></action></keybind>
-      <keybind key="W-Up"><action name="Unmaximize"/><action name="MoveResizeTo"><x>0</x><y>0</y><width>100%</width><height>50%</height></action></keybind>
-      <keybind key="W-Down"><action name="Unmaximize"/><action name="MoveResizeTo"><x>0</x><y>-0</y><width>100%</width><height>50%</height></action></keybind>
-      <!-- Keybindings for desktop switching --><!-- go to last desktop --><!-- last desktop (the one you stay in for >= 750ms) -->
-      <keybind key="W-Escape"><action name="GoToDesktop"><to>last</to></action></keybind>
-      <!-- <keybind key="W-semicolon"><action name="GoToDesktop"><to>next</to></action></keybind>
+  <keyboard><!-- <chainQuitKey>C-g</chainQuitKey> --><keybind key="W-Left"><action name="Unmaximize"/><action name="MoveResizeTo"><x>0</x><y>0</y><width>50%</width><height>100%</height></action></keybind><keybind key="W-Right"><action name="Unmaximize"/><action name="MoveResizeTo"><x>-0</x><y>0</y><width>50%</width><height>100%</height></action></keybind><keybind key="W-Up"><action name="Unmaximize"/><action name="MoveResizeTo"><x>0</x><y>0</y><width>100%</width><height>50%</height></action></keybind><keybind key="W-Down"><action name="Unmaximize"/><action name="MoveResizeTo"><x>0</x><y>-0</y><width>100%</width><height>50%</height></action></keybind><!-- Keybindings for desktop switching --><!-- go to last desktop --><!-- last desktop (the one you stay in for >= 750ms) --><keybind key="W-Escape"><action name="GoToDesktop"><to>last</to></action></keybind><!-- <keybind key="W-semicolon"><action name="GoToDesktop"><to>next</to></action></keybind>
       --><!-- <keybind key="W-g"><action name="GoToDesktop"><to>previous</to></action></keybind>
-      --><keybind key="W-F1"><action name="GoToDesktop"><to>1</to></action></keybind>
-      <keybind key="W-F2"><action name="GoToDesktop"><to>2</to></action></keybind>
-      <keybind key="W-F3"><action name="GoToDesktop"><to>3</to></action></keybind>
-      <keybind key="W-F4"><action name="GoToDesktop"><to>4</to></action></keybind>
-      <keybind key="W-S-F1"><action name="SendToDesktop"><to>1</to><wrap>no</wrap></action></keybind>
-      <keybind key="W-S-F2"><action name="SendToDesktop"><to>2</to><wrap>no</wrap></action></keybind>
-      <keybind key="W-S-F3"><action name="SendToDesktop"><to>3</to><wrap>no</wrap></action></keybind>
-      <keybind key="W-S-F4"><action name="SendToDesktop"><to>4</to><wrap>no</wrap></action></keybind>
-      <keybind key="W-C-d"><action name="ToggleShowDesktop"/></keybind>
-      <!-- <keybind key="W-r"><action name="Resize"/></keybind> -->
+      --><keybind key="W-1"><action name="GoToDesktop"><to>1</to></action></keybind><keybind key="W-2"><action name="GoToDesktop"><to>2</to></action></keybind><keybind key="W-3"><action name="GoToDesktop"><to>3</to></action></keybind><keybind key="W-4"><action name="GoToDesktop"><to>4</to></action></keybind><keybind key="W-S-1"><action name="SendToDesktop"><to>1</to><wrap>no</wrap></action></keybind><keybind key="W-S-2"><action name="SendToDesktop"><to>2</to><wrap>no</wrap></action></keybind><keybind key="W-S-3"><action name="SendToDesktop"><to>3</to><wrap>no</wrap></action></keybind><keybind key="W-S-4"><action name="SendToDesktop"><to>4</to><wrap>no</wrap></action></keybind><keybind key="W-C-d"><action name="ToggleShowDesktop"/></keybind><!-- <keybind key="W-r"><action name="Resize"/></keybind> -->
 		moving
 		<keybind key="W-C-h"><action name="MoveRelative"><x>-40</x></action></keybind>
 		<keybind key="W-C-j"><action name="MoveRelative"><y>40</y></action></keybind>
@@ -212,19 +196,19 @@
 		<keybind key="W-S-j"><action name="UnmaximizeFull"/><action name="GrowToEdgeSouth"/></keybind>
 		<keybind key="W-S-k"><action name="UnmaximizeFull"/><action name="GrowToEdgeNorth"/></keybind>
 		<!-- Keybindings for windows -->
-		<keybind key="S-W-c"><action name="Close"/></keybind>
+		<keybind key="W-S-c"><action name="Close"/></keybind>
 		<!-- <keybind key="W-s"> -->
 		<!--   <action name="Lower"/> -->
 		<!--   <action name="FocusToBottom"/> -->
 		<!--   <action name="Unfocus"/> -->
 		<!-- </keybind> -->
-		<keybind key="W-S-t"><action name="ToggleAlwaysOnTop"/></keybind>
+		<!-- toggle sticky aka onmipresent -->
+		<keybind key="W-F10"><action name="ToggleOmnipresent"/></keybind>
+		<keybind key="W-F11"><action name="ToggleAlwaysOnTop"/></keybind>
 		<!-- <keybind key="S-W-b"> -->
 		<!--   <action name="ToggleDecorations"/> -->
 		<!-- </keybind> -->
-		<keybind key="W-S-f"><action name="ToggleFullscreen"/></keybind>
-		<!-- toggle sticky aka onmipresent -->
-		<!-- <keybind key="W-S-s"><action name="ToggleOmnipresent"/></keybind> -->
+		<keybind key="W-F12"><action name="ToggleFullscreen"/></keybind>
 		<keybind key="W-m"><action name="ToggleMaximize"/></keybind>
 		<keybind key="W-S-m"><action name="Iconify"/></keybind>
 		<!-- jump to urgent window -->
@@ -242,8 +226,8 @@
 		<keybind key="W-Up"><action name="DirectionalCycleWindows"><direction>up</direction></action></keybind>
 		<keybind key="W-Down"><action name="DirectionalCycleWindows"><direction>down</direction></action></keybind>
 		<!-- Center the Current Window -->
-		<keybind key="W-A-c"><action name="MoveResizeTo"><x>center</x><y>center</y><width>99%</width><height>99%</height></action></keybind>
-		<keybind key="W-A-4"><action name="UnmaximizeFull"/><action name="Raise"/><action name="MoveResizeTo"><width>50%</width><height>100%</height><x>0</x><y>0</y></action></keybind>
+		<!-- <keybind key="W-A-c"><action name="MoveResizeTo"><x>center</x><y>center</y><width>99%</width><height>99%</height></action></keybind> -->
+		<!-- <keybind key="W-A-4"><action name="UnmaximizeFull"/><action name="Raise"/><action name="MoveResizeTo"><width>50%</width><height>100%</height><x>0</x><y>0</y></action></keybind> -->
 		<!-- Vertical tiling -->
 		<keybind key="W-A-v"><action name="Unmaximize"/><action name="MoveResizeTo"><width>49%</width><height>100%</height></action><action name="UnmaximizeVert"/><action name="MoveResizeTo"><x>12</x><y>0</y></action><action name="NextWindow"><interactive>no</interactive><dialog>none</dialog><finalactions><action name="Unmaximize"/><action name="MoveResizeTo"><width>50%</width><height>100%</height></action><action name="UnmaximizeVert"/><action name="MoveResizeTo"><x>-12</x><y>0</y></action></finalactions></action></keybind>
 		<!-- Horizontal tiling -->
