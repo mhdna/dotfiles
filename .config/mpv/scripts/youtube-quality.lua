@@ -1,1 +1,0 @@
-../submodules/mpv-youtube-quality/youtube-quality.lua
