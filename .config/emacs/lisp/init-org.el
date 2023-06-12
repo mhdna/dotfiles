@@ -317,7 +317,7 @@ non-empty lines in the block (excluding the line with
 							("E" "English Phrases"
 							 plain
 							 (file+headline "language.org" "English Phrases")
-							 "*** %^{Phrase}\t%^g\t: %^{Meaning}")
+							 "*** %^{Phrase}\t%^g\n\t: %^{Meaning}")
 							("f" "Farsi Words"
 							 plain
 							 (file+headline "language.org" "Farsi Words")
