@@ -2,7 +2,7 @@ super + Return
 	 fol -e Tmux
 
 super + shift + Return
-    fol -d -g -N Emacs -e "emacsclient -c"
+    fol -d -g -c Emacs -e "emacsclient -c"
 
 super + alt + Return
 	 $TERMINAL
@@ -11,7 +11,7 @@ super + alt + Return
     $TERMINAL
 
 super + y
-    fol -g -N jetbrains-idea-ce -e idea
+    fol -g -c jetbrains-idea-ce -e idea
 
 super + shift + y
 	fol -e "mycli -u root"
@@ -29,7 +29,7 @@ super + w
 	fol -g -e $BROWSER
 
 super + shift + w
-	fol -N Chromium -g -e chromium
+	fol -g -d -c Chromium -e chromium
 
 super + {_,shift+} b
 	{dmenu-bookmarks,bookmarkit}
@@ -40,11 +40,8 @@ super + {_,shift+} s
 super + q
 	dmenu_web
 
-super + shift + p
-    displayselect
-
-#super + shift + p
-#    passmenu
+super + {_,shift} + F12
+    {displayselect,passmenu}
 
 
 super + {_,shift+} d
@@ -66,10 +63,10 @@ super + t; {s,S}
 	{fol -e sdcv,$TERMINAL -e sdcv $(xclip -o)}
 
 super + a
-    fol -g -N Anki -e anki
+    fol -g -c Anki -e anki
 
 super + e
-	fol -e lfub
+	fol -d -e lfub
 
 super + shift + e
 	fol -e bicon -e neomutt
@@ -102,19 +99,19 @@ super + {shift+minus,minus,equal}
 super + {_,shift+ }{comma,period}
 	brightnessctl {set 5%-,set 1%, set +5%, set 100%}
 
-super + o; {_, shift+ } k
-	{kdeconnect-indicator;! pidof kdeconnectd  && /usr/lib/kdeconnectd; kdeconnect-cli --refresh, killall kdeconnect-indicator; sleep 1&& killall kdeconnectd }
+super + {_, shift+} F1
+	{mykd,mykd -s}
 
-super + o; {_, shift+ } r
+super + {_, shift+ } F2
 	redshift {-O 5000,-x}
 
-super + o; {_, shift+ } t
+super + {_, shift+ } F3
 	{fol -e torwrap, td-toggle}
 
-super + {_, shift+ }Insert
+super + {_, shift+ }F4
 	remaps; touchpad_toggle {off,on}
 
-super + alt + Insert
+super + alt + F4
 	setxkbmap -model pc105 -layout us -option '' && notify-send -t 1000 "Setxkbmap" "Has been reset"
 
 super + {_, shift+ }{bracketleft,bracketright}
@@ -130,11 +127,14 @@ super + i
 	fol -e nmtui
 
 super + shift + i
-	sudo nmcli wifi rescan
+	nmcli device wifi rescan
+
+super + c
+    fol -G "50x20" -c bc -e "bc -lq"
 
 # less used keybinds
-super + o; {w,i,c,n,v,r}
-	{forecast,$TERMINAL -e sh -c 'vnstat| less',fol -N bc -e "bc -lq",newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)", $BROWSER "https://roadmap.sh/cyber-security" }
+super + o; {w,i,n,v,r}
+	{forecast,$TERMINAL -e sh -c 'vnstat| less',,newword, mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)", $BROWSER "https://roadmap.sh/cyber-security" }
 
 super + o; e
 	myenglish
@@ -147,9 +147,6 @@ super + {_,shift+,alt} BackSpace
 
 #super + shift + {Right,Left}
 	#dpselector {1,2}
-
-super + o; C
-	colorpicker
 
 super + ctrl + x
 	xkill
@@ -164,7 +161,9 @@ super + shift + z
 	loginctl suspend
 
 super + Tab
-    fol -a
+    fol2 -a
+
+
 
 # For some reason sxhkd hangs when opening vim and then pressing super+shift+r
 # So keep it s-S-r instead of s-C-r
