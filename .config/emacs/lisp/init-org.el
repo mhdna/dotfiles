@@ -219,11 +219,14 @@ non-empty lines in the block (excluding the line with
 																									"books-read.org"
 																									;;                                         "papers-read.org"
 																									)))))
-(defun my/org-empahsize ()
+(defun my-org-emphasize ()
 	(interactive)
-	(if (not (use-region-p))
-			(execute-kbd-macro (kbd "vaW")))
-	(org-emphasize))
+	(if (use-region-p)
+			(org-emphasize (region-beginning) (region-end))
+		(progn
+			(forward-word)
+			(backward-word)
+			(org-emphasize (point) (mark)))))
 
 ;; (defvar org-capture-templates '())
 (setq org-capture-templates
