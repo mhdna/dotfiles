@@ -249,7 +249,7 @@ non-empty lines in the block (excluding the line with
 							("n" "News item"
 							 entry
 							 (file "news.org")
-							 "* %?\n%t\n")
+							 "* %?\n%U\n")
 							("p" "Project idea"
 							 entry
 							 (file "project-idea.org")
