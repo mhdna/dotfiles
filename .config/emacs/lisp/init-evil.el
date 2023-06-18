@@ -24,8 +24,12 @@
 		(kbd "C-'")												 'toggle-input-method)
 
 	(evil-define-key										 '(normal visual) my-intercept-mode-map
+		(kbd "M-u")												 'universal-argument
+		(kbd "M-S-u")												 'negative-argument)
+
+	(evil-define-key										 '(normal visual) my-intercept-mode-map
 		;; (kbd "C-]")										 'gtags-find-tag-from-here
-		(kbd "C-p")												 'duplicate-line-or-region
+		;; (kbd "C-p")												 'duplicate-line-or-region
 		(kbd "z d")												 'dictionary-lookup-definition
 		;; fix gj, gk when using evil-org-mode
 		(kbd "gj")												 'evil-next-visual-line
@@ -92,8 +96,6 @@
 		(kbd ")")																 'evil-next-close-paren))
 
 ;; Global Bindings
-(define-key global-map (kbd "M-u")		 'universal-argument)
-(define-key global-map (kbd "M-S-u")	 'negative-argument)
 (global-set-key (kbd "C-w")						 'backward-kill-word)
 ;; M-[0-4] are especially annoying if they close windows or open new splits if envoked with universal-argument prefix
 (global-unset-key (kbd "M-0"))
