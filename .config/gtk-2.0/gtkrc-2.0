@@ -1,5 +1,5 @@
-gtk-theme-name="Adwaita-dark"
-gtk-icon-theme-name="Adwaita"
+gtk-theme-name="Arc-Gruvbox"
+gtk-icon-theme-name="matefaenzadark"
 gtk-font-name="Sans 10"
 gtk-cursor-theme-name="Adwaita"
 gtk-cursor-theme-size=0
@@ -13,4 +13,3 @@ gtk-xft-antialias=1
 gtk-xft-hinting=1
 gtk-xft-hintstyle="hintfull"
 gtk-xft-rgba="rgb"
-gtk-key-theme-name = "Emacs"
