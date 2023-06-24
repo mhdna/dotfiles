@@ -210,14 +210,14 @@ cmd open ${{
 				image/svg+xml) display -- $fx ;;
 				image/vnd.djvu|application/pdf|application/octet-stream|application/postscript|application/epub) setsid -f zathura $f >/dev/null 2>&1 ;;
 				image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
-						setsid -f $IMAGE -aio 2>/dev/null | while read -r file; do
+						setsid -f nsxiv -aio 2>/dev/null | while read -r file; do
 						[ -z "$file" ] && continue
 						lf -remote "send select \"$file\""
 						lf -remote "send toggle"
 						done &
 				;;
-				audio/*|video/x-ms-asf) setsid -f $TERMINAL -e $VIDEO --audio-display=no $f >/dev/null 2>&1 ;;
-				video/*) setsid -f $VIDEO $f -quiet >/dev/null 2>&1 ;;
+				audio/*|video/x-ms-asf) setsid -f $TERMINAL -e mpv --audio-display=no $f >/dev/null 2>&1 ;;
+				video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
 				application/pgp-encrypted) $EDITOR $fx ;;
 				# libreoffice filetypes
 				application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template|application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint|application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template|application/vnd.oasis.opendocument.formula|application/vnd.oasis.opendocument.database) setsid -f libreoffice $fx >/dev/null 2>&1 ;;

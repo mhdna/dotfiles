@@ -5,13 +5,13 @@
 url="${1:-$(printf "%s" | dmenu -p 'Paste url or file path')}"
 base="$(basename "$url")"
 
-case "$(printf "Copy url\\n$IMAGE\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\n$VIDEO\\n$VIDEO audio\\n$VIDEO float\\nyt\\nyta\\nyt any quality\\nHtml\\nariaAdd\\nariaDownload" | dmenu -i -p "Open it with?")" in #\\nqueue download\\nqueue yt-dl\\nqueue yt-dl audio
+case "$(printf "Copy url\\nnsxiv\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\nmpv\\nmpv audio\\nmpv float\\nyt\\nyta\\nyt any quality\\nHtml\\nariaAdd\\nariaDownload" | dmenu -i -p "Open it with?")" in #\\nqueue download\\nqueue yt-dl\\nqueue yt-dl audio
 	"Copy url") echo "$url" | tr -d '\n' | xclip -selection clipboard ;;
-	$VIDEO) setsid -f $VIDEO --ytdl-format=22 -quiet "$url" >/dev/null 2>&1 ;;
-	"$VIDEO audio") $TERMINAL -e $VIDEO -quiet --no-video "$url"  ;;
-	# "$VIDEO loop") setsid -f $VIDEO -quiet --loop "$url" >/dev/null 2>&1 ;;
-	# "$VIDEO float") setsid -f "$TERMINAL" -e $VIDEO --geometry=+0-0 --autofit=30%  --title="$VIDEOfloat" "$url" >/dev/null 2>&1 ;;
-	"$VIDEO float") setsid -f $VIDEO --ytdl-format=22 --geometry=+0-0 --autofit=30%  --title="$VIDEOfloat" "$url" >/dev/null 2>&1 ;;
+	mpv) setsid -f mpv --ytdl-format=22 -quiet "$url" >/dev/null 2>&1 ;;
+	"mpv audio") $TERMINAL -e mpv -quiet --no-video "$url"  ;;
+	# "mpv loop") setsid -f mpv -quiet --loop "$url" >/dev/null 2>&1 ;;
+	# "mpv float") setsid -f "$TERMINAL" -e mpv --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
+	"mpv float") setsid -f mpv --ytdl-format=22 --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
 	"yt")  notify-send "🎥 downloading "$base""
 		setsid -f yt-dlp --external-downloader aria2c -f 22 -P "$XDG_VIDEOS_DIR/yt" "$url" > /dev/null 2>&1 ;;
 	"yt any quality")  notify-send "🎥 downloading "$base""
@@ -23,7 +23,7 @@ case "$(printf "Copy url\\n$IMAGE\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\n$VIDEO\
 	#"queue yt-dl audio") qndl "$url" 'yt-dlp -f bestaudio/best --add-metadata -icx' >/dev/null 2>&1 ;;
 	#"queue download") qndl "$url" 'curl -LO' >/dev/null 2>&1 ;;
 	PDF) curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && zathura "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
-	$IMAGE) curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && $IMAGE -a "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
+	nsxiv) curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && nsxiv -a "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
 	vim) curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && setsid -f "$TERMINAL" -e "$EDITOR" "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
 	setbg) curl -L "$url" > $XDG_CACHE_HOME/pic ; xwallpaper --zoom $XDG_CACHE_HOME/pic >/dev/null 2>&1 ;;
 	browser) setsid -f "$BROWSER" "$url" >/dev/null 2>&1 ;;

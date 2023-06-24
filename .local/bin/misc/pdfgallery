@@ -19,7 +19,7 @@ done
 # }
 
 # galleryopen(){
-#    $IMAGE "${thumbs[@]}"
+#    nsxiv "${thumbs[@]}"
 # }
 
 
