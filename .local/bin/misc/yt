@@ -1,0 +1,22 @@
+#!/bin/sh
+
+
+bmdirs="${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs"
+
+case "$(printf "Max=1080\n720\nAudio" | fzf)" in
+    "Max=1080")
+        args="bestvideo[height<=1080]+bestaudio/best[height<=1080]"
+        dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" | fzf)"
+        ;;
+    "720")
+        args="-S 'res:720,fps'"
+        dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" | fzf)"
+        ;;
+    "Audio")
+        args="--remux-video ogg -f bestaudio/best"
+        dst="$(grep -Ei '(/tmp/|music)' "$bmdirs" |fzf )"
+        ;;
+    *) exit 0;;
+esac
+
+yt-dlp $args --external-downloader aria2c --write-thumbnail --convert-thumbnails jpg --add-metadata -ic -P "$dst" $@

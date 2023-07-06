@@ -32,18 +32,6 @@ duck () {
     lynx  "https://duckduckgo.com/lite?q=$url"
 }
 
-yta () {
-    yt-dlp --remux-video ogg -f bestaudio/best --write-thumbnail  --convert-thumbnails jpg --external-downloader aria2c -P "$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -Ei "(/tmp/|music)" | fzf)" $@
-}
-
-yt () {
-    yt-dlp -S "res:720,fps" --external-downloader aria2c --write-thumbnail  --convert-thumbnails jpg --add-metadata -ic -P "$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | grep -Ei "(/tmp/|vid)" | fzf)" $@
-}
-
-Yt () {
-    yt-dlp --external-downloader aria2c --add-metadata -ic -P "$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf)" $@
-}
-
 configa(){
     while true; do
 
@@ -82,8 +70,7 @@ alias \
     p="pacman" \
     P="sudo pacman" \
     ll="ls -l --color=auto" \
-    lsd="find . -maxdepth 1 -type d" \
-    emacsc="emacsclient  -c -a 'emacs'" \
+    lsd="ls -d .*/ */" \
     abook="abook -C $XDG_CONFIG_HOME/abook/abookrc --datafile $XDG_CONFIG_HOME/abook/addressbook" \
     cp="cp -iv" \
     mv="mv -iv" \
