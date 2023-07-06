@@ -1,3 +1,9 @@
 api.unmap('<Ctrl-i>');
 settings.defaultSearchEngine= "d";
 settings.smoothScroll = false;
+settings.smoothScroll = false;
+api.Hints.style("             \
+ font-size:11pt;              \
+ font-family: serif;",
+  "hint"
+);
