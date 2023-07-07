@@ -204,11 +204,11 @@ cmd link %{{
 cmd open ${{
 		case $(mimetype -b $f) in
 				text/html) setsid -f $BROWSER $fx >/dev/null 2>&1;;
-				text/org) setsid -f emacsclient -c $f >/dev/null 2>&1 ;;
-				text/*|application/x-shellscript|application/json|inode/x-empty|application/x-subrip) setsid -f  $TERMINAL -e $EDITOR $f >/dev/null 2>&1 ;;
+				text/org) setsid -f myemacsclient $f >/dev/null 2>&1 ;;
+				text/*|application/x-shellscript|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx;;
 				image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
 				image/svg+xml) display -- $fx ;;
-				image/vnd.djvu|application/pdf|application/octet-stream|application/postscript|application/epub) setsid -f zathura $f >/dev/null 2>&1 ;;
+				image/vnd.djvu|application/pdf|application/octet-stream|application/postscript|application/epub) setsid -f zathura $fs >/dev/null 2>&1 ;;
 				image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
 						setsid -f nsxiv -aio 2>/dev/null | while read -r file; do
 						[ -z "$file" ] && continue
@@ -241,7 +241,7 @@ set -f
 printf "%s\n\t" "$f"
 printf "Upload to 0x0.st?[y/n]"
 read ans
-[ $ans = "y" ] && curl -F "file=@$f" 0x0.st | xclip -i -sel c && notify-send "Uploaded to 0x0.st"
+[ $ans = "y" ] && curl -F "file=@$f" 0x0.st | xclip -i -sel c && lf -remote "send $id echo  Uploaded to 0x0.st"
 }}
 
 cmd pdfConvert ${{
@@ -362,7 +362,7 @@ map o &mimeopen "$f"
 map O &dmenumimeopen "$f"
 map <c-o> $clear; mimeopen --ask-default "$f"
 
-map K $kdfzf $fx
+map S $myscp $fx
 map ) upload0x0
 
 map c
@@ -378,13 +378,6 @@ map L :link
 map V invert-below
 
 map b $setbg $f
-
-# Mouse
-map <m-1>
-map <m-2> open  # primary
-map <m-3> updir  # secondary
-map <m-4> rename  # middle
-map <m-down>  down
 
 # yank
 map y
@@ -406,9 +399,6 @@ map mf push :mkfile<space>
 map mF sudomkfile
 map md push :mkdir<space>
 map mD MKDIR
-
-map w $setsid -f $TERMINAL >/dev/null 2>&1
-map W $$SHELL
 
 # stipspace
 map ss %stripspace "$f"
