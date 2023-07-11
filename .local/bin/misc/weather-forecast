@@ -11,4 +11,4 @@ getforecast() {
 [ -s "$forecastreport" ] && [ "$(stat -c %y "$forecastreport" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] ||
 	getforecast
 
-$TERMINAL -e less "$forecastreport"
+less "$forecastreport"

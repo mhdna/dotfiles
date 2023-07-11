@@ -1,8 +1,8 @@
 #!/bin/sh
 
-prgs=$(echo "" | mimeopen --ask "$1")
-choice=$(echo "$prgs" | grep "[0-9]"  | cut -d '(' -f 2 | cut -d ')' -f 1| dmenu -i -p "Open With: ")
+prgs=$(echo "" | mimeopen --ask "$1" 2>/dev/null)
+choice=$(echo "$prgs" | grep "[0-9]*)"  | cut -d '(' -f 2 | cut -d ')' -f 1| dmenu -i -p "Open With: ")
 
 # execute
 id=$(echo "$prgs" | grep "$choice" | cut -d ')' -f 1)
-echo $id | mimeopen --ask "$1" > /dev/null 2>&1
+echo $id | mimeopen --ask "$1" > /dev/null 2>&1 &

@@ -14,4 +14,4 @@ case "$1" in
     *) help
 esac
 
-pkill -RTMIN+1 ${STATUSBAR:-i3blocks}
+pkill -RTMIN+1 ${STATUSBAR:-dwmblocks}

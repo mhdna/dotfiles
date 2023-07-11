@@ -11,7 +11,7 @@ main () {
 				else
 						# set class as the last word in -e prg (i.e. the prg name) (especially useful with things like -e bicon -e <myprogram>)
 						class="${prg##* }"
-						topts="$tclassopt ${prg##* }"
+						topts="${topts} $tclassopt ${prg##* }"
 				fi
 		fi
 		cycle_custom_class "$class" "$prg"
@@ -25,10 +25,10 @@ cycle_active_class () {
 		fi
 
 		# get window manager class of current window
-		win_class=$(wmctrl -x -l | cut -d ' ' -f 1-4 | grep $active_win_id | awk '{print $3}' )
+		win_class=$(wmctrl -x -l | cut -d ' ' -f 1-4 | grep $active_win_id | cut -d ' ' -f 3)
 
 		# get list of all windows matching with the class above
-		win_list=$(wmctrl -x -l | grep  $win_class | awk '{print $1}' )
+		win_list=$(wmctrl -x -l | grep  $win_class | cut -d ' ' -f 1 )
 
 		# get next window to focus on
 		switch_to=$(echo $win_list | sed s/.*$active_win_id// | awk '{print $1}')
@@ -49,7 +49,8 @@ cycle_custom_class(){
 		app_name=$1
 
 		workspace_number=$(wmctrl -d | grep '\*' | cut -d' ' -f 1)
-		win_list=$(wmctrl -lx | cut -d ' ' -f 1-4 | grep $app_name | grep " $workspace_number " | awk '{print $1}')
+		win_list=$(wmctrl -lx | cut -d ' ' -f 1-4 | grep "$app_name\$" | grep " $workspace_number " | cut -d ' ' -f 1)
+        echo "$win_list"
 
 		# Get the id of the active window (i.e., window which has the focus)
 		active_win_id=$(xprop -root | grep '^_NET_ACTIVE_W' | awk -F'# 0x' '{print $2}' | awk -F', ' '{print $1}')
@@ -115,11 +116,12 @@ usage () {
 		-h Show this help prompt"
 }
 
-while getopts 'agG:c:e:h' opt; do
+while getopts 'agdG:c:e:h' opt; do
 		case "$opt" in
 				a) cycle_active_class;;
+                d) ;;
 				g) gui=true ;;
-				G) topts="${topts} $OPTARG";;
+				G) [ "$gui" != true ] && topts="${topts} $OPTARG";;
 				c) [ "$gui" != true ] && topts="${topts} $tclassopt $OPTARG"
 					 class="$OPTARG";;
 				e) [ "$gui" != true ] && prg="${prg} -e $OPTARG" || prg=$OPTARG;;

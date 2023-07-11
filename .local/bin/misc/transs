@@ -9,14 +9,22 @@ tr(){
 }
 
 case "$1" in
-		# xclip's primary clipboard
-		"P")
-		notify-send "$(trans --no-bidi -b --target="arabic" "$(xclip -o)")";;
-		# xclip's clipboard clipboard
+		# Primary clipboard
+        "P")
+        word="$(xclip -o)"
+        full="$(sdcv -n "$word")"
+        def="$(echo "$full" |  sed '1,/.*noun\|verb\|adjective\|adverb.*/ { d }' )"
+        [ ! -z "$def" ] && notify-send -t 20000 "${word^}" "$def" ;;
+        # trans --no-bidi -b --target="arabic" "$(xclip -o)")";;
+		# Clipboard clipboard
 		"C")
-		notify-send "$(trans --no-bidi -b --target="arabic" "$(xclip -sel c -o)")";;
+        word="$(xclip -sel c -o)"
+        full="$(sdcv -n "$word")"
+        def="$(echo "$full" | sed '1,/.*noun\|verb\|adjective\|adverb.*/ { d }' )"
+        [ ! -z "$def" ] && notify-send -t 20000 "${word^}" "$def" ;;
+		# notify-send "$(trans --no-bidi -b --target="arabic" "$(xclip -sel c -o)")";;
 		"ar") tr "ar";;
 		"en") tr "en";;
-		"pr") tr "pe";;
+		"fa") tr "fa";;
 		*) exit 1;;
 esac

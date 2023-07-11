@@ -20,14 +20,13 @@
 		(kbd "SPC E")											 'eval-expression)
 
 	(evil-define-key										 '(insert) my-intercept-mode-map
+		(kbd "M-SPC")												 'nil
 		(kbd "C-u")												 'kill-start-of-line
 		(kbd "C-'")												 'toggle-input-method)
 
 	(evil-define-key										 '(normal visual) my-intercept-mode-map
 		(kbd "M-u")												 'universal-argument
-		(kbd "M-S-u")												 'negative-argument)
-
-	(evil-define-key										 '(normal visual) my-intercept-mode-map
+		(kbd "M-S-u")												 'negative-argument
 		;; (kbd "C-]")										 'gtags-find-tag-from-here
 		;; (kbd "C-p")												 'duplicate-line-or-region
 		(kbd "z d")												 'dictionary-lookup-definition
@@ -61,7 +60,7 @@
 		(kbd "SPC b")											 'switch-to-buffer
 		(kbd "SPC r")											 'consult-recent-file
 		(kbd "SPC j")											 'bookmark-jump
-		(kbd "SPC J")											 'bookmark-set
+		(kbd "SPC J")											 'my/bookmark-set
 		;; (kbd "SPC K")									 'kill-current-buffer
 		(kbd "C-x k")											 'my/close-current-buffer
 		(kbd "C-S-T")											 'my/open-last-closed
@@ -97,6 +96,7 @@
 
 ;; Global Bindings
 (global-set-key (kbd "C-w")						 'backward-kill-word)
+(global-set-key (kbd "M-SPC")						 'nil) ;; so it doesn't interfere with my remaps key binding
 ;; M-[0-4] are especially annoying if they close windows or open new splits if envoked with universal-argument prefix
 (global-unset-key (kbd "M-0"))
 (global-unset-key (kbd "M-1"))

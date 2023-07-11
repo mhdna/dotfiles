@@ -26,7 +26,7 @@ copied () {
 
 move () {
     newpath="$(find "$permanentdir" -maxdepth 1 -type d | dmenu -i -l 5 -p "Quit if you want to keep the screenshot in $tmpdir:")"
-    mv "$output" "$newpath"
+    mv "$output" "$newpath" >/dev/null 2>&1
 }
 
 

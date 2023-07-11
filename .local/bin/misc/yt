@@ -5,11 +5,11 @@ bmdirs="${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs"
 
 case "$(printf "Max=1080\n720\nAudio" | fzf)" in
     "Max=1080")
-        args="bestvideo[height<=1080]+bestaudio/best[height<=1080]"
+        args="--write-subs --write-auto-subs bestvideo[height<=1080]+bestaudio/best[height<=1080]"
         dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" | fzf)"
         ;;
     "720")
-        args="-S 'res:720,fps'"
+        args="--write-subs --write-auto-subs -S 'res:720,fps'"
         dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" | fzf)"
         ;;
     "Audio")

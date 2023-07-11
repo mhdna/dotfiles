@@ -10,11 +10,11 @@ activate () {
     # use the program's name as the class name for xdo and/or terminal if no custom name/class were set
     if [ "$cclass" != true ] && [ "$cname" != true ]; then
         if [ "$gui" = true ]; then
-            xopts="${xopts} -N $prg"
+            xopts="$xopts -N $prg"
         else
             # set class as the last word in -e prg (i.e. the prg name)
-            xopts="${xopts} -N ${prg##* }"
-            topts="$tsetclass ${prg##* }"
+            xopts="$xopts -N ${prg##* }"
+            topts="$topts $tsetclass ${prg##* }"
         fi
     fi
 
@@ -32,18 +32,19 @@ usage () {
     -g open as a gui
     -d same desktop
     -n custom name to focus on
-    -N custom class to focus and launch when running as tui
+    -c custom class to focus and launch when running as tui
     -h show this help prompt"
 }
 
-while getopts 'gdn:N:e:h' opt; do
+while getopts 'gG:dn:c:e:h' opt; do
     case "$opt" in
         g) gui=true ;;
-        d) xopts="${xopts} -d" ;;
-        n) xopts="${xopts} -n $OPTARG"; cname=true ;;
-        N) [ "$gui" != true ] && topts="${topts} $tsetclass $OPTARG"
-            xopts="${xopts} -N $OPTARG"; cclass=true ;;
-        e) [ "$gui" = true ] && prg="$OPTARG" || prg="${prg} -e $OPTARG";;
+        G) topts="$topts -g $OPTARG" ;;
+        d) xopts="$xopts -d" ;;
+        n) xopts="$xopts -n $OPTARG"; cname=true ;;
+        c) [ "$gui" != true ] && topts="$topts $tsetclass $OPTARG"
+            xopts="$xopts -N $OPTARG"; cclass=true ;;
+        e) [ "$gui" = true ] && prg="$OPTARG" || prg="$prg -e $OPTARG";;
         h) usage ;;
         \?) usage; exit 1 ;;
     esac

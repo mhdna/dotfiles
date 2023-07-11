@@ -1,24 +1,24 @@
-(defun duplicate-line-or-region (&optional n)
-	"Duplicate current line, or region if active.
-		With argument N, make N copies.
-		With negative N, comment out original line and use the absolute value."
-	(interactive "*p")
-	(let ((use-region (use-region-p)))
-		(save-excursion
-			(let ((text (if use-region        ;Get region if active, otherwise line
-											(buffer-substring (region-beginning) (region-end))
-										(prog1 (thing-at-point 'line)
-											(end-of-line)
-											(if (< 0 (forward-line 1)) ;Go to beginning of next line, or make a new one
-													(newline))))))
-				(dotimes (i (abs (or n 1)))     ;Insert N times, or once if not specified
-					(insert text))))
-		(if use-region nil                  ;Only if we're working with a line (not a region)
-			(let ((pos (- (point) (line-beginning-position)))) ;Save column
-				(if (> 0 n)                             ;Comment out original with negative arg
-						(comment-region (line-beginning-position) (line-end-position)))
-				(forward-line 1)
-				(forward-char pos)))))
+;; (defun duplicate-line-or-region (&optional n)
+;;	"Duplicate current line, or region if active.
+;;		With argument N, make N copies.
+;;		With negative N, comment out original line and use the absolute value."
+;;	(interactive "*p")
+;;	(let ((use-region (use-region-p)))
+;;		(save-excursion
+;;			(let ((text (if use-region        ;Get region if active, otherwise line
+;;											(buffer-substring (region-beginning) (region-end))
+;;										(prog1 (thing-at-point 'line)
+;;											(end-of-line)
+;;											(if (< 0 (forward-line 1)) ;Go to beginning of next line, or make a new one
+;;													(newline))))))
+;;				(dotimes (i (abs (or n 1)))     ;Insert N times, or once if not specified
+;;					(insert text))))
+;;		(if use-region nil                  ;Only if we're working with a line (not a region)
+;;			(let ((pos (- (point) (line-beginning-position)))) ;Save column
+;;				(if (> 0 n)                             ;Comment out original with negative arg
+;;						(comment-region (line-beginning-position) (line-end-position)))
+;;				(forward-line 1)
+;;				(forward-char pos)))))
 
 (defun my/split-window-below-and-switch ()
 	"Split the window horizontally, then switch to the new pane."
@@ -294,5 +294,24 @@ Version: 2016-06-19"
 		(switch-to-buffer $buf)
 		(mapc (lambda ($f) (insert (cdr $f) "\n"))
 					my/recently-closed-buffers)))
+
+(defun my/bookmark-set (&optional bookmark-name file-name)
+	(interactive
+	 (let* ((default-name (if (eq major-mode 'dired-mode)
+														(file-name-nondirectory (directory-file-name (dired-current-directory)))
+													(file-name-nondirectory (buffer-file-name))))
+					(prompt (if (and default-name (not current-prefix-arg))
+											(format "Bookmark name (default: %s): " default-name)
+										"Bookmark name: ")))
+		 (list (if (and (not current-prefix-arg)
+										(not (string= (setq bookmark-name (read-string prompt)) "")))
+							 bookmark-name
+						 default-name)
+					 (if (eq major-mode 'dired-mode)
+							 (dired-current-directory)
+						 (buffer-file-name)))))
+	(add-to-list 'bookmark-alist `(,bookmark-name ((filename . ,file-name))))
+	(bookmark-save))
+
 
 (provide 'my-functions)

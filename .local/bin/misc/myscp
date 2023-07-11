@@ -1,0 +1,8 @@
+#!/bin/sh
+
+file="$XDG_DATA_HOME/scp_ips.txt"
+device="$(cat "$file" |cut -d ' ' -f 1 | fzf)"
+port="$(grep "$device" "$file" | cut -d ' ' -f 2 )"
+ip="$(grep "$device" "$file" | cut -d ' ' -f 3 )"
+
+scp -P "$port" "$@" "$ip":~/

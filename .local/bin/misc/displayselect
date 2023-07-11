@@ -57,8 +57,8 @@ onescreen() { # If only one output available or chosen.
 	}
 
 postrun() { # Stuff to run to clean up.
-	# setwall		# Fix background if screen size/arangement has changed.
-	# remaps		# Re-remap keys if keyboard added (for laptop bases)
+	# setbg # Fix background if screen size/arangement has changed.
+	remaps		# Re-remap keys if keyboard added (for laptop bases)
 	{ killall dunst ; setsid -f dunst ;} >/dev/null 2>&1 # Restart dunst to ensure proper location on screen
 	}
 
@@ -83,7 +83,7 @@ mine2(){
 mineboth(){
     xrandr --newmode "1384x1024_60.00"  96.55  1384 1464 1608 1832  1024 1025 1028 1054  -HSync +Vsync
     xrandr --addmode DP-1 "1384x1024_60.00"
-    xrandr --auto --output DP-1 --mode "1384x1024_60.00"  --left-of eDP-1
+    xrandr --auto --output DP-1 --mode "1384x1024_60.00"  --right-of eDP-1
 }
 
 # Get all possible displays
