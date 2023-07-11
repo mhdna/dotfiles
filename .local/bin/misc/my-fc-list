@@ -1,0 +1,2 @@
+#!/bin/sh
+fc-list | awk -F ":" '{ print $2 }' | uniq
