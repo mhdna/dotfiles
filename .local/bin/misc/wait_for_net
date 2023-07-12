@@ -1,5 +1,0 @@
-#!/bin/sh
-
-while true; do
-    ping example.org && notify-send "Internet is Back"
-done
