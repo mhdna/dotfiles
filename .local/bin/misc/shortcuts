@@ -30,12 +30,10 @@ awk "!/^\s*#/ && !/^\s*\$/ && !/^!.*/ {gsub(\"\\\s*#.*$\",\"\");
 # Add all bookmarks to all-dirs
 # ignore comments, blank lines, and whitespaces
 eval "echo \"$(cat "$bmdirs")\"" | \
-sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' -e '/^!.*/d' > "$alldirs"&&
+sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' -e '/^!.*/d' > "$alldirs" || exit 1
 
 # search deaply in bookmarks that start with !s and add them to alldirs
-readarray -t dirs < <(eval "echo \"$(grep -E '^!.*' "$bmdirs" | sed -e 's/\s*#.*//')\"")
-
-for dir in "${dirs[@]}"; do
+while IFS= read -r dir; do
     # ignore hidden dirs
     if echo "$dir" | grep -q "^!!!"; then
         depth="3"
@@ -46,7 +44,7 @@ for dir in "${dirs[@]}"; do
     fi
 
     find $(echo $dir | cut -d ' ' -f 2) -maxdepth "$depth" \( ! -regex '.*/\..*' \)  -type d  >> "$alldirs"
-done
+done < <(eval "echo \"$(grep -E '^!.*' "$bmdirs" | sed -e 's/\s*#.*//')\"")
 
 
 # poor Gnu doesn't know how to remove duplicates without sorting
