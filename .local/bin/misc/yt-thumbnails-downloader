@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for file in "$@"; do
+    filename=$(basename "$file")
+    youtube-dl --write-thumbnail --convert-thumbnail jpg --skip-download "ytsearch:${filename%.*}" -P "$HOME/.cache/yt-audio-thumbnails/" # -o "%(title)s.%(ext)s"
+done
