@@ -1,7 +1,8 @@
 # XDG user dirs
 /.config/nvim/undodir
 /.config/nvim/lua/shortcuts.lua
-/.config/nvim/plugin
+/.config/nvim/spell
+/.config/nvim/lazy-lock.json
 /.config/qutebrowser/bookmarks
 /.config/qutebrowser/quickmarks
 /.config/qutebrowser/qutepocket.secrets
