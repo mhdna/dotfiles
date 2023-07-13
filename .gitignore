@@ -2,6 +2,7 @@
 /.config/nvim/undodir
 /.config/nvim/lua/shortcuts.lua
 /.config/nvim/spell
+/.config/nvim/lua/.luarc.json
 /.config/nvim/lazy-lock.json
 /.config/qutebrowser/bookmarks
 /.config/qutebrowser/quickmarks
