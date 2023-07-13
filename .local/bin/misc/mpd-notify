@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Do not send a notification of non-local files
+mpc current | grep -q '^http' && exit 0
+
 title=$(mpc --format '%file%')
 name=${title%.*}
 
@@ -9,6 +12,6 @@ name=${title%.*}
 #     [ -f "$file" ] && echo $file && break
 # done
 
-file="$XDG_MUSIC_DIR/$name.jpg"
+file="$XDG_CACHE_HOME/yt-audio-thumbnails/$name.jpg"
 [ -f "$file" ] && notify-send -i "$file" -t 4000 "Now Playing" "$(mpc --format '%file% \n%artist% - %album%' current)" ||
     notify-send -t 4000 "Now Playing" "$(mpc --format '%file% \n%artist% - %album%' current)"
