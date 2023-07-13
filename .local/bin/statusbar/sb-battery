@@ -1,9 +1,10 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-	2) brightnessctl set 1% >/dev/null 2>&1 ;;
-	4) brightnessctl set 5%+ >/dev/null 2>&1 ;;
-	5) brightnessctl set 5%- >/dev/null 2>&1 ;;
+    2) brightnessctl set 1% >/dev/null 2>&1 ;;
+    4) brightnessctl set 5%+ >/dev/null 2>&1 ;;
+    5) brightnessctl set 5%- >/dev/null 2>&1 ;;
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 # Loop through all attached batteries and format the info

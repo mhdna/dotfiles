@@ -1,12 +1,5 @@
 #!/bin/sh
 case "$1" in
-    "k")
-        device=$(kdeconnect-cli -a | awk '{print $3}' | dmenu -i -p "Select your device:") || device="NULL"
-        while read -r file
-        do
-        kdeconnect-cli --refresh && kdeconnect-cli --device "$device"--share "$file" || notify-send "Sending $file to device $device Failed"
-    done;;
-    "w") setbg "$file" ;;
     "r")
         while read -r file
         do
@@ -75,7 +68,7 @@ case "$1" in
 
             # check for a video file
             for ext in webm mkv mp4; do
-                [ -f "$name.$ext" ] && setsid -f "$VIDEO" "$name.$ext" -quiet >/dev/null 2>&1
+                [ -f "$name.$ext" ] && setsid -f mpv "$name.$ext" -quiet >/dev/null 2>&1
             done
 
             # otherwise, search for a pdf file

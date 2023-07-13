@@ -17,6 +17,10 @@ map K zoom in
 map J zoom out
 map p print
 map g goto top
+map ت scroll down
+map ن scroll up
+map م scroll right
+map ا scroll left
 
 # unmap q
 set scroll-step 100

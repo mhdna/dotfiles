@@ -4,7 +4,15 @@
 # Prompt color settings
 autoload -U colors && colors
 # Reset color at the end of each command
-PROMPT='[%m %1~] %{$reset_color%}$ '
+# PROMPT='[%m %1~] %{$reset_color%}$ '
+git_prompt_info() {
+	local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+	if [ -n "$branch" ]; then
+        echo " ($branch)"
+	fi
+}
+# Reset color at the end of each command
+PS1='%B%{$fg[green]%}%n@%m:%{$fg[cyan]%}%~$(git_prompt_info)%{$reset_color%}$%b '
 
 
 # Enable substitution in the prompt.

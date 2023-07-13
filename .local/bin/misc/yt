@@ -19,4 +19,4 @@ case "$(printf "Max=1080\n720\nAudio" | fzf)" in
     *) exit 0;;
 esac
 
-yt-dlp $args --external-downloader aria2c --write-thumbnail --convert-thumbnails jpg --add-metadata -ic -P "$dst" $@
+yt-dlp $args -o "%(title)s.%(ext)s" --external-downloader aria2c --write-thumbnail --convert-thumbnails jpg --add-metadata -ic -P "$dst" $@

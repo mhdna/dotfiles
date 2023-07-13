@@ -440,9 +440,6 @@
 ;;     (use-package treemacs-evil
 ;;			:after (treemacs evil))))
 
-(use-package treemacs-icons-dired
-	:hook (dired-mode . treemacs-icons-dired-enable-once))
-
 (use-package flymake
 	:defer 10
 	:bind (("M-g l"   . flymake-show-buffer-diagnostics)
@@ -467,12 +464,6 @@ Used to see multiline flymake errors"
 					 (text (flymake-diagnostic-text (plist-get id :diagnostic))))
 			(message text)))
 	(remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake))
-
-(use-package imenu
-	:ensure nil
-	:custom
-	(imenu-auto-rescan t)
-	(imenu-max-items nil))
 
 (use-package eldoc
 	:defer 10

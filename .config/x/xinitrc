@@ -2,12 +2,11 @@
 
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x/xresources & xrdbpid=$!
 remaps&
-xautolock -time 12 -locker 'physlock' -detectsleep &
-! pidof redshift && redshift -l 31.77:35.23&
-! pidof emacs && emacs --daemon&
-eval $TRANSMISSION_DAEMON&
+xautolock -time 12 -locker 'physlock' -detectsleep >/dev/null 2>&1 &
+redshift -l 31.77:35.23 >/dev/null 2>&1&
+eval $TRANSMISSION_DAEMON >/dev/null 2>&1 &
 
-autostart="mpd clipmenud sxhkd picom dunst remapd pipewire"
+autostart="dunst clipmenud picom xbanish"
 
 for program in $autostart; do
 	pidof -xs "$program" || "$program" &
@@ -16,4 +15,6 @@ done >/dev/null 2>&1
 # Ensure that xrdb has finished running before moving on to start the WM/DE.
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
 
-exec openbox-session
+while :; do
+    ssh-agent dwm
+done

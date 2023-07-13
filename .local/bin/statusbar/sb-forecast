@@ -37,8 +37,9 @@ showweather() {
 }
 
 case $BLOCK_BUTTON in
-	3) setsid -f "$TERMINAL" -e less -Sf "$weatherreport" ;;
-	2) getforecast && showweather ;;
+    3) setsid -f "$TERMINAL" -e less -Sf "$weatherreport" ;;
+    2) getforecast && showweather ;;
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 checkforecast || getforecast

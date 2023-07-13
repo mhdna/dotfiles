@@ -18,10 +18,10 @@
 	(package-install 'use-package))
 (setq use-package-always-ensure t)
 
-;; Install and load `quelpa-use-package'.
-(setq quelpa-update-melpa-p nil)
-(package-install 'quelpa-use-package)
-(require 'quelpa-use-package)
+;; ;; Install and load `quelpa-use-package'.
+;; (setq quelpa-update-melpa-p nil)
+;; (package-install 'quelpa-use-package)
+;; (require 'quelpa-use-package)
 
 ;; config changes made through the customize UI will be stored here
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -35,7 +35,7 @@
 ;; (require 'init-dev)
 (require 'init-org)
 (require 'init-evil)
-;; (require 'init-lsp)
+(require 'init-lsp)
 ;; (require 'init-eglot)
 
 ;; Don't clutter my folders
@@ -63,11 +63,11 @@
 (setq use-dialog-box nil) ;; Don't show gui dialog boxs, use minibuffer instead
 ;; (add-hook 'window-setup-hook 'toggle-frame-maximized t) ;; maximize on startup
 ;; (setq split-width-threshold 0) ;; default splits to vertical
-(setq inhibit-x-resources 1)
+;; (setq inhibit-x-resources 1)
 (blink-cursor-mode -1) ;; disable blinking cursor
 ;; Set up the visible bell
 ;; (setq visible-bell 1)
-;; (global-display-line-numbers-mode 1)
+(global-display-line-numbers-mode 1)
 ;; (global-visual-line-mode 1)
 ;; (global-hl-line-mode 1)
 (tool-bar-mode -1)
@@ -181,13 +181,13 @@
 	"Setup all gui font faces."
 	(when (display-graphic-p)
 		;; set default font
-		(set-face-attribute 'default nil :font (font-spec :family "monospace" :size 14 :weight 'regular))
+		(set-face-attribute 'default nil :font (font-spec :family "monospace" :size 16 :weight 'regular))
 		;; Arabic font
 		(set-fontset-font t 'arabic "DejaVu Sans Mono")
 		;; Set the fixed pitch face
-		(set-face-attribute 'fixed-pitch nil :font (font-spec :family "monospace" :size 15 :weight 'regular))
+		(set-face-attribute 'fixed-pitch nil :font (font-spec :family "monospace" :size 16 :weight 'regular))
 		;; Set the variable pitch face which is the same for mac and linux
-		(set-face-attribute 'variable-pitch nil :font (font-spec :family "Sans" :size 14 :weight 'regular))
+		(set-face-attribute 'variable-pitch nil :font (font-spec :family "Sans" :size 15 :weight 'regular))
 		;; (set-frame-parameter (selected-frame) 'alpha '(100 100))
 		;; (add-to-list 'default-frame-alist '(alpha 100 100))
 		;; set current frame width and height characters
@@ -468,3 +468,12 @@
 ;; (use-package powerline
 ;;	:config
 ;;	(powerline-default-theme))
+
+(use-package imenu
+	:ensure nil
+	:custom
+	(imenu-auto-rescan t)
+	(imenu-max-items nil))
+
+(use-package treemacs-icons-dired
+	:hook (dired-mode . treemacs-icons-dired-enable-once))

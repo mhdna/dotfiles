@@ -1,7 +1,8 @@
 #!/bin/sh
-#
+
 case $BLOCK_BUTTON in
-	3) setsid -f "$TERMINAL" -e torwrap ;;
+    3) setsid -f "$TERMINAL" -e torwrap ;;
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 transmission-remote -l | grep % |

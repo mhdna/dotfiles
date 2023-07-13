@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    pattern = { "cronjobs.txt"},
+    pattern = { "cronjobs.txt" },
     command = "!crontab - < %"
 })
 
@@ -54,7 +54,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- tex settings
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "tex" },
-    callback = function ()
+    callback = function()
         vim.api.nvim_create_autocmd('BufWritePost', {
             command = 'silent! execute "!compiler % >/dev/null 2>&1" | redraw!',
         })
@@ -64,7 +64,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- -- Remove trailing whitespace
+-- Remove trailing whitespace
 -- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 --     pattern = "*",
 --     command = "%s/\\s\\+$//e",
@@ -79,36 +79,29 @@ vim.cmd [[
 
 -- Do not keep netrw buffers open in the background
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'netrw' ,
+    pattern = 'netrw',
     callback = function()
-       vim.bo.bufhidden=delete
-   end,
+        vim.bo.bufhidden = delete
+    end,
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'qf' ,
+    pattern = 'qf',
     callback = function()
-       vim.bo.buflisted= true
-       vim.keymap.set("n", "q", ":q!<CR>", opts)
-   end,
+        vim.bo.buflisted = true
+        vim.keymap.set("n", "q", ":q!<CR>", opts)
+    end,
 })
 
--- -- autoformat
+-- Autoformat
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = {'python', 'go'},
-    callback = function ()
+    pattern = { 'python', 'cpp', 'go', 'lua', 'html', 'javascript' },
+    callback = function()
         vim.api.nvim_create_autocmd('BufWritePre', {
             buffer = 0,
             callback = function()
                 vim.lsp.buf.format()
             end
         })
-    end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'cpp',
-    callback = function ()
-        vim.keymap.set("n", "<leader>c", ":w | :split | term make build && make run <CR>", opts)
     end,
 })

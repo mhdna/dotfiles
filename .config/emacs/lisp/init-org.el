@@ -175,15 +175,6 @@ non-empty lines in the block (excluding the line with
 	(setq buffer-read-only t))
 (add-hook 'org-agenda-finalize-hook #'my/org-agenda-delete-empty-blocks)
 
-;; Remove empty LOGBOOK drawers on clock out
-(defun my/remove-empty-drawer-on-clock-out ()
-	(interactive)
-	(save-excursion
-		(beginning-of-line 0)
-		(org-remove-empty-drawer-at "LOGBOOK" (point))))
-
-(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
-
 (defun my/agenda ()
 	(interactive)
 	(call-process-shell-command "daily-checklist")

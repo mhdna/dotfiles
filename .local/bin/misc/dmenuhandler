@@ -7,11 +7,11 @@ base="$(basename "$url")"
 
 case "$(printf "Copy url\\nnsxiv\\nsetbg\\nPDF\\nbrowser\\nlynx\\nvim\\nmpv\\nmpv audio\\nmpv float\\nyt\\nyta\\nyt any quality\\nHtml\\nariaAdd\\nariaDownload" | dmenu -i -p "Open it with?")" in #\\nqueue download\\nqueue yt-dl\\nqueue yt-dl audio
 	"Copy url") echo "$url" | tr -d '\n' | xclip -selection clipboard ;;
-	mpv) setsid -f mpv --ytdl-format=22 -quiet "$url" >/dev/null 2>&1 ;;
+	mpv) setsid -f mpv -quiet "$url" >/dev/null 2>&1 ;;
 	"mpv audio") $TERMINAL -e mpv -quiet --no-video "$url"  ;;
 	# "mpv loop") setsid -f mpv -quiet --loop "$url" >/dev/null 2>&1 ;;
 	# "mpv float") setsid -f "$TERMINAL" -e mpv --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
-	"mpv float") setsid -f mpv --ytdl-format=22 --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
+	"mpv float") setsid -f mpv --no-osd --geometry=+0-0 --autofit=30% --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
 	"yt")  notify-send "🎥 downloading "$base""
 		setsid -f yt-dlp --external-downloader aria2c -f 22 -P "$XDG_VIDEOS_DIR/yt" "$url" > /dev/null 2>&1 ;;
 	"yt any quality")  notify-send "🎥 downloading "$base""

@@ -1,97 +1,116 @@
-local lsp = require("lsp-zero")
-lsp.preset("recommended")
+-- [[ Configure LSP ]]
+--  This function gets run when an LSP connects to a particular buffer.
+local on_attach = function(_, bufnr)
+    -- NOTE: Remember that lua is a real programming language, and as such it is possible
+    -- to define small helper and utility functions so you don't have to repeat yourself
+    -- many times.
+    --
+    -- In this case, we create a function that lets us more easily define mappings specific
+    -- for LSP related items. It sets the mode, buffer and description for us each time.
+    local nmap = function(keys, func, desc)
+        if desc then
+            desc = 'LSP: ' .. desc
+        end
 
-lsp.ensure_installed({
-  'tsserver',
-  'lua_ls',
-  'pylsp',
-  -- 'rust_analyzer',
-})
+        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    end
 
--- fix undefined global vim
-lsp.nvim_workspace()
+    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+    nmap('<leader>la', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
-})
+    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+    nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
+    -- See `:help K` for why this keymap
+    -- nmap('<C-]>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
-lsp.on_attach(function(client, bufnr)
-    local opts = {buffer = bufnr, remap = false}
-
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<M-K>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<leader>lwa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<leader>lwr', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<leader>lwl', function()
+    -- Lesser used LSP functionality
+    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+    nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+    nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+    nmap('<leader>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, opts)
-    vim.keymap.set('n', '<leader>ld', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<leader>lf', ":lua vim.lsp.buf.format()<CR>:w<CR>", opts) -- autosave on format
-end)
+    end, '[W]orkspace [L]ist Folders')
+    nmap('<leader>=', vim.lsp.buf.format, 'Format')
 
--- add completion capability
--- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- Create a command `:Format` local to the LSP buffer
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+        vim.lsp.buf.format()
+    end, { desc = 'Format current buffer with LSP' })
+end
 
-local lspconfig = require('lspconfig')
-
-lspconfig.ccls.setup {
-    init_options = {
-        cache = {
-            directory = vim.env.XDG_CACHE_HOME .. "/ccls/",
-            -- or vim.fs.normalize "~/.cache/ccls" -- if on nvim 0.8 or higher
-        }
+-- Enable the following language servers
+--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+--
+--  Add any additional override configuration in the following tables. They will be passed to
+--  the `settings` field of the server config. You must look up that documentation yourself.
+local servers = {
+    clangd = {
+        flags = {
+            debounce_text_changes = 500,
+        },
     },
-    -- on_attach = on_attach,
-    -- flags = lsp_flags,
+    gopls = {},
+    pylsp = {
+        settings = {
+            pylsp = {
+                plugins = {
+                    pylint = { enabled = true, executable = "pylint" },
+                    pyflakes = { enabled = false },
+                    pycodestyle = { enabled = false },
+                    jedi_completion = { fuzzy = true },
+                    pyls_isort = { enabled = true },
+                    pylsp_mypy = { enabled = true },
+                },
+            },
+        },
+        flags = {
+            debounce_text_changes = 200,
+        },
+    },
+    -- rust_analyzer = {},
+    lua_ls = {
+        Lua = {
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
+        },
+    },
+    bashls = {},
+    -- Web lsp servers
+    tsserver = {},
+    html = {},
+    cssls = {},
 }
 
--- lspconfig.tsserver.setup {
---     on_attach = on_attach,
---     flags = lsp_flags,
--- }
+-- Setup neovim lua configuration
+require('neodev').setup()
 
--- lspconfig.pylsp.setup {
---     on_attach = on_attach,
---     flags = lsp_flags,
---     settings = {
---         pylsp = {
---             plugins = {
---                 pycodestyle = {
---                     ignore = { 'W391' },
---                     maxLineLength = 100
---                 }
---             }
---         }
---     }
--- }
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- lspconfig.gopls.setup {
---     on_attach = on_attach,
---     flags = lsp_flags,
--- }
+-- Ensure the servers above are installed
+local mason_lspconfig = require 'mason-lspconfig'
 
--- lspconfig.lua_ls.setup {
---     on_attach = on_attach,
---     flags = lsp_flags,
---     diagnostics = {
---         globals = { 'vim' },
---     },
--- }
+mason_lspconfig.setup {
+    ensure_installed = vim.tbl_keys(servers),
+}
 
-lsp.setup()
-vim.diagnostic.config({
-    virtual_text = true -- i.e. inline reporting thing
-})
+mason_lspconfig.setup_handlers {
+    function(server_name)
+        require('lspconfig')[server_name].setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            settings = servers[server_name],
+        }
+    end,
+}
+
+-- vim.diagnostic.config({
+--     virtual_text = false -- i.e. inline reporting thing
+-- })

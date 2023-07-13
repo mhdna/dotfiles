@@ -8,9 +8,9 @@ help(){
 }
 
 case "$1" in
-    "-t") wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ;;
-    "-i")  wpctl set-volume @DEFAULT_AUDIO_SINK@ "$2"%+;;
-    "-d")  wpctl set-volume @DEFAULT_AUDIO_SINK@ "$2"%-;;
+    "-t") pamixer -t ;;
+	"-i") pamixer --allow-boost -i 5 ;;
+	"-d") pamixer --allow-boost -d 5 ;;
     *) help
 esac
 

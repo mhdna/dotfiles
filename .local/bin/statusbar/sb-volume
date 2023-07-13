@@ -1,26 +1,15 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
+	2) pamixer -t ;;
 	3) setsid -f "$TERMINAL" -e pulsemixer >/dev/null 2>&1;;
-	2) wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle >/dev/null 2>&1 ;;
-	4) wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ >/dev/null 2>&1 ;;
-	5) wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- >/dev/null 2>&1 ;;
+	4) pamixer --allow-boost -i 5 ;;
+	5) pamixer --allow-boost -d 5 ;;
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-vol="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
+[ $(pamixer --get-mute) = true ] && echo "Muted" && exit
 
-if [ "$vol" != "${vol%\[MUTED\]}" ]; then
-    echo MUTED
-else
-    vol="${vol#Volume: }"
-    split() {
-        # For ommiting the . without calling and external program.
-        IFS=$2
-        set -- $1
-        printf '%s' "$@"
-    }
-    vol="$(split "$vol" ".")"
-    vol="${vol##0}"
-
-    echo "V: $vol%"
-fi
+vol="$(pamixer --get-volume)"
+[ -z "$vol" ] && vol="0"
+echo "V: $vol%"

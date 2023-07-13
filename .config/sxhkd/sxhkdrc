@@ -36,7 +36,7 @@ super + {_,shift} + p
 
 
 super + {_,shift+} d
-	{dmenu_run , dmenuhandler}
+	{dmenu_run , dmenuhandler "$(xclip -sel c -o)" }
 
 super + grave
     dmenuunicode
@@ -125,7 +125,7 @@ super + shift + i
 
 # less used keybinds
 super + o; {w,m,i,v,r}
-	{forecast,ytmpc,$TERMINAL -e sh -c 'vnstat| less',mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)", $BROWSER "https://roadmap.sh/cyber-security" }
+	{forecast,ytmpc "$(xclip -sel c -o)",$TERMINAL -e sh -c 'vnstat| less',mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)", $BROWSER "https://roadmap.sh/cyber-security" }
 
 super + o; e
 	myenglish

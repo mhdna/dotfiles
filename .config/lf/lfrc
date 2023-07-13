@@ -4,8 +4,8 @@ set ifs "\n"
 set scrolloff 10
 set icons
 set period 1
-set cleaner '~/.config/lf/cleaner'
-set previewer '~/.config/lf/scope'
+set cleaner '~/.config/lf/lf-cleaner'
+set previewer '~/.config/lf/lf-preview'
 set reverse true
 set globsearch true
 set incsearch true
@@ -208,7 +208,7 @@ cmd open ${{
 				text/*|application/x-shellscript|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx;;
 				image/x-xcf) setsid -f gimp $fx >/dev/null 2>&1 ;;
 				image/svg+xml) display -- $fx ;;
-				image/vnd.djvu|application/pdf|application/octet-stream|application/postscript|application/epub) setsid -f zathura $fs >/dev/null 2>&1 ;;
+				image/vnd.djvu|application/pdf|application/octet-stream|application/postscript|application/epub) setsid -f zathura $fx >/dev/null 2>&1 ;;
 				image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
 						setsid -f nsxiv -aio 2>/dev/null | while read -r file; do
 						[ -z "$file" ] && continue
@@ -216,7 +216,7 @@ cmd open ${{
 						lf -remote "send toggle"
 						done &
 				;;
-				audio/*|video/x-ms-asf) setsid -f $TERMINAL -e mpv --audio-display=no $f >/dev/null 2>&1 ;;
+				audio/*|video/x-ms-asf) mpv --audio-display=no $f;;
 				video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
 				application/pgp-encrypted) $EDITOR $fx ;;
 				# libreoffice filetypes
@@ -347,6 +347,8 @@ map <a-?> search-back
 map <enter> shell
 map x !clear; $f
 map X chmod
+
+map W $setsid -f $TERMINAL >/dev/null 2>&1
 
 map U !du -sh
 map u :clear; unselect
