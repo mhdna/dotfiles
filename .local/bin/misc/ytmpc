@@ -1,23 +1,20 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-youtube_url="$(xclip -sel c -o)"
-all="$(yt-dlp -f bestaudio --get-title --get-url "$youtube_url")"
+url="${1:-$(printf "%s" | dmenu -p 'Paste url or file path')}"
+IFS=$'\n' readarray -t url_title_name <<< "$(yt-dlp -f bestaudio --get-url --get-title -o "%(title)s.%(ext)s" "$url")"
 
-# yt-dlp --write-thumbnail --convert-thumbnail jpg --skip-download "$url"
+[ "${#url_title_name[1]}" -eq 0 ] && exit 1
 
-[ -z "$all" ] && exit 1
+thumbs_dir="/tmp/$(basename "$0")_thumbs"
+yt-dlp --write-thumbnail -o "%(title)s.%(ext)s" --convert-thumbnail jpg --skip-download "$url" -P "$thumbs_dir" >/dev/null 2>&1
 
-audio="$(echo "$all" | tail -n 1)"
-title="$(echo "$all" | head -n 1)"
+title="${url_title_name[0]}"
+audio="${url_title_name[1]}"
 
 # add the track to mpd and play
 
-mpc stop
-mpc clear
-mpc add "$audio"
-mpc play
-mpc update "$(mpc current -f %file%)" title "$title"
+mpc --wait stop&&  mpc clear && mpc add "$audio" && mpc play
+# mpc update "$(mpc current -f %file%)" title "$title"
 
 # Get YouTube video title for system notification
-
-# notify-send "Playing:" "$title" #-i "$(yt-dlp --get-thumbnail <YouTube_URL> --skip-download)"
+notify-send "Playing:" "$title" -i "$thumbs_dir/$title.jpg" #-i "$(yt-dlp --get-thumbnail <url> --skip-download)"
