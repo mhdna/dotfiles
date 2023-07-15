@@ -51,13 +51,13 @@ vim.o.encoding           = "utf-8"
 -- vim.opt.spell            = true
 -- vim.o.autochdir = true
 -- Tab command mode completion
--- vim.o.wildmode = longest,list,full
+-- vim.o.wildmode           = longest, list, full
 
 -- Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 vim.o.splitbelow         = true
 vim.o.splitright         = true
 
--- vim.o.cursorline = true -- Highlight current line
+-- vim.o.cursorline         = true -- Highlight current line
 -- vim.o.cursorcolumn = true -- Highlight current column
 -- set formatoptions-=o
 -- set updatetime=50
@@ -66,6 +66,7 @@ vim.o.splitright         = true
 -- better netrw
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner       = 0
+vim.opt.termguicolors    = true -- Enable 24-bit RGB colors
 vim.g.netrw_winsize      = 25
 
 -- Disable nvim intro

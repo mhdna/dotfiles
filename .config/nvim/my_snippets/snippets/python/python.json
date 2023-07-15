@@ -1,0 +1,12 @@
+{
+    "fff": {
+        "prefix": "fff",
+        "body": [
+            "try:",
+            "\t${1:pass}",
+            "except ${2:expression} as ${3:identifier}:",
+            "\t${4:pass}"
+        ],
+        "description": "Code snippet for a try/except statement"
+    }
+}

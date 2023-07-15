@@ -12,7 +12,7 @@ require('telescope').setup {
         layout_config = {
             bottom_pane = {
                 prompt_position = "bottom",
-                height = 20,
+                height = 15,
             }
 
         },
@@ -33,7 +33,13 @@ require('telescope').setup {
             case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
             -- the default case_mode is "smart_case"
         }
-    }
+    },
+    vim.cmd [[
+   highlight TelescopeNormal guifg=black guibg=#444444 term=underline cterm=underline gui=underline
+   highlight TelescopeMatching guibg=yellow guifg=black
+   " highlight TelescopeMatchingChar guibg=grean
+    ]]
+
 }
 
 

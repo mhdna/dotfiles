@@ -1,0 +1,10 @@
+{
+    "Latex symbole": {
+        "prefix": "LaTeX",
+        "body": [
+            (?<!\w)ltx
+            }
+        ],
+        "description": "LaTex symbol"
+    }
+}

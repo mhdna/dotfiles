@@ -3,13 +3,6 @@ local cmp = require 'cmp'
 local lspkind = require('lspkind')
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
--- tex settings
--- vim.api.nvim_create_autocmd("ModeChanged", {
---     pattern = "*",
---     callback = function()
---         leave_snippet()
---     end,
--- })
 
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
@@ -38,11 +31,6 @@ cmp.setup.filetype({ 'markdown' }, {
 
 cmp.setup.filetype("tex", {
     enabled = true,
-    sources = {
-        { name = "ultisnips" },                    -- For ultisnips user.
-        { name = "buffer",   keyword_length = 2 }, -- for buffer word completion
-        { name = "path" },                         -- for path completion
-    },
 })
 
 
@@ -108,22 +96,16 @@ cmp.setup {
         { name = 'path' },
         { name = 'nvim_lsp', keyword_length = 1 },
         { name = 'buffer',   keyword_length = 3 },
-        { name = "ultisnips" }, -- For ultisnips user.
+        { name = 'luasnip' }, -- For luasnip users.
+        -- { name = 'vsnip' }, -- For vsnip users.
+        -- { name = 'ultisnips' }, -- For ultisnips users.
+        -- { name = 'snippy' }, -- For snippy users.
     },
     confirm_opts = {
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
     },
 }
-
--- Use buffer source for `/`.
-cmp.setup.cmdline('/', {
-    completion = { autocomplete = false },
-    sources = {
-        -- { name = 'buffer' }
-        { name = 'buffer' }
-    }
-})
 
 -- Use cmdline & path source for ':'.
 cmp.setup.cmdline(':', {
@@ -133,4 +115,20 @@ cmp.setup.cmdline(':', {
     }, {
         { name = 'cmdline' }
     })
+})
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+        { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+        { name = 'buffer' },
+    })
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
 })
