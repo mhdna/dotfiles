@@ -313,5 +313,16 @@ Version: 2016-06-19"
 	(add-to-list 'bookmark-alist `(,bookmark-name ((filename . ,file-name))))
 	(bookmark-save))
 
+(defun my/chatgpt-switch-or-open ()
+	(interactive)
+	(if (get-buffer "chatgpt-shell")
+			(switch-to-buffer "chatgpt-shell")
+		(chatgpt-shell)))
+
+(defun my/notes-switch-or-open ()
+	(interactive)
+	(if (get-buffer "notes")
+			(switch-to-buffer "notes")
+		(my/notes-open)))
 
 (provide 'my-functions)

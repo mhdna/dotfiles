@@ -4,14 +4,15 @@
 mpc current | grep -q '^http' && exit 0
 
 title=$(mpc --format '%file%')
-clean_title=${title%.*}
+clean_title="$(basename "${title%.*}")"
 
 # for ext in jpg png; do
 #     file="$XDG_MUSIC_DIR/$clean_title.$ext"
 #     echo $file
 #     [ -f "$file" ] && echo $file && break
 # done
+name="$(basename "$(mpc --format '%file%' current)")"
 
 file="$XDG_CACHE_HOME/yt-audio-thumbnails/$clean_title.jpg"
-[ -f "$file" ] && notify-send -i "$file" -t 4000 "Now Playing" "$(mpc --format '%file% \n%artist% - %album%' current)" ||
-    notify-send -t 4000 "Now Playing" "$(mpc --format '%file% \n%artist% - %album%' current)"
+[ -f "$file" ] && notify-send -i "$file" -t 4000 "Now Playing" "${name%.*}" ||
+    notify-send -t 4000 "Now Playing" "${name%.*}"

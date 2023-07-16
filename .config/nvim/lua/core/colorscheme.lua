@@ -6,7 +6,7 @@ hi Visual  guifg=black gui=none
 hi Pmenu guifg=black guibg=grey
 hi PmenuSel gui=underline  guifg=red
 hi Normal ctermbg=NONE guibg=NONE
-hi NormalFloat  guibg=none
+hi NormalFloat  guibg=blue guifg=white
 " hi SignColumn guibg=none
 "hi CursorColumn guibg=#444444
 " highlight FIXME ctermfg=red guibg=red'

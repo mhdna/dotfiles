@@ -62,7 +62,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$PATH:$(find $HOME/.local/bin/ -type d -printf ":%p" ):$NPM_PATH/bin:$GOPATH/bin:$CARGO_HOME/bin:$JAVA_HOME/bin"
 
 # pkill -u "${USER}" -x pipewire /dev/null 2>&1; pipewire >/dev/null 2>&1 &
-pkill -u "${USER}" -x mpd >/dev/null 2>&1; mpd >/dev/null 2>&1 &
+# pkill -u "${USER}" -x mpd >/dev/null 2>&1; mpd >/dev/null 2>&1 &
 
 # Start graphical server on user's current tty if not already running and put the outputs into ~/.local/share/xorg/
 [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"

@@ -4,7 +4,6 @@ set ifs "\n"
 set scrolloff 10
 set icons
 set period 1
-set cleaner '~/.config/lf/lf-cleaner'
 set previewer '~/.config/lf/lf-preview'
 set reverse true
 set globsearch true
@@ -13,8 +12,6 @@ set sortby ctime
 set info size
 set mouse true
 set autoquit true
-
-cmd mkfile $$EDITOR -p "$(echo $* | tr ' ' '\ ')"
 
 cmd chmod ${{
 		clear; printf "Mode Bits: "
@@ -27,13 +24,6 @@ cmd chmod ${{
 
 										lf -remote 'send reload'
 }}
-
-cmd sudomkfile ${{
-		clear; printf "File Name: "
-				read ans
-				sudo $EDITOR $ans
-}}
-
 
 # Archive
 cmd zip $zip -r "$f.zip" "$f"
@@ -227,14 +217,6 @@ cmd open ${{
 
 cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
-cmd MKDIR ${{
-		set -f
-		printf "Directory name: "
-		read newd
-		mkdir -- "$newd"
-		mv -- $fx "$newd"
-}}
-
 cmd upload0x0 ${{
 clear; tput cup $(($(tput lines)/3)); tput bold
 set -f
@@ -396,11 +378,7 @@ map <c-a>b $tar cjvf "$f.tar.bz2" "$f" # tarbz2
 map E extract
 map <c-e> extract_sub
 
-map m
-map mf push :mkfile<space>
-map mF sudomkfile
-map md push :mkdir<space>
-map mD MKDIR
+map m push :mkdir<space>
 
 # stipspace
 map ss %stripspace "$f"

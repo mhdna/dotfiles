@@ -2,11 +2,11 @@
 
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x/xresources & xrdbpid=$!
 remaps&
-xautolock -time 12 -locker 'physlock' -detectsleep >/dev/null 2>&1 &
+xautolock -time 10 -locker 'physlock' -detectsleep >/dev/null 2>&1 &
 redshift -l 31.77:35.23 >/dev/null 2>&1&
 eval $TRANSMISSION_DAEMON >/dev/null 2>&1 &
 
-autostart="dunst clipmenud picom xbanish"
+autostart="mpd dunst clipmenud picom xbanish"
 
 for program in $autostart; do
 	pidof -xs "$program" || "$program" &

@@ -18,10 +18,10 @@
 	(package-install 'use-package))
 (setq use-package-always-ensure t)
 
-;; ;; Install and load `quelpa-use-package'.
-;; (setq quelpa-update-melpa-p nil)
-;; (package-install 'quelpa-use-package)
-;; (require 'quelpa-use-package)
+;; Install and load `quelpa-use-package'.
+(setq quelpa-update-melpa-p nil)
+(package-install 'quelpa-use-package)
+(require 'quelpa-use-package)
 
 ;; config changes made through the customize UI will be stored here
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -32,7 +32,7 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'my-functions)
 (require 'init-tex)
-;; (require 'init-dev)
+(require 'init-dev)
 (require 'init-org)
 (require 'init-evil)
 (require 'init-lsp)
@@ -63,7 +63,7 @@
 (setq use-dialog-box nil) ;; Don't show gui dialog boxs, use minibuffer instead
 ;; (add-hook 'window-setup-hook 'toggle-frame-maximized t) ;; maximize on startup
 ;; (setq split-width-threshold 0) ;; default splits to vertical
-;; (setq inhibit-x-resources 1)
+;; (setq inhibit-x-res
 (blink-cursor-mode -1) ;; disable blinking cursor
 ;; Set up the visible bell
 ;; (setq visible-bell 1)
@@ -73,6 +73,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(load-theme 'manoj-dark t)
 ;; startup messages
 (setq inhibit-startup-message t)
 ;; vim-like scrolling
@@ -477,3 +478,15 @@
 
 (use-package treemacs-icons-dired
 	:hook (dired-mode . treemacs-icons-dired-enable-once))
+
+(use-package chatgpt-shell
+	:ensure t
+	:custom
+	((chatgpt-shell-openai-key
+		(lambda ()
+			(auth-source-pass-get 'secret "openai-key")))))
+;; if you are using the "pass" password manager
+(setq chatgpt-shell-openai-key
+			(lambda ()
+				;; (auth-source-pass-get 'secret "openai-key") ; alternative using pass support in auth-sources
+				(nth 0 (process-lines "pass" "show" "gpt"))))

@@ -95,7 +95,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- Autoformat
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'python', 'cpp', 'go', 'lua', 'html', 'javascript' },
+    pattern = { 'python', 'go', 'lua', 'html', 'javascript' },
     callback = function()
         vim.api.nvim_create_autocmd('BufWritePre', {
             buffer = 0,
