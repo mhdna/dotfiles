@@ -57,7 +57,7 @@ vim.o.encoding           = "utf-8"
 vim.o.splitbelow         = true
 vim.o.splitright         = true
 
--- vim.o.cursorline         = true -- Highlight current line
+vim.o.cursorline         = true -- Highlight current line
 -- vim.o.cursorcolumn = true -- Highlight current column
 -- set formatoptions-=o
 -- set updatetime=50

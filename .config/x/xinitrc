@@ -5,6 +5,7 @@ remaps&
 xautolock -time 10 -locker 'physlock' -detectsleep >/dev/null 2>&1 &
 redshift -l 31.77:35.23 >/dev/null 2>&1&
 eval $TRANSMISSION_DAEMON >/dev/null 2>&1 &
+ xsetroot -solid Blue4&
 
 autostart="mpd dunst clipmenud picom xbanish"
 

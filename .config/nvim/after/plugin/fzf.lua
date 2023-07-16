@@ -6,16 +6,16 @@ require('telescope').load_extension('fzf')
 
 require('telescope').setup {
     defaults = {
-        border = false,
-        preview = false,
-        layout_strategy = 'bottom_pane',
-        layout_config = {
-            bottom_pane = {
-                prompt_position = "bottom",
-                height = 15,
-            }
+        -- border = true,
+        -- preview = false,
+        -- layout_strategy = 'bottom_pane',
+        -- layout_config = {
+        --     bottom_pane = {
+        --         prompt_position = "top",
+        --         height = 15,
+        --     }
 
-        },
+        -- },
         mappings = {
             i = {
                 ["<C-u>"] = false, -- delete to the beginning using C-u
@@ -35,8 +35,8 @@ require('telescope').setup {
         }
     },
     vim.cmd [[
-   highlight TelescopeNormal guifg=black guibg=#444444 term=underline cterm=underline gui=underline
-   highlight TelescopeMatching guibg=yellow guifg=black
+   " highlight TelescopeNormal guifg=black guibg=#444444 term=underline cterm=underline gui=underline
+   " highlight TelescopeMatching guibg=yellow guifg=black
    " highlight TelescopeMatchingChar guibg=grean
     ]]
 

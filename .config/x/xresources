@@ -1,5 +1,5 @@
 Emacs*geometry: 68x30
 *.font: monospace:pixelsize=16
 
-*.background: #000000
-*.foreground: #ffffff
+*.background: #1d2021
+*.foreground: #ebdbb2

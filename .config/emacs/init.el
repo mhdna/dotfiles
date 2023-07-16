@@ -67,13 +67,16 @@
 (blink-cursor-mode -1) ;; disable blinking cursor
 ;; Set up the visible bell
 ;; (setq visible-bell 1)
-(global-display-line-numbers-mode 1)
+;; (global-display-line-numbers-mode 1)
 ;; (global-visual-line-mode 1)
 ;; (global-hl-line-mode 1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(load-theme 'manoj-dark t)
+(use-package gruvbox-theme
+	:ensure t
+	:config
+	(load-theme 'gruvbox-dark-hard t))
 ;; startup messages
 (setq inhibit-startup-message t)
 ;; vim-like scrolling
@@ -100,6 +103,11 @@
 ;; bookmarks default file
 (setq bookmark-default-file (concat (file-name-as-directory EMACS_DIR) "/bookmarks"))
 (tooltip-mode -1)
+
+;; Enable clipboard integration in TUI mode
+(unless (display-graphic-p)
+	(setq select-enable-clipboard t
+				select-enable-primary t))
 
 ;; (defvar my-term-shell "/bin/zsh")
 ;; (defadvice ansi-term (before force-zsh)

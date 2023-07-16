@@ -1,6 +1,6 @@
 local cmp = require 'cmp'
 
-local lspkind = require('lspkind')
+-- local lspkind = require('lspkind')
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 
@@ -24,9 +24,9 @@ cmp.setup.filetype(
 
 cmp.setup.filetype({ 'markdown' }, {
     enabled = true,
-    -- completion = {
-    --     autocomplete = false,
-    -- }
+    completion = {
+        autocomplete = false,
+    }
 })
 
 cmp.setup.filetype("tex", {
@@ -36,10 +36,10 @@ cmp.setup.filetype("tex", {
 
 cmp.setup {
     enabled = false,
-    completion = {
-        autocomplete = false,
-        --     keyword_length= 2,
-    },
+    -- completion = {
+    --     autocomplete = false,
+    --     --     keyword_length= 2,
+    -- },
     mapping = {
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
@@ -105,22 +105,22 @@ cmp.setup {
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
     },
-    formatting = {
-        format = lspkind.cmp_format({
-            with_text = true,
-            mode = 'symbol', -- show only symbol annotations
-            -- maxwidth = 200,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-            -- ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-            -- end
-            menu = {
-                nvim_lsp = "[LSP]",
-                ultisnips = "[US]",
-                nvim_lua = "[Lua]",
-                path = "[Path]",
-                buffer = "[Buffer]",
-            },
-        })
-    },
+    -- formatting = {
+    --     format = lspkind.cmp_format({
+    --         with_text = true,
+    --         mode = 'symbol', -- show only symbol annotations
+    --         -- maxwidth = 200,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+    --         -- ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+    --         -- end
+    --         menu = {
+    --             nvim_lsp = "[LSP]",
+    --             ultisnips = "[US]",
+    --             nvim_lua = "[Lua]",
+    --             path = "[Path]",
+    --             buffer = "[Buffer]",
+    --         },
+    --     })
+    -- },
 }
 
 -- Use cmdline & path source for ':'.

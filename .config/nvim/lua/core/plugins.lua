@@ -27,12 +27,12 @@ require("lazy").setup({
 
             -- Useful status updates for LSP
             -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-            -- { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+            { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
             -- Additional lua configuration, makes nvim stuff amazing!
             'folke/neodev.nvim',
 
-            "onsails/lspkind.nvim",
+            -- "onsails/lspkind.nvim",
         },
     },
     {
@@ -158,25 +158,21 @@ require("lazy").setup({
     --     end
     -- },
     -- { "lukas-reineke/indent-blankline.nvim" },
-    -- { "ellisonleao/gruvbox.nvim",      priority = 1000 },
-    {
-        'AckslD/muren.nvim',
-        config = true,
-    },
-    {
-        -- Set lualine as statusline
-        'nvim-lualine/lualine.nvim',
-        opts = {
-            options = {
-                theme = "16color",
-                -- disabled_filetypes = {
-                --     'help', 'qf', 'man', 'lspinfo', 'prompt'
-                -- },
-                -- component_separators = '|',
-                -- section_separators = '',
-            },
-        },
-    },
+    { "ellisonleao/gruvbox.nvim" }, -- , priority = 1000 },
+    -- {
+    --     -- Set lualine as statusline
+    --     'nvim-lualine/lualine.nvim',
+    --     opts = {
+    --         options = {
+    --             theme = "16color",
+    --             -- disabled_filetypes = {
+    --             --     'help', 'qf', 'man', 'lspinfo', 'prompt'
+    --             -- },
+    --             -- component_separators = '|',
+    --             -- section_separators = '',
+    --         },
+    --     },
+    -- },
     -- { "ojroques/nvim-hardline", opts = {}, end },
     -- "nvim-tree/nvim-tree.lua")
     "nvim-lua/plenary.nvim", -- useful lua functions used by lots of plugins
@@ -199,8 +195,8 @@ require("lazy").setup({
                 vim.keymap.set("n", "[c", function()
                     require("treesitter-context").go_to_context()
                 end, { silent = true })
-                vim.cmd('hi TreesitterContext guisp=Grey guibg=#333333')
-                vim.cmd('hi TreesitterContextBottom gui=underline')
+                -- vim.cmd('hi TreesitterContext guisp=Grey guibg=#333333')
+                -- vim.cmd('hi TreesitterContextBottom gui=underline')
             end
     },
     {
@@ -211,7 +207,7 @@ require("lazy").setup({
     },
 
     -- Automatic insertion and deletion of a pair of characters
-    { "Raimondi/delimitMate", event = "InsertEnter" },
+    -- { "Raimondi/delimitMate",    event = "InsertEnter" },
     -- Comment plugin
     -- { "tpope/vim-commentary",               event = "VimEnter" },
 
@@ -244,7 +240,7 @@ require("lazy").setup({
 
 
     -- Asynchronous command execution
-    { "skywind3000/asyncrun.vim", opt = true, cmd = { "AsyncRun" } },
+    -- { "skywind3000/asyncrun.vim", opt = true, cmd = { "AsyncRun" } },
 
     -- { "Yggdroot/LeaderF",       cmd = "Leaderf" },
     -- { 'amirrezaask/fuzzy.nvim', requires = { 'nvim-lua/plenary.nvim' } },
