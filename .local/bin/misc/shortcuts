@@ -15,14 +15,14 @@ printf "# vim: filetype=sh\\nalias " > "$shell_shortcuts"
 
 # Format the `directories` file in the correct syntax and sent it to all three configs.
 eval "echo \"$(cat "$bmdirs")\"" | \
-awk "!/^\s*#/ && !/^\s*\$/ && !/^!.*/ {gsub(\"\\\s*#.*$\",\"\");
+awk "!/^\s*#/ && !/^\s*\$/ && !/^[0-5].*/ {gsub(\"\\\s*#.*$\",\"\");
 	printf(\"C%s=\42cd %s && ls -a\42 \\\\\n\",\$1,\$2)   >> \"$shell_shortcuts\" ;
 	printf(\"map c%s cd \42%s\42 \n\",\$1,\$2)           >> \"$lf_shortcuts\";
     printf(\"vim.keymap.set('c',';%s', '%s')\n\",\$1,\$2)                    >> \"$vim_shortcuts\" }"
 
 # Format the `files` file in the correct syntax and sent it to both configs.
 eval "echo \"$(cat "$bmfiles")\"" | \
-awk "!/^\s*#/ && !/^\s*\$/ && !/^!.*/ {gsub(\"\\\s*#.*$\",\"\");
+awk "!/^\s*#/ && !/^\s*\$/ && !/^[0-5].*/ {gsub(\"\\\s*#.*$\",\"\");
 	printf(\"E%s=\42\$EDITOR %s\42 \\\\\n\",\$1,\$2)  >> \"$shell_shortcuts\" ;
 	printf(\"map E%s \$\$EDITOR \42%s\42 \n\",\$1,\$2)   >> \"$lf_shortcuts\" ;
     printf(\"vim.keymap.set('c', ';%s', '%s')\n\",\$1,\$2)                    >> \"$vim_shortcuts\" }"
@@ -30,21 +30,17 @@ awk "!/^\s*#/ && !/^\s*\$/ && !/^!.*/ {gsub(\"\\\s*#.*$\",\"\");
 # Add all bookmarks to all-dirs
 # ignore comments, blank lines, and whitespaces
 eval "echo \"$(cat "$bmdirs")\"" | \
-sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' -e '/^!.*/d' > "$alldirs" || exit 1
+sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' -e '/^[0-5].*/d' > "$alldirs" || exit 1
 
 # search deaply in bookmarks that start with !s and add them to alldirs
 while IFS= read -r dir; do
     # ignore hidden dirs
-    if echo "$dir" | grep -q "^!!!"; then
-        depth="3"
-    elif echo "$dir" | grep -q "^!!"; then
-        depth="2"
-    else
-        depth="1"
+    if echo "$dir" | grep -Eq "^[0-5]"; then
+        depth="$(echo "$dir" | cut -d ' ' -f 1)"
     fi
 
     find $(echo $dir | cut -d ' ' -f 2) -maxdepth "$depth" \( ! -regex '.*/\..*' \)  -type d  >> "$alldirs"
-done < <(eval "echo \"$(grep -E '^!.*' "$bmdirs" | sed -e 's/\s*#.*//')\"")
+done < <(eval "echo \"$(grep -E '^[0-5].*' "$bmdirs" | sed -e 's/\s*#.*//')\"")
 
 
 # poor Gnu doesn't know how to remove duplicates without sorting
