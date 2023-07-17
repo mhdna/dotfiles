@@ -1,30 +1,30 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 tr(){
 		if [ "$1" = "ar" ]; then
-				trans --target="arabic" --speak
+				$TERMINAL -e trans --target="arabic" --speak
 		else
-				trans ar:"$1"
+				$TERMINAL -e trans ar:"$1"
 		fi
 }
 
-case "$1" in
+case "${1:-$(printf "Arabic\\nEnglish\\nFarsi" | dmenu -i -p "Language:")}" in
 		# Primary clipboard
-        "P")
-        word="$(xclip -o)"
-        full="$(sdcv -n "$word")"
-        def="$(echo "$full" |  sed '1,/.*noun\|verb\|adjective\|adverb.*/ { d }' )"
-        [ ! -z "$def" ] && notify-send -t 20000 "${word^}" "$def" ;;
+        "-p")
+            word="$(xclip -o)"
+            full="$(sdcv -n "$word")"
+            def="$(echo "$full" |  sed '1,/.*noun\|verb\|adjective\|adverb.*/ { d }' )"
+            [ -n "$def" ] && notify-send -t 20000 "${word^}" "$def" ;;
         # trans --no-bidi -b --target="arabic" "$(xclip -o)")";;
 		# Clipboard clipboard
-		"C")
-        word="$(xclip -sel c -o)"
-        full="$(sdcv -n "$word")"
-        def="$(echo "$full" | sed '1,/.*noun\|verb\|adjective\|adverb.*/ { d }' )"
-        [ ! -z "$def" ] && notify-send -t 20000 "${word^}" "$def" ;;
+		"-c")
+            word="$(xclip -sel c -o)"
+            full="$(sdcv -n "$word")"
+            def="$(echo "$full" | sed '1,/.*noun\|verb\|adjective\|adverb.*/ { d }' )"
+            [ -n "$def" ] && notify-send -t 20000 "${word^}" "$def" ;;
 		# notify-send "$(trans --no-bidi -b --target="arabic" "$(xclip -sel c -o)")";;
-		"ar") tr "ar";;
-		"en") tr "en";;
-		"fa") tr "fa";;
+		"Arabic") tr "ar";;
+		"English") tr "en";;
+		"Farsi") tr "fa";;
 		*) exit 1;;
 esac

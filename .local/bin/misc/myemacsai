@@ -1,0 +1,3 @@
+#!/bin/sh
+
+emacsclient -nw --eval "(chatgpt-shell)"

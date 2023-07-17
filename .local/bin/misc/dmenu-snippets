@@ -1,5 +1,0 @@
-#!/bin/sh
-
-url=$(grep -v '^#' ~/.local/share/snippets | dmenu -i -l 10 | cut -d';' -f2)
-
-[ -n "$url" ] && $BROWSER "$url"

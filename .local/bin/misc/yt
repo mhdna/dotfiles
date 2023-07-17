@@ -3,20 +3,20 @@
 
 bmdirs="${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs"
 
-case "$(printf "Max=1080\n720\nAudio" | fzf)" in
+case "$(printf "Max=1080\n720\nAudio" | dmenu -i)" in
     "Max=1080")
         args="--write-subs --write-auto-subs bestvideo[height<=1080]+bestaudio/best[height<=1080]"
-        dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" | fzf)"
+        dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" | dmenu -i)"
         ;;
     "720")
         args="--write-subs --write-auto-subs -S 'res:720,fps'"
-        dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" | fzf)"
+        dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" | dmenu -i)"
         ;;
     "Audio")
         args="--remux-video ogg -f bestaudio/best"
-        dst="$(grep -Ei '(/tmp/|music)' "$bmdirs" |fzf )"
+        dst="$(grep -Ei '(/tmp/|music)' "$bmdirs" |dmenu -i)"
         ;;
     *) exit 0;;
 esac
 
-yt-dlp $args -o "%(title)s.%(ext)s" --external-downloader aria2c --write-thumbnail --convert-thumbnails jpg --add-metadata -ic -P "$dst" $@
+yt-dlp $args -o "%(title)s.%(ext)s" --external-downloader aria2c --add-metadata -ic -P "$dst" $@

@@ -1,5 +1,52 @@
 #!/bin/sh
 
-url=$(grep -v '^#' ~/.local/share/bookmarks | dmenu -i -l 20 | cut -d' ' -f1)
+bookmarks(){
+    url=$(grep -v '^#' ~/.local/share/bookmarks | dmenu -F -i -l 10 | cut -d' ' -f1)
 
-[ -n "$url" ] && $BROWSER "$url"
+    [ -n "$url" ] && $BROWSER "$url"
+}
+
+savebookmark(){
+    bookmark=$(xclip -o)
+    file="$HOME/.local/share/bookmarks"
+
+    gettag(){
+        tag=$(dmenu -p "Bookmark Tag (split with a : ) for $bookmark: " <&-)
+    }
+
+    if grep -q "$bookmark" "$file"; then
+        notify-send "Bookmarkit" "Already exists"
+    else
+        gettag && echo "$bookmark :$tag": >> "$file" && notify-send "Bookmark added" "$bookmark is now saved to the file"
+    fi
+}
+
+snippets(){
+    url=$(grep -v '^#' ~/.local/share/snippets | dmenu -F -i -l 10 | cut -d';' -f2)
+
+    [ -n "$url" ] && $BROWSER "$url"
+}
+
+
+savesnippit(){
+    snippet=$(xclip -o)
+    file="$HOME/.local/share/snippets"
+
+    gettitle(){
+        title=$(dmenu -p "Snippet title (split with a : ) for $snippet: " <&-)
+    }
+
+    if grep -q "$snippet" "$file"; then
+        notify-send "Snipit" "Already exists"
+    else
+        gettitle && echo "$title; $snippet" >> "$file" && notify-send "Snippet added" "$snippet is now saved to the file"
+    fi
+}
+
+
+case "$(printf "Show Bookmarks\\nShow Snippets\\nSave Bookmark\\nSave Snippet" | dmenu -F -i)" in
+    "Show Bookmarks") bookmarks;;
+    "Show Snippets") snippets;;
+    "Save Bookmark") savebookmark;;
+    "Save Snippet") savesnippit;;
+esac

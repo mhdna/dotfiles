@@ -3,7 +3,7 @@
 cache="${XDG_CACHE_HOME:-$HOME/.cache}/pdfgallery"
 # thumbs=()
 
-# generate (){
+generate (){
 for path in "$@"; do
     # set cache file
     # save thumb name as the full path
@@ -16,20 +16,21 @@ for path in "$@"; do
     fi
     # thumbs+=("$cf.jpg")
 done
-# }
+}
 
-# galleryopen(){
-#    nsxiv "${thumbs[@]}"
-# }
+galleryopen(){
+   # nsxiv "${thumbs[@]}"
+	nsxiv -N pdfgallery -t ~/.cache/pdfgallery/*.jpg
+}
 
 
-# while getopts "g:o" opt; do
-#     case "$opt" in
-#         o) galleryopen;;
-#         g)
-#             rest=$(sed '1,/-g/d')
-#             echo $rest;;
-#             # generate "$rest";;
-#         \?) exit 1;;
-#     esac
-# done
+while getopts "go" opt; do
+    case "$opt" in
+        o) galleryopen;;
+        g) generate "$@";;
+        # rest=$(sed '1,/-g/d')
+        # echo $rest;;
+        # generate "$rest";;
+        \?) exit 1;;
+    esac
+done
