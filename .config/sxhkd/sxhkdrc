@@ -1,11 +1,8 @@
-super + r
-	$BROWSER $HOME/personal/readlater
-
-super + {_,shift+} m
-	{dmenumount, dmenuumount}
-
 super + shift + w
 	$BROWSER
+
+super + r
+	$BROWSER $HOME/personal/readlater
 
 super + w; {o,O}
 	{dmenu-bookmarks,dmenu-snippets}
@@ -19,14 +16,14 @@ super + {_,shift} + p
 super + {_,shift+} d
 	{dmenu_run , dmenuhandler "$(xclip -sel c -o)" }
 
+super + {_,shift+} m
+	{dmenumount, dmenuumount}
+
 super + grave
     dmenuunicode
 
 super + v
 	clipmenu -i
-
-super + shift + v
-    mpv --ytdl-format=19 "$(xclip -sel c -o)" || mpv --ytdl-format=22 "$(xclip -sel c -o)"
 
 super +t; super + t
 	transs P
@@ -36,9 +33,6 @@ super +t; t
 
 super + t; {a, e, p}
 	$TERMINAL -e {transs ar,transs en,transs pr}
-
-super + shift + a
-    anki
 
 super + f
 	$TERMINAL -e lf
@@ -77,9 +71,6 @@ super + {_,shift+ }{bracketleft,bracketright}
 super + {_, shift+} F1
 	{mykd,mykd -s}
 
-super + {_, shift+ } F2
-	redshift {-O 5000,-x}
-
 super + {_, shift+ } F3
 	{$TERMINAL -e torwrap, td-toggle}
 
@@ -101,18 +92,11 @@ super + F9
 super + i
 	nmcli device wifi rescan
 
-# less used keybinds
-super + o; {w,v}
-	{forecast,$TERMINAL -e pulsemixer}
-
-super + o; m
-    ytmpc "$(xclip -sel c -o)"
-
-super + o; g
-	nsxiv -N pdfgallery -t ~/.cache/pdfgallery/*.jpg
+super + shift + v
+    $TERMINAL -e pulsemixer
 
 super + {_,shift+,alt} BackSpace
-	dunstctl {close-all,history-pop,set-paused toggle && notify-send "Dunst" "Is-paused: $(dunstctl is-paused)" }
+	dunstctl {close-all,history-pop,set-paused toggle && notify-send "Dunst" "Is-paused = $(dunstctl is-paused)" }
 
 super + ctrl + x
 	xkill
