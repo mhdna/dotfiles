@@ -45,21 +45,20 @@ require('nvim-treesitter.configs').setup {
                 return true
             end
         end,
-
         -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
         -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
         -- Using this option may slow down your editor, and you may see some duplicate highlights.
         -- Instead of true it can also be a list of languages
-        -- additional_vim_regex_highlighting = false,
+        additional_vim_regex_highlighting = false,
     },
-    indent = { enable = true },
+    indent = { enable = false },
     incremental_selection = {
         enable = true,
         keymaps = {
-            init_selection = '<C-q>',
-            node_incremental = '<C-q>',
-            scope_incremental = '<C-S-q>',
-            node_decremental = '<M-CR>',
+            init_selection = '<M-CR>',
+            node_incremental = '<M-CR>',
+            -- scope_incremental = '<M-S-CR>',
+            node_decremental = '<S-CR>'
         },
     },
     textobjects = {
@@ -116,5 +115,13 @@ set nofoldenable                     " Disable folding at startup.
 ]])
 
 
-require("treesitter-context").setup { enable = true }
-vim.treesitter.query.set("lua", "context", "")
+-- require("treesitter-context").setup { enable = true }
+
+-- vim.keymap.set("n", "[c", function()
+--     require("treesitter-context").go_to_context()
+-- end, { silent = true })
+
+-- vim.cmd [[ hi TreesitterContext guisp=Grey guibg=#333333
+--                 "hi TreesitterContextBottom gui=underline
+--                 ]]
+-- vim.treesitter.query.set("lua", "context", "")

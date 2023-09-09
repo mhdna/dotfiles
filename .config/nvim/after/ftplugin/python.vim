@@ -1,6 +1,6 @@
-if exists(':AsyncRun')
-  nnoremap <buffer><silent> <F9> :<C-U>AsyncRun python -u "%"<CR>
-endif
+" if exists(':AsyncRun')
+nnoremap <buffer><silent> <F9> :<C-U>python -u "%"<CR>
+" endif
 
 " Do not wrap Python source code.
 set nowrap
@@ -13,5 +13,29 @@ set softtabstop=4   " number of spaces in tab when editing
 set shiftwidth=4    " number of spaces to use for autoindent
 set expandtab       " expand tab to spaces so that tabs are spaces
 
-" For delimitMate
-let b:delimitMate_matchpairs = "(:),[:],{:}"
+nnoremap <silent> <buffer> <F9> :w<CR>:call <SID>compile_run_cpp()<CR>
+
+function! s:compile_run_cpp() abort
+  let src_path = expand('%:p:~')
+  let src_noext = expand('%:p:~:r')
+  " The building flags
+
+  let prog = 'python3'
+  " let _flag = '-Wall -Wextra -std=c++11 -O2'
+
+  call s:create_term_buf('h', 20)
+  execute printf('term %s %s', prog, src_path)
+  " execute printf('term %s %s %s -o %s && %s', prog, _flag, src_path, src_noext, src_noext)
+  startinsert
+endfunction
+
+function s:create_term_buf(_type, size) abort
+  set splitbelow
+  set splitright
+  if a:_type ==# 'v'
+    vnew
+  else
+    new
+  endif
+  execute 'resize ' . a:size
+endfunction

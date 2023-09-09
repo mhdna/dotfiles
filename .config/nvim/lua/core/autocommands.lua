@@ -37,18 +37,18 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = { "Xresources", "Xdefaults", "xresources", "xdefaults" },
-    command = "set filetype=xdefaults",
+    command = "set filetype=xdefaults"
 })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     pattern = { "bm-dirs", "bm-files" },
-    command = "!shortcuts",
+    command = "!shortcuts"
 })
 
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = { "*.me", "*.mom", "*.man" },
-    command = "set filetype=groff",
+    command = "set filetype=groff"
 })
 
 -- tex settings
@@ -59,16 +59,12 @@ vim.api.nvim_create_autocmd("FileType", {
             command = 'silent! execute "!compiler % >/dev/null 2>&1" | redraw!',
         })
         vim.api.nvim_create_autocmd('VimLeave', {
-            command = '!texclear %',
+            command = '!texclear %'
         })
     end,
 })
 
--- Remove trailing whitespace
--- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
---     pattern = "*",
---     command = "%s/\\s\\+$//e",
--- })
+-- -- Remove trailing whitespace
 vim.cmd [[
  	autocmd BufWritePre * let currPos = getpos(".")
 	autocmd BufWritePre * %s/\s\+$//e
@@ -77,13 +73,13 @@ vim.cmd [[
   	autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
 ]]
 
--- Do not keep netrw buffers open in the background
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'netrw',
-    callback = function()
-        vim.bo.bufhidden = delete
-    end,
-})
+-- -- Do not keep netrw buffers open in the background
+-- vim.api.nvim_create_autocmd('FileType', {
+--     pattern = 'netrw',
+--     callback = function()
+--         vim.bo.bufhidden = delete
+--     end,
+-- })
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = 'qf',
@@ -94,14 +90,14 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Autoformat
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'python', 'go', 'lua', 'html', 'javascript' },
-    callback = function()
-        vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = 0,
-            callback = function()
-                vim.lsp.buf.format()
-            end
-        })
-    end,
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+--     pattern = { 'python', 'go', 'lua', 'html', 'javascript' },
+--     callback = function()
+--         vim.api.nvim_create_autocmd('BufWritePre', {
+--             buffer = 0,
+--             callback = function()
+--                 vim.lsp.buf.format()
+--             end
+--         })
+--     end,
+-- })

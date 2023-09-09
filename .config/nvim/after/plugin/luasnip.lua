@@ -8,12 +8,12 @@ local snip = ls.snippet
 -- local text = ls.text_node
 -- local insert = ls.insert_node
 local func = ls.function_node
-local choice = ls.choice_node
-local dynamicn = ls.dynamic_node
+-- local choice = ls.choice_node
+-- local dynamicn = ls.dynamic_node
 
 require("luasnip.loaders.from_vscode").lazy_load()
 -- require("luasnip.loaders.from_vscode").load({ paths = "~/.config/nvim/my_snippets" })
-require("luasnip.loaders.from_lua").load({ paths = "./snippets" })
+require("luasnip.loaders.from_lua").load({ paths = "./my_snippets" })
 
 
 ls.config.set_config {
@@ -72,7 +72,7 @@ ls.add_snippets("python", {
 ls.add_snippets("java", {
     s("sout", {
         -- equivalent to "${1:cond} ? ${2:then} : ${3:else}"
-        t("System.out.println(\""), i(1, ""), t("\");")
+        t("System.out.println("), i(1, ""), t(");")
     })
 })
 -- expansion key

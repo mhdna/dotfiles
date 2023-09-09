@@ -1,8 +1,3 @@
-set commentstring=//\ %s
-
-" Disable inserting comment leader after hitting o or O or <Enter>
-set formatoptions-=o
-set formatoptions-=r
 set shiftwidth=2
 
 nnoremap <silent> <buffer> <F9> :call <SID>compile_run_cpp()<CR>
@@ -20,7 +15,7 @@ function! s:compile_run_cpp() abort
   else
     echoerr 'No C++ compiler found on the system!'
   endif
-  call s:create_term_buf('h', 20)
+  call s:create_term_buf('h', 15)
   execute printf('term %s %s %s -o %s && %s', prog, _flag, src_path, src_noext, src_noext)
   startinsert
 endfunction
@@ -35,6 +30,3 @@ function s:create_term_buf(_type, size) abort
   endif
   execute 'resize ' . a:size
 endfunction
-
-" For delimitMate
-let b:delimitMate_matchpairs = "(:),[:],{:}"

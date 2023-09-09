@@ -6,42 +6,51 @@ local on_attach = function(_, bufnr)
     -- many times.
     --
     -- In this case, we create a function that lets us more easily define mappings specific
-    -- for LSP related items. It sets the mode, buffer and description for us each time.
-    local nmap = function(keys, func, desc)
-        if desc then
-            desc = 'LSP: ' .. desc
-        end
+    -- for LSP related items. It sets the mode, buffer for us each time.
+    vim.opt_local.signcolumn = 'yes' -- enable signcolumn for lsp only
 
-        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    local nmap = function(keys, func)
+        vim.keymap.set('n', keys, func, { silent = true, buffer = bufnr, noremap = true })
     end
 
-    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-    nmap('<leader>la', vim.lsp.buf.code_action, '[C]ode [A]ction')
+    nmap('<f2>', vim.lsp.buf.rename)
+    nmap('<f6>', vim.lsp.buf.code_action)
 
-    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-    nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-    nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    nmap('gd', vim.lsp.buf.definition)
+    nmap('<f12>', vim.lsp.buf.type_definition)
+    -- nmap('gI', vim.lsp.buf.implementation)
+    -- nmap('gD', vim.lsp.buf.declaration) -- Many servers do not implement this method. Generally, see |vim.lsp.buf.definition()| instead.
+
+    -- nmap('gr', require('telescope.builtin').lsp_references)
+    -- nmap('<leader>s', require('telescope.builtin').lsp_document_symbols) -- I think of it as an imenu alternative
+    -- nmap('<leader>S', require('telescope.builtin').lsp_dynamic_workspace_symbols)
+
+    nmap('gr', ":References<CR>")
+    nmap('<leader>s', ":DocumentSymbols<CR>") -- I think of it as an imenu alternative
+    nmap('<leader>w', ":WorkspaceSymbols<CR>")
+    vim.keymap.set('n', '<f8>', ":lua vim.lsp.buf.format()<CR>:w<CR>", { buffer = bufnr })
 
     -- See `:help K` for why this keymap
-    -- nmap('<C-]>', vim.lsp.buf.signature_help, 'Signature Documentation')
-    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+    -- nmap('<C-]>', vim.lsp.buf.signature_help)
+    nmap('K', vim.lsp.buf.hover)
 
-    -- Lesser used LSP functionality
-    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-    nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-    nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-    nmap('<leader>wl', function()
+    nmap('<C-Insert>', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, '[W]orkspace [L]ist Folders')
-    nmap('<leader>=', vim.lsp.buf.format, 'Format')
-
+    end)
+    nmap('<M-Insert>', function()
+        if vim.lsp.buf.add_workspace_folder() then
+            print('Added ' .. vim.fn.expand('%') .. 'to ' .. vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end
+    end)
+    nmap('<M-S-Insert>', function()
+        if vim.lsp.buf.remove_workspace_folder() then
+            print('Removed ' .. vim.fn.expand('%') .. 'to ' .. vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end
+    end)
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         vim.lsp.buf.format()
-    end, { desc = 'Format current buffer with LSP' })
+    end)
 end
 
 -- Enable the following language servers
@@ -50,12 +59,12 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-    clangd = {
-        flags = {
-            debounce_text_changes = 500,
-        },
-    },
-    gopls = {},
+    -- clangd = {
+    --     flags = {
+    --         debounce_text_changes = 500,
+    --     },
+    -- },
+    -- gopls = {},
     pylsp = {
         settings = {
             pylsp = {
@@ -80,19 +89,30 @@ local servers = {
             telemetry = { enable = false },
         },
     },
-    bashls = {},
+    -- bashls = {},
+    dockerls = {},
+    emmet_ls = {
+        filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug",
+            "typescriptreact", "vue" },
+        init_options = {
+            html = {
+                options = {
+                    -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+                    ["bem.enabled"] = true,
+                },
+            },
+        }
+    },
     -- Web lsp servers
     tsserver = {},
     html = {},
     cssls = {},
 }
 
--- Setup neovim lua configuration
-require('neodev').setup()
-
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -120,12 +140,7 @@ mason_lspconfig.setup_handlers {
 -- })
 
 
--- local signs = {
---     Error = '🛑',
---     Warn = '🟨',
---     Hint = '🔍',
---     Info = 'ℹ️'
--- }
+-- local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 
 -- for type, icon in pairs(signs) do
 --     local hl = "DiagnosticSign" .. type
