@@ -1,17 +1,9 @@
 [global]
-    font = Mono 9
-    monitor = 0
+    font = Mono 10
+    monitor = -1
     follow = keyboard
-    padding = 2
-    horizontal_padding = 2
+    gap_size = 5
     max_icon_size = 80
     enable_recursive_icon_lookup = true
-
-[urgency_low]
-    timeout = 10
-
-[urgency_normal]
-    timeout = 10
-
-[urgency_critical]
-    timeout = 15
+    offset = 10x10
+    format = "<b>%s</b>\n%b"
