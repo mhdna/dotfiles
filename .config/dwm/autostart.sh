@@ -7,5 +7,6 @@ function run {
 	 fi
 }
 killall -q dwmblocks;  dwmblocks&
-run picom # in case it broke while restarting
-xwallpaper --zoom ~/.config/wallpaper.png
+run picom # in case it stopped while restarting
+setbg
+pkill -USR1 sxhkd || sxhkd
