@@ -1,6 +1,6 @@
 {
-  "timeStamp": 1679304203395,
-  "version": "1.47.4",
+  "timeStamp": 1692459924879,
+  "version": "1.51.0",
   "userSettings": {
     "advancedUserEnabled": true,
     "externalLists": "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt",
@@ -26,6 +26,8 @@
   ],
   "hiddenSettings": {},
   "whitelist": [
+    "*youtube.com/*&disableadblock=1",
+    "127.0.0.1",
     "about-scheme",
     "chrome-extension-scheme",
     "chrome-scheme",
