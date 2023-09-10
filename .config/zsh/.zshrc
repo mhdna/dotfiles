@@ -1,19 +1,13 @@
-# Prompt
-# Add these lines to your .zshrc file
-
 # Prompt color settings
 autoload -U colors && colors
-# Reset color at the end of each command
-# PROMPT='[%m %1~] %{$reset_color%}$ '
 git_prompt_info() {
-	local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-	if [ -n "$branch" ]; then
+    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    if [ -n "$branch" ]; then
         echo " ($branch)"
-	fi
+    fi
 }
-# Reset color at the end of each command
-PS1='%B%{$fg[green]%}%n@%m:%{$fg[cyan]%}%~$(git_prompt_info)%{$reset_color%}$%b '
 
+PS1='%B%{$fg[green]%}%n@%m:%{$fg[cyan]%}%~$(git_prompt_info)%{$reset_color%}$%b '
 
 # Enable substitution in the prompt.
 setopt prompt_subst
@@ -32,15 +26,17 @@ autoload -Uz compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
+compdef -d config # Do not enable these completions for my dotfiles function `config` so path completions for dotfiles work
+
 _comp_options+=(globdots)		# Include hidden files.
 autoload -U select-word-style
-select-word-style bash
+select-word-style bash # So C-w does not delete whole words in things like a path
 
 # History in cache directory:
 HISTFILESIZE=1000000
 HISTSIZE=1000000
 SAVEHIST=1000000
-HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/shell/history"
+HISTFILE="${XDG_CONFIG_HOME:-$HOME/.config}/shell/.history"
 # If a new command line being added to the history list duplicates an older one, the older command is removed from the list (even if it is not the previous event).
 setopt HIST_IGNORE_ALL_DUPS
 
@@ -53,18 +49,28 @@ bindkey '^[e' edit-command-line
 bindkey -s "^[a" 'configa\n'
 bindkey -s '^[p' 'edit-file\n'
 bindkey -s '^[o' 'lfcd\n'
-bindkey -s '^[j' 'bdjump\n'
 bindkey -s '^[m' 'mpcsearch\n'
 
 bdjump(){
     cd $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | fzf --height 15)
 }
 
+edit-file () {
+file=$(fzf --height 15)
+[ -f "$file" ] && $EDITOR "$file"
+}
+
 
 lfcd () {
-   tmp="$(mktemp)"
+    # set -e
+    tmp="$(mktemp)"
     trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
-    lf -last-dir-path="$tmp" "$@"
+    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        lf -last-dir-path="$tmp" "$@"
+    else
+        [ ! -d "$HOME/.cache/lf" ] && mkdir --parents "$HOME/.cache/lf"
+        lf -last-dir-path="$tmp" "$@" 3>&-
+    fi
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
         rm -f "$tmp" >/dev/null
@@ -72,7 +78,5 @@ lfcd () {
     fi
 }
 
-edit-file () {
-  file=$(fzf --height 15)
-  [ -f "$file" ] && $EDITOR "$file"
-}
+# Plugins
+source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
