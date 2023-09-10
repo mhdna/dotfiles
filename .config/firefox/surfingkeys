@@ -6,7 +6,7 @@ settings.smartPageBoundary = false;
 
 
 // blocklist
-settings.blocklistPattern = /.*mail.google.com.*|.*inbox.google.com.*|leetcode.com|app.element.io|youtube.com|udemy.com|localhost/i;
+settings.blocklistPattern = /.*mail.google.com.*|.*inbox.google.com.*|leetcode.com;
 
 // Keymaps
 // an example to create a new mapping `ctrl-y`
@@ -14,22 +14,7 @@ settings.blocklistPattern = /.*mail.google.com.*|.*inbox.google.com.*|leetcode.c
 //     Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
 // });
 // api.map('zb', '<Alt-s>');
-// switch tabs
-api.unmap('R');
-api.unmap('E');
-api.mapkey('K', '#3Go one tab right', function() {
-    api.RUNTIME("nextTab");
-}); //map('K', 'R');
-api.mapkey('J', '#3Go one tab left', function() {
-    api.RUNTIME("previousTab");
-});
-api.mapkey('S', '#8Open opened URL in current tab', 'Normal.openOmnibar({type: "URLs", extra: "getTabURLs"})');
-api.mapkey('H', '#4Go back in history', function() {
-    history.go(-1);
-}, { repeatIgnore: true });
-api.mapkey('L', '#4Go forward in history', function() {
-    history.go(1);
-}, { repeatIgnore: true });
+
 // unmapAllExcept(['<Ctrl-p>, <Ctrl-n>'], /.*docs\.google'.com.*/);
 
 // addSearchAlias('d',  'ddg', 'https://duckduckgo.com/?q=', 's');
@@ -88,3 +73,68 @@ settings.theme = `
 #sk_status, #sk_find {
     font-size: 20pt;
 }`;
+
+// map('<Ctrl-i>', '<Ctrl-ш>')
+//
+// map('а', 'f');
+// map('А', 'F');
+// map('б', ',');
+// map('Б', '<');
+// map('в', 'd');
+// map('В', 'D');
+// map('г', 'u');
+// map('Г', 'U');
+// map('д', 'l');
+// map('Д', 'L');
+// map('е', 't');
+// map('Е', 'T');
+// map('ж', ';');
+// map('Ж', ':');
+// map('з', 'p');
+// map('З', 'P');
+// map('и', 'b');
+// map('И', 'B');
+// map('і', 's');
+// map('І', 'S');
+// map('ї', ']');
+// map('Ї', '}');
+// map('й', 'q');
+// map('Й', 'Q');
+// map('к', 'r');
+// map('К', 'R');
+// map('л', 'k');
+// map('Л', 'K');
+// map('м', 'v');
+// map('М', 'V');
+// map('н', 'y');
+// map('Н', 'Y');
+// map('о', 'j');
+// map('О', 'J');
+// map('п', 'g');
+// map('П', 'G');
+// map('р', 'h');
+// map('Р', 'H');
+// map('с', 'c');
+// map('С', 'C');
+// map('т', 'n');
+// map('Т', 'N');
+// map('у', 'e');
+// map('У', 'E');
+// map('ф', 'a');
+// map('Ф', 'A');
+// map('х', '[');
+// map('Х', '{');
+// map('ц', 'w');
+// map('Ц', 'W');
+// map('ч', 'x');
+// map('Ч', 'X');
+// map('ш', 'i');
+// map('Ш', 'I');
+// map('щ', 'o');
+// map('Щ', 'O');
+// map('ь', 'm');
+// map('Ь', 'M');
+// map('ю', '.');
+// map('Ю', '>');
+// map('я', 'z');
+// map('Я', 'Z');
