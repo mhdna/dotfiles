@@ -1,9 +1,20 @@
 #!/bin/sh
 
-# Unmount USB drives or Android phones. Replaces the older `dmenuumount`. Fewer
-# prompt and also de-decrypts LUKS drives that are unmounted.
+# Unmount USB drives or Android phones.
+# Fewer prompt and also de-decrypts LUKS drives that are unmounted.
 
 set -e
+
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    menu () {
+        tofi --placeholder-text "$@"
+    }
+else
+    menu () {
+        bemenu -l 10 -p "$@"
+    }
+fi
+
 
 mounteddroids="$(grep simple-mtpfs /etc/mtab | awk '{print "📱" $2}')"
 lsblkoutput="$(lsblk -nrpo "name,type,size,mountpoint")"
@@ -13,7 +24,7 @@ allunmountable="$(echo "$mounteddroids
 $mounteddrives" | sed "/^$/d;s/ *$//")"
 test -n "$allunmountable"
 
-chosen="$(echo "$allunmountable" | dmenu -i -p "Unmount which drive?")"
+chosen="$(echo "$allunmountable" | menu "Unmount which drive?")"
 chosen="${chosen%% *}"
 test -n "$chosen"
 

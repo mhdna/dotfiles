@@ -1,17 +1,9 @@
 #!/bin/sh
 
-help(){
-    echo "Usage:
-          -t toggle mute
-          -i n increase volume by n
-          -d n decrease volume by n"
-}
-
 case "$1" in
-    "-t") pamixer -t ;;
-	"-i") pamixer --allow-boost -i 5 ;;
-	"-d") pamixer --allow-boost -d 5 ;;
-    *) help
+  "-t") pamixer -t ;;
+  "-i") pamixer --allow-boost -i 5 ;;
+  "-d") pamixer --allow-boost -d 5 ;;
 esac
 
-pkill -RTMIN+1 ${STATUSBAR:-dwmblocks}
+pkill -RTMIN+1 ${STATUSBAR:-i3blocks}

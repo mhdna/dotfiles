@@ -1,20 +1,31 @@
-#!/bin/bash
-
-declare -i ID
-ID=$(xinput list | grep -Eio '(touchpad|glidepoint)\s*id=[0-9]{1,2}' | grep -Eo '[0-9]{1,2}')
+#!/usr/bin/env bash
 
 case "$1" in
     "on")
-        xinput enable "$ID"
-        # echo "Touchpad enabled."
-        # notify-send -u low 'Touchpad' 'Touchpad Enabled'
+        if [[ -n $WAYLAND_DISPLAY ]]; then
+            ID="$(swaymsg -t get_inputs | jq -r '.[] | select(.type | test("touchpad"; "i")) | .identifier')"
+            swaymsg input "$ID" events enabled
+        elif [[ -n $DISPLAY ]]; then
+            ID=$(xinput list | grep -Eio '(touchpad|glidepoint)\s*id=[0-9]{1,2}' | grep -Eo '[0-9]{1,2}')
+            xinput enable "$ID"
+        else
+            echo "Error: No Wayland or X11 display detected" >&2
+            exit 1
+        fi
         ;;
     "off")
-        xinput disable "$ID"
-        # echo "Touchpad disabled."
-        # notify-send -u low 'Touchpad' 'Touchpad Disabled'
+        if [[ -n $WAYLAND_DISPLAY ]]; then
+            ID="$(swaymsg -t get_inputs | jq -r '.[] | select(.type | test("touchpad"; "i")) | .identifier')"
+            swaymsg input "$ID" events disabled
+        elif [[ -n $DISPLAY ]]; then
+            ID=$(xinput list | grep -Eio '(touchpad|glidepoint)\s*id=[0-9]{1,2}' | grep -Eo '[0-9]{1,2}')
+            xinput disable "$ID"
+        else
+            echo "Error: No Wayland or X11 display detected" >&2
+            exit 1
+        fi
         ;;
     *)
-    exit 1
-    ;;
+        exit 1
+        ;;
 esac

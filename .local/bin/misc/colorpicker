@@ -1,3 +1,3 @@
 #!/bin/sh
 
-xcolor | tr -d '\n' | xclip -sel c -i
+xcolor -f hex | tr -d '\n' | xclip -sel c -i

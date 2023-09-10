@@ -1,0 +1,86 @@
+#!/bin/sh
+
+# Screenshots menu for both X11 and Wayland (sway)
+
+permanentdir="$XDG_PICTURES_DIR/screenshots"
+tmpdir="/tmp/screenshots"
+
+mkdir -p "$tmpdir"
+
+output="$tmpdir/$(date '+%y-%m-%d_%H:%M:%S').png"
+
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    menu="tofi --placeholder-text"
+else
+    menu="bemenu -l 10 -p"
+fi
+
+scrotsel() {
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+        grim -g "$(slurp)" "$1"
+    else
+        maim -u -s "$1" pic-selected-
+    fi
+}
+
+scrotwin(){
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+        grim -g "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).rect | "\(.x),\(.y) \(.width)x\(.height)"')" "$1"
+    else
+        maim -q -u -d 0.2 -i "$(xdotool getactivewindow)" "$1" pic-window-
+    fi
+}
+
+scrotful() {
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+        grim "$1"
+    else
+        maim -q -u -d 0.2 "$1" pic-full-
+    fi
+}
+
+copy () {
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+        wl-copy
+    else
+        xclip -sel clip -t image/png
+    fi
+}
+
+copy_path () {
+    echo "$output" | tr -d '\n' | copy
+}
+
+notify_sucess () {
+    notify-send -t 1000 "Screenshot has been copied successfully"
+}
+
+
+move_pic () {
+    newpath="$(find "$permanentdir" -maxdepth 1 -type d | $menu "Quit to save to /tmp:")"
+    mv "$output" "$newpath" >/dev/null 2>&1
+}
+
+
+case "$(printf "a selected area\\ncurrent window\\nfull screen\\na selected area (copy)\\ncurrent window (copy)\\nfull screen (copy)" | $menu "Screenshot which area?")" in
+    "a selected area") scrotsel "$output" ;;
+    "current window") scrotwin "$output" ;;
+    "full screen") scrotful "$output";;
+    "a selected area (copy)")
+        scrotsel - | copy
+        clip="true";;
+    "current window (copy)")
+        scrotwin - | copy
+        clip="true" ;;
+    "full screen (copy)")
+        scrotful - | copy
+        clip="true" ;;
+    *) exit 1 ;;
+esac
+
+if [ "$clip" = "true" ]; then
+    notify_sucess
+else
+    move_pic
+    copy_path
+fi

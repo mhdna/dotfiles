@@ -1,10 +1,25 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-for file in "$@"; do
-    filename=$(basename "$file")
+# Function that will be run in each thread
+process_item() {
+    local file="$1"
+    local filename=$(basename "$file")
+    local title
+
     youtube-dl --match-filter "!short"  --write-thumbnail -o "%(title)s.%(ext)s" --convert-thumbnail jpg --skip-download "ytsearch:${filename%.*}" -P "$HOME/.cache/yt-audio-thumbnails/"
     title="$(youtube-dl --match-filter "!short" --get-title -o "%(title)s.%(ext)s" --skip-download "ytsearch:${filename%.*}")"
-    extension="${file##*.}"
-    newtitle="$title.$extension"
-    [ ! -f "newtitle" ] && mv "$file" "$newtitle"
-done
+    local extension="${file##*.}"
+    local newtitle="$title.$extension"
+
+    [ ! -f "$newtitle" ] && mv "$file" "$newtitle"
+}
+
+# Number of threads to run in parallel
+num_threads=10
+
+# Check if GNU Parallel is installed
+command -v parallel >/dev/null 2>&1 || { echo >&2 "GNU Parallel is required but not installed. Aborting."; exit 1; }
+
+# Run the process_item function in parallel for each input file
+export -f process_item
+parallel -j "$num_threads" process_item ::: "$@"

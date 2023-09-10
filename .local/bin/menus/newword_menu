@@ -1,12 +1,16 @@
 #!/bin/sh
 
+menu () {
+    bemenu -p "$@"
+}
+
 dst="$NOTES_DIR/language.org"
 
 getwords(){
-    word="$(dmenu -p "Enter Word: " <&-)"
+    word="$(menu "Enter Word: "  < /dev/null)"
 }
 getmeaning(){
-    mean="$(dmenu -p "Enter Meaning: " <&-)"
+    mean="$(menu "Enter Meaning: " < /dev/null)"
 }
 
 remind(){

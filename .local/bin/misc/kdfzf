@@ -10,6 +10,7 @@ kdeconnect-cli --refresh
 chosen="$(kdeconnect-cli -a | fzf)"
 [ -z "$chosen" ] && exit 1 # exit if empty (you can't do *| fzf || exit 1* in the previous row)
 
-id="$(echo "$chosen" | awk '{print $3}')"
+id="$(echo "$chosen" | cut -d ":" -f 2 | cut -d " " -f 2)"
+echo "$id"
 
 kdeconnect-cli --device  "$id" --share "$@" || notify-send '📱 Kdeconnect' 'Sending has failed'

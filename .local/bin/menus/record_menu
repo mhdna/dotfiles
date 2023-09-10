@@ -1,13 +1,19 @@
 #!/bin/sh
 
 # Usage:
-# `$0`: Ask for recording type via dmenu
+# `$0`: Ask for recording type via $menu
 # `$0 screencast`: Record both audio and screen
 # `$0 video`: Record only screen
 # `$0 audio`: Record only audio
 # `$0 kill`: Kill existing recording
 #
 # If there is already a running instance, user will be prompted to end it.
+
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    menu="tofi --placeholder-text"
+else
+    menu="bemenu -p"
+fi
 
 getdim() { xrandr | sed -n "s/\s*\([0-9]\+x[0-9]\+\).*\*.*/\1/p" ;}
 
@@ -80,7 +86,7 @@ audio() { \
 	}
 
 askrecording() { \
-	choice=$(printf "screencast\\nvideo\\nvideo selected\\naudio\\nwebcam\\nwebcam (hi-def)" | dmenu -i -p "Select recording style:")
+	choice=$(printf "screencast\\nvideo\\nvideo selected\\naudio\\nwebcam\\nwebcam (hi-def)" | $menu "Select recording style:")
 	case "$choice" in
 		screencast) screencast;;
 		audio) audio;;
@@ -92,7 +98,7 @@ askrecording() { \
 	}
 
 asktoend() { \
-	response=$(printf "No\\nYes" | dmenu -i -p "Recording still active. End recording?") &&
+	response=$(printf "No\\nYes" | $menu "Recording still active. End recording?") &&
 	[ "$response" = "Yes" ] &&  killrecording
 	}
 

@@ -1,3 +1,0 @@
- #!/bin/sh
-
-echo $(xclip -o -sel c) >> $HOME/.local/share/savedclips.txt

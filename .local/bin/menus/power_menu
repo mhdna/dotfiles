@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if [[ -n $WAYLAND_DISPLAY ]]; then
+    wm="sway"
+    menu() {
+        tofi --placeholder-text "$@"
+    }
+else
+    wm="Xorg"
+    menu() {
+        bemenu -p "$@"
+    }
+fi
+
+case "$(printf "lock\nleave\nhibernate\nreboot\npoweroff\nsuspend\ndisplay off" | menu 'Action: ')" in
+    "lock") lock ;;
+    "leave") pkill -15 -t tty"$XDG_VTNR" "$wm" ;;
+    "hibernate") sudo systemctl hibernate ;;
+    "suspend") sudo systemctl suspend -i;;
+    "reboot") sudo systemctl reboot -i ;;
+    "poweroff") sudo shutdown now ;;
+    # "display off") xset dpms force off ;;
+    *) exit 1 ;;
+esac

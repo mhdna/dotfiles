@@ -1,8 +1,0 @@
-#!/bin/sh
-
-    case "$(printf "English\nArabic\nTranslate" | dmenu -i )" in #  -p 'Action:'
-    'Arabic') maim -s /tmp/temp.png pic-selected- && tesseract /tmp/temp.png /tmp/output -l ara && cat /tmp/output.txt | xclip -i -sel c && notify-send 'Ocr done';;
-    'English') maim -s /tmp/temp.png pic-selected- && tesseract /tmp/temp.png /tmp/output -l eng && cat /tmp/output.txt | xclip -i -sel c 'Ocr done';;
-    'Translate') maim -s /tmp/temp.png pic-selected- && tesseract /tmp/temp.png /tmp/output -l eng && notify-send "$(trans -b --no-bidi --target=arabic -i /tmp/output.txt)" ;;
-	*) exit 1 ;;
-    esac

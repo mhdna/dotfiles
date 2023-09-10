@@ -1,0 +1,174 @@
+#!/bin/sh
+
+# TODO: make a readlater archive html using keybinding
+
+sn_file="$HOME/personal/bookmarks/snippets"
+bm_file="$HOME/personal/bookmarks/bookmarks"
+wl_file="$HOME/personal/bookmarks/watchlater.html"
+rl_file="$HOME/personal/bookmarks/readlater.html"
+
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    menu () {
+        tofi --placeholder-text "$@"
+    }
+    empty_menu="tofi"
+    clip="wl-paste"
+else
+    menu () {
+        bemenu -p "$@"
+    }
+    empty_menu="bemenu"
+    clip="xclip -sel c -o"
+fi
+
+url="${1:-$($clip)}"
+
+
+notify() {
+  notify-send -t 1500 "$@"
+}
+
+browser() {
+  $BROWSER "$1"
+}
+
+get_title(){
+  net_title="$(curl -s "$url" | grep -o '<title>.*</title>' | sed 's/<title>\|<\/title>//g')"
+  title="${net_title:-$(menu \"Title for "$url": \" <&-)}"
+}
+
+html_template(){
+  echo "
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>$1</title>
+  </head>
+  <body>
+    <h1>$1</h1>
+  </body>
+</html>
+" >> "$2"
+}
+
+bm_show(){
+  url=$(grep -v '^#' "$bm_file" | $empty_menu | cut -d' ' -f1)
+
+  [ -n "$url" ] && browser "$url"
+}
+
+bm_add(){
+  # TODO: selective one tag with ||
+  # cat bookmarks |  grep -o "||.*||" | tr '||' '\n' | sed -e 's/[[:space:]]*$//' -e '/^$/d' | sort | uniq
+  # TODO: selective title with # at the end
+  gettag(){
+    tag=$(menu "Bookmark Tag (split with a || ) for $url: " <&-)
+  }
+
+  if grep -q "$url" "$bm_file"; then
+    notify "Bookmark" "⛔ Already exists"
+  else
+    gettag && echo "$url :$tag": >> "$bm_file" && notify "Bookmark" "$url\\ngot saved ✅"
+  fi
+}
+
+bm_rm(){
+    line="$(cat  "$bm_file"  | menu "Bookmark to remove")"
+    [ -z "$line" ] && exit 0
+    confirm="$(printf "Yes\\nNo" | menu "Remove $line?")"
+    [ "$confirm" != "Yes" ] && exit 0
+
+    tmp_file="$(dirname "$bm_file")/.bookmarks.tmp"
+
+    grep -vF "$line" "$bm_file" > "$tmp_file" &&
+        mv "$tmp_file" "$bm_file" &&
+        rm -f "$tmp_file" &&
+        notify "Bookmark" "$line\\ngot removed ❎"
+}
+
+
+sn_show(){
+  url=$(grep -v '^#' "$sn_file" | $empty_menu | cut -d';' -f2)
+
+  [ -n "$url" ] && browser "$url"
+}
+
+
+sn_add(){
+  get_title(){
+    title=$(menu "Snippet title (split with a : ) for $url: " <&-)
+  }
+
+  if grep -q "$url" "$sn_file"; then
+    notify "Snippet" "⛔ Already exists"
+  else
+    get_title && echo "$title; $url" >> "$sn_file" && notify "Snippet" "$url\\ngot saved ✅"
+  fi
+}
+
+sn_rm(){
+    line="$(menu "Snippet to remove" < "$sn_file")"
+    [ -z "$line" ] && exit 0
+    confirm="$(printf "Yes\\nNo" | menu "Remove $line?")"
+    [ "$confirm" != "Yes" ] && exit 0
+
+    tmp_file="$(dirname "$sn_file")/.snippets.tmp"
+
+    grep -vF "$line" "$sn_file" > "$tmp_file" &&
+        mv "$tmp_file" "$sn_file" &&
+        rm -f "$tmp_file" &&
+        notify "Snippet" "$line\\ngot removed ❎"
+}
+
+wl_add(){
+  if grep -q "$url" "$wl_file"; then
+    notify "WatchLater" "⛔ Already exists"
+  else
+    [ ! -f "$wl_file" ] && html_template "ReadLater" "$wl_file"
+    get_title &&
+    # echo "$title; $url" >> "$wl_file"
+    sed -i "s#</body>#\t<a href=\"$url\">$title<\/a><br>\\n</body>#" "$wl_file" &&
+    notify "Watch Later" "$title\\ngot saved ✅"
+  fi
+}
+
+wl_show(){
+  # title="$(grep -v '^#' "$wl_file" | cut -d ";" -f 1 | empty_menu)"
+  # url="$(grep "$title" "$wl_file" | head -n 1| cut -d ';' -f 2)"
+  # [ -n "$url" ] && browser "$url"
+
+  browser "$wl_file"
+}
+
+rl_add(){
+  if grep -q "$url" "$rl_file"; then
+    notify "WatchLater" "⛔ Already exists"
+  else
+    [ ! -f "$rl_file" ] && html_template "WatchLater" "$rl_file"
+    get_title &&
+    # echo "$title; $url" >> "$rl_file"
+    sed -i "s#</body>#\t<a href=$url>$title<\/a><br>\\n</body>#" "$rl_file" &&
+    notify "Watch Later" "$title\\ngot saved ✅"
+  fi
+}
+
+rl_show(){
+  # title="$(grep -v '^#' "$rl_file" | cut -d ";" -f 1 | empty_menu )"
+  # url="$(grep "$title" "$rl_file" | head -n 1| cut -d ';' -f 2)"
+  # [ -n "$url" ] && browser "$url"
+  browser "$rl_file"
+}
+
+
+case "$(printf "Bookmark Add\\nBookmarks\\nBookmark Remove\\nSnippet Add\\nSnippets\\nSnippet Remove\\nReadLater Add\\nReadLater\\nWatchLater Add\\nWatchLater" | $empty_menu)" in
+  "Bookmarks") bm_show ;;
+  "Bookmark Add") bm_add ;;
+  "Bookmark Remove") bm_rm ;;
+  "Snippets") sn_show ;;
+  "Snippet Add") sn_add ;;
+  "Snippet Remove") sn_rm ;;
+  "ReadLater Add") rl_add ;;
+  "ReadLater") rl_show ;;
+  "WatchLater Add") wl_add ;;
+  "WatchLater") wl_show ;;
+esac

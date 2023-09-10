@@ -5,7 +5,13 @@ case "$(readlink -f /sbin/init)" in
     *) init="notsysd";;
 esac
 
-case "$(printf "Lid Sleep\nLid Don't Sleep" | dmenu -i )" in
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    menu="tofi"
+else
+    menu="bemenu"
+fi
+
+case "$(printf "Lid Sleep\nLid Don't Sleep" | $menu)" in
     "Lid Sleep")
         if [ $init = "sysd" ]; then
             sudo sh -c 'sed -i "s/^HandleLidSwitch=ignore/#HandleLidSwitch=suspend/" /etc/systemd/logind.conf;  systemctl kill -s HUP systemd-logind'

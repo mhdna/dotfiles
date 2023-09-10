@@ -1,11 +1,21 @@
 #!/bin/sh
 
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    menu () {
+        tofi --placeholder-text "$@"
+    }
+else
+    menu () {
+        bemenu -p "$@"
+    }
+fi
+
 engines="$HOME/.local/share/search_engines"
 # get the name of the search engine
-search_engine="$(cat "$engines" | cut -d ';' -f 1 | dmenu -i -p 'Search in:')"
+search_engine="$(cat "$engines" | cut -d ';' -f 1 | menu 'Search in:')"
 [ -z "$search_engine" ] && exit
 
-web_search="$(dmenu -p 'Web Search:'  < /dev/null)"
+web_search="$(menu 'Web Search:' < /dev/null)"
 [ -z "$web_search" ] && exit
 
 # get the url of the search engine

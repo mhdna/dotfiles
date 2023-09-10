@@ -1,0 +1,31 @@
+#!/bin/sh
+
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    menu () {
+        tofi
+    }
+else
+    menu () {
+        bemenu
+    }
+fi
+
+bmdirs="${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs"
+
+case "$(printf "Max=1080\n720\nAudio" | menu)" in
+    "Max=1080")
+        args="--write-subs --write-auto-subs bestvideo[height<=1080]+bestaudio/best[height<=1080]"
+        dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" | menu)"
+        ;;
+    "720")
+        args="--write-subs --write-auto-subs -f 22"
+        dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" |  menu)"
+        ;;
+    "Audio")
+        args="--remux-video ogg -f bestaudio/best"
+        dst="$(grep -Ei '(/tmp/|music)' "$bmdirs" | menu)"
+        ;;
+    *) exit 0;;
+esac
+
+yt-dlp $args -o "%(title)s.%(ext)s" --external-downloader aria2c --write-thumbnail --convert-thumbnails jpg --add-metadata -ic -P "$dst" $@
