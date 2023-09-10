@@ -1,96 +1,98 @@
 ;;;; Code Completion
 (use-package corfu
-	;; Optional customizations
-	:custom
-	(corfu-cycle t)                 ; Allows cycling through candidates
-	(corfu-auto t)                  ; Enable auto completion
-	(corfu-auto-prefix 2)
-	(corfu-auto-delay 0.0)
-	(corfu-popupinfo-delay '(0.5 . 0.2))
-	(corfu-preview-current 'insert) ; Do not preview current candidate
-	(corfu-preselect-first nil)
-	(corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
+  ;; Optional customizations
+  :custom
+  (corfu-cycle t)                 ; Allows cycling through candidates
+  (corfu-auto t)                  ; Enable auto completion
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0.0)
+  (corfu-popupinfo-delay '(0.5 . 0.2))
+  (corfu-preview-current 'insert) ; Do not preview current candidate
+  (corfu-preselect-first nil)
+  (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
 
-	;; Optionally use TAB for cycling, default is `corfu-complete'.
-	:bind (:map corfu-map
-							("M-SPC"			 . corfu-insert-separator)
-							("TAB"				 . corfu-next)
-							("<escape>"				 . (lambda () (interactive)  (evil-normal-state) (corfu-quit)))
-							([tab]      . corfu-next)
-							("C-p"				 . corfu-previous)
-							("S-TAB"		 . corfu-quit)
-							([backtab]  . corfu-previous)
-							("RET"				 . corfu-insert)
-							("S-<return>"	 . nil))
-	:hook ((prog-mode . corfu-mode)
-				 (shell-mode . corfu-mode)
-				 (eshell-mode . corfu-mode))
-	:init
-	(corfu-history-mode)
-	(corfu-popupinfo-mode) ; Popup completion info
-	:config
-	(add-hook 'eshell-mode-hook
-						(lambda () (setq-local corfu-quit-at-boundary t
-																	 corfu-quit-no-match t
-																	 corfu-auto nil)
-							(corfu-mode))))
-(use-package cape
-	:defer 10
-	:bind ("C-c f" . cape-file)
-	:init
-	;; Add `completion-at-point-functions', used by `completion-at-point'.
-	(defalias 'dabbrev-after-2 (cape-capf-prefix-length #'cape-dabbrev 2))
-	(add-to-list 'completion-at-point-functions 'dabbrev-after-2 t)
-	(cl-pushnew #'cape-file completion-at-point-functions)
-	:config
-	;; Silence then pcomplete capf, no errors or messages!
-	(advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
+  ;; Optionally use TAB for cycling, default is `corfu-complete'.
+  :bind (:map corfu-map
+              ("M-SPC"			 . corfu-insert-separator)
+              ("TAB"				 . corfu-next)
+              ("<escape>"				 . (lambda () (interactive)  (evil-normal-state) (corfu-quit)))
+              ([tab]      . corfu-next)
+              ("C-p"				 . corfu-previous)
+              ("S-TAB"		 . corfu-quit)
+              ([backtab]  . corfu-previous)
+              ("RET"				 . corfu-insert)
+              ("S-<return>"	 . nil))
+  :hook ((prog-mode . corfu-mode)
+         (shell-mode . corfu-mode)
+         (eshell-mode . corfu-mode))
+  :init
+  (corfu-history-mode)
+  (corfu-popupinfo-mode) ; Popup completion info
+  :config
+  (add-hook 'eshell-mode-hook
+            (lambda () (setq-local corfu-quit-at-boundary t
+                                   corfu-quit-no-match t
+                                   corfu-auto nil)
+              (corfu-mode))))
+;; (use-package cape
+;;   :defer 10
+;;   :bind ("C-c f" . cape-file)
+;;   :init
+;;   ;; Add `completion-at-point-functions', used by `completion-at-point'.
+;;   (defalias 'dabbrev-after-2 (cape-capf-prefix-length #'cape-dabbrev 2))
+;;   (add-to-list 'completion-at-point-functions 'dabbrev-after-2 t)
+;;   (cl-pushnew #'cape-file completion-at-point-functions)
+;;   :config
+;;   ;; Silence then pcomplete capf, no errors or messages!
+;;   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
 
-	;; Ensure that pcomplete does not write to the buffer
-	;; and behaves as a pure `completion-at-point-function'.
-	(advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
+;;   ;; Ensure that pcomplete does not write to the buffer
+;;   ;; and behaves as a pure `completion-at-point-function'.
+;;   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
+
 (use-package yasnippet
-	:init
-	(setq yas-nippet-dir "~/.emacs.d/snippets")
-	(yas-global-mode))
+  :init
+  (setq yas-nippet-dir "~/.emacs.d/snippets")
+  (yas-global-mode))
 (use-package yasnippet-snippets
-	:after yasnippet)
-(use-package cape-yasnippet
-	:ensure nil
-	:quelpa (cape-yasnippet :fetcher github :repo "elken/cape-yasnippet")
-	:after yasnippet
-	:hook ((prog-mode . yas-setup-capf)
-				 (text-mode . yas-setup-capf)
-				 (lsp-mode  . yas-setup-capf)
-				 (sly-mode  . yas-setup-capf))
-	:bind (("C-c y" . cape-yasnippet)
-				 ("M-+"   . yas-insert-snippet))
-	:config
-	(defun yas-setup-capf ()
-		(setq-local completion-at-point-functions
-								(cons 'cape-yasnippet
-											completion-at-point-functions)))
-	(push 'cape-yasnippet completion-at-point-functions))
+  :after yasnippet)
+;; (use-package cape-yasnippet
+;;   :ensure nil
+;;   :quelpa (cape-yasnippet :fetcher github :repo "elken/cape-yasnippet")
+;;   :after yasnippet
+;;   :hook ((prog-mode . yas-setup-capf)
+;;          (text-mode . yas-setup-capf)
+;;          (lsp-mode  . yas-setup-capf)
+;;          (sly-mode  . yas-setup-capf))
+;;   :bind (("C-c y" . cape-yasnippet)
+;;          ("M-+"   . yas-insert-snippet))
+;;   :config
+;;   (defun yas-setup-capf ()
+;;     (setq-local completion-at-point-functions
+;;                 (cons 'cape-yasnippet
+;;                       completion-at-point-functions)))
+;;   (push 'cape-yasnippet completion-at-point-functions))
 
 ;; web stuff
-(use-package web-mode
-	:config
-	(setq web-mode-markup-indent-offset 2
-				web-mode-css-indent-offset 2
-				web-mode-code-indent-offset 2
-				web-mode-indent-style 2)
-	(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-	(add-to-list 'auto-mode-alist '("\\.htm\\'" . web-mode)))
+;; (use-package web-mode
+;;   :config
+;;   (setq web-mode-markup-indent-offset 2
+;;         web-mode-css-indent-offset 2
+;;         web-mode-code-indent-offset 2
+;;         web-mode-indent-style 2)
+;;   (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.htm\\'" . web-mode)))
 
 (use-package emmet-mode
-	:config
-	(add-hook 'web-mode-hook 'emmet-mode))
+  :config
+  (add-hook 'web-mode-hook 'emmet-mode))
 
-;; Javascript
-(use-package js2-mode)
-;; set as the default mode for javascript
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(use-package js2-refactor)
+;; ;; Javascript
+;; (use-package js2-mode)
+;; ;; set as the default mode for javascript
+;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;; (use-package js2-refactor)
+
 ;;; LSP
 ;; Should boost performance with lsp
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
@@ -345,130 +347,148 @@
 
 
 
-
 ;; (use-package treemacs
-;;	:defer t
-;;	:init
-;;	(with-eval-after-load 'winum
-;;		(define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-;;	:config
-;;	(progn
-;;		(setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
-;;					treemacs-deferred-git-apply-delay        0.5
-;;					treemacs-directory-name-transformer      #'identity
-;;					treemacs-display-in-side-window          t
-;;					treemacs-eldoc-display                   'simple
-;;					treemacs-file-event-delay                2000
-;;					treemacs-file-extension-regex            treemacs-last-period-regex-value
-;;					treemacs-file-follow-delay               0.2
-;;					treemacs-file-name-transformer           #'identity
-;;					treemacs-follow-after-init               t
-;;					treemacs-expand-after-init               t
-;;					treemacs-find-workspace-method           'find-for-file-or-pick-first
-;;					treemacs-git-command-pipe                ""
-;;					treemacs-goto-tag-strategy               'refetch-index
-;;					treemacs-header-scroll-indicators        '(nil . "^^^^^^")
-;;					treemacs-hide-dot-git-directory          t
-;;					treemacs-indentation                     2
-;;					treemacs-indentation-string              " "
-;;					treemacs-is-never-other-window           t
-;;					treemacs-max-git-entries                 5000
-;;					treemacs-missing-project-action          'ask
-;;					treemacs-move-forward-on-expand          nil
-;;					treemacs-no-png-images                   nil
-;;					treemacs-no-delete-other-windows         t
-;;					treemacs-project-follow-cleanup          nil
-;;					treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-;;					treemacs-position                        'left
-;;					treemacs-read-string-input               'from-child-frame
-;;					treemacs-recenter-distance               0.1
-;;					treemacs-recenter-after-file-follow      nil
-;;					treemacs-recenter-after-tag-follow       nil
-;;					treemacs-recenter-after-project-jump     'always
-;;					treemacs-recenter-after-project-expand   'on-distance
-;;					treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
-;;					treemacs-show-cursor                     nil
-;;					treemacs-show-hidden-files               t
-;;					treemacs-silent-filewatch                nil
-;;					treemacs-silent-refresh                  nil
-;;					treemacs-sorting                         'alphabetic-asc
-;;					treemacs-select-when-already-in-treemacs 'move-back
-;;					treemacs-space-between-root-nodes        t
-;;					treemacs-tag-follow-cleanup              t
-;;					treemacs-tag-follow-delay                1.5
-;;					treemacs-text-scale                      nil
-;;					treemacs-user-mode-line-format           nil
-;;					treemacs-user-header-line-format         nil
-;;					treemacs-wide-toggle-width               70
-;;					treemacs-width                           35
-;;					treemacs-width-increment                 1
-;;					treemacs-width-is-initially-locked       t
-;;					treemacs-workspace-switch-cleanup        nil)
+;;   :ensure t
+;;   :defer t
+;;   :init
+;;   (with-eval-after-load 'winum
+;;     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+;;   :config
+;;   (progn
+;;     (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+;;           treemacs-deferred-git-apply-delay        0.5
+;;           treemacs-directory-name-transformer      #'identity
+;;           treemacs-display-in-side-window          t
+;;           treemacs-eldoc-display                   'simple
+;;           treemacs-file-event-delay                2000
+;;           treemacs-file-extension-regex            treemacs-last-period-regex-value
+;;           treemacs-file-follow-delay               0.2
+;;           treemacs-file-name-transformer           #'identity
+;;           treemacs-follow-after-init               t
+;;           treemacs-expand-after-init               t
+;;           treemacs-find-workspace-method           'find-for-file-or-pick-first
+;;           treemacs-git-command-pipe                ""
+;;           treemacs-goto-tag-strategy               'refetch-index
+;;           treemacs-header-scroll-indicators        '(nil . "^^^^^^")
+;;           treemacs-hide-dot-git-directory          t
+;;           treemacs-indentation                     2
+;;           treemacs-indentation-string              " "
+;;           treemacs-is-never-other-window           t
+;;           treemacs-max-git-entries                 5000
+;;           treemacs-missing-project-action          'ask
+;;           treemacs-move-forward-on-expand          nil
+;;           treemacs-no-png-images                   nil
+;;           treemacs-no-delete-other-windows         t
+;;           treemacs-project-follow-cleanup          nil
+;;           treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+;;           treemacs-position                        'left
+;;           treemacs-read-string-input               'from-child-frame
+;;           treemacs-recenter-distance               0.1
+;;           treemacs-recenter-after-file-follow      nil
+;;           treemacs-recenter-after-tag-follow       nil
+;;           treemacs-recenter-after-project-jump     'always
+;;           treemacs-recenter-after-project-expand   'on-distance
+;;           treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+;;           treemacs-show-cursor                     nil
+;;           treemacs-show-hidden-files               t
+;;           treemacs-silent-filewatch                nil
+;;           treemacs-silent-refresh                  nil
+;;           treemacs-sorting                         'alphabetic-asc
+;;           treemacs-select-when-already-in-treemacs 'move-back
+;;           treemacs-space-between-root-nodes        t
+;;           treemacs-tag-follow-cleanup              t
+;;           treemacs-tag-follow-delay                1.5
+;;           treemacs-text-scale                      nil
+;;           treemacs-user-mode-line-format           nil
+;;           treemacs-user-header-line-format         nil
+;;           treemacs-wide-toggle-width               70
+;;           treemacs-width                           35
+;;           treemacs-width-increment                 1
+;;           treemacs-width-is-initially-locked       t
+;;           treemacs-workspace-switch-cleanup        nil)
 
-;;		;; The default width and height of the icons is 22 pixels. If you are
-;;		;; using a Hi-DPI display, uncomment this to double the icon size.
-;;		(treemacs-resize-icons 22)
+;;     ;; The default width and height of the icons is 22 pixels. If you are
+;;     ;; using a Hi-DPI display, uncomment this to double the icon size.
+;;     (treemacs-resize-icons 22)
 
-;;		(treemacs-follow-mode t)
-;;		(treemacs-filewatch-mode t)
-;;		(treemacs-fringe-indicator-mode 'always)
-;;		(when treemacs-python-executable
-;;			(treemacs-git-commit-diff-mode t))
+;;     (treemacs-follow-mode t)
+;;     (treemacs-filewatch-mode t)
+;;     (treemacs-fringe-indicator-mode 'always)
+;;     (when treemacs-python-executable
+;;       (treemacs-git-commit-diff-mode t))
 
-;;		(pcase (cons (not (null (executable-find "git")))
-;;								 (not (null treemacs-python-executable)))
-;;			(`(t . t)
-;;			 (treemacs-git-mode 'deferred))
-;;			(`(t . _)
-;;			 (treemacs-git-mode 'simple)))
+;;     (pcase (cons (not (null (executable-find "git")))
+;;                  (not (null treemacs-python-executable)))
+;;       (`(t . t)
+;;        (treemacs-git-mode 'deferred))
+;;       (`(t . _)
+;;        (treemacs-git-mode 'simple)))
 
-;;		(treemacs-hide-gitignored-files-mode nil))
-;;	:bind
-;;	(:map global-map
-;;				("M-0"       . treemacs-select-window)
-;;				("C-x t 1"   . treemacs-delete-other-windows)
-;;				("C-x t t"   . treemacs)
-;;				("C-x t d"   . treemacs-select-directory)
-;;				("C-x t B"   . treemacs-bookmark)
-;;				("C-x t C-t" . treemacs-find-file)
-;;				("C-x t M-t" . treemacs-find-tag))
+;;     (treemacs-hide-gitignored-files-mode nil))
+;;   :bind
+;;   (:map global-map
+;;         ("M-0"       . treemacs-select-window)
+;;         ("C-x t 1"   . treemacs-delete-other-windows)
+;;         ("C-x t t"   . treemacs)
+;;         ("C-x t d"   . treemacs-select-directory)
+;;         ("C-x t B"   . treemacs-bookmark)
+;;         ("C-x t C-t" . treemacs-find-file)
+;;         ("C-x t M-t" . treemacs-find-tag)))
 
-;;	(use-package treemacs-projectile
-;;		:after (treemacs projectile))
+
+;;   (use-package treemacs-projectile
+;;     :ensure t
+;;     :after (treemacs projectile))
 
 ;; (if (package-installed-p 'evil)
 ;;     (use-package treemacs-evil
-;;			:after (treemacs evil))))
+;;       :ensure t
+;;       :after (treemacs evil)))
 
-(use-package flymake
-	:defer 10
-	:bind (("M-g l"   . flymake-show-buffer-diagnostics)
-				 ("M-g M-l" . flymake-show-project-diagnostics)
-				 ("M-g M-n" . flymake-goto-next-error)
-				 ("M-g M-p" . flymake-goto-prev-error)
-				 :repeat-map flymake-repeatmap
-				 ("p" . flymake-goto-prev-error)
-				 ("n" . flymake-goto-next-error)
-				 :map flymake-diagnostics-buffer-mode-map
-				 ("?" . flymake-show-diagnostic-here)
-				 :map flymake-project-diagnostics-mode-map
-				 ("?" . flymake-show-diagnostic-here))
-	:hook (prog-mode . (lambda () (flymake-mode t)))
-	:config
-	(defun flymake-show-diagnostic-here (pos &optional other-window)
-		"Show the full diagnostic of this error.
-Used to see multiline flymake errors"
-		(interactive (list (point) t))
-		(let* ((id (or (tabulated-list-get-id pos)
-									 (user-error "Nothing at point")))
-					 (text (flymake-diagnostic-text (plist-get id :diagnostic))))
-			(message text)))
-	(remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake))
+;; (use-package flymake
+;;   :defer 10
+;;   :bind (("M-g l"   . flymake-show-buffer-diagnostics)
+;;          ("M-g M-l" . flymake-show-project-diagnostics)
+;;          ("M-g M-n" . flymake-goto-next-error)
+;;          ("M-g M-p" . flymake-goto-prev-error)
+;;          :repeat-map flymake-repeatmap
+;;          ("p" . flymake-goto-prev-error)
+;;          ("n" . flymake-goto-next-error)
+;;          :map flymake-diagnostics-buffer-mode-map
+;;          ("?" . flymake-show-diagnostic-here)
+;;          :map flymake-project-diagnostics-mode-map
+;;          ("?" . flymake-show-diagnostic-here))
+;;   :hook (prog-mode . (lambda () (flymake-mode t)))
+;;   :config
+;;   (defun flymake-show-diagnostic-here (pos &optional other-window)
+;;     "Show the full diagnostic of this error.
+;; Used to see multiline flymake errors"
+;;     (interactive (list (point) t))
+;;     (let* ((id (or (tabulated-list-get-id pos)
+;;                    (user-error "Nothing at point")))
+;;            (text (flymake-diagnostic-text (plist-get id :diagnostic))))
+;;       (message text)))
+;;   (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake))
 
-(use-package eldoc
-	:defer 10
-	:init
-	(setq eldoc-echo-area-display-truncation-message t)
-	(setq eldoc-echo-area-use-multiline-p nil)
-	(global-eldoc-mode t))
+;; (use-package eldoc
+;;   :defer 10
+;;   :init
+;;   (setq eldoc-echo-area-display-truncation-message t)
+;;   (setq eldoc-echo-area-use-multiline-p nil)
+;;   (global-eldoc-mode t))
+
+
+;; System notifications
+;; (setq compilation-finish-functions
+;;			(append compilation-finish-functions
+;;							'(fmq-compilation-finish)))
+
+;; (defun fmq-compilation-finish (buffer status)
+;;	(call-process "notify-send" nil nil nil
+;;								"-t" "0"
+;;								"-i" "emacs"
+;;								"Compilation finished in Emacs"
+;;								status))
+
+
 (provide 'init-dev)
