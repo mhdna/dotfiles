@@ -38,14 +38,12 @@ local on_attach = function(_, bufnr)
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end)
     nmap('<M-Insert>', function()
-        if vim.lsp.buf.add_workspace_folder() then
-            print('Added ' .. vim.fn.expand('%') .. 'to ' .. vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end
+        vim.lsp.buf.add_workspace_folder()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end)
     nmap('<M-S-Insert>', function()
-        if vim.lsp.buf.remove_workspace_folder() then
-            print('Removed ' .. vim.fn.expand('%') .. 'to ' .. vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end
+        vim.lsp.buf.remove_workspace_folder()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end)
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
