@@ -10,7 +10,9 @@ for command in mount umount updatedb su ; do
 	alias $command="sudo $command"
 done; unset command
 
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+config () {
+    git --git-dir=$HOME/.dotfiles/ --work-tree="$HOME" "$@"
+}
 
 urlencode () {
     declare str="$*"
@@ -67,8 +69,7 @@ Or Press 'q' to leave
 alias \
     g='git' \
     dr="dragon-drop" \
-    p="pacman" \
-    P="sudo pacman" \
+    p="sudo pacman" \
     ll="ls -l --color=auto" \
     lsd="ls -d .*/ */" \
     abook="abook -C $XDG_CONFIG_HOME/abook/abookrc --datafile $XDG_CONFIG_HOME/abook/addressbook" \
@@ -88,4 +89,3 @@ alias \
     ka="killall" \
     trem="transmission-remote" \
     z="zathura" \
-    c="countdown" \
