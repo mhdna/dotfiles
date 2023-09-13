@@ -1,1 +1,80 @@
-../../sxiv/exec/key-handler
+#!/bin/sh
+case "$1" in
+    "b") read -r file
+         setbg "$file" ;;
+    "r")
+        while read -r file
+        do
+        name="$(mymenu -p "rename $file to: ")" 2> /dev/null
+        if [ -n "$name" ]; then
+            mv "$file" "$(dirname "$file")/$name"
+        fi
+        done;;
+    "c")
+        destdir="$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | mymenu -l 20 -i -p "Copy file(s) to where?")"
+        while read -r file
+        do
+        cp "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file copied to $destdir." &
+    done ;;
+    "m")
+        destdir="$(cat ${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs | mymenu -l 20 -i -p "Copy file(s) to where?")"
+        while read -r file
+        do
+        mv "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "🚚 $file moved to $destdir." &
+    done ;;
+	"h")
+        while read -r file
+        do
+		convert -rotate 90 "$file" "$file"
+        done;;
+	"l")
+        while read -r file
+        do
+		convert -rotate -90 "$file" "$file"
+        done;;
+	"f")
+        while read -r file
+        do
+		convert -flop "$file" "$file"
+        done;;
+    "y") xclip -in -filter | tr '\n' ' ' | xclip -in -selection clipboard ;;
+	"Y")
+        while read -r file
+        do
+		readlink -f "$file" | tr -d '\n' | xclip -selection clipboard &&
+	    notify-send "$(readlink -f "$file") copied to clipboard" &
+        done;;
+	"d")
+		[ "$(printf "No\\nYes" | mymenu -i -p "Really delete it?")" = "Yes" ] || exit
+        while read -r file
+        do
+            rm "$file" && notify-send "$file deleted."
+        done
+        ;;
+
+	"D")
+        [ "$(printf "No\\nYes" | mymenu -i -p "Really shred $file?")" = "Yes" ] || exit
+        while read -r file
+        do
+        shred -uvz "$file" && notify-send "$file shreded."
+        done ;;
+	"g") tr '\n' '\0' | xargs -0 gimp & ;;
+	"i") while read -r file
+            do
+             notify-send "File information" "$(mediainfo "$file")"
+            done ;;
+    "o")
+        while read -r file
+        do
+            name=${file%.*}
+
+            # check for a video file
+            for ext in webm mkv mp4; do
+                [ -f "$name.$ext" ] && setsid -f mpv "$name.$ext" -quiet >/dev/null 2>&1
+            done
+
+            # otherwise, search for a pdf file
+            pdfpath="$(exiftool "$file" | grep Author | cut -d ':' -f 2 | sed 's/^ //')"
+            [ -n "$pdfpath" ]  && [ -f "$pdfpath" ] && setsid -f zathura "$pdfpath" >/dev/null 2>&1
+        done;;
+esac
