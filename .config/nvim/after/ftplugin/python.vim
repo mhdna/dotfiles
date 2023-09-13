@@ -6,7 +6,7 @@ nnoremap <buffer><silent> <F9> :<C-U>python -u "%"<CR>
 set nowrap
 set sidescroll=5
 set sidescrolloff=2
-set colorcolumn=100
+set colorcolumn=80
 
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
