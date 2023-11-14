@@ -1,39 +1,20 @@
 # vim:ft=conf
 
-# These examples require Nerd Fonts or a compatible font to be used.
-# See https://www.nerdfonts.com for more information.
-
 # default values from lf (with matching order)
-# ln      l       # LINK
-# or      l       # ORPHAN
-# tw      t       # STICKY_OTHER_WRITABLE
-# ow      d       # OTHER_WRITABLE
-# st      t       # STICKY
-# di      d       # DIR
-# pi      p       # FIFO
-# so      s       # SOCK
-# bd      b       # BLK
-# cd      c       # CHR
-# su      u       # SETUID
-# sg      g       # SETGID
-# ex      x       # EXEC
-# fi      -       # FILE
-
-# file types (with matching order)
-ln             # LINK
-or             # ORPHAN
+ln      l       # LINK
+or      l       # ORPHAN
 tw      t       # STICKY_OTHER_WRITABLE
-# ow             # OTHER_WRITABLE
+ow      d       # OTHER_WRITABLE
 st      t       # STICKY
-# di             # DIR
+di      d       # DIR
 pi      p       # FIFO
 so      s       # SOCK
 bd      b       # BLK
 cd      c       # CHR
 su      u       # SETUID
 sg      g       # SETGID
-ex             # EXEC
-# fi             # FILE
+ex      x       # EXEC
+fi      -       # FILE
 
 # file extensions (vim-devicons)
 *.styl          
@@ -73,13 +54,6 @@ ex             # EXEC
 *.toml          
 *.bat           
 *.mk            
-*.jpg           
-*.jpeg          
-*.bmp           
-*.png           
-*.webp          
-*.gif           
-*.ico           
 *.twig          
 *.cpp           
 *.c++           
@@ -214,17 +188,6 @@ ex             # EXEC
 *Makefile               
 *CMakeLists.txt         
 
-# file patterns (vim-devicons) (patterns not supported in lf)
-# .*jquery.*\.js$         
-# .*angular.*\.js$        
-# .*backbone.*\.js$       
-# .*require.*\.js$        
-# .*materialize.*\.js$    
-# .*materialize.*\.css$   
-# .*mootools.*\.js$       
-# .*vimrc.*               
-# Vagrantfile$            
-
 # file patterns (file name adaptations)
 *jquery.min.js          
 *angular.min.js         
@@ -329,6 +292,8 @@ Vagrantfile             
 *.emf   
 *.ogv   
 *.ogx   
+*.webp  
+*.ico   
 
 *.m4v   󰕧
 *.mkv   󰕧
@@ -337,22 +302,22 @@ Vagrantfile             
 *.mp4v  󰕧
 
 # audio formats (extensions from dircolors defaults)
-*.aac   
-*.au    
-*.flac  
-*.m4a   
-*.mid   
-*.midi  
-*.mka   
-*.mp3   
-*.mpc   
-*.ogg   
-*.ra    
-*.wav   
-*.oga   
-*.opus  
-*.spx   
-*.xspf  
+*.aac   
+*.au    
+*.flac  
+*.m4a   
+*.mid   
+*.midi  
+*.mka   
+*.mp3   
+*.mpc   
+*.ogg   
+*.ra    
+*.wav   
+*.oga   
+*.opus  
+*.spx   
+*.xspf  
 
 # other formats
 *.pdf   
@@ -360,81 +325,3 @@ Vagrantfile             
 *.djvu	
 *.epub	
 *.part  󰋔
-
-# di	📁
-# fi	📃
-# tw	🤝
-# ow	📂
-# ln	⛓
-# or	❌
-# ex	🎯
-# *.txt	✍
-# *.mom	✍
-# *.me	✍
-# *.ms	✍
-# *.avif	🖼
-# *.png	🖼
-# *.webp	🖼
-# *.ico	🖼
-# *.jpg	📸
-# *.jpe	📸
-# *.jpeg	📸
-# *.gif	🖼
-# *.svg	🗺
-# *.tif	🖼
-# *.tiff	🖼
-# *.xcf	🖌
-# *.html	🌎
-# *.xml	📰
-# *.gpg	🔒
-# *.css	🎨
-# *.pdf	📚
-# *.djvu	📚
-# *.epub	📚
-# *.csv	📓
-# *.xlsx	📓
-# *.tex	📜
-# *.md	📘
-# *.r	    📊
-# *.R	    📊
-# *.rmd	📊
-# *.Rmd	📊
-# *.m	    📊
-# *.mp3	🎵
-# *.opus	🎵
-# *.ogg	🎵
-# *.m4a	🎵
-# *.flac	🎼
-# *.wav	🎼
-# *.mkv	🎥
-# *.mp4	🎥
-# *.webm	🎥
-# *.mpeg	🎥
-# *.avi	🎥
-# *.mov	🎥
-# *.mpg	🎥
-# *.wmv	🎥
-# *.m4b	🎥
-# *.flv	🎥
-# *.zip	📦
-# *.rar	📦
-# *.7z	📦
-# *.tar	📦
-# *.z64	🎮
-# *.v64	🎮
-# *.n64	🎮
-# *.gba	🎮
-# *.nes	🎮
-# *.gdi	🎮
-# *.1	    ℹ
-# *.nfo	ℹ
-# *.info	ℹ
-# *.log	📙
-# *.iso	📀
-# *.img   📀
-# *.bib   🎓
-# *.ged   👪
-# *.part  💔
-# *.torrent 🔽
-# *.jar   ♨
-# *.java	♨
