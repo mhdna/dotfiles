@@ -1,0 +1,73 @@
+env:
+  TERM: "xterm-256color"
+
+font:
+  normal:
+    family: monospace
+    style: Regular
+
+  bold:
+    family: monospace
+    style: Bold
+
+  italic:
+     family: monospace
+     style: Italic
+
+  bold_italic:
+    family: monospace
+    style: Bold Italic
+
+  size: 11.5
+
+
+window:
+    dimensions:
+      columns: 85
+      lines: 27
+    opacity: 0.8
+
+
+key_bindings:
+  - { key: V, mods: Alt, action: "Paste"}
+  - { key: C, mods: Alt, action: "Copy"}
+
+
+
+hints:
+  enabled:
+  - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
+            [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+    command: xdg-open
+    binding:
+      key: L
+      mods: Alt
+
+
+colors:
+   # Default colors
+   primary:
+     background: '0x000000'
+     foreground: '0xffffff'
+
+   # Normal colors
+   normal:
+     black:   '0x242424'
+     red:     '0xf62b5a'
+     green:   '0x47b413'
+     yellow:  '0xe3c401'
+     blue:    '0x24acd4'
+     magenta: '0xf2affd'
+     cyan:    '0x13c299'
+     white:   '0xe6e6e6'
+
+   # Bright colors
+   bright:
+     black:   '0x616161'
+     red:     '0xff4d51'
+     green:   '0x35d450'
+     yellow:  '0xe9e836'
+     blue:    '0x5dc5f8'
+     magenta: '0xfeabf2'
+     cyan:    '0x24dfc4'
+     white:   '0xffffff'
