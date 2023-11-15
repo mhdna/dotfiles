@@ -9,4 +9,3 @@ function run {
 killall -q dwmblocks;  dwmblocks&
 run picom # in case it stopped while restarting
 setbg
-pkill -USR1 sxhkd || sxhkd
