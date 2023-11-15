@@ -34,15 +34,3 @@ user_pref("general.smoothScroll", false);
 user_pref("network.http.referer.XOriginPolicy", 0);
 // Fix the issue where right mouse button instantly clicks
 user_pref("ui.context_menus.after_mouseup", true);
-// Disable letterboxing
-// user_pref("privacy.resistFingerprinting.letterboxing", false);
-// /* Zoom compatibility settings */
-// user_pref("media.peerconnection.enabled", true); // 2001
-// user_pref("media.peerconnection.ice.no_host", false); // 2001 [may or may not be required]
-// /* needed for screensharing */
-// // user_pref("dom.webaudi");
-// // user_pref("media.getusermedia.screensharing.enabled", true);
-// user_pref("webgl.disabled", false);// NEEDED FOR ZOOM
-// /* 2012: limit WebGL ***/
-// user_pref("webgl.min_capability_mode", false); // NEEDED FOR ZOOM
-// user_pref("privacy.resistFingerprinting", false); //breaks zoom if true!o.enabled", true); // 2510
