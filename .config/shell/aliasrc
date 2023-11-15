@@ -68,6 +68,7 @@ Or Press 'q' to leave
 
 alias \
     g='git' \
+    magit="nvim -c 'Neogit'" \
     dr="dragon-drop" \
     p="sudo pacman" \
     ll="ls -l --color=auto" \
