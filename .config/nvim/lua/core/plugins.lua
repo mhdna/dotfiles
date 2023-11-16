@@ -31,6 +31,7 @@ require("lazy").setup({
             {
                 'j-hui/fidget.nvim',
                 tag = 'legacy',
+                        "onsails/lspkind.nvim"
                 opts = {
                     window = { blend = 0 }, -- transparency
                 }
@@ -41,7 +42,6 @@ require("lazy").setup({
             -- Additional lua configuration, makes nvim stuff amazing!
             { 'folke/neodev.nvim',       opts = {} },
 
-            -- "onsails/lspkind.nvim",
         },
     },
     {
