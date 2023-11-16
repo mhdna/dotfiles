@@ -2,18 +2,15 @@
 
 # If transmission-daemon is running, will ask to kill, else will ask to start.
 
-if [ -n "$WAYLAND_DISPLAY" ]; then
-    menu () {
-        tofi --placeholder-text "$@"
-    }
-else
-    menu () {
-        bemenu -p "$@"
-    }
-fi
+menu() {
+	if [ -n "$WAYLAND_DISPLAY" ]; then
+		tofi --prompt-text "$@"
+	else
+		mybemenu -p "$@"
+	fi
+}
 
-if pidof transmission-daemon >/dev/null ;
-then
+if pidof transmission-daemon >/dev/null; then
 	[ "$(printf "No\\nYes" | menu "Turn off transmission-daemon?")" = "Yes" ] && killall transmission-daemon && notify-send "transmission-daemon disabled."
 else
 	ifinstalled transmission-cli || exit

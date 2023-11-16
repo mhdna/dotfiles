@@ -4,7 +4,7 @@
 # password prompt if needed.
 
 if [ -n "$WAYLAND_DISPLAY" ]; then
-    tofi --placeholder-text "Password:" --hidden-character="*" --hide-input true --require-match false < /dev/null
+	tofi --prompt-text "Password:" --hidden-character="*" --hide-input true --require-match false </dev/null
 else
-    bemenu -P -p "$1" <&- && echo
+	mybemenu -x -p "$1" <&- && echo
 fi

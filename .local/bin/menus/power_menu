@@ -1,24 +1,25 @@
 #!/bin/sh
 
-if [[ -n $WAYLAND_DISPLAY ]]; then
-    wm="sway"
-    menu() {
-        tofi --placeholder-text "$@"
-    }
+if [ -n "$WAYLAND_DISPLAY" ]; then
+	wm="sway"
+	menu() {
+		tofi --prompt-text "$@"
+	}
 else
-    wm="Xorg"
-    menu() {
-        bemenu -p "$@"
-    }
+	wm="Xorg"
+	menu() {
+		mybemenu -p "$@"
+	}
 fi
 
-case "$(printf "lock\nleave\nhibernate\nreboot\npoweroff\nsuspend\ndisplay off" | menu 'Action: ')" in
-    "lock") lock ;;
-    "leave") pkill -15 -t tty"$XDG_VTNR" "$wm" ;;
-    "hibernate") sudo systemctl hibernate ;;
-    "suspend") sudo systemctl suspend -i;;
-    "reboot") sudo systemctl reboot -i ;;
-    "poweroff") sudo shutdown now ;;
-    # "display off") xset dpms force off ;;
-    *) exit 1 ;;
+c=("lock" "leave" "hibernate" "reboot" "poweroff" "suspend" "display off")
+case "$(printf "%s\n" "${c[@]}" | menu 'Action: ')" in
+"${c[0]}") lock ;;
+"${c[1]}") pkill -15 -t tty"$XDG_VTNR" "$wm" ;;
+"${c[2]}") sudo systemctl hibernate ;;
+"${c[3]}") sudo systemctl suspend -i ;;
+"${c[4]}") sudo systemctl reboot -i ;;
+"${c[5]}") sudo shutdown now ;;
+# "display off") xset dpms force off ;;
+*) exit 1 ;;
 esac

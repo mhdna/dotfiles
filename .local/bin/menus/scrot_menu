@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Screenshots menu for both X11 and Wayland (sway)
+# Screenshots menu for both X and Wayland (sway)
 
 permanentdir="$XDG_PICTURES_DIR/screenshots"
 tmpdir="/tmp/screenshots"
@@ -10,9 +10,9 @@ mkdir -p "$tmpdir"
 output="$tmpdir/$(date '+%y-%m-%d_%H:%M:%S').png"
 
 if [ -n "$WAYLAND_DISPLAY" ]; then
-    menu="tofi --placeholder-text"
+    menu="tofi --prompt-text"
 else
-    menu="bemenu -l 10 -p"
+    menu="mybemenu -p"
 fi
 
 scrotsel() {
@@ -23,7 +23,7 @@ scrotsel() {
     fi
 }
 
-scrotwin(){
+scrotwin() {
     if [ -n "$WAYLAND_DISPLAY" ]; then
         grim -g "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).rect | "\(.x),\(.y) \(.width)x\(.height)"')" "$1"
     else
@@ -39,48 +39,58 @@ scrotful() {
     fi
 }
 
-copy () {
+copy() {
     if [ -n "$WAYLAND_DISPLAY" ]; then
         wl-copy
     else
-        xclip -sel clip -t image/png
+        xclip -sel c -i
     fi
 }
 
-copy_path () {
-    echo "$output" | tr -d '\n' | copy
+copyimg() {
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+        wl-copy
+    else
+        xclip -sel c -t image/png
+    fi
 }
 
-notify_sucess () {
-    notify-send -t 1000 "Screenshot has been copied successfully"
+notify_sucess() {
+    notify-send -t 1000 "✅ Screenshot has been copied successfully"
 }
 
-
-move_pic () {
-    newpath="$(find "$permanentdir" -maxdepth 1 -type d | $menu "Quit to save to /tmp:")"
+move_and_copy_path() {
+    newpath="$(find "$permanentdir" -maxdepth 1 -type d | $menu "Quit to save to $tmpdir:")"
+    [ -z "$newpath" ] && newpath="$tmpdir"
     mv "$output" "$newpath" >/dev/null 2>&1
+    echo $newpath/$(basename "$output")
+    echo "$newpath/$(basename "$output")" | tr -d '\n' | copy
 }
 
+[ "$1" == "-t" ] && scrotful "$XDG_CACHE_HOME/latest_screenshot.png" && exit 0
 
-case "$(printf "a selected area\\ncurrent window\\nfull screen\\na selected area (copy)\\ncurrent window (copy)\\nfull screen (copy)" | $menu "Screenshot which area?")" in
-    "a selected area") scrotsel "$output" ;;
-    "current window") scrotwin "$output" ;;
-    "full screen") scrotful "$output";;
-    "a selected area (copy)")
-        scrotsel - | copy
-        clip="true";;
-    "current window (copy)")
-        scrotwin - | copy
-        clip="true" ;;
-    "full screen (copy)")
-        scrotful - | copy
-        clip="true" ;;
-    *) exit 1 ;;
-esac
+c=("a selected area" "current window" "full screen" "a selected area (copy)" "current window (copy)" "full screen (copy)")
+case "$(printf "%s\n" "${c[@]}" | $menu "Screenshot which area?")" in
+"${c[0]}") scrotsel "$output" ;;
+"${c[1]}") scrotwin "$output" ;;
+"${c[2]}") scrotful "$output" ;;
+"${c[3]}")
+    scrotsel - | copyimg
+    clip="true"
+    ;;
+"${c[4]}")
+    scrotwin - | copyimg
+    clip="true"
+    ;;
+"${c[5]}")
+    scrotful - | copyimg
+    clip="true"
+    ;;
+*) exit 1 ;;
+esac || exit 1
 
 if [ "$clip" = "true" ]; then
     notify_sucess
 else
-    move_pic
-    copy_path
+    move_and_copy_path
 fi

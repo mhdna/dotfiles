@@ -1,31 +1,53 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+# download youtube videos with their thumbnails in a custom format
 
 if [ -n "$WAYLAND_DISPLAY" ]; then
-    menu () {
-        tofi
-    }
+    menu="tofi --prompt-text Format"
 else
-    menu () {
-        bemenu
-    }
+    menu="mybemenu -p Format"
 fi
 
 bmdirs="${XDG_CONFIG_HOME:-$HOME/.config}/shell/all-dirs"
 
-case "$(printf "Max=1080\n720\nAudio" | menu)" in
-    "Max=1080")
-        args="--write-subs --write-auto-subs bestvideo[height<=1080]+bestaudio/best[height<=1080]"
-        dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" | menu)"
-        ;;
-    "720")
-        args="--write-subs --write-auto-subs -f 22"
-        dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" |  menu)"
-        ;;
-    "Audio")
-        args="--remux-video ogg -f bestaudio/best"
-        dst="$(grep -Ei '(/tmp/|music)' "$bmdirs" | menu)"
-        ;;
-    *) exit 0;;
+f=("Video MAX-RES=1080" "Audio")
+case "$(printf "%s\n" "${f[@]}" | $menu)" in
+"${f[0]}")
+    args="--write-subs --write-auto-subs -S res:1080"
+    dst="$(grep -Ei '(/tmp/|vid)' "$bmdirs" | $menu)"
+    ;;
+"${f[1]}")
+    audio=1
+    args="--remux-video opus -f bestaudio/best"
+    dst="$(grep -Ei '(/tmp/|music)' "$bmdirs" | $menu)"
+    ;;
+*) exit 1 ;;
 esac
 
-yt-dlp $args -o "%(title)s.%(ext)s" --external-downloader aria2c --write-thumbnail --convert-thumbnails jpg --add-metadata -ic -P "$dst" $@
+[ -z "$dst" ] && exit 1
+
+for url in "$@"; do
+    # do not download playlists, only video of that playlist
+    yt-dlp $args -o "%(title)s.%(ext)s" --embed-thumbnail --no-playlist --external-downloader aria2c --write-thumbnail --convert-thumbnails jpg --add-metadata -ic -P "$dst" "$url" || {
+        notify-send "❌ Downloading $url failed."
+        exit 1
+    }
+
+    IFS=$'\n' readarray -t filename_title <<<"$(yt-dlp --skip-download --get-filename --get-title -o "%(title)s.%(ext)s" "$url")"
+
+    title="${filename_title[0]}"
+    filename="${filename_title[1]}"
+
+    echo "$title"
+    echo "$filename"
+
+    if [ "$audio" = 1 ]; then
+        thumb_filename="${filename%.*}.jpg"
+        old_path="$dst/$thumb_filename"
+        # smaller thumbnail resolution  for audio files
+        convert -resize '250x250>' "$old_path" "$XDG_CACHE_HOME/yt-audio-thumbnails/$thumb_filename"
+        rm "$old_path"
+    fi
+
+    notify-send "👍 $title done."
+done

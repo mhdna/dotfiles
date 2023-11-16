@@ -1,55 +1,52 @@
 #!/bin/sh
 
-if [ -n "$WAYLAND_DISPLAY" ]; then
-    menu() {
-        tofi --placeholder-text "$@"
-    }
-else
-    menu() {
-        bemenu -p "$@"
-    }
-fi
-
-# url this script a link and it will give tofi
-# some choice programs to use to open it.
+menu() {
+	if [ -n "$WAYLAND_DISPLAY" ]; then
+		tofi --prompt-text "$@"
+	else
+		mybemenu -p "$@"
+	fi
+}
 
 url="${1:-$(printf "%s" | menu 'Paste url or file path')}"
 [ -z "$url" ] && exit 0
 
 base="$(basename "$url")"
 
-case "$(printf "Copy url\\nnsxiv\\nPDF\\nbrowser\\nlynx\\nvim\\nmpv\\nmpv audio\\nmpc\\nyt download\\nyt download last played using mpc\\nmpv float" | menu "Open it with?")" in
-    # \\nqueue download\\nqueue yt-dl\\nqueue yt-dl audio
-    "Copy url") echo "$url" | tr -d '\n' | wl-copy ;;
-    mpv) setsid -f mpv -quiet "$url" >/dev/null 2>&1 ;;
-    "mpv audio") $TERMINAL -e mpv -quiet --no-video "$url"  ;;
-    "mpc") ytmpc_menu "$url";;
-    "yt download") yt_menu "$url";;
-    "yt download last played using mpc") yt_menu "$(tail -n 1 ~/.cache/ytmpc-history | cut -d ';' -f 1)";;
-    # "mpv loop") setsid -f mpv -quiet --loop "$url" >/dev/null 2>&1 ;;
-    # "mpv float") setsid -f "$TERMINAL" -e mpv --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
-    "mpv float") setsid -f mpv --no-osd --geometry=+0-0 --autofit=30% --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
-    "yt")  notify-send "🎥 downloading $base"
-        setsid -f yt-dlp --external-downloader aria2c -f 22 -P "$XDG_VIDEOS_DIR/yt" "$url" > /dev/null 2>&1 ;;
-    # "yt any quality")  notify-send "🎥 downloading "$base""
-        #		setsid -f yt-dlp --external-downloader aria2c -P "$XDG_VIDEOS_DIR/yt" "$url" > /dev/null 2>&1 ;;
-    # "yta")  notify-send "📢 downloading "$base""
-        #		yt-dlp --remux-video ogg -f bestaudio/best -P "$XDG_MUSIC_DIR" --external-downloader aria2c "$url" > /dev/null 2>&1;;
-    # "Max 720") qndl "$url" 'yt-dlp -f bestvideo[height<=?720]+bestaudio/best -P $XDG_VIDS_DIR/yt --add-metadata -icx' >/dev/null 2>&1 ;;
-    #"queue yt-dl") qndl "$url" >/dev/null 2>&1 ;;
-    #"queue yt-dl audio") qndl "$url" 'yt-dlp -f bestaudio/best --add-metadata -icx' >/dev/null 2>&1 ;;
-    #"queue download") qndl "$url" 'curl -LO' >/dev/null 2>&1 ;;
-    PDF) curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && zathura "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
-    nsxiv) curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && nsxiv -a "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
-    vim) curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && setsid -f "$TERMINAL" -e "$EDITOR" "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
-    # setbg) curl -L "$url" > $XDG_CACHE_HOME/pic ; xwallpaper --zoom $XDG_CACHE_HOME/pic >/dev/null 2>&1 ;;
-    browser) setsid -f "$BROWSER" "$url" >/dev/null 2>&1 ;;
-    lynx) setsid -f "$TERMINAL" -e lynx "$url" >/dev/null 2>&1 ;;
-    # "convert to PDF") wkhtmltopdf "$url" "$XDG_DOCUMENTS_DIR/readlater/$base.pdf"
-        # notify-send "📜 $base.pdf downloaded"  ;;
-        #|| notify-send "❗Exporting $base pdf failed" && exit 1
-        # Html) single-file --browser-executable-path /usr/bin/chromium "$url" --output-directory "$XDG_DOCUMENTS_DIR/readlater"
-        #       notify-send "📜 $base downloaded" ;;
-    # ariaAdd) aria2c -i /tmp/ariaclip -d "$HOME/.aria2/sequences" "$url" && notify-send -u low 'Sequence Downloaded ✅' && mv /tmp/ariaclip "$HOME/.aria2/sequences/done.txt" ;;
-    # ariaDownload) aria2c -d "$HOME/.aria2/files" "$url" && notify-send -u low 'File Downloaded ✅' ;;
+prgs=("nsxiv" "browser" "lynx" "$EDITOR" "mpv" "mpv audio" "mpc" "yt download" "yt download last played using mpc" "mpv float" "yt-thumbnail" "PDF")
+
+case "$(printf "%s\n" "${prgs[@]}" | menu "Open it with?")" in
+"${prgs[0]}")
+	if [[ "$url" == http* ]]; then
+		curl -sL "$url" >"/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && nsxiv-refile -a "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" >/dev/null 2>&1
+	else
+		nsxiv-refile "$url"
+	fi
+	;;
+"${prgs[1]}") setsid -f "$BROWSER" "$url" >/dev/null 2>&1 ;;
+"${prgs[2]}") setsid -f $TERMINAL -e lynx "$url" >/dev/null 2>&1 ;;
+"${prgs[3]}") curl -sL "$url" >"/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && setsid -f $TERMINAL -e "$EDITOR" "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" >/dev/null 2>&1 ;;
+"${prgs[4]}") setsid -f mpv -quiet "$url" >/dev/null 2>&1 ;;
+"${prgs[5]}") $TERMINAL -e mpv -quiet --no-video "$url" ;;
+"${prgs[6]}") ytmpc_menu "$url" ;;
+"${prgs[7]}") yt_menu "$url" ;;
+"${prgs[8]}") yt_menu "$(tail -n 1 ~/.cache/ytmpc-history | cut -d ';' -f 1)" ;;
+"${prgs[9]}") setsid -f mpv --no-osd --geometry=+0-0 --autofit=30% --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
+# "mpv loop") setsid -f mpv -quiet --loop "$url" >/dev/null 2>&1 ;;
+# "mpv float") setsid -f $TERMINAL -e mpv --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$url" >/dev/null 2>&1 ;;
+#"queue download") qndl "$url" 'curl -LO' >/dev/null 2>&1 ;;
+# setbg) curl -L "$url" > $XDG_CACHE_HOME/pic ; xwallpaper --zoom $XDG_CACHE_HOME/pic >/dev/null 2>&1 ;;
+"${prgs[10]}")
+	img="/tmp/yt_tmp_thumbnail"
+	yt-dlp --write-thumbnail --no-download --convert-thumbnail webp -o "$img" "$url" && nsxiv-refile "$img.webp"
+	;;
+"${prgs[11]}") curl -sL "$url" >"/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && zathura "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" >/dev/null 2>&1 ;;
+# "Copy to clipboard") echo "$url" | tr -d '\n' | xclip -sel c -i ;;
+# "convert to PDF") wkhtmltopdf "$url" "$XDG_DOCUMENTS_DIR/readlater/$base.pdf"
+# notify-send "📜 $base.pdf downloaded"  ;;
+#|| notify-send "❗Exporting $base pdf failed" && exit 1
+# Html) single-file --browser-executable-path /usr/bin/chromium "$url" --output-directory "$XDG_DOCUMENTS_DIR/readlater"
+#       notify-send "📜 $base downloaded" ;;
+# ariaAdd) aria2c -i /tmp/ariaclip -d "$HOME/.aria2/sequences" "$url" && notify-send -u low 'Sequence Downloaded ✅' && mv /tmp/ariaclip "$HOME/.aria2/sequences/done.txt" ;;
+# ariaDownload) aria2c -d "$HOME/.aria2/files" "$url" && notify-send -u low 'File Downloaded ✅' ;;
 esac

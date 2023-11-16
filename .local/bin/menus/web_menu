@@ -1,27 +1,25 @@
 #!/bin/sh
 
-if [ -n "$WAYLAND_DISPLAY" ]; then
-    menu () {
-        tofi --placeholder-text "$@"
-    }
-else
-    menu () {
-        bemenu -p "$@"
-    }
-fi
+menu() {
+	if [ -n "$WAYLAND_DISPLAY" ]; then
+		tofi --prompt-text "$@"
+	else
+		mybemenu -p "$@"
+	fi
+}
 
 engines="$HOME/.local/share/search_engines"
 # get the name of the search engine
 search_engine="$(cat "$engines" | cut -d ';' -f 1 | menu 'Search in:')"
+# TODO: what if you wrote an engine that is not found (require match in the menu, dmenu is the same)
 [ -z "$search_engine" ] && exit
 
-web_search="$(menu 'Web Search:' < /dev/null)"
+web_search="$(menu 'Web Search:' </dev/null)"
 [ -z "$web_search" ] && exit
 
 # get the url of the search engine
-search_engine="$(grep "$search_engine" "$engines" | head -n 1| cut -d ';' -f 2)"
+search_engine="$(grep "$search_engine" "$engines" | head -n 1 | cut -d ';' -f 2)"
 
 web_search_url="$(echo "$search_engine" | awk -v web_search="$web_search" '{print $1 web_search $2}')"
-
 
 $BROWSER "$web_search_url" &

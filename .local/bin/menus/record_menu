@@ -10,17 +10,17 @@
 # If there is already a running instance, user will be prompted to end it.
 
 if [ -n "$WAYLAND_DISPLAY" ]; then
-    menu="tofi --placeholder-text"
+	menu="tofi --prompt-text"
 else
-    menu="bemenu -p"
+	menu="mybemenu -p"
 fi
 
-getdim() { xrandr | sed -n "s/\s*\([0-9]\+x[0-9]\+\).*\*.*/\1/p" ;}
+getdim() { xrandr | sed -n "s/\s*\([0-9]\+x[0-9]\+\).*\*.*/\1/p"; }
 
-updateicon() { \
-	echo "$1" > /tmp/recordingicon
+updateicon() {
+	echo "$1" >/tmp/recordingicon
 	pkill -RTMIN+4 "${STATUSBAR:-i3blocks}"
-	}
+}
 
 killrecording() {
 	recpid="$(cat /tmp/recordingpid)"
@@ -28,102 +28,103 @@ killrecording() {
 	rm -f /tmp/recordingpid
 	updateicon ""
 	pkill -RTMIN+4 "${STATUSBAR:-i3blocks}"
-	}
+}
 
-screencast() { \
+screencast() {
 	ffmpeg -y \
-	-f x11grab \
-	-framerate 30 \
-	-s "$(getdim)" \
-	-i "$DISPLAY" \
-	-r 24 \
-	-use_wallclock_as_timestamps 1 \
-	-f alsa -thread_queue_size 1024 -i default \
- 	-c:v h264 \
-	-crf 0 -preset ultrafast -c:a aac \
-	"$HOME/screencast-$(date '+%y%m%d-%H%M-%S').mp4" &
-	echo $! > /tmp/recordingpid
+		-f x11grab \
+		-framerate 30 \
+		-s "$(getdim)" \
+		-i "$DISPLAY" \
+		-r 24 \
+		-use_wallclock_as_timestamps 1 \
+		-f alsa -thread_queue_size 1024 -i default \
+		-c:v h264 \
+		-crf 0 -preset ultrafast -c:a aac \
+		"$HOME/screencast-$(date '+%y%m%d-%H%M-%S').mp4" &
+	echo $! >/tmp/recordingpid
 	updateicon "Rec: Vid/Aud"
-       	}
+}
 
-video() { ffmpeg \
-	-f x11grab \
-	-framerate 30 \
-	-s "$(getdim)" \
-	-i "$DISPLAY" \
- 	-c:v libx264 -qp 0 -r 30 \
-	"$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
-	echo $! > /tmp/recordingpid
-	updateicon "Rec: Vid"
-	}
-
-webcamhidef() { ffmpeg \
-	-f v4l2 \
-	-i /dev/video0 \
-	-video_size 1920x1080 \
-	"$HOME/webcam-$(date '+%y%m%d-%H%M-%S').mkv" &
-	echo $! > /tmp/recordingpid
-    updateicon "Rec: Cam(HD)"
-	}
-
-webcam() { ffmpeg \
-	-f v4l2 \
-	-i /dev/video0 \
-	-video_size 640x480 \
-	"$HOME/webcam-$(date '+%y%m%d-%H%M-%S').mkv" &
-	echo $! > /tmp/recordingpid
-	updateicon "Rec: Cam"
-	}
-
-
-audio() { \
+video() {
 	ffmpeg \
-	-f alsa -i default \
-	-c:a flac \
-	"$HOME/audio-$(date '+%y%m%d-%H%M-%S').flac" &
-	echo $! > /tmp/recordingpid
-	updateicon "Rec: Aud"
-	}
+		-f x11grab \
+		-framerate 30 \
+		-s "$(getdim)" \
+		-i "$DISPLAY" \
+		-c:v libx264 -qp 0 -r 30 \
+		"$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
+	echo $! >/tmp/recordingpid
+	updateicon "Rec: Vid"
+}
 
-askrecording() { \
+webcamhidef() {
+	ffmpeg \
+		-f v4l2 \
+		-i /dev/video0 \
+		-video_size 1920x1080 \
+		"$HOME/webcam-$(date '+%y%m%d-%H%M-%S').mkv" &
+	echo $! >/tmp/recordingpid
+	updateicon "Rec: Cam(HD)"
+}
+
+webcam() {
+	ffmpeg \
+		-f v4l2 \
+		-i /dev/video0 \
+		-video_size 640x480 \
+		"$HOME/webcam-$(date '+%y%m%d-%H%M-%S').mkv" &
+	echo $! >/tmp/recordingpid
+	updateicon "Rec: Cam"
+}
+
+audio() {
+	ffmpeg \
+		-f alsa -i default \
+		-c:a flac \
+		"$HOME/audio-$(date '+%y%m%d-%H%M-%S').flac" &
+	echo $! >/tmp/recordingpid
+	updateicon "Rec: Aud"
+}
+
+askrecording() {
 	choice=$(printf "screencast\\nvideo\\nvideo selected\\naudio\\nwebcam\\nwebcam (hi-def)" | $menu "Select recording style:")
 	case "$choice" in
-		screencast) screencast;;
-		audio) audio;;
-		video) video;;
-		*selected) videoselected;;
-		webcam) webcam;;
-		"webcam (hi-def)") webcamhidef;;
+	screencast) screencast ;;
+	audio) audio ;;
+	video) video ;;
+	*selected) videoselected ;;
+	webcam) webcam ;;
+	"webcam (hi-def)") webcamhidef ;;
 	esac
-	}
+}
 
-asktoend() { \
+asktoend() {
 	response=$(printf "No\\nYes" | $menu "Recording still active. End recording?") &&
-	[ "$response" = "Yes" ] &&  killrecording
-	}
+		[ "$response" = "Yes" ] && killrecording
+}
 
-videoselected()
-{
-	slop -f "%x %y %w %h" > /tmp/slop
-	read -r X Y W H < /tmp/slop
+videoselected() {
+	slop -f "%x %y %w %h" >/tmp/slop
+	read -r X Y W H </tmp/slop
 	rm /tmp/slop
 
 	ffmpeg \
-	-f x11grab \
-	-framerate 30 \
-	-video_size "$W"x"$H" \
-	-i :0.0+"$X,$Y" \
-	-c:v libx264 -qp 0 -r 30 \
-	"$HOME/box-$(date '+%y%m%d-%H%M-%S').mkv" &
-	echo $! > /tmp/recordingpid
+		-f x11grab \
+		-framerate 30 \
+		-video_size "$W"x"$H" \
+		-i :0.0+"$X,$Y" \
+		-c:v libx264 -qp 0 -r 30 \
+		"$HOME/box-$(date '+%y%m%d-%H%M-%S').mkv" &
+	echo $! >/tmp/recordingpid
 	updateicon "Rec: Vid"
 }
 
 case "$1" in
-	screencast) screencast;;
-	audio) audio;;
-	video) video;;
-	*selected) videoselected;;
-	kill) killrecording;;
-	*) ([ -f /tmp/recordingpid ] && asktoend && exit) || askrecording;;
+screencast) screencast ;;
+audio) audio ;;
+video) video ;;
+*selected) videoselected ;;
+kill) killrecording ;;
+*) ([ -f /tmp/recordingpid ] && asktoend && exit) || askrecording ;;
 esac

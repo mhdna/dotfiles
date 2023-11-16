@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ "$1" = "-r" ]; then
+	prg="bemenu-run"
+else
+	prg="bemenu"
+	ARGS="$@"
+fi
+
+$prg -p '' -i -l 15 --fn 'Mono 12' --fb '#151515DD' --tb '#65411f' --hb '#65411f' --cb '#151515DD' --scb '#151515DD' --ab '#151515DD' --sb '#151515DD' --nb '#151515DD' --tf '#ffffff' --hf '#ffffff' --scrollbar autohide --scf '#0000ff' "$ARGS"
