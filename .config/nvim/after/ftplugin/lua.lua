@@ -1,1 +1,3 @@
-vim.keymap.set('', '<F9>', ':w<CR>:source %<CR>', { noremap = true })
+vim.api.nvim_create_user_command('Compile', function()
+    vim.cmd('source %')
+end, { nargs = 0 })
