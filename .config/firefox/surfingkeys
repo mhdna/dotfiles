@@ -8,26 +8,6 @@ settings.smartPageBoundary = false;
 // blocklist
 settings.blocklistPattern = /.*mail.google.com.*|.*inbox.google.com.*|leetcode.com;
 
-// Keymaps
-// an example to create a new mapping `ctrl-y`
-// api.mapkey('<ctrl-y>', 'Show me the money', function() {
-//     Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
-// });
-// api.map('zb', '<Alt-s>');
-
-// unmapAllExcept(['<Ctrl-p>, <Ctrl-n>'], /.*docs\.google'.com.*/);
-
-// addSearchAlias('d',  'ddg', 'https://duckduckgo.com/?q=', 's');
-// addSearchAlias('dh', 'docker', 'https://hub.docker.com/search?type=image&q=', 's');
-// addSearchAlias('fh', 'flathub', 'https://flathub.org/apps/search/', 's');
-// addSearchAlias('gh', 'github', 'https://github.com/search?q=', 's');
-// addSearchAlias('pdb', 'proton', 'https://www.protondb.com/search?q=', 's');
-// addSearchAlias('r', 'reddit', 'https://libreddit.spike.codes/r/', 's');
-// addSearchAlias('st', 'steam', 'https://store.steampowered.com/search/?term=', 's');
-// addSearchAlias('wiki', 'wikipedia', 'https://en.wikipedia.org/wiki/Special:Search/', 's');
-// addSearchAlias('y', 'yt', 'https://invidious.snopyta.org/search?q=', 's');
-
-
 // set theme
 api.Hints.style("             \
  font-size:10pt;              \
@@ -73,68 +53,3 @@ settings.theme = `
 #sk_status, #sk_find {
     font-size: 20pt;
 }`;
-
-// map('<Ctrl-i>', '<Ctrl-ш>')
-//
-// map('а', 'f');
-// map('А', 'F');
-// map('б', ',');
-// map('Б', '<');
-// map('в', 'd');
-// map('В', 'D');
-// map('г', 'u');
-// map('Г', 'U');
-// map('д', 'l');
-// map('Д', 'L');
-// map('е', 't');
-// map('Е', 'T');
-// map('ж', ';');
-// map('Ж', ':');
-// map('з', 'p');
-// map('З', 'P');
-// map('и', 'b');
-// map('И', 'B');
-// map('і', 's');
-// map('І', 'S');
-// map('ї', ']');
-// map('Ї', '}');
-// map('й', 'q');
-// map('Й', 'Q');
-// map('к', 'r');
-// map('К', 'R');
-// map('л', 'k');
-// map('Л', 'K');
-// map('м', 'v');
-// map('М', 'V');
-// map('н', 'y');
-// map('Н', 'Y');
-// map('о', 'j');
-// map('О', 'J');
-// map('п', 'g');
-// map('П', 'G');
-// map('р', 'h');
-// map('Р', 'H');
-// map('с', 'c');
-// map('С', 'C');
-// map('т', 'n');
-// map('Т', 'N');
-// map('у', 'e');
-// map('У', 'E');
-// map('ф', 'a');
-// map('Ф', 'A');
-// map('х', '[');
-// map('Х', '{');
-// map('ц', 'w');
-// map('Ц', 'W');
-// map('ч', 'x');
-// map('Ч', 'X');
-// map('ш', 'i');
-// map('Ш', 'I');
-// map('щ', 'o');
-// map('Щ', 'O');
-// map('ь', 'm');
-// map('Ь', 'M');
-// map('ю', '.');
-// map('Ю', '>');
-// map('я', 'z');
-// map('Я', 'Z');

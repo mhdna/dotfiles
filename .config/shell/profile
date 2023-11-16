@@ -17,7 +17,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XRESOURCES="$XDG_CONFIG_HOME/x/xresources"
 export XSESSION="$XDG_CONFIG_HOME/x/xsession"
-#export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # Breaks some display managers like lightdm and sddm
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch-config"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 export LESS=-R
@@ -40,11 +39,12 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 # Other program settings:
 export DICS="/usr/share/stardict/dic/"
 export SDCV_PAGER='less --quit-if-one-screen -RX'
-export SUDO_ASKPASS="$HOME/.local/bin/misc/dmenupass"
+export SUDO_ASKPASS="$HOME/.local/bin/menus/askpass_menu"
 export MOZ_USE_XINPUT2="1"		# Mozilla smooth scrolling/touchpads.
 export AWT_TOOLKIT="MToolkit wmname LG3D"	#May have to install wmname
 export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm/bspwm
 export QT_STYLE_OVERRIDE=adwaita-dark
+export FZF_DEFAULT_OPTS='--reverse'
 export TRANSMISSION_DAEMON="transmission-daemon -w $XDG_DOWNLOAD_DIR/transmission --logfile $XDG_CACHE_HOME/transmission/log"
 
 export JAVA_HOME=/usr/lib/jvm/default
@@ -55,20 +55,10 @@ export NPM_PATH="$XDG_DATA_HOME/npm"
 export FZF_DEFAULT_OPTS='--reverse'
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-# if command -v pyenv 1>/dev/null 2>&1; then
-#     eval "$(pyenv init -)"
-# fi
 
 export PATH="$PATH:$(find $HOME/.local/bin/ -type d -printf ":%p" ):$NPM_PATH/bin:$GOPATH/bin:$CARGO_HOME/bin:$JAVA_HOME/bin"
 
-# pkill -u "${USER}" -x pipewire /dev/null 2>&1; pipewire >/dev/null 2>&1 &
-# pkill -u "${USER}" -x mpd >/dev/null 2>&1; mpd >/dev/null 2>&1 &
-
-# Start graphical server on user's current tty if not already running and put the outputs into ~/.local/share/xorg/
 [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
 #
 
 [ ! -f $XDG_CONFIG_HOME/shell/shortcutrc ] && setsid shortcuts >/dev/null 2>&1
-
-# Switch escape and caps if tty and no passwd required:
-sudo -n loadkeys ${XDG_CONFIG_HOME:-$HOME/.config}/shell/ttymaps.kmap 2>/dev/null
