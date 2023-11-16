@@ -1,21 +1,19 @@
 #!/bin/sh
 
-xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x/xresources & xrdbpid=$!
-remaps&
-xautolock -time 10 -locker 'physlock' -detectsleep >/dev/null 2>&1 &
-redshift -l 31.77:35.23 >/dev/null 2>&1&
-eval $TRANSMISSION_DAEMON >/dev/null 2>&1 &
- xsetroot -solid Blue4&
+xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x/xresources &
+xrdbpid=$!
+remaps &
+xautolock -time 10 -locker 'physlock' -detectsleep &
+redshift &
+eval $TRANSMISSION_DAEMON &
 
-autostart="mpd dunst clipmenud picom xbanish"
+autostart="babysit_mem mpd dunst clipmenud xbanish"
 
 for program in $autostart; do
-	pidof -xs "$program" || "$program" &
+    pidof -xs "$program" || "$program" &
 done >/dev/null 2>&1
 
 # Ensure that xrdb has finished running before moving on to start the WM/DE.
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
 
-while :; do
-    ssh-agent dwm
-done
+ssh-agent dwm
