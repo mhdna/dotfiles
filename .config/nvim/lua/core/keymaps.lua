@@ -41,3 +41,16 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<M-k>', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>l', vim.diagnostic.setloclist)
+
+vim.keymap.set("n", "<leader>x", ":w<CR>:!chmod +x %<CR>", opts)
+vim.keymap.set("n", "<leader>F", ":filetype detect<CR>", opts)
+
+-- save as super user
+vim.cmd [[cabbrev w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!]]
+
+-- Formatting
+vim.keymap.set('n', '<leader>=', ":w<CR>:Format<CR>", { noremap = true, buffer = bufnr, silent = true })
+
+vim.keymap.set({ 'n', 'v' }, '<leader>c', ':w!<CR>:Compile<CR>', { noremap = true, buffer = bufnr, silent = true })
+
+vim.api.nvim_set_keymap('n', '<Leader>h', '<Cmd>noh<CR>', opts)
