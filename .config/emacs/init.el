@@ -31,11 +31,8 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'my-functions)
 ;; (require 'init-tex)
-;; (require 'init-dev)
 (require 'init-org)
 (require 'init-evil)
-;; (require 'init-lsp)
-;; (require 'init-eglot)
 
 ;; Do not clutter my Emacs directory
 (setq user-emacs-directory (expand-file-name EMACS_CACHE_DIR))
