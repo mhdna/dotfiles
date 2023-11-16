@@ -80,8 +80,32 @@ require("lazy").setup({
 
             "hrsh7th/cmp-buffer", -- buffer completions
             "hrsh7th/cmp-path",   -- path completions
+        {
+                'nvim-telescope/telescope.nvim',
+                branch = '0.1.x',
+                dependencies = {
+                        'nvim-lua/plenary.nvim' },
+                opts = {}
         },
-    },
+        {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                -- NOTE: If you are having trouble with this installation,
+                --       refer to the README for telescope-fzf-native for more instructions.
+                build = 'make',
+                cond = function()
+                        return vim.fn.executable 'make' == 1
+                end,
+        },
+        {
+                'tomasky/bookmarks.nvim',
+                opts = {
+                        save_file = vim.fn.expand "$HOME/.config/nvim/.bookmarks",
+                        on_attach = function()
+                                vim.keymap.set("n", "<leader>J", require "bookmarks".bookmark_toggle)
+                        end
+                }
+        },
+        },
 
     -- Snippets
     {
@@ -91,12 +115,6 @@ require("lazy").setup({
     },
     "windwp/nvim-autopairs",
 
-    {
-        "junegunn/fzf.vim",
-        dependencies = {
-            "junegunn/fzf",
-            {
-                "gfanto/fzf-lsp.nvim",
                 opts = {}
             },
         }

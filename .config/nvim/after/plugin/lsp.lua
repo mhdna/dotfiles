@@ -1,110 +1,89 @@
--- [[ Configure LSP ]]
---  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-    -- NOTE: Remember that lua is a real programming language, and as such it is possible
-    -- to define small helper and utility functions so you don't have to repeat yourself
-    -- many times.
-    --
-    -- In this case, we create a function that lets us more easily define mappings specific
-    -- for LSP related items. It sets the mode, buffer for us each time.
-    vim.opt_local.signcolumn = 'yes' -- enable signcolumn for lsp only
+        vim.opt_local.signcolumn = 'yes' -- enable signcolumn for lsp only
 
-    local nmap = function(keys, func)
-        vim.keymap.set('n', keys, func, { silent = true, buffer = bufnr, noremap = true })
-    end
+        local nmap = function(keys, func)
+                vim.keymap.set('n', keys, func, { silent = true, buffer = bufnr, noremap = true })
+        end
 
-    nmap('<f2>', vim.lsp.buf.rename)
-    nmap('<f6>', vim.lsp.buf.code_action)
+        nmap('<leader>rn', vim.lsp.buf.rename)
+        nmap('<leader>i', ":OrganizeImports<CR>:w<CR>")
+        nmap('<leader>a', vim.lsp.buf.code_action)
 
-    nmap('gd', vim.lsp.buf.definition)
-    nmap('<f12>', vim.lsp.buf.type_definition)
-    -- nmap('gI', vim.lsp.buf.implementation)
-    -- nmap('gD', vim.lsp.buf.declaration) -- Many servers do not implement this method. Generally, see |vim.lsp.buf.definition()| instead.
+        nmap('gd', vim.lsp.buf.definition)
+        nmap('<leader>D', vim.lsp.buf.type_definition)
 
-    -- nmap('gr', require('telescope.builtin').lsp_references)
-    -- nmap('<leader>s', require('telescope.builtin').lsp_document_symbols) -- I think of it as an imenu alternative
-    -- nmap('<leader>S', require('telescope.builtin').lsp_dynamic_workspace_symbols)
+        nmap('gr', require('telescope.builtin').lsp_references)
+        nmap('<leader>s', require('telescope.builtin').lsp_document_symbols) -- I think of it as an imenu alternative
+        nmap('<leader>S', require('telescope.builtin').lsp_dynamic_workspace_symbols)
 
-    nmap('gr', ":References<CR>")
-    nmap('<leader>s', ":DocumentSymbols<CR>") -- I think of it as an imenu alternative
-    nmap('<leader>w', ":WorkspaceSymbols<CR>")
-    vim.keymap.set('n', '<f8>', ":lua vim.lsp.buf.format()<CR>:w<CR>", { buffer = bufnr })
+        -- See `:help K` for why this keymap
+        nmap('<C-]>', vim.lsp.buf.signature_help)
+        nmap('K', vim.lsp.buf.hover)
 
-    -- See `:help K` for why this keymap
-    -- nmap('<C-]>', vim.lsp.buf.signature_help)
-    nmap('K', vim.lsp.buf.hover)
-
-    nmap('<C-Insert>', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end)
-    nmap('<M-Insert>', function()
-        vim.lsp.buf.add_workspace_folder()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end)
-    nmap('<M-S-Insert>', function()
-        vim.lsp.buf.remove_workspace_folder()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end)
-    -- Create a command `:Format` local to the LSP buffer
-    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-        vim.lsp.buf.format()
-    end)
+        nmap('<C-Insert>', function()
+                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end)
+        nmap('<M-Insert>', function()
+                vim.lsp.buf.add_workspace_folder()
+                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end)
+        nmap('<M-S-Insert>', function()
+                vim.lsp.buf.remove_workspace_folder()
+                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end)
 end
 
 -- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-    -- clangd = {
-    --     flags = {
-    --         debounce_text_changes = 500,
-    --     },
-    -- },
-    -- gopls = {},
-    pylsp = {
-        settings = {
-            pylsp = {
-                plugins = {
-                    pylint = { enabled = true, executable = "pylint" },
-                    pyflakes = { enabled = false },
-                    pycodestyle = { enabled = false },
-                    jedi_completion = { fuzzy = true },
-                    pyls_isort = { enabled = true },
-                    pylsp_mypy = { enabled = true },
+        clangd = {
+                flags = {
+                        debounce_text_changes = 500,
                 },
-            },
         },
-        flags = {
-            debounce_text_changes = 200,
-        },
-    },
-    -- rust_analyzer = {},
-    lua_ls = {
-        Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-        },
-    },
-    -- bashls = {},
-    dockerls = {},
-    emmet_ls = {
-        filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug",
-            "typescriptreact", "vue" },
-        init_options = {
-            html = {
-                options = {
-                    -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-                    ["bem.enabled"] = true,
+        gopls = {},
+        -- solidity = {},
+        solidity_ls_nomicfoundation = {},
+        pylsp = {
+                settings = {
+                        pylsp = {
+                                plugins = {
+                                        pylint = { enabled = true, executable = "pylint" },
+                                        pyflakes = { enabled = false },
+                                        pycodestyle = { enabled = false },
+                                        jedi_completion = { fuzzy = true },
+                                        pyls_isort = { enabled = true },
+                                        pylsp_mypy = { enabled = true },
+                                },
+                        },
                 },
-            },
-        }
-    },
-    -- Web lsp servers
-    tsserver = {},
-    html = {},
-    cssls = {},
+                flags = {
+                        debounce_text_changes = 200,
+                },
+        },
+        -- rust_analyzer = {},
+        lua_ls = {
+                Lua = {
+                        workspace = { checkThirdParty = false },
+                        telemetry = { enable = false },
+                },
+        },
+        dockerls = {},
+        emmet_ls = {
+                filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte",
+                        "pug",
+                        "typescriptreact", "vue" },
+                init_options = {
+                        html = {
+                                options = {
+                                        -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+                                        ["bem.enabled"] = true,
+                                },
+                        },
+                }
+        },
+        tsserver = {},
+        html = {},
+        cssls = {},
 }
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
