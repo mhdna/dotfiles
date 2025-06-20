@@ -14,11 +14,12 @@ I used to have my own build, but as bugs started occuring especially with regard
 
 A manual TWM is always better than a dynamic WM.
 
-<img src="https://github.com/user-attachments/assets/c2989f41-82fb-454d-91cd-958f53140810" style="width:400px;">
+<img src="https://github.com/user-attachments/assets/0258b109-2957-4e2c-a602-6cad915a09cb" style="width:400px;">
 
 <br/>
 
 Along with i3blocks (scripts used are at bin/statusbar):
+
 
 <img src="https://github.com/user-attachments/assets/2c30dfe2-dda2-42a3-b959-d4ee9a9db45f" style="width:800px;">
 
