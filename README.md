@@ -1,4 +1,3 @@
-
 # Mahdi's Dotfiles
 
 These are my dotfiles. I keep things as minimal as possible — no flashy colors, no distractions.
@@ -49,6 +48,14 @@ I use my modified version of arkenfox (See: https://github.com/arkenfox/user.js/
 <img src="https://github.com/user-attachments/assets/65dffb15-4f64-4aeb-8a84-3ca0473781a1" style="width:400px;">
 
 ## Custom Keybindings
+Using [keyd](https://github.com/rvaiya/keyd), I remap my capslock key to Control, and my rightalt to Super.
+
+```
+[main]
+capslock = layer(control)
+rightalt = layer(meta)
+```
+
 <details>
 <summary><b>i3 Keybindings</b></summary>
 
@@ -268,4 +275,6 @@ I use my modified version of arkenfox (See: https://github.com/arkenfox/user.js/
 | Ctrl+C (vis)   | Exit visual state             |
 
 </details>
+
+
 
