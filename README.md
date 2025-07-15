@@ -202,3 +202,70 @@ I use my modified version of arkenfox (See: https://github.com/arkenfox/user.js/
 
 </details>
 
+<details>
+<summary><b>Emacs (Evil) Keybindings</b></summary>
+
+| Keys           | Action                        |
+| -------------- | ----------------------------- |
+| Alt+Space      | (insert) — disabled           |
+| Ctrl+U         | (insert) — kill to line start |
+| Alt+U          | Universal argument            |
+| Alt+Shift+U    | Negative argument             |
+| Alt+D          | Duplicate line                |
+| z d            | Dictionary lookup             |
+| SPC w          | Save buffer                   |
+| SPC W          | Write file                    |
+| SPC =          | Indent buffer                 |
+| -              | Open dired in current dir     |
+| SPC a          | Open org-agenda               |
+| SPC B          | Magit blame toggle            |
+| SPC g          | Magit status                  |
+| SPC y          | Yank history popup            |
+| gs             | Ripgrep search                |
+| SPC R          | Find file as root             |
+| SPC u          | Undo tree visualize           |
+| SPC M          | Open new frame                |
+| SPC O          | Open URL with xdg-open        |
+| SPC f          | Find file                     |
+| SPC v          | Find alternate file           |
+| SPC b          | Switch buffer                 |
+| SPC r          | Recent files                  |
+| SPC j          | Jump to bookmark              |
+| SPC J          | Set bookmark                  |
+| SPC k          | Close current buffer          |
+| Ctrl+Shift+T   | Open last closed              |
+| SPC P          | Project switch                |
+| SPC p          | Project find file             |
+| SPC c          | Org capture                   |
+| SPC C          | Open calc                     |
+| SPC d          | Open diary                    |
+| SPC D          | Open journal                  |
+| SPC t          | Open org TODO                 |
+| SPC s          | Open vterm                    |
+| SPC T          | Org capture TODO              |
+| SPC n          | Open notes                    |
+| SPC R          | Reload init file              |
+| SPC o (html)   | Open buffer URL (html-mode)   |
+| SPC / (org)    | Org sparse tree               |
+| Alt+P (org)    | Push Anki notes               |
+| SPC e (org)    | Emphasize                     |
+| Alt+B (org)    | Emphasize bold                |
+| SPC A (org)    | Mark done and archive         |
+| SPC i (org)    | Org goto                      |
+| SPC E (org)    | Show inline images            |
+| SPC xi         | Org clock-in                  |
+| SPC xo         | Org clock-out                 |
+| SPC xx         | Org clock display             |
+| SPC l          | Org store link                |
+| SPC L          | Org insert link               |
+| SPC o (org)    | Org open at point             |
+| SPC e (elisp)  | Eval last sexp                |
+| SPC E (elisp)  | Eval region or buffer         |
+| (              | Prev open paren (elisp)       |
+| )              | Next close paren (elisp)      |
+| Ctrl+C (minib) | Abort minibuffer              |
+| Ctrl+C (ins)   | Exit insert state             |
+| Ctrl+C (vis)   | Exit visual state             |
+
+</details>
+
