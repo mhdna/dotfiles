@@ -31,15 +31,11 @@ For image generation I use SIXEL, which is much better than using something like
 
 
 
-## Note Taking: Emacs
-Emacs+org-mode for note taking. I wish I'd use Emacs for text editing, but nvim is far comfier.
+## Text Editors 
 
-<img src="https://github.com/user-attachments/assets/23660462-9139-4878-a20f-5a2f1b4d4fa8" style="width:400px;">
+For note taking I ues Emacs+org-mode.
 
-
-
-## Text Editor: Neovim
-<img src="https://github.com/user-attachments/assets/6b3659b1-0a11-43b2-8b5c-c63507caa499" style="width:400px;">
+For software development I've been using Neovim for 6 years now.
 
 ## Browser: Firefox+Arkenfox.js
 
